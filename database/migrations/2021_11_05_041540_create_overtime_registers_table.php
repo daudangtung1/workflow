@@ -19,8 +19,9 @@ class CreateOvertimeRegistersTable extends Migration
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
-            $table->dateTime('approval_date');
-            $table->integer('approver');
+            $table->dateTime('approval_date')->nullable();
+            $table->integer('approver')->nullable();
+            $table->integer('manager_confirm')->nullable();
             $table->timestamps();
         });
     }

@@ -20,8 +20,8 @@ class CreateVacationsTable extends Migration
             $table->date('end_date');
             $table->text('reason');
             $table->text('type');
-            $table->dateTime('approval_date');
-            $table->integer('approver');
+            $table->dateTime('approval_date')->nullable();
+            $table->integer('approver')->nullable();
             $table->timestamps();
         });
     }
