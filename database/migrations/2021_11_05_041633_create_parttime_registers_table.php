@@ -17,14 +17,14 @@ class CreateParttimeRegistersTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->date('date');
-            $table->time('start_time_first');
-            $table->time('end_time_first');
-            $table->time('start_time_second');
-            $table->time('end_time_second');
-            $table->time('start_time_third');
-            $table->time('end_time_third');
-            $table->dateTime('approval_date');
-            $table->integer('approver');
+            $table->time('start_time_first')->nullable();
+            $table->time('end_time_first')->nullable();
+            $table->time('start_time_second')->nullable();
+            $table->time('end_time_second')->nullable();
+            $table->time('start_time_third')->nullable();
+            $table->time('end_time_third')->nullable();
+            $table->dateTime('approval_date')->nullable();
+            $table->integer('approver')->nullable();
             $table->timestamps();
         });
     }

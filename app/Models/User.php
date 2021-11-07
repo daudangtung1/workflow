@@ -18,9 +18,22 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'user_id',
+        'first_name',
+        'last_name',
+        'join_date',
+        'off_date',
+        'type',
+        'branch_id',
+        'working_part_id',
+        'approver_first',
+        'approver_second',
         'email',
+        'email_verified_at',
         'password',
+        'start_time_working',
+        'end_time_working',
+        'role',
     ];
 
     /**
@@ -41,4 +54,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function absences()
+    {
+        return $this->hasMany(Absence::class);
+    }
+
+    public function overtimeRegisters()
+    {
+        return $this->hasMany(OvertimeRegister::class);
+    }
+
+    public function partimeRegisters()
+    {
+        return $this->hasMany(PartimeRegister::class);
+    }
+
+    public function vacations()
+    {
+        return $this->hasMany(Vacation::class);
+    }
+
+    public function workingParts()
+    {
+        return $this->hasMany(WorkingPart::class);
+    }
 }
