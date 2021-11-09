@@ -53,8 +53,14 @@
                                     </li>
                                 </ul>
                             </li>
-
-
+                            <li class="nav-item">
+                                <a href="{{ route('logout') }}" class="nav-link">
+                                    <p>
+                                        Logout
+                                        <i class="right fas fa-angle-right"></i>
+                                    </p>
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                     <!-- /.sidebar-menu -->
