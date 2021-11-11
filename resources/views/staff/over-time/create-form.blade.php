@@ -174,6 +174,8 @@
 @push('scripts')
     <script>
         $("#date").on("change.datetimepicker", function(e) {
+            // $("#date").datetimepicker('minDate', new Date('{{ \Carbon\Carbon::now()->toDateString() }}'));
+            let dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
             let date = new Date(e.date);
             date = date.toLocaleDateString('fr-CA');
             let oldId = `{{ isset($infoRegister) ? $infoRegister['id'] : '' }}`;
@@ -197,7 +199,7 @@
                     if (oldId != '' && !data.id)
                         $('input[name=id]').val(oldId);
 
-                    if (data.disable)
+                    if (data.disable || dateNow > date)
                         $('button').prop('disabled', true);
                 }
             })
