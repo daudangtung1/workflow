@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
-class BaseModel extends BaseModel
+class BaseModel extends Model
 {
-    public function scopeApprover($query, $approver)
+    public function userApprover()
     {
-        return $query->where('id', $approver);
+        return $this->belongsTo(User::class, 'approver');
     }
 }

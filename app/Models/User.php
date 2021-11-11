@@ -79,4 +79,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(WorkingPart::class);
     }
+
+    public function setFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }

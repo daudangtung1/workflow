@@ -1,12 +1,18 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ol class="navbar-nav float-sm-left">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active">Dashboard v1</li>
-    </ol>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+        </li>
 
+    </ul>
+    <ol class="navbar-nav float-sm-left">
+        <li class="breadcrumb-item"><a href="#">申請</a></li>
+        @yield('content_header')
+    </ol>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+
         <!-- Navbar Search -->
         <li class="nav-item">
             <a class="nav-link" data-widget="navbar-search" href="#" role="button">

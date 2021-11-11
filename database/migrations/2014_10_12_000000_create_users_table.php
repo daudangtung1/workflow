@@ -28,8 +28,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->time('start_time_working')->nullable();
-            $table->time('end_time_working')->nullable();
+            $table->time('start_time_working');
+            $table->time('end_time_working');
             $table->integer('role');
             $table->rememberToken();
             $table->timestamps();
