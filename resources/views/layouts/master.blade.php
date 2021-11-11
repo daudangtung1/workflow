@@ -4,12 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Laravel</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/OverlayScrollbars.min.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/datepicker/tempusdominus-bootstrap-4.min.css') }}">
+    @stack('styles')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -18,21 +20,27 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ session('success') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
 
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-
-                        <h1 class="m-0">Dashboard</h1>
-                    </div><!-- /.col -->
-
-                </div><!-- /.row -->
+                @yield('content')
             </div><!-- /.container-fluid -->
         </div>
     </div>
 </body>
 
 <script src="{{ asset('js/app.js') }}"></script>
+
+<script src="{{ asset('js/datepicker/moment.min.js') }}"></script>
+<script src="{{ asset('js/datepicker/tempusdominus-bootstrap-4.min.js') }}"></script>
+<script src="{{ asset('js/datepicker/ja.js') }}"></script>
+
+@stack('scripts')
 
 </html>

@@ -1,5 +1,14 @@
 window._ = require("lodash");
 
+try {
+    window.Popper = require("popper.js").default;
+    window.$ = window.jQuery = require("jquery");
+
+    require("bootstrap");
+
+    require("admin-lte");
+} catch (e) {}
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -26,10 +35,3 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
-try {
-    window.$ = window.jQuery = require("jquery");
-
-    require("bootstrap");
-
-    require("admin-lte");
-} catch (e) {}

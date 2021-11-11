@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             'join_date' => '2021-01-01',
             'email' => 'staff@gmail.com',
             'password' => bcrypt('123456'),
+            'start_time_working' => '8:30',
+            'end_time_working' => '17:30',
             'role' => UserRole::STAFF,
         ]);
         User::create([
@@ -32,6 +34,8 @@ class DatabaseSeeder extends Seeder
             'join_date' => '2021-01-01',
             'email' => 'manager@gmail.com',
             'password' => bcrypt('123456'),
+            'start_time_working' => '8:30',
+            'end_time_working' => '17:30',
             'role' => UserRole::MANAGER,
         ]);
         User::create([
@@ -41,6 +45,8 @@ class DatabaseSeeder extends Seeder
             'join_date' => '2021-01-01',
             'email' => 'approver@gmail.com',
             'password' => bcrypt('123456'),
+            'start_time_working' => '8:30',
+            'end_time_working' => '17:30',
             'role' => UserRole::APPROVER,
         ]);
     }
