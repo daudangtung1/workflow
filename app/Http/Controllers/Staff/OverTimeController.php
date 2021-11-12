@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Services\Staff\OvertimeService;
+use App\Services\Staff\OverTimeService;
 
 class OverTimeController extends Controller
 {

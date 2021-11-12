@@ -6,7 +6,7 @@ use App\Services\BaseService;
 use App\Models\OvertimeRegister;
 use Carbon\Carbon;
 
-class OvertimeService extends BaseService
+class OverTimeService extends BaseService
 {
     public function __construct(OvertimeRegister $model)
     {
