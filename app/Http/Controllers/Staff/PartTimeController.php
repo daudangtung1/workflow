@@ -66,7 +66,6 @@ class PartTimeController extends Controller
 
             return redirect()->route('staff.part-time.index')->with('success', __('common.message.success_create'));
         } catch (\Exception $e) {
-            dd('');
             $e->getMessage();
         }
     }
