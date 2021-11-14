@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('header_active', 'active')
+{{-- @section('header_active', 'active') --}}
 
 @section('content_aside')
 
@@ -13,7 +13,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('login') }}" class="nav-link @yield('active_parttime')">
+        <a href="{{ route('staff.part-time.index') }}" class="nav-link @yield('active_parttime')">
             <p>
                 パート出勤簿
                 <i class="right fas fa-angle-right"></i>

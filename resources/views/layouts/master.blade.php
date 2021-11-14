@@ -40,6 +40,7 @@
 <script src="{{ asset('js/datepicker/moment.min.js') }}"></script>
 <script src="{{ asset('js/datepicker/tempusdominus-bootstrap-4.min.js') }}"></script>
 <script src="{{ asset('js/datepicker/ja.js') }}"></script>
+<script src="{{ asset('js/common.js') }}"></script>
 
 @stack('scripts')
 

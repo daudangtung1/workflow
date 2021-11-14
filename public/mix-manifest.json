@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/common.js": "/js/common.js",
     "/css/app.css": "/css/app.css",
     "/css/OverlayScrollbars.min.css": "/css/OverlayScrollbars.min.css",
     "/js/popper.js.map": "/js/popper.js.map",
