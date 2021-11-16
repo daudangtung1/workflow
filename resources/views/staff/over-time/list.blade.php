@@ -5,7 +5,9 @@
         table a {
             color: #000 !important;
         }
-
+        table thead {
+            background: #E8EDF4;
+        }
     </style>
 @endpush
 
@@ -27,7 +29,7 @@
 <div class="row pl-5 pr-5 pt-3">
     <div class="col-md-12 overflow-auto">
         <table class="table table-bordered table-hover">
-            <thead class="table-primary">
+            <thead >
                 <tr>
                     <th>日付</th>
                     <th>開始時刻</th>
@@ -35,7 +37,7 @@
                     <th>時間外計(分)</th>
                     <th>承認日時</th>
                     <th>承認者</th>
-                    <th>承認者</th>
+                    <th>編集</th>
                 </tr>
             </thead>
             <tbody id="bodyOvertime">

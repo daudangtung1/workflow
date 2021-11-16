@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/OverlayScrollbars.min.css": "/css/OverlayScrollbars.min.css",
+    "/js/common.js": "/js/common.js",
     "/js/popper.js.map": "/js/popper.js.map",
     "/js/datepicker/moment.min.js": "/js/datepicker/moment.min.js",
     "/js/datepicker/moment.min.js.map": "/js/datepicker/moment.min.js.map",
@@ -9,5 +10,7 @@
     "/js/datepicker/tempusdominus-bootstrap-4.min.js": "/js/datepicker/tempusdominus-bootstrap-4.min.js",
     "/css/datepicker/tempusdominus-bootstrap-4.min.css": "/css/datepicker/tempusdominus-bootstrap-4.min.css",
     "/js/daterangepicker/daterangepicker.js": "/js/daterangepicker/daterangepicker.js",
-    "/css/daterangepicker/daterangepicker.css": "/css/daterangepicker/daterangepicker.css"
+    "/css/daterangepicker/daterangepicker.css": "/css/daterangepicker/daterangepicker.css",
+    "/js/select2/select2.min.js": "/js/select2/select2.min.js",
+    "/css/select2/select2.min.css": "/css/select2/select2.min.css"
 }

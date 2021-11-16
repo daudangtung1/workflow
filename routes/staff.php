@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Staff\OverTimeController;
+use App\Http\Controllers\Staff\PartTimeController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth.staff'], function () {
@@ -9,4 +10,5 @@ Route::group(['middleware' => 'auth.staff'], function () {
     })->name('home');
 
     Route::resource('over-time', OverTimeController::class);
+    Route::resource('part-time', PartTimeController::class);
 });

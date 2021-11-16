@@ -3,3 +3,48 @@ aside {
         background-color: #484d53 !important;
     }
 }
+
+//custom select2
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-selection {
+    height: 37px !important;
+}
+
+.select-time {
+    .select2-selection__arrow {
+        height: 35px !important;
+        background: #E9ECEF !important;
+        width: 36px !important;
+        border-left: 1px solid #cdcecf !important;
+        border-radius: 0 5px 5px 0 !important;
+        text-align: center;
+        padding: 0.375rem 0.75rem;
+        i {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 400;
+            color: #495057;
+        }
+    }
+    .select2-selection__clear {
+        display: none;
+    }
+}
+
+//loading
+.modal-loading {
+    .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(100vh / 2 - 24px);
+        z-index: 1000;
+    }
+    .modal-content {
+        box-shadow: none;
+        border: none;
+        background-color: transparent;
+    }
+}
