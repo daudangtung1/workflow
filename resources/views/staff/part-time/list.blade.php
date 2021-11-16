@@ -61,7 +61,6 @@
 
 @push('scripts')
     <script>
-
         $(document).on("click", ".search", function() {
             loading();
             let date = $(this).attr('data-date');
@@ -96,6 +95,11 @@
                                 <td>${icon}</td>
                             </tr>`);
                     });
+
+                    if (res.data.length <= 0)
+                        body += (`<tr>
+                                <td colspan="11" class="text-center">{{ __("common.data.error") }}</td>
+                            </tr>`);
 
                     $('#bodyParttime').html(body);
 
