@@ -17,26 +17,36 @@ class PartTimeController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('staff.part-time.index');
+        $times = [];
+
+        for ($i = 0; $i < 24; $i++) {
+            $times[] = [
+                'hour' => $i < 10 ? '0' . $i : $i,
+                'minutes' => [
+                    '00' => "00",
+                    '30' => '30',
+                ],
+            ];
+        }
+
+        $dates = $this->parttimeService->getDate($request->date_ranger);
+
+        //form edit
+        if ($request->register)
+            return view('staff.part-time.index', [
+                'infoRegister' => $this->parttimeService->infoRegister($request->register),
+                'times' => $times,
+                'dates' => $dates,
+            ]);
+
+        return view('staff.part-time.index', [
+            'times' => $times,
+            'dates' => $dates,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try {
@@ -46,6 +56,7 @@ class PartTimeController extends Controller
                 'user_id' => $user->id,
                 'date' => $request->date,
             ];
+            $message = __('common.create.success');
 
             if ($request->start_time_first < $request->end_time_first) {
                 $data['start_time_first'] = $request->start_time_first;
@@ -62,56 +73,38 @@ class PartTimeController extends Controller
                 $data['end_time_third'] = $request->end_time_third;
             }
 
+            if ($request->id) {
+                $data['id'] = $request->id;
+                $message = __('common.update.success');
+            }
+
             $this->parttimeService->registerPartTime($data);
 
-            return redirect()->route('staff.part-time.index')->with('success', __('common.message.success_create'));
+            return redirect()->route('staff.part-time.index')->with('success', $message);
         } catch (\Exception $e) {
             $e->getMessage();
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        try {
+            $listRegister = $this->parttimeService->listRegister($request->date);
+            $dates = $this->parttimeService->getDate($request->date);
+
+            return response()->json([
+                'data' => $listRegister,
+                'dates' => $dates,
+            ]);
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
-    }
+        $infoRegister = $this->parttimeService->infoRegisterByDate($request->date);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response()->json($infoRegister);
     }
 }

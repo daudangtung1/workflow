@@ -50,7 +50,7 @@
 
                         <div class="input-group date input-date" id="date" data-target-input="nearest">
                             <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date"
-                                placeholder="年-月-日" required data-toggle="datetimepicker" value="" />
+                                placeholder="年-月-日" required data-toggle="datetimepicker" value="{{ isset($infoRegister) ? $infoRegister['date'] : '' }}" />
                             <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                             </div>
@@ -68,104 +68,92 @@
                         <div class="form-group">
                             <label>申請時刻1</label>
                             <div class="row">
-                                <div class="input-group date input-time col" id="start_time_first"
-                                    data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" name="start_time_first"
-                                        placeholder="09:00" data-target="#start_time_first" data-toggle="datetimepicker"
-                                        value="">
-                                    <div class="input-group-append" data-target="#start_time_first"
-                                        data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                    </div>
+                                <div class="col select-time">
+                                    <select class="chosen-select" name="start_time_first">
+                                        <option value=""></option>
+                                        @foreach ($times as $item)
+                                            <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
+                                            <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-md-1 text-center">~</div>
-                                <div class="input-group date input-time col" id="end_time_first"
-                                    data-target-input="nearest">
-
-                                    <input type="text" class="form-control datetimepicker-input" name="end_time_first"
-                                        placeholder="12:00" data-target="#end_time_first" data-toggle="datetimepicker"
-                                        value="">
-                                    <div class="input-group-append" data-target="#end_time_first"
-                                        data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                    </div>
+                                <div class="col select-time">
+                                    <select class="chosen-select" name="end_time_first">
+                                        <option value=""></option>
+                                        @foreach ($times as $item)
+                                            <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
+                                            <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
+            
                 <div class="col-md-12">
                     <div class="bootstrap-timepicker">
                         <div class="form-group">
                             <label>申請時刻2</label>
                             <div class="row">
-                                <div class="input-group date input-time col" id="start_time_second"
-                                    data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input"
-                                        name="start_time_second" placeholder="13:00" data-target="#start_time_second"
-                                        data-toggle="datetimepicker" value="">
-                                    <div class="input-group-append" data-target="#start_time_second"
-                                        data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                    </div>
+                                <div class="col select-time">
+                                    <select class="chosen-select" name="start_time_second">
+                                        <option value=""></option>
+                                        @foreach ($times as $item)
+                                            <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
+                                            <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-md-1 text-center">~</div>
-                                <div class="input-group date input-time col" id="end_time_second"
-                                    data-target-input="nearest">
-
-                                    <input type="text" class="form-control datetimepicker-input" name="end_time_second"
-                                        placeholder="16:00" data-target="#end_time_second" data-toggle="datetimepicker"
-                                        value="">
-                                    <div class="input-group-append" data-target="#end_time_second"
-                                        data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                    </div>
-
-
+                                <div class="col select-time">
+                                    <select class="chosen-select" name="end_time_second">
+                                        <option value=""></option>
+                                        @foreach ($times as $item)
+                                            <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
+                                            <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
+            
                 <div class="col-md-12">
                     <div class="bootstrap-timepicker">
                         <div class="form-group">
                             <label>申請時刻3</label>
                             <div class="row">
-                                <div class="input-group date input-time col" id="start_time_third"
-                                    data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" name="start_time_third"
-                                        placeholder="16:00" data-target="#start_time_third" data-toggle="datetimepicker"
-                                        value="">
-                                    <div class="input-group-append" data-target="#start_time_third"
-                                        data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                    </div>
+                                <div class="col select-time">
+                                    <select class="chosen-select" name="start_time_third">
+                                        <option value=""></option>
+                                        @foreach ($times as $item)
+                                            <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
+                                            <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-md-1 text-center">~</div>
-                                <div class="input-group date input-time col" id="end_time_third"
-                                    data-target-input="nearest">
-
-                                    <input type="text" class="form-control datetimepicker-input" name="end_time_third"
-                                        placeholder="17:00" data-target="#end_time_third" data-toggle="datetimepicker"
-                                        value="">
-                                    <div class="input-group-append" data-target="#end_time_third"
-                                        data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                    </div>
+                                <div class="col select-time">
+                                    <select class="chosen-select" name="end_time_third">
+                                        <option value=""></option>
+                                        @foreach ($times as $item)
+                                            <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
+                                            <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12 mt-4">
-                    <button class="btn btn-primary w-100 text-center">申請(登録) </button>
+                    <button class="btn btn-primary w-100 text-center form-button">申請(登録) </button>
                 </div>
             </div>
+            <input type="hidden" name="id" value="{{ (isset($infoRegister) && !$infoRegister['disable']) ? $infoRegister['id'] : '' }}">
         </form>
     </div>
     <div class="col-md-1"></div>
@@ -229,9 +217,33 @@
         </div>
     </div>
 </div>
-
 @push('scripts')
     <script>
+        var arrName = {
+            start_time_first: '09:00',
+            end_time_first: '12:00',
+            start_time_second: '13:00',
+            end_time_second: '16:00',
+            start_time_third: '16:00',
+            end_time_third: '17:00',
+        };
+
+        $(document).ready(function() {
+            for (const [index, item] of Object.entries(arrName)) {
+                $(`select[name=${index}]`).select2({
+                    placeholder: item,
+                    allowClear: true,
+                });
+
+                $(`select[name=${index}]`).change(() => {
+                    caculate();
+                });
+            }
+             $('.select-time .select2-selection__arrow').html('<i class="far fa-clock"></i>');
+             $('#date').datetimepicker('minDate', new Date('{{ \Carbon\Carbon::now()->toDateString() }}'));
+           
+        });
+
         function resetForm() {
             $('#time1').html('');
             $('#time2').html('');
@@ -241,151 +253,67 @@
 
         //check register old date
         $("#date").on("change.datetimepicker", function(e) {
+            let oldId = `{{ isset($infoRegister) ? $infoRegister['id'] : '' }}`;
             let dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
             let date = new Date(e.date);
+
             date = date.toLocaleDateString('fr-CA');
 
             $('button').prop('disabled', false);
 
+            if($('.form-button').html() == '承認済み') {
+                $('.form-button').removeClass('btn-danger');
+                $('.form-button').addClass('btn-primary');
+                $('.form-button').html('申請(登録)');
+            }
+
             if (dateNow > date)
                 $('button').prop('disabled', true);
-        });
 
-        //first time
-        $("#start_time_first").on("change.datetimepicker", function(e) {
-            let date = new Date(e.date);
-            let time = date.toLocaleTimeString('it-IT');
+            // resetForm();
+            $.ajax({
+                url: "{{ route('staff.part-time.edit', 'info-register') }}",
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    date: date,
+                },
+                success: function(data) {
+                    $(`select[name=start_time_first]`).val(data.start_time_first).trigger('change');
+                    $(`select[name=end_time_first]`).val(data.end_time_first).trigger('change');
+                    $(`select[name=start_time_second]`).val(data.start_time_second).trigger('change');
+                    $(`select[name=end_time_second]`).val(data.end_time_second).trigger('change');
+                    $(`select[name=start_time_third]`).val(data.start_time_third).trigger('change');
+                    $(`select[name=end_time_third]`).val(data.end_time_third).trigger('change');
 
-            //add 30 minute
-            if ($(`input[name=start_time_first]`).val() != '') {
-                if (time == 'Invalid Date') {
-                    time = $(`input[name=start_time_first]`).val();
-                } else {
-                    $("#end_time_first").datetimepicker('minDate', date);
+                    if (data.disable) {
+                        $('.form-button').removeClass('btn-primary');
+                        $('.form-button').addClass('btn-danger');
+                        $('.form-button').html('承認済み');
+                        $('.form-button').prop('disabled', true);  
+                    }
                 }
-
-                $(`input[name=start_time_first]`).val(add30Min(time));
-            }
-
-            return caculate();
-        });
-
-        $("#end_time_first").on("change.datetimepicker", function(e) {
-            let date = new Date(e.date);
-            let time = date.toLocaleTimeString('it-IT');
-
-            //add 30 minute
-            if ($(`input[name=end_time_first]`).val() != '') {
-                if (time == 'Invalid Date') {
-                    time = $(`input[name=end_time_first]`).val();
-                } else {
-                    $("#start_time_first").datetimepicker('maxDate', date);
-                    $("#start_time_second").datetimepicker('minDate', date);
-                }
-
-                $(`input[name=end_time_first]`).val(add30Min(time));
-
-                return caculate();
-            }
-        });
-
-        //second time
-        $("#start_time_second").on("change.datetimepicker", function(e) {
-            let date = new Date(e.date);
-            let time = date.toLocaleTimeString('it-IT');
-
-            //add 30 minute
-            if ($(`input[name=start_time_second]`).val() != '') {
-                if (time == 'Invalid Date') {
-                    time = $(`input[name=start_time_second]`).val();
-                } else {
-                    $("#end_time_second").datetimepicker('minDate', date);
-                    $("#end_time_first").datetimepicker('maxDate', date);
-                }
-
-                $(`input[name=start_time_second]`).val(add30Min(time));
-            }
-
-            return caculate();
-        });
-
-        $("#end_time_second").on("change.datetimepicker", function(e) {
-            let date = new Date(e.date);
-            let time = date.toLocaleTimeString('it-IT');
-
-            //add 30 minute
-            if ($(`input[name=end_time_second]`).val() != '') {
-                if (time == 'Invalid Date') {
-                    time = $(`input[name=end_time_second]`).val();
-                } else {
-                    $("#start_time_second").datetimepicker('maxDate', date);
-                    $("#start_time_third").datetimepicker('minDate', date);
-                }
-
-                $(`input[name=end_time_second]`).val(add30Min(time));
-            }
-
-            return caculate();
-        });
-
-        //third time
-        $("#start_time_third").on("change.datetimepicker", function(e) {
-            let date = new Date(e.date);
-            let time = date.toLocaleTimeString('it-IT');
-
-            //add 30 minute
-            if ($(`input[name=start_time_third]`).val() != '') {
-                if (time == 'Invalid Date') {
-                    time = $(`input[name=start_time_third]`).val();
-                } else {
-                    $("#end_time_third").datetimepicker('minDate', date);
-                    $("#end_time_second").datetimepicker('maxDate', date);
-                }
-
-                $(`input[name=start_time_third]`).val(add30Min(time));
-            }
-
-            return caculate();
-        });
-
-        $("#end_time_third").on("change.datetimepicker", function(e) {
-            let date = new Date(e.date);
-            let time = date.toLocaleTimeString('it-IT');
-
-            //add 30 minute
-            if ($(`input[name=end_time_third]`).val() != '') {
-                if (time == 'Invalid Date') {
-                    time = $(`input[name=end_time_third]`).val();
-                } else {
-                    $("#start_time_third").datetimepicker('maxDate', date);
-                }
-
-                $(`input[name=end_time_third]`).val(add30Min(time));
-            }
-
-            return caculate();
+            })
         });
 
         function caculate() {
             resetForm();
-            let startTime = $(`input[name=start_time_first]`).val();
-            let endTime = $(`input[name=end_time_first]`).val();
-
+            let disable = true; 
             let total = 0;
 
             let arrTime = [{
-                    startTime: $(`input[name=start_time_first]`).val(),
-                    endTime: $(`input[name=end_time_first]`).val(),
+                    startTime: $(`select[name=start_time_first]`).val(),
+                    endTime: $(`select[name=end_time_first]`).val(),
                     id: 'time1',
                 },
                 {
-                    startTime: $(`input[name=start_time_second]`).val(),
-                    endTime: $(`input[name=end_time_second]`).val(),
+                    startTime: $(`select[name=start_time_second]`).val(),
+                    endTime: $(`select[name=end_time_second]`).val(),
                     id: 'time2',
                 },
                 {
-                    startTime: $(`input[name=start_time_third]`).val(),
-                    endTime: $(`input[name=end_time_third]`).val(),
+                    startTime: $(`select[name=start_time_third]`).val(),
+                    endTime: $(`select[name=end_time_third]`).val(),
                     id: 'time3',
                 }
             ];
@@ -403,26 +331,20 @@
 
                     $(`#${item.id}`).html(hours);
                 }
-            })
+
+            });
+
+            let dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
+            let date = $('input[name=date]').val();
+
+            if (total > 0 && date >= dateNow && $('.form-button').html() != '承認済み')
+                disable = false;
+
+            $('button').prop('disabled', disable);  
 
             $('#result').html(total);
         }
 
-        function add30Min(oldTime) {
-            var time = oldTime.split(":"); //split hours an minutes
-            var hours = time[0]; // get hours
-            var minutes = time[1]; // get minutes
-
-            if (minutes != 0 && minutes != 30) {
-                if (+minutes > 30) { // when minutes over 30
-                    minutes = '30';
-                } else {
-                    minutes = '00';
-                }
-            }
-
-            return `${hours}:${minutes}`;
-        }
     </script>
 
 @endpush
