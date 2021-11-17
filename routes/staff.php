@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Staff\AbsenceController;
 use App\Http\Controllers\Staff\OverTimeController;
 use App\Http\Controllers\Staff\PartTimeController;
 use App\Http\Controllers\Staff\VacationController;
@@ -13,4 +14,5 @@ Route::group(['middleware' => 'auth.staff'], function () {
     Route::resource('over-time', OverTimeController::class);
     Route::resource('part-time', PartTimeController::class);
     Route::resource('vacation', VacationController::class);
+    Route::resource('absence', AbsenceController::class);
 });
