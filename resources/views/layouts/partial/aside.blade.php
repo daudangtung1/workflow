@@ -36,8 +36,8 @@
                             <li class="nav-item">
                                 <a href="{{ route('logout') }}" class="nav-link">
                                     <p>
-                                        Logout
-                                        <i class="right fas fa-angle-right"></i>
+                                        ログアウト
+                                        <i class="right fas fa-caret-right"></i>
                                     </p>
                                 </a>
                             </li>

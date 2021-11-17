@@ -5,23 +5,29 @@
         table a {
             color: #000 !important;
         }
+
         table thead {
             background: #E8EDF4;
         }
+
+        .d-search span {
+            font-weight: 700;
+
+        }
+
+        .search {
+            cursor: pointer;
+        }
+
     </style>
 @endpush
 
 <div class="row pl-5 pr-5 pt-3">
-    <div class="col-md-3">
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="far fa-calendar-alt"></i>
-                    </span>
-                </div>
-                <input type="text" class="form-control float-right" id="reservation" value="">
-            </div>
+    <div class="col-md-12">
+        <div class="form-group d-search">
+            <span class="search pr-2" data-date="{{ $dates['prev'] }}"><i class="fas fa-caret-left"></i></span>
+            <span>{{ $dates['current_text'] }} - {{ $dates['next_text'] }} </span>
+            <span class="search pl-2" data-date="{{ $dates['next'] }}"><i class="fas fa-caret-right"></i></span>
             <!-- /.input group -->
         </div>
     </div>
@@ -29,7 +35,7 @@
 <div class="row pl-5 pr-5 pt-3">
     <div class="col-md-12 overflow-auto">
         <table class="table table-bordered table-hover">
-            <thead >
+            <thead>
                 <tr>
                     <th>日付</th>
                     <th>開始時刻</th>
@@ -48,38 +54,24 @@
 </div>
 
 @push('scripts')
-    <script src="{{ asset('js/daterangepicker/daterangepicker.js') }}"></script>
     <script>
-        //Date range picker
-        $('#reservation').daterangepicker({
-            autoUpdateInput: false,
-            locale: {
-                format: 'YYYY/MM/DD',
-            }
-        });
-        $('#reservation').on('cancel.daterangepicker', function(ev, picker) {
-            $(this).val('');
-        });
-
-        $('#reservation').on('apply.daterangepicker', function(ev, picker) {
-            let from = picker.startDate.format('YYYY-MM-DD');
-            let to = picker.endDate.format('YYYY-MM-DD');
-            $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+        $(document).on("click", ".search", function() {
+            loading();
+            let date = $(this).attr('data-date');
 
             $.ajax({
                 url: "{{ route('staff.over-time.show', 'list-over-time') }}",
                 type: 'get',
                 dataType: 'json',
                 data: {
-                    from: from,
-                    to: to,
+                    date: date,
                 },
-                success: function(data) {
+                success: function(res) {
                     let body = '';
                     let redirect = "{{ route('staff.over-time.index') }}";
-                    data.forEach((item) => {
+                    res.data.forEach((item) => {
                         let icon = item.disable ? '<i class="fas fa-lock"></i>' :
-                            `<a target="_blank" href="${redirect}?register=${item.id}" ><i class="fas fa-pencil-alt"></i></a>`
+                            `<a href="${redirect}?register=${item.id}" ><i class="fas fa-pencil-alt"></i></a>`
 
                         body += (`<tr>
                                 <td>${item.date}</td>
@@ -92,7 +84,23 @@
                             </tr>`);
                     });
 
+                    if (res.data.length <= 0)
+                        body += (`<tr>
+                                <td colspan="7" class="text-center">{{ __('common.data.error') }}</td>
+                            </tr>`);
+
                     $('#bodyOvertime').html(body);
+
+                    //render search
+                    let search = (
+                        `<span class="search pr-2" data-date="${ res.dates.prev }"><i class="fas fa-caret-left"></i></span>
+                        <span>${ res.dates.current_text } - ${ res.dates.next_text }</span>
+                        <span class="search pl-2" data-date="${ res.dates.next }"><i class="fas fa-caret-right"></i></span>`
+                    );
+
+                    $('.d-search').html(search);
+
+                    unLoading();
                 }
             })
         });

@@ -18,12 +18,65 @@ class OverTimeController extends Controller
 
     public function index(Request $request)
     {
+        $dates = $this->overtimeService->getDate($request->date_ranger);
+
         if ($request->register)
             return view('staff.over-time.index', [
-                'infoRegister' => $this->overtimeService->infoRegister($request->register)
+                'infoRegister' => $this->overtimeService->infoRegister($request->register),
+                'times' => $this->getTime(),
+                'dates' => $dates,
             ]);
 
-        return view('staff.over-time.index');
+        return view('staff.over-time.index', [
+            'times' => $this->getTime(),
+            'dates' => $dates,
+        ]);
+    }
+
+    public function getTime()
+    {
+        $user = auth()->user();
+        $startTimeWorking = Carbon::parse($user->start_time_working);
+        $endTimeWorking = Carbon::parse($user->end_time_working);
+        $times = [];
+
+        for ($i = 0; $i < 24; $i++) {
+            $hour = $i < 10 ? '0' . $i : $i;
+
+            if ($startTimeWorking->format('H') >= $hour) {
+                $timeCheck = true;
+
+                if (($startTimeWorking->format('H') == $hour && $startTimeWorking->format('i') == '00')) {
+                    $timeCheck = false;
+                }
+
+                $times['start'][] = [
+                    'hour' => $hour,
+                    'minutes' => [
+                        '00' => '00',
+                        '30' => $timeCheck ? '30' : false,
+                    ],
+                ];
+            }
+
+            if ($endTimeWorking->format('H') <= $hour) {
+                $timeCheck = true;
+
+                if (($endTimeWorking->format('H') == $hour && $endTimeWorking->format('i') == '30')) {
+                    $timeCheck = false;
+                }
+
+                $times['end'][] = [
+                    'hour' => $hour,
+                    'minutes' => [
+                        '00' => $timeCheck ? '00' : false,
+                        '30' => '30',
+                    ],
+                ];
+            }
+        }
+
+        return $times;
     }
 
     public function store(Request $request)
@@ -50,7 +103,7 @@ class OverTimeController extends Controller
 
             $this->overtimeService->registerOverTime($data);
 
-            return redirect()->route('staff.over-time.index')->with('success', __('common.message.success_create'));
+            return redirect()->route('staff.over-time.index')->with('success', __('common.update.success'));
         } catch (\Exception $e) {
             $e->getMessage();
         }
@@ -59,9 +112,13 @@ class OverTimeController extends Controller
     public function show(Request $request, $type)
     {
         try {
-            $listRegister = $this->overtimeService->listRegister($request->from, $request->to);
+            $listRegister = $this->overtimeService->listRegister($request->date);
+            $dates = $this->overtimeService->getDate($request->date);
 
-            return response()->json($listRegister);
+            return response()->json([
+                'data' => $listRegister,
+                'dates' => $dates,
+            ]);
         } catch (\Exception $e) {
             $e->getMessage();
         }
