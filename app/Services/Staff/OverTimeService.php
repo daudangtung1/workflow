@@ -15,14 +15,27 @@ class OverTimeService extends BaseService
 
     public function registerOverTime($data = [])
     {
-        if (isset($data['id']))
-            $this->model->where('id', $data['id'])->delete($data);
+        $user = auth()->user();
+        //delete if change date
+        $this->model
+            ->where(['date' => $data['date'], 'user_id' => $user->id])
+            ->delete();
 
+        if (isset($data['id'])) {
+            //delete old id
+            $this->model->where('id', $data['id'])->delete();
+        }
+        
         return $this->model->create($data);
     }
 
-    public function listRegister($from = '', $to = '')
+    public function listRegister($date = '')
     {
+        $dates = $this->getMonth($date);
+
+        $from = $dates['current'] . '-11';
+        $to = $dates['next'] . '-10';
+        
         $user = auth()->user();
         $startTimeWorking = $this->formatTime($user->start_time_working);
         $endTimeWorking = $this->formatTime($user->end_time_working);
@@ -68,11 +81,7 @@ class OverTimeService extends BaseService
             return [
                 'id' => $info->id,
                 'date' => $info->date,
-                // 'start_time' => $info->start_time,
-                // 'end_time' => $info->end_time,
-                // 'before_start' => $beStart,
-                // 'after_end' => $afEnd,
-                // 'disable' => $info->approver ? true : false,
+                'disable' => $info->approver ? true : false,
             ];
         }
     }
@@ -98,6 +107,17 @@ class OverTimeService extends BaseService
                 'total' => $beStart + $afEnd,
                 'disable' => $info->approver ? true : false,
             ];
+        }
+    }
+
+    public function getDate($date = '')
+    {
+        try {
+            if (!$date) $date  = Carbon::now()->toDateString();
+
+            return $this->getMonth($date);
+        } catch (\Exception $e) {
+            $e->getMessage();
         }
     }
 }

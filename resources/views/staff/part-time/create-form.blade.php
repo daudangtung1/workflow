@@ -243,7 +243,7 @@
                 });
             }
              $('.select-time .select2-selection__arrow').html('<i class="far fa-clock"></i>');
-             $('#date').datetimepicker('minDate', new Date('{{ \Carbon\Carbon::now()->toDateString() }}'));
+            //  $('#date').datetimepicker('minDate', new Date('{{ \Carbon\Carbon::now()->toDateString() }}'));
            
         });
 
@@ -256,7 +256,6 @@
 
         //check register old date
         $("#date").on("change.datetimepicker", function(e) {
-            let oldId = `{{ isset($infoRegister) ? $infoRegister['id'] : '' }}`;
             let dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
             let date = new Date(e.date);
 
@@ -269,6 +268,9 @@
                 $('.form-button').addClass('btn-primary');
                 $('.form-button').html('申請(登録)');
             }
+
+            if(date == 'Invalid Date')
+                date = $('input[name=date]').val();
 
             if (dateNow > date)
                 $('button').prop('disabled', true);

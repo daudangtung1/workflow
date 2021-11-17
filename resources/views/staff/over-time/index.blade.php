@@ -15,7 +15,7 @@
                         aria-selected="true"><b>申請</b></a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#list" role="tab"
+                    <a class="nav-link search" id="list-tab" data-toggle="tab" href="#list" role="tab" data-date="{{ $dates['current']}}"
                         aria-controls="profile" aria-selected="false"><b>一覧</b></a>
                 </li>
             </ul>
@@ -24,7 +24,7 @@
                     aria-labelledby="home-tab">
                     @include('staff.over-time.create-form')
                 </div>
-                <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
                     @include('staff.over-time.list')
                 </div>
             </div>

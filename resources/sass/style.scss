@@ -48,3 +48,42 @@ aside {
         background-color: transparent;
     }
 }
+
+.navbar-nav {
+    .breadcrumb-item a {
+        color: #6c757d;
+    }
+    .active {
+        color: #000000
+    }
+    .breadcrumb-item+.breadcrumb-item::before {
+        font-family: "Font Awesome 5 Free";
+        content: "\f105";
+        display: inline-block;
+        vertical-align: middle;
+        font-weight: 900;
+    }
+    .border-li {
+        border-right: 2px solid #dee2e6;
+        height: 70%;
+        margin: auto;
+        padding-left: 1rem
+    }
+}
+
+#myTab {
+    a {
+        color: #0000006b;
+    }
+    .active {
+        color: #000000;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .navbar-nav {
+        .hide-mobile {
+            display: none !important;
+        }
+    }
+}
