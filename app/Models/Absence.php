@@ -12,7 +12,7 @@ class Absence extends BaseModel
     protected $fillable = [
         'user_id',
         'date',
-        'time',
+        'option',
         'reason',
         'approval_date',
         'approver',
