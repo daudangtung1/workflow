@@ -85,6 +85,7 @@ class OverTimeController extends Controller
             $user = auth()->user();
             $startTimeWorking = Carbon::parse($user->start_time_working)->format('H:i');
             $endTimeWorking = Carbon::parse($user->end_time_working)->format('H:i');
+            $message = __('common.create.success');
 
             $data = [
                 'user_id' => $user->id,
@@ -97,13 +98,16 @@ class OverTimeController extends Controller
             if ($request->end_time != $endTimeWorking)
                 $data['end_time'] = $request->end_time;
 
-            if ($request->id)
+            if ($request->id) {
                 $data['id'] = $request->id;
+                $message = __('common.update.success');
+            }
+                
 
 
             $this->overtimeService->registerOverTime($data);
 
-            return redirect()->route('staff.over-time.index')->with('success', __('common.update.success'));
+            return redirect()->route('staff.over-time.index')->with('success', $message);
         } catch (\Exception $e) {
             $e->getMessage();
         }
