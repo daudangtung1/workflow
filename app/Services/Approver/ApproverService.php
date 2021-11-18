@@ -68,7 +68,7 @@ class ApproverService extends BaseService
 
     public function getVacation()
     {
-        $dates = $dates = $this->dates;
+        $dates = $this->dates;
 
         $from = $dates['current'] . '-11';
         $to = $dates['next'] . '-10';
@@ -83,7 +83,7 @@ class ApproverService extends BaseService
 
     public function getAbsence()
     {
-        $dates = $dates = $this->dates;
+        $dates = $this->dates;
 
         $from = $dates['current'] . '-11';
         $to = $dates['next'] . '-10';
