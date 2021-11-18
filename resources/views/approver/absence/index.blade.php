@@ -3,7 +3,7 @@
 @section('active_absence', 'active')
 
 @section('content_header')
-    <li class="breadcrumb-item active"><b>全てチェック</b></li>
+    <li class="breadcrumb-item active"><b>欠勤届</b></li>
 @endsection
 
 @push('styles')

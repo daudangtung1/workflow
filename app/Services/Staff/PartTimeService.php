@@ -74,7 +74,14 @@ class PartTimeService extends BaseService
     public function getDate($date = '')
     {
         try {
-            if (!$date) $date  = Carbon::now()->toDateString();
+            if (!$date) {
+                $date = Carbon::now()->format('Y-m');
+                //if datenow < 11 -1 month
+                $dayNow = Carbon::now()->format('d');
+
+                if ($dayNow <= '10')
+                    $date = Carbon::now()->subMonth()->format('Y-m');
+            }
 
             return $this->getMonth($date);
         } catch (\Exception $e) {

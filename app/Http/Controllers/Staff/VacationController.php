@@ -44,7 +44,6 @@ class VacationController extends Controller
             return $e->getMessage();
         }
     }
-
     
     public function edit(Request $request, $id)
     {

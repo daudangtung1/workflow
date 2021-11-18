@@ -25,7 +25,6 @@ class AbsenceController extends Controller
         ]);
     }
 
-
     public function store(Request $request)
     {
         try {
@@ -43,11 +42,6 @@ class AbsenceController extends Controller
         } catch (\Exception $e) {
             return $e->getMessage();
         }
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit(Absence $absence)

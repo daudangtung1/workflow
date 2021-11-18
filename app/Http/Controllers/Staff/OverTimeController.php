@@ -102,8 +102,6 @@ class OverTimeController extends Controller
                 $data['id'] = $request->id;
                 $message = __('common.update.success');
             }
-                
-
 
             $this->overtimeService->registerOverTime($data);
 
