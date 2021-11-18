@@ -1,9 +1,9 @@
 @extends('approver.app')
 
-@section('active_overtime', 'active')
+@section('active_parttime', 'active')
 
 @section('content_header')
-    <li class="breadcrumb-item active"><b>時間外･交通費申請</b></li>
+    <li class="breadcrumb-item active"><b>パート出勤簿</b></li>
 @endsection
 
 @push('styles')
@@ -27,7 +27,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('approver.over_time.store') }}" method="POST">
+            <form action="{{ route('approver.part_time.store') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-12">
@@ -43,8 +43,12 @@
                             <thead>
                                 <tr>
                                     <th>日付</th>
-                                    <th>開始時刻</th>
-                                    <th>終了時刻</th>
+                                    <th>開始1</th>
+                                    <th>終了1</th>
+                                    <th>開始2</th>
+                                    <th>終了2</th>
+                                    <th>開始3</th>
+                                    <th>終了3</th>
                                     <th>時間外計(分)</th>
                                     <th>申請者(社員ID)</th>
                                     <th>承認</th>
@@ -54,8 +58,12 @@
                                 @forelse ($listRegister as $item)
                                     <tr>
                                         <td>{{ $item['date'] }}</td>
-                                        <td>{{ $item['start_time'] }}</td>
-                                        <td>{{ $item['end_time'] }}</td>
+                                        <td>{{ $item['start_time1'] }}</td>
+                                        <td>{{ $item['end_time1'] }}</td>
+                                        <td>{{ $item['start_time1'] }}</td>
+                                        <td>{{ $item['end_time1'] }}</td>
+                                        <td>{{ $item['start_time1'] }}</td>
+                                        <td>{{ $item['end_time1'] }}</td>
                                         <td>{{ $item['time'] }}</td>
                                         <td>{{ $item['user'] }}</td>
                                         <td><input type="checkbox" name="id[]" class="check-one"
@@ -63,7 +71,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">{{ __('common.data.error') }}</td>
+                                        <td colspan="10" class="text-center">{{ __('common.data.error') }}</td>
                                     </tr>
                                 @endforelse
                             </tbody>
