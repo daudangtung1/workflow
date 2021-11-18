@@ -29,7 +29,7 @@ class OverTimeController extends Controller
         try {
             $this->overtimeService->updateApprover($request->id);
 
-            return redirect()->route('approver.over_time.index')->with('success', __('common.create.success'));
+            return redirect()->route('approver.over_time.index')->with('success', __('common.update.success'));
         } catch (\Exception $e) {
             return $e->getMessage();
         }

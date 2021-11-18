@@ -29,7 +29,7 @@ class PartTimeController extends Controller
         try {
             $this->parttimeService->updateApprover($request->id);
 
-            return redirect()->route('approver.part_time.index')->with('success', __('common.create.success'));
+            return redirect()->route('approver.part_time.index')->with('success', __('common.update.success'));
         } catch (\Exception $e) {
             return $e->getMessage();
         }

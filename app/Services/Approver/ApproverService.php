@@ -15,6 +15,7 @@ class ApproverService extends BaseService
     protected $partTimeModel;
     protected $vacationModel;
     protected $absenceModel;
+    protected $dates;
 
     public function __construct(
         OvertimeRegister $overTimeModel,
@@ -26,17 +27,25 @@ class ApproverService extends BaseService
         $this->partTimeModel = $partTimeModel;
         $this->absenceModel = $absenceModel;
         $this->vacationModel = $vacationModel;
+
+        //if datenow < 11 -1 month
+        $this->dates = $this->getMonth(Carbon::now()->format('Y-m'));
+        $dayNow = Carbon::now()->format('d');
+
+        if ($dayNow <= '11')
+            $this->dates = $this->getMonth(Carbon::now()->subMonth()->format('Y-m'));
     }
 
     public function getOverTime()
     {
-        $dates = $this->getMonth(Carbon::now()->format('Y-m'));
+        $dates = $this->dates;
 
         $from = $dates['current'] . '-11';
         $to = $dates['next'] . '-10';
 
         return $this->overTimeModel
-            ->whereBetween('date', [$from, $to])
+            // ->whereBetween('date', [$from, $to])
+            ->where('date', '>=', $from)
             ->whereNull('approver')
             ->orderBy('date', 'DESC')
             ->get();
@@ -44,13 +53,14 @@ class ApproverService extends BaseService
 
     public function getPartTime()
     {
-        $dates = $this->getMonth(Carbon::now()->format('Y-m'));
+        $dates = $dates = $this->dates;
 
         $from = $dates['current'] . '-11';
         $to = $dates['next'] . '-10';
 
         return $this->partTimeModel
-            ->whereBetween('date', [$from, $to])
+            // ->whereBetween('date', [$from, $to])
+            ->where('date', '>=', $from)
             ->whereNull('approver')
             ->orderBy('date', 'DESC')
             ->get();
@@ -58,27 +68,30 @@ class ApproverService extends BaseService
 
     public function getVacation()
     {
-        $dates = $this->getMonth(Carbon::now()->format('Y-m'));
+        $dates = $dates = $this->dates;
 
         $from = $dates['current'] . '-11';
         $to = $dates['next'] . '-10';
 
         return $this->vacationModel
             ->whereNull('approver')
+            // ->whereBetween('start_date', [$from, $to])
+            ->where('start_date', '>=', $from)
             ->orderBy('start_date', 'DESC')
-            ->whereBetween('start_date', [$from, $to])->get();
+            ->get();
     }
 
     public function getAbsence()
     {
-        $dates = $this->getMonth(Carbon::now()->format('Y-m'));
+        $dates = $dates = $this->dates;
 
         $from = $dates['current'] . '-11';
         $to = $dates['next'] . '-10';
 
         return $this->absenceModel
             ->whereNull('approver')
-            ->whereBetween('date', [$from, $to])
+            // ->whereBetween('date', [$from, $to])
+            ->where('date', '>=', $from)
             ->orderBy('date', 'DESC')
             ->get();
     }

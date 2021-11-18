@@ -28,7 +28,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('approver.over_time.index') }}" class="nav-link @yield('active_vacation') ">
+        <a href="{{ route('approver.vacation.index') }}" class="nav-link @yield('active_vacation') ">
             <p>
                 休暇届 ({{ request()->vacation->count() }})
                 <i class="right fas fa-caret-right"></i>
