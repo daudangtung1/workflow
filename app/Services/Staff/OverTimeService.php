@@ -25,7 +25,7 @@ class OverTimeService extends BaseService
             //delete old id
             $this->model->where('id', $data['id'])->delete();
         }
-        
+
         return $this->model->create($data);
     }
 
@@ -35,7 +35,7 @@ class OverTimeService extends BaseService
 
         $from = $dates['current'] . '-11';
         $to = $dates['next'] . '-10';
-        
+
         $user = auth()->user();
         $startTimeWorking = $this->formatTime($user->start_time_working);
         $endTimeWorking = $this->formatTime($user->end_time_working);
@@ -113,7 +113,14 @@ class OverTimeService extends BaseService
     public function getDate($date = '')
     {
         try {
-            if (!$date) $date  = Carbon::now()->toDateString();
+            if (!$date) {
+                $date = Carbon::now()->format('Y-m');
+                //if datenow < 11 -1 month
+                $dayNow = Carbon::now()->format('d');
+
+                if ($dayNow <= '10')
+                    $date = Carbon::now()->subMonth()->format('Y-m');
+            }
 
             return $this->getMonth($date);
         } catch (\Exception $e) {

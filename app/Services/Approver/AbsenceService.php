@@ -3,7 +3,6 @@
 namespace App\Services\Approver;
 
 use App\Enums\AbsenceOption;
-use App\Enums\VacationType;
 use App\Models\Absence;
 use App\Services\BaseService;
 use Carbon\Carbon;

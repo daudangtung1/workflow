@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Services\Staff\PartTimeService;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class PartTimeController extends Controller
 {
@@ -15,7 +14,6 @@ class PartTimeController extends Controller
     {
         $this->parttimeService = $parttimeService;
     }
-
 
     public function index(Request $request)
     {
