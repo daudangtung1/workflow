@@ -20,7 +20,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('approver.over_time.index') }}" class="nav-link @yield('active_parttime') ">
+        <a href="{{ route('approver.part_time.index') }}" class="nav-link @yield('active_parttime') ">
             <p>
                 パート出勤簿 ({{ request()->partTime->count() }})
                 <i class="right fas fa-caret-right"></i>
