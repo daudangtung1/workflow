@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Approver\AbsenceController;
 use App\Http\Controllers\Approver\OverTimeController;
 use App\Http\Controllers\Approver\PartTimeController;
 use App\Http\Controllers\Approver\VacationController;
@@ -17,4 +18,6 @@ Route::group(['middleware' => 'auth.approver'], function () {
     Route::post('/part-time', [PartTimeController::class, 'store'])->name('part_time.store');
     Route::get('/vacation', [VacationController::class, 'index'])->name('vacation.index');
     Route::post('/vacation', [VacationController::class, 'store'])->name('vacation.store');
+    Route::get('/absence', [AbsenceController::class, 'index'])->name('absence.index');
+    Route::post('/absence', [AbsenceController::class, 'store'])->name('absence.store');
 });
