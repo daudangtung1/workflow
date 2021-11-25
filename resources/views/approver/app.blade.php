@@ -3,6 +3,14 @@
 {{-- @section('header_active', 'active') --}}
 
 @section('content_aside')
+    <li class="nav-item mb-2">
+        <a href="{{ route('login') }}" class="nav-link active">
+            <i class="far fa-list-alt mr-2 h4"></i>
+            <p class="h4">
+                申請
+            </p>
+        </a>
+    </li>
     <li class="nav-item h4">
         <a href="{{ route('login') }}" class="nav-link active">
             <i class="fas fa-tasks"></i>

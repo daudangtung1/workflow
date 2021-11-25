@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -80,8 +81,23 @@ class User extends Authenticatable
         return $this->hasMany(WorkingPart::class);
     }
 
-    public function setFullNameAttribute()
+    public function getBranchAttribute()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return \App\Models\Branch::where('id', $this->branch_id)->first();
+    }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+    
+    public function getFormatStartTimeAttribute()
+    {
+        return Carbon::parse($this->start_time_working)->format('H:i');
+    }
+
+    public function getFormatEndTimeAttribute()
+    {
+        return Carbon::parse($this->end_time_working)->format('H:i');
     }
 }

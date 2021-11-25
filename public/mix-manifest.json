@@ -12,5 +12,8 @@
     "/js/daterangepicker/daterangepicker.js": "/js/daterangepicker/daterangepicker.js",
     "/css/daterangepicker/daterangepicker.css": "/css/daterangepicker/daterangepicker.css",
     "/js/select2/select2.min.js": "/js/select2/select2.min.js",
-    "/css/select2/select2.min.css": "/css/select2/select2.min.css"
+    "/css/select2/select2.min.css": "/css/select2/select2.min.css",
+    "/js/datatables/dataTables.bootstrap4.min.js": "/js/datatables/dataTables.bootstrap4.min.js",
+    "/js/datatables/jquery.dataTables.min.js": "/js/datatables/jquery.dataTables.min.js",
+    "/css/datatables/dataTables.bootstrap4.min.css": "/css/datatables/dataTables.bootstrap4.min.css"
 }

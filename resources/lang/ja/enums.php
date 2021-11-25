@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\AbsenceOption;
+use App\Enums\UserType;
 use App\Enums\VacationType;
 
 return [
@@ -14,4 +15,7 @@ return [
         AbsenceOption::SECOND => '2時間',
         AbsenceOption::THIRD => '3時間',
     ],
+    UserType::class => [
+        UserType::FULLTIME => '正社員'
+    ]
 ];
