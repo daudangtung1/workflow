@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->integer('user_id')->unique();
             $table->string('first_name');
             $table->string('last_name');
-            $table->date('join_date');
+            $table->date('join_date')->nullable();
             $table->date('off_date')->nullable();
             $table->integer('type')->nullable();
             $table->integer('branch_id')->nullable();
