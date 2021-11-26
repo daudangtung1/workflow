@@ -47,6 +47,9 @@ class ApproverService extends BaseService
             // ->whereBetween('date', [$from, $to])
             ->where('date', '>=', $from)
             ->whereNull('approver')
+            ->whereHas('user', function ($query) {
+                $query->where('approver_first', auth()->user()->id);
+            })
             ->orderBy('date', 'DESC')
             ->get();
     }
@@ -62,6 +65,9 @@ class ApproverService extends BaseService
             // ->whereBetween('date', [$from, $to])
             ->where('date', '>=', $from)
             ->whereNull('approver')
+            ->whereHas('user', function ($query) {
+                $query->where('approver_first', auth()->user()->id);
+            })
             ->orderBy('date', 'DESC')
             ->get();
     }
@@ -77,6 +83,9 @@ class ApproverService extends BaseService
             ->whereNull('approver')
             // ->whereBetween('start_date', [$from, $to])
             ->where('start_date', '>=', $from)
+            ->whereHas('user', function ($query) {
+                $query->where('approver_first', auth()->user()->id);
+            })
             ->orderBy('start_date', 'DESC')
             ->get();
     }
@@ -91,6 +100,9 @@ class ApproverService extends BaseService
         return $this->absenceModel
             ->whereNull('approver')
             // ->whereBetween('date', [$from, $to])
+            ->whereHas('user', function ($query) {
+                $query->where('approver_first', auth()->user()->id);
+            })
             ->where('date', '>=', $from)
             ->orderBy('date', 'DESC')
             ->get();

@@ -8,7 +8,7 @@
 
     </ul>
     <ol class="navbar-nav float-sm-left ml-2">
-        <li class="breadcrumb-item"><a href="{{ route('login') }}">申請</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('login') }}">@yield('content_header_home')</a></li>
         @yield('content_header')
     </ol>
     <!-- Right navbar links -->

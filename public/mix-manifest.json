@@ -15,5 +15,12 @@
     "/css/select2/select2.min.css": "/css/select2/select2.min.css",
     "/js/datatables/dataTables.bootstrap4.min.js": "/js/datatables/dataTables.bootstrap4.min.js",
     "/js/datatables/jquery.dataTables.min.js": "/js/datatables/jquery.dataTables.min.js",
-    "/css/datatables/dataTables.bootstrap4.min.css": "/css/datatables/dataTables.bootstrap4.min.css"
+    "/css/datatables/dataTables.bootstrap4.min.css": "/css/datatables/dataTables.bootstrap4.min.css",
+    "/js/datatables/dataTables.buttons.min.js": "/js/datatables/dataTables.buttons.min.js",
+    "/js/datatables/buttons.bootstrap4.min.js": "/js/datatables/buttons.bootstrap4.min.js",
+    "/css/datatables/buttons.bootstrap4.min.css": "/css/datatables/buttons.bootstrap4.min.css",
+    "/js/jszip/jszip.min.js": "/js/jszip/jszip.min.js",
+    "/js/datatables/buttons.html5.min.js": "/js/datatables/buttons.html5.min.js",
+    "/js/datatables/buttons.print.min.js": "/js/datatables/buttons.print.min.js",
+    "/js/datatables/buttons.colVis.min.js": "/js/datatables/buttons.colVis.min.js"
 }

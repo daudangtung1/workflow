@@ -21,6 +21,7 @@ class CreateAbsencesTable extends Migration
             $table->text('reason');
             $table->dateTime('approval_date')->nullable();
             $table->integer('approver')->nullable();
+            $table->integer('manager_confirm')->nullable();
             $table->timestamps();
         });
     }

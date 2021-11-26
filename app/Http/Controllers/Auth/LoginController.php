@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Enums\UserRole;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -42,7 +43,12 @@ class LoginController extends Controller
 
             $role = Auth::user()->role;
 
-            return redirect()->route($arrRole[$role] . '.home');
+            //check  active account
+            if (Auth::user()->join_date <= Carbon::now()->format('Y-m-d') && !Auth::user()->off_date)
+                return redirect()->route($arrRole[$role] . '.home');
+
+            Auth::logout();
+            return redirect()->back()->with('error', 'Incorrect username or password.');
         }
 
         return redirect()->back()->with('error', 'Incorrect username or password.');

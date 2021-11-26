@@ -2,13 +2,12 @@
 
 namespace App\Services\Manager;
 
-use App\Enums\UserRole;
-use App\Models\BaseModel;
 use App\Models\Branch;
 use App\Models\WorkingPart;
 use App\Models\User;
+use App\Services\BaseService;
 
-class StaffService extends BaseModel
+class StaffService extends BaseService
 {
     protected $branchModel;
     protected $workingPartModel;

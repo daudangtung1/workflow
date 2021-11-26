@@ -46,4 +46,9 @@ mix.copy("node_modules/select2/dist/js/select2.min.js", "public/js/select2")
 //datatable
 mix.copy("node_modules/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js", "public/js/datatables")
     .copy("node_modules/admin-lte/plugins/datatables/jquery.dataTables.min.js", "public/js/datatables")
-    .copy("node_modules/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css", "public/css/datatables");
+    .copy("node_modules/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css", "public/css/datatables")
+    .copy("node_modules/admin-lte/plugins/datatables-buttons/js/dataTables.buttons.min.js", "public/js/datatables")
+    .copy("node_modules/admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js", "public/js/datatables")
+    .copy("node_modules/admin-lte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css", "public/css/datatables")
+    /////
+    .copy("node_modules/admin-lte/plugins/datatables-buttons/js/buttons.html5.min.js", "public/js/datatables")
