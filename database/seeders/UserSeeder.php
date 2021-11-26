@@ -25,6 +25,8 @@ class UserSeeder extends Seeder
             'start_time_working' => '8:30',
             'end_time_working' => '17:30',
             'role' => UserRole::STAFF,
+            'approver_first' => 3,
+            'approver_second' => 2,
         ]);
         
         User::create([

@@ -25,6 +25,7 @@ class CreateParttimeRegistersTable extends Migration
             $table->time('end_time_third')->nullable();
             $table->dateTime('approval_date')->nullable();
             $table->integer('approver')->nullable();
+            $table->integer('manager_confirm')->nullable();
             $table->timestamps();
         });
     }

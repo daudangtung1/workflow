@@ -1,6 +1,8 @@
 <?php
 
 use App\Enums\AbsenceOption;
+use App\Enums\ApproverStatus;
+use App\Enums\ManagerStatus;
 use App\Enums\UserType;
 use App\Enums\VacationType;
 
@@ -17,5 +19,13 @@ return [
     ],
     UserType::class => [
         UserType::FULLTIME => '正社員'
-    ]
+    ],
+    ApproverStatus::class => [
+        ApproverStatus::APPROVED => '済',
+        ApproverStatus::PENDING => '未承認',
+    ], 
+    ManagerStatus::class => [
+        ManagerStatus::PROCESSED => '処理済み',
+        ManagerStatus::PENDING => '未処理',
+    ],
 ];

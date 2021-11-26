@@ -22,6 +22,7 @@ class CreateVacationsTable extends Migration
             $table->text('type');
             $table->dateTime('approval_date')->nullable();
             $table->integer('approver')->nullable();
+            $table->integer('manager_confirm')->nullable();
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <a class="nav-link {{ request()->list ? '' : 'active' }}" id="home-tab" data-toggle="tab" href="#home"
-                        role="tab" aria-controls="home" aria-selected="true"><b>申請</b></a>
+                        role="tab" aria-controls="home" aria-selected="true"><b>登録</b></a>
                 </li>
                 <li class="nav-item" role="presentation">
                     @if (request()->list)
