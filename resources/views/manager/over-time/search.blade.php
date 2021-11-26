@@ -59,6 +59,7 @@
                         </option>
                     @endforeach
                 </select>
+                <small></small>
             </div>
         </div>
     </div>
@@ -141,7 +142,14 @@
             $(this).parent().find('.select2-selection__rendered').html(value);
             $(this).parent().find('small').html(name);
         });
-        
+
+        $('select[name=staff]').change(function() {
+            let name = $('select[name=staff] option:selected').attr('data-name');
+            let value = $(this).val();
+            $(this).parent().find('.select2-selection__rendered').html(value);
+            $(this).parent().find('small').html(name);
+        });
+
         $('select').change();
 
     </script>

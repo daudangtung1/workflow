@@ -92,10 +92,7 @@ class OverTimeController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $this->overTimeService->deleteOverTime([
-            'user_id' => $request->user_register,
-            'date' => $request->date,
-        ]);
+        $this->overTimeService->deleteOverTime($request->id);
 
         return redirect()->back()->with('success', __('common.delete.success'));
 

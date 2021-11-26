@@ -170,11 +170,8 @@ class OverTimeService extends BaseService
     //     return $this->model->create($param);
     // }
 
-    public function deleteOverTime($param)
+    public function deleteOverTime($id)
     {
-        return $this->model->where([
-            'user_id' => $param['user_id'],
-            'date' => $param['date'],
-        ])->delete();
+        return $this->model->where('id', $id)->delete();
     }
 }
