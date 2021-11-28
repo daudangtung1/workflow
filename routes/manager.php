@@ -12,5 +12,6 @@ Route::group(['middleware' => 'auth.manager'], function () {
 
     Route::resource('staff', StaffController::class);
     Route::resource('over-time', OverTimeController::class);
-    Route::get('calendar', [CalendarController::class, 'index'])->name('calendar');
+    Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');
+    Route::post('calendar', [CalendarController::class, 'store'])->name('calendar.store');
 });

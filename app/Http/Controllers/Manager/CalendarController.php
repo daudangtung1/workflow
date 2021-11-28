@@ -3,19 +3,50 @@
 namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
+use App\Models\Calendar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CalendarController extends Controller
 {
     public function index(Request $request)
     {
-        if (!$request->year)
+        if (!$request->year) {
             $request->year = Carbon::now()->year;
+        }
+
+        $request->year_text = $request->year . '年';
+        $request->prev = Carbon::parse($request->year . '-01')->subYears()->year;
+        $request->next = Carbon::parse($request->year . '-01')->addYear()->year;
 
         return view('manager.calendar.index', [
-            'calendar' => $this->dayOfYear($request->year)
+            'calendar' => $this->dayOfYear($request->year),
+            'arrCalendar' => $this->listCalendar($request->year)
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        if ($request->day) {
+            $userId = auth()->user()->id;
+            $arrDate = $this->dayOfYear($request->year);
+            $from = $arrDate[0]['day'];
+            $to = $arrDate[count($arrDate) - 1]['day'];
+
+            Calendar::whereBetween('date', [$from, $to])
+                ->where('user_id', $userId)
+                ->delete();
+
+            foreach ($request->day as $item) {
+                Calendar::create([
+                    'user_id' => $userId,
+                    'date' => $item,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success',  __('common.update.success'));
     }
 
     public function dayOfYear($year)
@@ -81,5 +112,25 @@ class CalendarController extends Controller
         }
 
         return $arrDay;
+    }
+
+    public function listCalendar($year)
+    {
+        $userId = auth()->user()->id;
+        $arrDate = $this->dayOfYear($year);
+        $from = $arrDate[0]['day'];
+        $to = $arrDate[count($arrDate) - 1]['day'];
+
+        $listCalendar =  Calendar::whereBetween('date', [$from, $to])
+            ->where('user_id', $userId)
+            ->get();
+
+        $arrCalendar = [];
+
+        foreach ($listCalendar as $item) {
+            $arrCalendar[$item['date']] = true;
+        }
+
+        return $arrCalendar;
     }
 }

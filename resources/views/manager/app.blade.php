@@ -28,7 +28,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('manager.calendar') }}" class="nav-link @yield('active_calendar')">
+        <a href="{{ route('manager.calendar.index') }}" class="nav-link @yield('active_calendar')">
             <p>
                 カレンダー管理
                 <i class="right fas fa-caret-right"></i>
