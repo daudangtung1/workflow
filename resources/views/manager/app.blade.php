@@ -28,6 +28,14 @@
         </a>
     </li>
     <li class="nav-item">
+        <a href="{{ route('manager.calendar.index') }}" class="nav-link @yield('active_calendar')">
+            <p>
+                カレンダー管理
+                <i class="right fas fa-caret-right"></i>
+            </p>
+        </a>
+    </li>
+    <li class="nav-item">
         <a href="{{ route('manager.over-time.index') }}" class="nav-link @yield('active_overtime')">
             <p>
                 時間外申請
