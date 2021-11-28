@@ -1,6 +1,6 @@
 @extends('manager.app')
 
-@section('active_overtime', 'active')
+@section('active_calendar', 'active')
 
 @section('content_header')
     <li class="breadcrumb-item active"><b>時間外･交通費申請 </b></li>
