@@ -57,7 +57,7 @@ class PartTimeService extends BaseService
                 'date' => $item->date . ' (' . $this->getDayOfWeek($item->date) . ')',
                 'start_time1' => $item->start_time_first ? $this->formatTime($item->start_time_first) : '-',
                 'end_time1' => $item->end_time_first ? $this->formatTime($item->end_time_first) : '-',
-                'start_time2' => $item->start_time_second ? $this->formatTime($item->end_time_second) : '-',
+                'start_time2' => $item->start_time_second ? $this->formatTime($item->start_time_second) : '-',
                 'end_time2' => $item->end_time_second ? $this->formatTime($item->end_time_second) : '-',
                 'start_time3' => $item->start_time_third ? $this->formatTime($item->start_time_third) : '-',
                 'end_time3' => $item->end_time_third ? $this->formatTime($item->end_time_third) : '-',

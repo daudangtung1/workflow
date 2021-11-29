@@ -30,33 +30,48 @@
 @endpush
 <div class="row pb-3">
     <div class="col-md-12 pr-5 mt-5">
-        <form action="{{ route('manager.absence.update', 'all') }}" method="POST">
+        <form action="{{ route('manager.part_time.update', 'all') }}" method="POST">
             @csrf
             @method('PUT')
             <div class="row pl-5 pt-3">
                 <div class="col-md-12 overflow-auto">
                     <table class="table table-bordered table-hover" id="example">
                         <thead>
+                            
                             <tr>
                                 <th>日付(開始)</th>
                                 <th>申請者</th>
                                 <th>所属事業所</th>
-                                <th>欠勤時間</th>
-                                <th>理由</th>
+                                
+                                <th>開始1</th>
+                                <th>終了1</th>
+                                <th>開始2</th>
+                                <th>終了2</th>
+                                <th>開始3</th>
+                                <th>終了3</th>
+                                <th>時間外計(分)</th>
                                 <th>承認日時</th>
                                 <th>承認者</th>
+
                                 <th>総務承認</th>
                                 <th>編集</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($dataAbsence as $item)
+                            @forelse ($dataPartTime as $item)
                                 <tr>
                                     <td>{{ $item['date'] }}</td>
                                     <td>{{ $item['user'] }}</td>
                                     <td>{{ $item['branch'] }}</td>
-                                    <td>{{ $item['option_name'] }}</td>
-                                    <td>{{ $item['reason'] }}</td>
+
+                                    <td>{{ $item['start_time1'] }}</td>
+                                    <td>{{ $item['end_time1'] }}</td>
+                                    <td>{{ $item['start_time2'] }}</td>
+                                    <td>{{ $item['end_time2'] }}</td>
+                                    <td>{{ $item['start_time3'] }}</td>
+                                    <td>{{ $item['end_time3'] }}</td>
+                                    <td>{{ $item['time'] }}</td>
+
                                     <td>{{ $item['approver'] }}</td>
                                     <td>{{ $item['approval_date'] }}</td>
                                     <td>
@@ -68,8 +83,14 @@
                                     <td> <a href="javascript:void(0)" class="btnEdit"
                                             data-id="{{ $item['id'] }}" data-user-id="{{ $item['user_id'] }}"
                                             data-date="{{ $item['date_register'] }}"
-                                            data-option="{{ $item['option'] }}"
-                                            data-reason="{{ $item['reason'] }}"
+
+                                            data-start-time1="{{ $item['start_time1'] != '-' ? $item['start_time1'] : '' }}"
+                                            data-end-time1="{{ $item['end_time1'] != '-' ? $item['end_time1'] : '' }}"
+                                            data-start-time2="{{ $item['start_time2'] != '-' ? $item['start_time2'] : '' }}"
+                                            data-end-time2="{{ $item['end_time2'] != '-' ? $item['end_time2'] : '' }}"
+                                            data-start-time3="{{ $item['start_time3'] != '-' ? $item['start_time3'] : '' }}"
+                                            data-end-time3="{{ $item['end_time3'] != '-' ? $item['end_time3'] : '' }}"
+                                            
                                             data-manager="{{ $item['manager_confirm'] }}"
                                             data-approver="{{ $item['approver_id'] }}"
                                             data-approval-date="{{ $item['approval_date'] }}">
@@ -78,7 +99,12 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="9" class="text-center">{{ __('common.data.error') }}</td>
+                                    <td colspan="14" class="text-center">{{ __('common.data.error') }}</td>
+                                    <td class="d-none"></td>
+                                    <td class="d-none"></td>
+                                    <td class="d-none"></td>
+                                    <td class="d-none"></td>
+                                    <td class="d-none"></td>
                                     <td class="d-none"></td>
                                     <td class="d-none"></td>
                                     <td class="d-none"></td>
@@ -142,7 +168,7 @@
             let divCsv = $('#example_wrapper').children().children();
             $('#example_wrapper').children().find(divCsv[0])
                 .prepend(
-                    '<a href="{{ route('manager.absence.index') }}"><i class="right fas fa-caret-left "></i> <span class="ml-2 mr-5 font-weight-bold">戻る</span></a>'
+                    '<a href="{{ route('manager.part_time.index') }}"><i class="right fas fa-caret-left "></i> <span class="ml-2 mr-5 font-weight-bold">戻る</span></a>'
                 );
 
             $('#example_wrapper').children().find(divCsv[1])
@@ -183,17 +209,28 @@
             let approver = $(this).data('approver');
             let userId = $(this).data('user-id');
             let id = $(this).data('id');
-            let option = $(this).data('option');
-            let reason = $(this).data('reason');
+            let startTime1 = $(this).data('start-time1');
+            let endTime1 = $(this).data('end-time1');
+            let startTime2 = $(this).data('start-time2');
+            let endTime2 = $(this).data('end-time2');
+            let startTime3 = $(this).data('start-time3');
+            let endTime3 = $(this).data('end-time3');
 
             $('input[name=date]').val(date);
             $('select[name=approver]').val(approver).trigger('change');
-            $('select[name=option]').val(option).trigger('change');
             $('input[name=approval_date]').val(approvalDate);
             $('select[name=user_register]').val(userId).trigger('change');
             $(`select[name=manager_status_edit]`).val(manager).trigger('change');
             $('input[name=id]').val(id);
-            $('textarea[name=reason]').val(reason);
+
+            $(`select[name=start_time_first]`).val(startTime1).trigger('change');
+            $(`select[name=end_time_first]`).val(endTime1).trigger('change');
+
+            $(`select[name=start_time_second]`).val(startTime2).trigger('change');
+            $(`select[name=end_time_second]`).val(endTime2).trigger('change');
+
+            $(`select[name=start_time_third]`).val(startTime3).trigger('change');
+            $(`select[name=end_time_third]`).val(endTime3).trigger('change');
 
             if (!manager)
                 $(`select[name=manager_status_edit]`).val('{{ \App\Enums\ManagerStatus::PENDING }}').trigger('change');

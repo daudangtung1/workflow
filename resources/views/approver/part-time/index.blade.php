@@ -60,10 +60,10 @@
                                         <td>{{ $item['date'] }}</td>
                                         <td>{{ $item['start_time1'] }}</td>
                                         <td>{{ $item['end_time1'] }}</td>
-                                        <td>{{ $item['start_time1'] }}</td>
-                                        <td>{{ $item['end_time1'] }}</td>
-                                        <td>{{ $item['start_time1'] }}</td>
-                                        <td>{{ $item['end_time1'] }}</td>
+                                        <td>{{ $item['start_time2'] }}</td>
+                                        <td>{{ $item['end_time2'] }}</td>
+                                        <td>{{ $item['start_time3'] }}</td>
+                                        <td>{{ $item['end_time3'] }}</td>
                                         <td>{{ $item['time'] }}</td>
                                         <td>{{ $item['user'] }}</td>
                                         <td><input type="checkbox" name="id[]" class="check-one"

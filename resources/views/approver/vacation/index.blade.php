@@ -63,7 +63,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">{{ __('common.data.error') }}</td>
+                                        <td colspan="6" class="text-center">{{ __('common.data.error') }}</td>
                                     </tr>
                                 @endforelse
                             </tbody>
