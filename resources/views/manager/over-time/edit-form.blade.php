@@ -175,7 +175,7 @@
 
                         <div class="input-group date input-date" id="approval_date" data-target-input="nearest">
                             <input type="text" class="form-control datetimepicker-input" data-target="#approval_date"
-                                name="approval_date" placeholder="年-月-日" required data-toggle="datetimepicker"
+                                name="approval_date" placeholder="年-月-日"  data-toggle="datetimepicker"
                                 value="" />
                             <div class="input-group-append" data-target="#approval_date" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
