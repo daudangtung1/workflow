@@ -130,11 +130,6 @@
     <script>
         $('.chosen-select').select2();
         $('.select-search .select2-selection__arrow').html('<span class="fas fa-search" style="color: #888888"> </span>');
-        $('select[name=staff]').change(function() {
-            let name = $('select[name=staff] option:selected').attr('data-name');
-            let value = $(this).val();
-            $(this).parent().find('.select2-selection__rendered').html(value);
-        });
 
         $('select[name=branch_id]').change(function() {
             let name = $('select[name=branch_id] option:selected').attr('data-name');

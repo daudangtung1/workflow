@@ -28,7 +28,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('login') }}" class="nav-link @yield('active_staff')">
+        <a href="{{ route('login') }}" class="nav-link @yield('active_manager')">
             <p>
                 事業所･部署管理
                 <i class="right fas fa-caret-right"></i>
@@ -53,7 +53,7 @@
     </li>
 
     <li class="nav-item">
-        <a href="{{ route('login') }}" class="nav-link @yield('active_partime')">
+        <a href="{{ route('manager.part_time.index') }}" class="nav-link @yield('active_part_time')">
             <p>
                 パート出勤簿
                 <i class="right fas fa-caret-right"></i>

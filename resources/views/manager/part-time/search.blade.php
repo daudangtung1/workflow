@@ -19,7 +19,7 @@
 
     </style>
 @endpush
-<form action="{{ route('manager.over-time.show', 'search') }}" method="GET">
+<form action="{{ route('manager.part_time.show', 'search') }}" method="GET">
     <div class="row">
         <div class="col-lg-4 col-md-12">
             <div class="form-group">
@@ -27,7 +27,8 @@
                 <div class="row">
                     <div class="col input-group date input-date" id="start_date" data-target-input="nearest">
                         <input type="text" class="form-control datetimepicker-input" data-target="#start_date"
-                            name="start_date" placeholder="年-月-日"  data-toggle="datetimepicker" value="{{ request()->start_date }}" />
+                            name="start_date" placeholder="年-月-日" data-toggle="datetimepicker"
+                            value="{{ request()->start_date }}" />
                         <div class="input-group-append" data-target="#start_date" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                         </div>
@@ -35,7 +36,8 @@
                     <div class="col-md-1 text-center">~</div>
                     <div class="col input-group date input-date" id="end_date" data-target-input="nearest">
                         <input type="text" class="form-control datetimepicker-input" data-target="#end_date"
-                            name="end_date" placeholder="年-月-日"  data-toggle="datetimepicker" value="{{ request()->end_date }}" />
+                            name="end_date" placeholder="年-月-日" data-toggle="datetimepicker"
+                            value="{{ request()->end_date }}" />
                         <div class="input-group-append" data-target="#end_date" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                         </div>
@@ -96,7 +98,7 @@
                     <option value="" data-name="">&nbsp;</option>
                     @foreach (\App\Enums\ApproverStatus::asArray() as $item)
                         <option value="{{ $item }}"
-                        {{ request()->approver_status == $item ? 'selected' : '' }}>
+                            {{ request()->approver_status == $item ? 'selected' : '' }}>
                             {{ \App\Enums\ApproverStatus::getDescription($item) }}
                         </option>
                     @endforeach
@@ -112,7 +114,7 @@
                     <option value="" data-name="">&nbsp;</option>
                     @foreach (\App\Enums\ManagerStatus::asArray() as $item)
                         <option value="{{ $item }}"
-                        {{ request()->manager_status == $item ? 'selected' : '' }}>
+                            {{ request()->manager_status == $item ? 'selected' : '' }}>
                             {{ \App\Enums\ManagerStatus::getDescription($item) }}
                         </option>
                     @endforeach
@@ -146,6 +148,5 @@
         });
 
         $('select').change();
-
     </script>
 @endpush

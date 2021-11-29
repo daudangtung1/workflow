@@ -189,8 +189,5 @@
             daysOfWeekDisabled: [0, 6],
         });
 
-        $('.chosen-select').select2();
-
-
     </script>
 @endpush

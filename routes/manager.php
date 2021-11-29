@@ -4,6 +4,7 @@ use App\Http\Controllers\Manager\AbsenceController;
 use App\Http\Controllers\Manager\VacationController;
 use App\Http\Controllers\Manager\CalendarController;
 use App\Http\Controllers\Manager\OverTimeController;
+use App\Http\Controllers\Manager\PartTimeController;
 use App\Http\Controllers\Manager\StaffController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,10 @@ Route::group(['middleware' => 'auth.manager'], function () {
     Route::put('absence/{type}', [AbsenceController::class, 'update'])->name('absence.update');
     Route::put('absence/update-info/{type}', [AbsenceController::class, 'updateInfo'])->name('absence.update_info');
     Route::delete('absence/{type}', [AbsenceController::class, 'destroy'])->name('absence.destroy');
+
+    Route::get('part-time', [PartTimeController::class, 'index'])->name('part_time.index');
+    Route::get('part-time/{type}', [PartTimeController::class, 'show'])->name('part_time.show');
+    Route::put('part-time/{type}', [PartTimeController::class, 'update'])->name('part_time.update');
+    Route::put('part-time/update-info/{type}', [PartTimeController::class, 'updateInfo'])->name('part_time.update_info');
+    Route::delete('part-time/{type}', [PartTimeController::class, 'destroy'])->name('part_time.destroy');
 });
