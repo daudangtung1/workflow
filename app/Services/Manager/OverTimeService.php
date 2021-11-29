@@ -132,7 +132,7 @@ class OverTimeService extends BaseService
                 'after_end' => $afEnd,
                 'total' => $beStart + $afEnd,
                 'approver' => $info->approver,
-                'manager_confirm' => $info->manager_confirm,
+                'manager_confirm' => $info->manager_confirm ? ManagerStatus::PROCESSED : false,
                 'approval_date' => $info->approval_date,
                 'start_time_working' => $startTimeWorking,
                 'end_time_working' => $endTimeWorking,
@@ -146,9 +146,6 @@ class OverTimeService extends BaseService
             unset($param['id']);
 
             return $this->model->where('id', $id)->update($param);
-        
-
-        return $this->model->create($param);
     }
     // public function registerOverTime($param)
     // {

@@ -28,6 +28,14 @@
         </a>
     </li>
     <li class="nav-item">
+        <a href="{{ route('login') }}" class="nav-link @yield('active_staff')">
+            <p>
+                事業所･部署管理
+                <i class="right fas fa-caret-right"></i>
+            </p>
+        </a>
+    </li>
+    <li class="nav-item">
         <a href="{{ route('manager.calendar.index') }}" class="nav-link @yield('active_calendar')">
             <p>
                 カレンダー管理
@@ -44,4 +52,28 @@
         </a>
     </li>
 
+    <li class="nav-item">
+        <a href="{{ route('login') }}" class="nav-link @yield('active_partime')">
+            <p>
+                パート出勤簿
+                <i class="right fas fa-caret-right"></i>
+            </p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('manager.vacation.index') }}" class="nav-link @yield('active_vacation')">
+            <p>
+                休暇届
+                <i class="right fas fa-caret-right"></i>
+            </p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('login') }}" class="nav-link @yield('active_absence')">
+            <p>
+                欠勤届
+                <i class="right fas fa-caret-right"></i>
+            </p>
+        </a>
+    </li>
 @endsection
