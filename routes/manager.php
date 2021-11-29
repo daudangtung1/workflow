@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Manager\AbsenceController;
 use App\Http\Controllers\Manager\VacationController;
 use App\Http\Controllers\Manager\CalendarController;
 use App\Http\Controllers\Manager\OverTimeController;
@@ -21,4 +22,10 @@ Route::group(['middleware' => 'auth.manager'], function () {
     Route::put('vacation/{type}', [VacationController::class, 'update'])->name('vacation.update');
     Route::put('vacation/update-info/{type}', [VacationController::class, 'updateVacation'])->name('vacation.update_vacation');
     Route::delete('vacation/{type}', [VacationController::class, 'destroy'])->name('vacation.destroy');
+
+    Route::get('absence', [AbsenceController::class, 'index'])->name('absence.index');
+    Route::get('absence/{type}', [AbsenceController::class, 'show'])->name('absence.show');
+    Route::put('absence/{type}', [AbsenceController::class, 'update'])->name('absence.update');
+    Route::put('absence/update-info/{type}', [AbsenceController::class, 'updateInfo'])->name('absence.update_info');
+    Route::delete('absence/{type}', [AbsenceController::class, 'destroy'])->name('absence.destroy');
 });

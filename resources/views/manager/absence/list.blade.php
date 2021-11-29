@@ -30,7 +30,7 @@
 @endpush
 <div class="row pb-3">
     <div class="col-md-12 pr-5 mt-5">
-        <form action="{{ route('manager.vacation.update', 'all') }}" method="POST">
+        <form action="{{ route('manager.absence.update', 'all') }}" method="POST">
             @csrf
             @method('PUT')
             <div class="row pl-5 pt-3">
@@ -39,10 +39,9 @@
                         <thead>
                             <tr>
                                 <th>日付(開始)</th>
-                                <th>日付(終了)</th>
                                 <th>申請者</th>
                                 <th>所属事業所</th>
-                                <th>種別</th>
+                                <th>欠勤時間</th>
                                 <th>理由</th>
                                 <th>承認日時</th>
                                 <th>承認者</th>
@@ -51,13 +50,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($dataVacation as $item)
+                            @forelse ($dataAbsence as $item)
                                 <tr>
-                                    <td>{{ $item['start_date'] }}</td>
-                                    <td>{{ $item['end_date'] }}</td>
+                                    <td>{{ $item['date'] }}</td>
                                     <td>{{ $item['user'] }}</td>
                                     <td>{{ $item['branch'] }}</td>
-                                    <td>{{ $item['type_name'] }}</td>
+                                    <td>{{ $item['option_name'] }}</td>
                                     <td>{{ $item['reason'] }}</td>
                                     <td>{{ $item['approver'] }}</td>
                                     <td>{{ $item['approval_date'] }}</td>
@@ -69,9 +67,8 @@
                                     </td>
                                     <td> <a href="javascript:void(0)" class="btnEdit"
                                             data-id="{{ $item['id'] }}" data-user-id="{{ $item['user_id'] }}"
-                                            data-start-date="{{ $item['start_date_register'] }}"
-                                            data-end-date="{{ $item['end_date_register'] }}"
-                                            data-type="{{ $item['type'] }}"
+                                            data-date="{{ $item['date_register'] }}"
+                                            data-option="{{ $item['option'] }}"
                                             data-reason="{{ $item['reason'] }}"
                                             data-manager="{{ $item['manager_confirm'] }}"
                                             data-approver="{{ $item['approver_id'] }}"
@@ -81,8 +78,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="10" class="text-center">{{ __('common.data.error') }}</td>
-                                    <td class="d-none"></td>
+                                    <td colspan="9" class="text-center">{{ __('common.data.error') }}</td>
                                     <td class="d-none"></td>
                                     <td class="d-none"></td>
                                     <td class="d-none"></td>
@@ -182,20 +178,17 @@
             $('#edit-tab').click();
 
             let date = $(this).data('date');
-            let startDate = $(this).data('start-date');
-            let endDate = $(this).data('end-date');
             let manager = $(this).data('manager');
             let approvalDate = $(this).data('approval-date');
             let approver = $(this).data('approver');
             let userId = $(this).data('user-id');
             let id = $(this).data('id');
-            let type = $(this).data('type');
+            let option = $(this).data('option');
             let reason = $(this).data('reason');
 
-            $(`input.radio[value=${type}]`).prop('checked', true);
-            $('input[name=start_date_register]').val(startDate);
-            $('input[name=end_date_register]').val(endDate);
+            $('input[name=date]').val(date);
             $('select[name=approver]').val(approver).trigger('change');
+            $('select[name=option]').val(option).trigger('change');
             $('input[name=approval_date]').val(approvalDate);
             $('select[name=user_register]').val(userId).trigger('change');
             $(`select[name=manager_status_edit]`).val(manager).trigger('change');
