@@ -96,7 +96,7 @@
                         <div class="form-group">
                             <label>申請時刻1</label>
                             <div class="row">
-                                <div class="col-xl select-time">
+                                <div class="col-xl select-time select-min">
                                     <select class="chosen-select" name="start_time_first">
                                         <option value=""></option>
                                         @foreach ($times as $item)
@@ -106,7 +106,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-1 text-center">~</div>
-                                <div class="col-xl select-time">
+                                <div class="col-xl select-time select-min">
                                     <select class="chosen-select" name="end_time_first">
                                         <option value=""></option>
                                         @foreach ($times as $item)
@@ -125,7 +125,7 @@
                         <div class="form-group">
                             <label>申請時刻2</label>
                             <div class="row">
-                                <div class="col-xl select-time">
+                                <div class="col-xl select-time select-min">
                                     <select class="chosen-select" name="start_time_second">
                                         <option value=""></option>
                                         @foreach ($times as $item)
@@ -135,7 +135,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-1 text-center">~</div>
-                                <div class="col-xl select-time">
+                                <div class="col-xl select-time select-min">
                                     <select class="chosen-select" name="end_time_second">
                                         <option value=""></option>
                                         @foreach ($times as $item)
@@ -154,7 +154,7 @@
                         <div class="form-group">
                             <label>申請時刻3</label>
                             <div class="row">
-                                <div class="col-xl select-time">
+                                <div class="col-xl select-time select-min">
                                     <select class="chosen-select" name="start_time_third">
                                         <option value=""></option>
                                         @foreach ($times as $item)
@@ -164,7 +164,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-1 text-center">~</div>
-                                <div class="col-xl select-time">
+                                <div class="col-xl select-time select-min">
                                     <select class="chosen-select" name="end_time_third">
                                         <option value=""></option>
                                         @foreach ($times as $item)
@@ -364,7 +364,7 @@
                     caculate();
                 });
             }
-             $('.select-time .select2-selection__arrow').html('<i class="far fa-clock"></i>');
+             $('.select-min .select2-selection__arrow').html('<i class="far fa-clock"></i>');
             //  $('#date').datetimepicker('minDate', new Date('{{ \Carbon\Carbon::now()->toDateString() }}'));
            
         });
