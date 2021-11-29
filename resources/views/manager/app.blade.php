@@ -69,7 +69,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('login') }}" class="nav-link @yield('active_absence')">
+        <a href="{{ route('manager.absence.index') }}" class="nav-link @yield('active_absence')">
             <p>
                 欠勤届
                 <i class="right fas fa-caret-right"></i>
