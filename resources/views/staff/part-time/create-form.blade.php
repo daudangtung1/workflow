@@ -153,7 +153,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 mt-4">
-                    <button class="btn btn-primary w-100 text-center form-button">申請(登録) </button>
+                    <button class="btn btn-primary w-100 text-center form-button font-weight-bold">申請(登録) </button>
                 </div>
             </div>
             <input type="hidden" name="id" value="{{ (isset($infoRegister) && !$infoRegister['disable']) ? $infoRegister['id'] : '' }}">

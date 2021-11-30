@@ -334,7 +334,13 @@
             $(this).parent().find('.select2-selection__rendered').html(value);
         });
 
-        $('#approval_date').datetimepicker();
+        $('#approval_date').datetimepicker({
+            format: false,
+            locale: 'ja',
+            icons: {
+                time: 'far fa-clock',
+            },
+        });
 
         $('#date').datetimepicker({
             useCurrent: false,

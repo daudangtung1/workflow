@@ -87,3 +87,14 @@ aside {
         }
     }
 }
+
+input {
+    cursor: unset !important;
+}
+
+.table-condensed {
+    .btn-primary {
+        /* height: 50px !important; */
+        width: 60px !important;
+    }
+}

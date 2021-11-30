@@ -1,6 +1,7 @@
 @extends('approver.app')
 
 @section('active_parttime', 'active')
+@section('title', 'パート出勤簿')
 
 @section('content_header')
     <li class="breadcrumb-item active"><b>パート出勤簿</b></li>
@@ -86,7 +87,7 @@
                     <div class="col-md-12 mt-3">
                         <div class="row">
                             <div class="col-md-8"></div>
-                            <div class="col-md-4"><button class="btn btn-primary w-100 form-button"
+                            <div class="col-md-4"><button class="btn btn-primary w-100 form-button font-weight-bold"
                                     disabled>承認</button></div>
                         </div>
                     </div>

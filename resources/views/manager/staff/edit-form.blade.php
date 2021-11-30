@@ -252,7 +252,7 @@
             {{-- button --}}
             <div class="row">
                 <div class="col-md-12 mt-4 text-center">
-                    <button class="btn btn-primary w-50 form-button">申請(登録)</button>
+                    <button class="btn btn-primary w-50 form-button font-weight-bold">申請(登録)</button>
                 </div>
             </div>
         </form>

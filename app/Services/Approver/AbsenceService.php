@@ -24,7 +24,7 @@ class AbsenceService extends BaseService
                 'date' => $item->date ? $item->date . '(' . $this->getDayOfWeek($item->date) . ')' : '',
                 'reason' => $item->reason,
                 'option' => AbsenceOption::getDescription($item->option),
-                'user' => $item->user->first_name . $item->user->last_name . ' (' . $item->user->user_id . ')',
+                'user' => $item->user->fullName. ' (' . $item->user->user_id . ')',
             ];
         }
 

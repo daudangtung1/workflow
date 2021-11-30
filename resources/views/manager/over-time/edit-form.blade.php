@@ -175,8 +175,7 @@
 
                         <div class="input-group date input-date" id="approval_date" data-target-input="nearest">
                             <input type="text" class="form-control datetimepicker-input" data-target="#approval_date"
-                                name="approval_date" placeholder="年-月-日"  data-toggle="datetimepicker"
-                                value="" />
+                                name="approval_date" placeholder="年-月-日" data-toggle="datetimepicker" value="" />
                             <div class="input-group-append" data-target="#approval_date" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                             </div>
@@ -209,7 +208,8 @@
 
             <div class="row mt-4">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-primary w-100 text-center form-button-edit font-weight-bold" disabled>更新 </button>
+                    <button type="button" class="btn btn-primary w-100 text-center form-button-edit font-weight-bold"
+                        disabled>更新 </button>
                 </div>
             </div>
         </form>
@@ -296,7 +296,8 @@
 
         <div class="row mt-4">
             <div class="col-md-12 mt-1">
-                <button class="btn btn-primary w-100 text-center form-button-delete font-weight-bold" disabled>削除 </button>
+                <button class="btn btn-primary w-100 text-center form-button-delete font-weight-bold" disabled>削除
+                </button>
             </div>
         </div>
     </div>
@@ -304,21 +305,21 @@
 
 @push('scripts')
     <script>
-        $('.form-button-edit').click(function () {
+        $('.form-button-edit').click(function() {
             let formData = new FormData($('.formSm')[0]);
             $('.formSm').attr({
                 method: 'POST',
-                action: '{{ route("manager.over-time.store") }}'
+                action: '{{ route('manager.over-time.store') }}'
             });
             // $('.formSm').append('<input type="hidden" name="_method" value="PUT">');
             $('.formSm').submit();
         });
 
-        $('.form-button-delete').click(function () {
+        $('.form-button-delete').click(function() {
             let formData = new FormData($('.formSm')[0]);
             $('.formSm').attr({
                 method: 'POST',
-                action: '{{ route("manager.over-time.destroy", "delete") }}'
+                action: '{{ route('manager.over-time.destroy', 'delete') }}'
             });
             $('.formSm').append('<input type="hidden" name="_method" value="DELETE">');
             $('.formSm').submit();
@@ -329,7 +330,14 @@
             end_time: '17:30',
         };
         var dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
-        $('#approval_date').datetimepicker();
+        $('#approval_date').datetimepicker({
+            format: false,
+            locale: 'ja',
+            icons: {
+                time: 'far fa-clock',
+            },
+
+        });
 
         //config
         $(document).ready(function() {

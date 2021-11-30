@@ -1,6 +1,7 @@
 @extends('manager.app')
 
 @section('active_absence', 'active')
+@section('title', '欠勤届')
 
 @section('content_header')
     <li class="breadcrumb-item active"><b>欠勤届</b></li>

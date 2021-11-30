@@ -27,6 +27,11 @@
             width: 100%;
         }
 
+        .datepicker-days .weekend {
+            background: #FFD1D1 !important;
+            
+        }
+
     </style>
 @endpush
 <form class="formSm" method="POST">
@@ -56,8 +61,7 @@
                         <label for="">日付</label>
                         <div class="input-group date input-date" id="date" data-target-input="nearest">
                             <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date"
-                                placeholder="年-月-日" required data-toggle="datetimepicker"
-                                value="" />
+                                placeholder="年-月-日" required data-toggle="datetimepicker" value="" />
                             <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                             </div>
@@ -69,7 +73,7 @@
                         <label for="">欠勤時間</label>
                         <select class="chosen-select" name="option">
                             @foreach (\App\Enums\AbsenceOption::asArray() as $item)
-                                <option value="{{ $item }}" >
+                                <option value="{{ $item }}">
                                     {{ \App\Enums\AbsenceOption::getDescription($item) }}
                                 </option>
                             @endforeach
@@ -79,8 +83,7 @@
                 <div class="col-md-12 ">
                     <div class="form-group">
                         <label for="">理由</label>
-                        <textarea class="form-control" name="reason" id="reason" rows="5"
-                            required></textarea>
+                        <textarea class="form-control" name="reason" id="reason" rows="5" required></textarea>
                     </div>
                 </div>
             </div>
@@ -180,7 +183,13 @@
             $(this).parent().find('.select2-selection__rendered').html(value);
         });
 
-        $('#approval_date').datetimepicker();
+        $('#approval_date').datetimepicker({
+            format: false,
+            locale: 'ja',
+            icons: {
+                time: 'far fa-clock',
+            },
+        });
 
         $('#date').datetimepicker({
             useCurrent: false,
@@ -188,6 +197,5 @@
             locale: "ja",
             daysOfWeekDisabled: [0, 6],
         });
-
     </script>
 @endpush
