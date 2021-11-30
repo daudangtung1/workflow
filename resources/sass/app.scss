@@ -1,17 +1,13 @@
 @import "variables"; // Fonts
 @import url("https://fonts.googleapis.com/css?family=Nunito");
-
 // Variables
 @import "variables";
-
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
-
-@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~admin-lte/dist/css/adminlte.css";
 @import "~summernote/dist/summernote.css";
-
 //style
 @import "./style.scss";

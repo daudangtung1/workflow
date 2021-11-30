@@ -1,6 +1,7 @@
 @extends('staff.app')
 
 @section('active_overtime', 'active')
+@section('title', '時間外申請')
 
 @section('content_header')
     <li class="breadcrumb-item active"><b>時間外申請</b></li>

@@ -58,7 +58,7 @@ class OverTimeService extends BaseService
                 'start_time' => $item->start_time ? $this->formatTime($item->start_time) : '-',
                 'end_time' => $item->end_time ? $this->formatTime($item->end_time) : '-',
                 'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
-                'approver' => $item->userApprover ? $item->userApprover->first_name . $item->userApprover->last_name : '',
+                'approver' => $item->userApprover ? $item->userApprover->fullName : '',
                 'time' => $beStart + $afEnd,
                 'disable' => $item->approver ? true : false,
             ];

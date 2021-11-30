@@ -30,7 +30,7 @@ class OverTimeService extends BaseService
                 'start_time' => $item->start_time ? $this->formatTime($item->start_time) : '-',
                 'end_time' => $item->end_time ? $this->formatTime($item->end_time) : '-',
                 'time' => $beStart + $afEnd,
-                'user' => $item->user->first_name . $item->user->last_name . ' (' . $item->user->user_id . ')',
+                'user' => $item->user->fullName . ' (' . $item->user->user_id . ')',
             ];
         }
 

@@ -125,7 +125,7 @@
             <input type="hidden" name="id" value="{{ (isset($infoRegister) && !$infoRegister['disable']) ? $infoRegister['id'] : '' }}">
             <div class="row mt-4">
                 <div class="col-md-12">
-                    <button class="btn btn-primary w-100 text-center form-button" disabled>申請(登録) </button>
+                    <button class="btn btn-primary w-100 text-center form-button font-weight-bold" disabled>申請(登録) </button>
                 </div>
             </div>
         </form>

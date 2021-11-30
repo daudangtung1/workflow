@@ -32,7 +32,7 @@ class PartTimeService extends BaseService
                 'start_time3' => $item->start_time_third ? $this->formatTime($item->start_time_third) : '-',
                 'end_time3' => $item->end_time_third ? $this->formatTime($item->end_time_third) : '-',
                 'time' => $time1 + $time2 + $time3,
-                'user' => $item->user->first_name . $item->user->last_name . ' (' . $item->user->user_id . ')',
+                'user' => $item->user->fullName . ' (' . $item->user->user_id . ')',
             ];
         }
 

@@ -32,7 +32,7 @@ class AbsenceService extends BaseService
                 'reason' => $item->reason,
                 'option' => AbsenceOption::getDescription($item->option),
                 'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
-                'approver' => $item->userApprover ? $item->userApprover->first_name . $item->userApprover->last_name : '',
+                'approver' => $item->userApprover ? $item->userApprover->fullName: '',
                 'disable' => $item->approver ? true : false,
             ];
         }

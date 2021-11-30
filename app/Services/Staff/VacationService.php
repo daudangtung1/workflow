@@ -37,7 +37,7 @@ class VacationService extends BaseService
                 'reason' => $item->reason,
                 'type' => VacationType::getDescription($item->type),
                 'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
-                'approver' => $item->userApprover ? $item->userApprover->first_name . $item->userApprover->last_name : '',
+                'approver' => $item->userApprover ? $item->userApprover->fullName : '',
                 'disable' => $item->approver ? true : false,
             ];
         }

@@ -1,9 +1,10 @@
 @extends('manager.app')
 
 @section('active_calendar', 'active')
+@section('title', 'カレンダー管理')
 
 @section('content_header')
-    <li class="breadcrumb-item active"><b>時間外･交通費申請 </b></li>
+    <li class="breadcrumb-item active"><b>カレンダー管理 </b></li>
 @endsection
 
 @push('styles')
@@ -115,7 +116,7 @@
 
                         <div class="row mt-5">
                             <div class="col-md-3">
-                                <button class="btn btn-primary w-100">登録(更新)</button>
+                                <button class="btn btn-primary w-100 font-weight-bold">登録(更新)</button>
                             </div>
                         </div>
                     </form>

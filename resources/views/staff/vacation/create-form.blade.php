@@ -94,9 +94,9 @@
                 </div>
                 <div class="col-md-12 mt-4">
                     @if (isset($infoVacation) && $infoVacation['disable'])
-                    <button class="btn btn-danger w-100" disabled>承認済み</button>
+                    <button class="btn btn-danger w-100 font-weight-bold" disabled>承認済み</button>
                     @else
-                    <button class="btn btn-primary w-100 form-button">申請(登録) </button>
+                    <button class="btn btn-primary w-100 form-button font-weight-bold">申請(登録) </button>
                         
                     @endif
                 </div>

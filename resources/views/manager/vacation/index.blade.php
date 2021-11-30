@@ -1,6 +1,7 @@
 @extends('manager.app')
 
 @section('active_vacation', 'active')
+@section('title', '休暇届')
 
 @section('content_header')
     <li class="breadcrumb-item active"><b>休暇届</b></li>

@@ -1,6 +1,7 @@
 @extends('manager.app')
 
 @section('active_part_time', 'active')
+@section('title', 'パート出勤簿')
 
 @section('content_header')
     <li class="breadcrumb-item active"><b>パート出勤簿 </b></li>

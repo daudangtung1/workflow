@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content_header_home', '申請')
+@section('title', '申請')
 
 @section('content_aside')
     <li class="nav-item mb-2">

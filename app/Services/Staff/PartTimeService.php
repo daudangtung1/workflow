@@ -62,7 +62,7 @@ class PartTimeService extends BaseService
                 'start_time3' => $item->start_time_third ? $this->formatTime($item->start_time_third) : '-',
                 'end_time3' => $item->end_time_third ? $this->formatTime($item->end_time_third) : '-',
                 'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
-                'approver' => $item->userApprover ? $item->userApprover->first_name . $item->userApprover->last_name : '',
+                'approver' => $item->userApprover ? $item->userApprover->fullName : '',
                 'time' => $time1 + $time2 + $time3,
                 'disable' => $item->approver ? true : false,
             ];
