@@ -1,54 +1,15 @@
 @push('styles')
     <!-- daterange picker -->
     <style>
-        .tab-content {
-            background: #ffffff !important;
-        }
-
-        .nav-tabs .nav-link.active {
-            background: #ffffff !important;
-        }
-
-        .input-group-text {
-            border-radius: 0 0.25rem 0.25rem 0;
-        }
-
-        input {
-            cursor: unset !important;
-        }
-
-        @media only screen and (max-width: 600px) {
-            #div-null {
-                display: none;
-            }
-        }
-
-        #result {
-            color: red;
-            font-weight: bold
-        }
-
-        #before_start,
-        #after_end {
-            font-weight: bold
-        }
-
-        .border-bot {
-            border-bottom: 1px solid #dbdbdb;
-        }
-
-        .d-contents {
-            display: contents;
-        }
-
+      
     </style>
 @endpush
 
-<div class="row">
-    <div class="col-md-4">
+<div class="row  tab-content1">
+    <div class="col-md-3 tab-content-left">
         <form action="{{ route('staff.over-time.store') }}" method="POST">
             @csrf
-            <div class="row ">
+            <div class="row">
                 <div class="col-md-12 col-xs-12">
                     <div class="form-group">
                         <label for="">日付</label>
@@ -68,7 +29,7 @@
                 </div>
             </div>
 
-            <div class="row ">
+            <div class="row mt-30">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>開始時刻</label>
@@ -87,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="col d-contents">
-                                <span class="mt-1">30分単位</span>
+                                <span class="mt-13">30分単位</span>
                             </div>
                         </div>
                        
@@ -95,7 +56,7 @@
                 </div>
             </div>
 
-            <div class="row ">
+            <div class="row mt-30">
                 <div class="col-md-12">
                         <div class="form-group">
                             <label>終了時刻</label>
@@ -114,8 +75,8 @@
                                        
                                     </div>
                                 </div>
-                                <div class="col d-contents">
-                                    <span class="mt-1">30分単位</span>
+                                <div class="col col-xs-12 d-contents">
+                                    <span class="mt-13">30分単位</span>
                                 </div>
                             </div>
                            
@@ -123,33 +84,24 @@
                     </div>
             </div>
             <input type="hidden" name="id" value="{{ (isset($infoRegister) && !$infoRegister['disable']) ? $infoRegister['id'] : '' }}">
-            <div class="row mt-4">
+            <div class="row">
                 <div class="col-md-12">
-                    <button class="btn btn-primary w-100 text-center form-button font-weight-bold" disabled>申請(登録) </button>
+                    <button class="btn btn-primary w-100 text-center form-button" disabled>申請(登録) </button>
                 </div>
             </div>
         </form>
     </div>
     <div class="col-md-1"></div>
-    <div class="col-md-4">
-        <div class="row" id="div-null">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="">&nbsp</label>
-                    <div style="height: calc(1.6em + 0.75rem + 2px)"></div>
-                </div>
-            </div>
+    <div class="col-md-3">
+        <div class="row" id="div-null" style="height: 158px">
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group border-bot">
-                    <label for="">&nbsp</label><br>
-                    <div style="height: calc(1.6em + 0.75rem + 2px)">
-                        <span class="ml-2 mt-1">
-                            <span>業前作業時間（~{{ \Carbon\Carbon::parse(auth()->user()->start_time_working)->format('H:i') }}）</span>
-                            <span class="float-right"><span id="before_start" class="h4"></span>
+                <div class="form-group border-bot min-text">
+                    <div >
+                            <span class="min-text">業前作業時間（~{{ \Carbon\Carbon::parse(auth()->user()->start_time_working)->format('H:i') }}）</span>
+                            <span class="float-right"><span id="before_start" class="result-text"></span>
                                 分</span>
-                        </span>
                     </div>
                 </div>
             </div>
@@ -157,28 +109,23 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group border-bot">
-                    <label for="">&nbsp</label><br>
-                    <div style="height: calc(1.6em + 0.75rem + 2px)">
-                        <span class="ml-2 mt-1">
-                            <span>業後作業時間（{{ \Carbon\Carbon::parse(auth()->user()->end_time_working)->format('H:i') }}~）</span>
-                            <span class="float-right"><span id="after_end" class="h4"></span>
+                <div class="form-group border-bot mt-56 min-text">
+                    <div>
+                            <span class="min-text">業後作業時間（{{ \Carbon\Carbon::parse(auth()->user()->end_time_working)->format('H:i') }}~）</span>
+                            <span class="float-right"><span id="after_end" class="result-text"></span>
                                 分</span>
-                        </span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row mt-4">
+        <div class="row">
             <div class="col-md-12">
-                <div class="form-group border-bot">
-                    <div style="height: calc(1.6em + 0.75rem + 2px)">
-                        <span class="ml-2 mt-1">
-                            <span>時間外勤務計</span>
-                            <span class="float-right"><span id="result" class="h4"></span>
+                <div class="form-group  mt-56 ">
+                    <div >
+                            <span class="min-text">時間外勤務計</span>
+                            <span class="float-right"><span id="result" class="result-text"></span>
                                 分</span>
-                        </span>
                     </div>
                 </div>
             </div>

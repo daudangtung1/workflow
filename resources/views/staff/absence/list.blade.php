@@ -7,6 +7,8 @@
 
         table thead {
             background: #E8EDF4;
+            font-weight: 700;
+            font-size: 14px;
         }
 
         .d-search span {
@@ -18,11 +20,17 @@
             cursor: pointer;
         }
 
+        table body {
+            font-weight: 400;
+            color: #4B545C;
+            font-size: 14px;
+        }
+
     </style>
 @endpush
 
 
-<div class="row pl-5 pr-5 pt-3">
+<div class="row pl-5 pr-5 pt-5">
     <div class="col-md-12 overflow-auto">
         <table class="table table-bordered table-hover">
             <thead>

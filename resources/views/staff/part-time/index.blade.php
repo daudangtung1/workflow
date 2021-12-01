@@ -7,6 +7,11 @@
     <li class="breadcrumb-item active"><b>パート出勤簿</b></li>
 @endsection
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/approver/parttime.css') }}">
+@endpush
+
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -21,7 +26,7 @@
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active pl-5 pr-5 pt-3 pb-3" id="home" role="tabpanel"
+                <div class="tab-pane fade show active" id="home" role="tabpanel"
                     aria-labelledby="home-tab">
                     @include('staff.part-time.create-form')
                 </div>
