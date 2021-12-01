@@ -4,10 +4,10 @@
 @section('title', '申請')
 
 @section('content_aside')
-    <li class="nav-item mb-2">
+    <li class="nav-item role-name">
         <a href="{{ route('login') }}" class="nav-link active">
-            <i class="far fa-list-alt mr-2 h4 mb-0"></i>
-            <p class="h4">
+            <i class="far fa-list-alt "></i>
+            <p class="ml-1">
                 申請
             </p>
         </a>

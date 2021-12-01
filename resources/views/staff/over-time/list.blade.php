@@ -2,22 +2,7 @@
     <!-- daterange picker -->
     <link rel="stylesheet" href="{{ asset('css/daterangepicker/daterangepicker.css') }}">
     <style>
-        table a {
-            color: #000 !important;
-        }
-
-        table thead {
-            background: #E8EDF4;
-        }
-
-        .d-search span {
-            font-weight: 700;
-
-        }
-
-        .search {
-            cursor: pointer;
-        }
+        
 
     </style>
 @endpush

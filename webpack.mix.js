@@ -51,4 +51,8 @@ mix.copy("node_modules/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4
     .copy("node_modules/admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js", "public/js/datatables")
     .copy("node_modules/admin-lte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css", "public/css/datatables")
     /////
-    .copy("node_modules/admin-lte/plugins/datatables-buttons/js/buttons.html5.min.js", "public/js/datatables")
+    .copy("node_modules/admin-lte/plugins/datatables-buttons/js/buttons.html5.min.js", "public/js/datatables");
+
+//mix custom style
+mix.sass("resources/sass/approver/overtime.scss", "public/css/approver/");
+mix.sass("resources/sass/approver/parttime.scss", "public/css/approver/");

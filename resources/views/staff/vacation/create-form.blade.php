@@ -13,14 +13,50 @@
             padding-top: 2px !important;
         }
 
+
+        .tab-content1 {
+            padding: 60px 30px 80px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .mt-30 {
+            margin-top: 30px;
+        }
+
+        label {
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        input,
+        select {
+            height: 46px !important;
+        }
+
+        label {
+            margin-bottom: 6px !important;
+        }
+
+        .form-button {
+            margin-top: 70px;
+            height: 46px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
     </style>
 @endpush
 
-<div class="row">
-    <div class="col-md-7">
-        <form action="{{ isset($infoVacation) ? route('staff.vacation.update', $infoVacation['id']) : route('staff.vacation.store') }}" method="POST">
+<div class="row tab-content1">
+    <div class="col-md-4">
+        <form
+            action="{{ isset($infoVacation) ? route('staff.vacation.update', $infoVacation['id']) : route('staff.vacation.store') }}"
+            method="POST">
             @csrf
-            @if(isset($infoVacation)) 
+            @if (isset($infoVacation))
                 <input type="hidden" name="_method" value="PUT">
             @endif
             <div class="row">
@@ -28,7 +64,8 @@
                     <div class="form-group">
                         <label for="">日付</label>
                         <div class="row">
-                            <div class="col input-group date input-date" id="start_date" data-target-input="nearest">
+                            <div class="col-md col-sm-12 input-group date input-date" id="start_date"
+                                data-target-input="nearest">
                                 <input type="text" class="form-control datetimepicker-input" data-target="#start_date"
                                     name="start_date" placeholder="年-月-日" required data-toggle="datetimepicker"
                                     value="{{ isset($infoVacation) ? $infoVacation['start_date'] : '' }}" />
@@ -36,8 +73,9 @@
                                     <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                                 </div>
                             </div>
-                            <div class="col-md-1 text-center">~</div>
-                            <div class="col input-group date input-date" id="end_date" data-target-input="nearest">
+                            <div class="m-auto text-center">~</div>
+                            <div class="col-md col-sm-12 input-group date input-date" id="end_date"
+                                data-target-input="nearest">
                                 <input type="text" class="form-control datetimepicker-input" data-target="#end_date"
                                     name="end_date" placeholder="年-月-日" required data-toggle="datetimepicker"
                                     value="" />
@@ -50,7 +88,7 @@
                     </div>
                     <!-- /.form group -->
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 mt-30">
                     <div class="row">
                         <div class="col-md-12">
                             <label for="">種別</label>
@@ -58,8 +96,8 @@
                         <div class="col-md-4 ">
                             <div class="custom-control custom-radio">
                                 <input type="radio" id="fullday" name="type" class="custom-control-input"
-                                {{ !isset($infoVacation) ? 'checked' : ''}} 
-                                {{ (isset($infoVacation) && $infoVacation['type'] == \App\Enums\VacationType::FULL_DAY) ? 'checked' : '' }}
+                                    {{ !isset($infoVacation) ? 'checked' : '' }}
+                                    {{ isset($infoVacation) && $infoVacation['type'] == \App\Enums\VacationType::FULL_DAY ? 'checked' : '' }}
                                     value="{{ \App\Enums\VacationType::FULL_DAY }}">
                                 <label class="font-weight-normal custom-control-label"
                                     for="fullday">{{ \App\Enums\VacationType::getDescription(\App\Enums\VacationType::FULL_DAY) }}</label>
@@ -67,8 +105,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="morning" name="type" class="custom-control-input" 
-                                {{ (isset($infoVacation) && $infoVacation['type'] == \App\Enums\VacationType::MORNING) ? 'checked' : '' }}
+                                <input type="radio" id="morning" name="type" class="custom-control-input"
+                                    {{ isset($infoVacation) && $infoVacation['type'] == \App\Enums\VacationType::MORNING ? 'checked' : '' }}
                                     value="{{ \App\Enums\VacationType::MORNING }}">
                                 <label class="font-weight-normal custom-control-label" for="morning">
                                     {{ \App\Enums\VacationType::getDescription(\App\Enums\VacationType::MORNING) }}
@@ -78,7 +116,7 @@
                         <div class="col-md-4 ">
                             <div class="custom-control custom-radio">
                                 <input type="radio" id="afternoon" name="type" class="custom-control-input"
-                                {{ (isset($infoVacation) && $infoVacation['type'] == \App\Enums\VacationType::AFTERNOON) ? 'checked' : '' }}
+                                    {{ isset($infoVacation) && $infoVacation['type'] == \App\Enums\VacationType::AFTERNOON ? 'checked' : '' }}
                                     value="{{ \App\Enums\VacationType::AFTERNOON }}">
                                 <label class="font-weight-normal custom-control-label" for="afternoon">
                                     {{ \App\Enums\VacationType::getDescription(\App\Enums\VacationType::AFTERNOON) }}
@@ -87,17 +125,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 mt-2 mb-2">
+                <div class="col-md-12 mt-30">
                     <label for="">理由</label>
                     <textarea class="form-control" name="reason" id="reason" rows="5"
                         required>{{ isset($infoVacation) ? $infoVacation['reason'] : '' }}</textarea>
                 </div>
-                <div class="col-md-12 mt-4">
+                <div class="col-md-12">
                     @if (isset($infoVacation) && $infoVacation['disable'])
-                    <button class="btn btn-danger w-100 font-weight-bold" disabled>承認済み</button>
+                        <button class="btn btn-danger w-100 " disabled>承認済み</button>
                     @else
-                    <button class="btn btn-primary w-100 form-button font-weight-bold">申請(登録) </button>
-                        
+                        <button class="btn btn-primary w-100 form-button">申請(登録) </button>
+
                     @endif
                 </div>
             </div>
@@ -142,9 +180,9 @@
         }
 
         @if (isset($infoVacation))
-        setTimeout(() => {
+            setTimeout(() => {
             $('input[name=end_date]').val(`{{ $infoVacation['end_date'] }}`);
-        }, 1000);
+            }, 1000);
         @endif
     </script>
 @endpush
