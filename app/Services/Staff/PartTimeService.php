@@ -48,9 +48,9 @@ class PartTimeService extends BaseService
         $data = [];
 
         foreach ($listRegister as $item) {
-            $time1 =  $item->start_time_first ? (strtotime($item->end_time_first) - strtotime($item->start_time_first)) / 60 / 60 : 0;
-            $time2 =  $item->start_time_second ? (strtotime($item->end_time_second) - strtotime($item->start_time_second)) / 60 / 60 : 0;
-            $time3 = $item->start_time_third ? (strtotime($item->end_time_third) - strtotime($item->start_time_third)) / 60 / 60 : 0;
+            $time1 =  $item->start_time_first ? (strtotime($item->end_time_first) - strtotime($item->start_time_first)) / 60  : 0;
+            $time2 =  $item->start_time_second ? (strtotime($item->end_time_second) - strtotime($item->start_time_second)) / 60  : 0;
+            $time3 = $item->start_time_third ? (strtotime($item->end_time_third) - strtotime($item->start_time_third)) / 60  : 0;
 
             $data[] = [
                 'id' => $item->id,
@@ -107,9 +107,9 @@ class PartTimeService extends BaseService
         $info = $this->model->where(['date' => $date, 'user_id' => $user->id])->first();
 
         if ($info) {
-            $time1 =  $info->start_time_first ? (strtotime($info->end_time_first) - strtotime($info->start_time_first)) / 60 / 60 : 0;
-            $time2 =  $info->start_time_second ? (strtotime($info->end_time_second) - strtotime($info->start_time_second)) / 60 / 60 : 0;
-            $time3 = $info->start_time_third ? (strtotime($info->end_time_third) - strtotime($info->start_time_third)) / 60 / 60 : 0;
+            $time1 =  $info->start_time_first ? (strtotime($info->end_time_first) - strtotime($info->start_time_first)) / 60  : 0;
+            $time2 =  $info->start_time_second ? (strtotime($info->end_time_second) - strtotime($info->start_time_second)) / 60  : 0;
+            $time3 = $info->start_time_third ? (strtotime($info->end_time_third) - strtotime($info->start_time_third)) / 60  : 0;
 
             return [
                 'id' => $info->id,

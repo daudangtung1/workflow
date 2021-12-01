@@ -19,10 +19,10 @@ class OverTimeService extends BaseService
 
         foreach ($overtimes as $item) {
             $startTimeWorking = $this->formatTime($item->user->start_time_working);
-            $endTimeWorking = $this->formatTime($item->user->start_time_working);
+            $endTimeWorking = $this->formatTime($item->user->end_time_working);
 
-            $beStart = $item->start_time ? (strtotime($startTimeWorking) - strtotime($item->start_time)) / 60 / 60 : 0;
-            $afEnd = $item->end_time ? (strtotime($item->end_time) - strtotime($endTimeWorking)) / 60 / 60 : 0;
+            $beStart = $item->start_time ? (strtotime($startTimeWorking) - strtotime($item->start_time)) / 60 : 0;
+            $afEnd = $item->end_time ? (strtotime($item->end_time) - strtotime($endTimeWorking)) / 60 : 0;
 
             $data[] = [
                 'id' => $item->id,
