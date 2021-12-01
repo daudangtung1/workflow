@@ -32,3 +32,9 @@ function unLoading() {
         $('body .modal-loading').remove();
     }, 500);
 }
+
+$(document).on('click', '.sidebar-toggle', function() {
+    if ($('body').hasClass("sidebar-collapse") && $('body').hasClass("sidebar-open")) {
+        $('body').removeClass("sidebar-collapse");
+    }
+});
