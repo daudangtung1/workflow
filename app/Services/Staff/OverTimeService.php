@@ -49,8 +49,8 @@ class OverTimeService extends BaseService
         $data = [];
 
         foreach ($listRegister as $item) {
-            $beStart = $item->start_time ? (strtotime($startTimeWorking) - strtotime($item->start_time)) / 60 / 60 : 0;
-            $afEnd = $item->end_time ? (strtotime($item->end_time) - strtotime($endTimeWorking)) / 60 / 60 : 0;
+            $beStart = $item->start_time ? (strtotime($startTimeWorking) - strtotime($item->start_time)) / 60  : 0;
+            $afEnd = $item->end_time ? (strtotime($item->end_time) - strtotime($endTimeWorking)) / 60  : 0;
 
             $data[] = [
                 'id' => $item->id,
@@ -94,8 +94,8 @@ class OverTimeService extends BaseService
         if ($info) {
             $startTimeWorking = $this->formatTime($user->start_time_working);
             $endTimeWorking = $this->formatTime($user->end_time_working);
-            $beStart = $info->start_time ? (strtotime($startTimeWorking) - strtotime($info->start_time)) / 60 / 60 : 0;
-            $afEnd = $info->end_time ? (strtotime($info->end_time) - strtotime($endTimeWorking)) / 60 / 60 : 0;
+            $beStart = $info->start_time ? (strtotime($startTimeWorking) - strtotime($info->start_time)) / 60  : 0;
+            $afEnd = $info->end_time ? (strtotime($info->end_time) - strtotime($endTimeWorking)) / 60  : 0;
 
             return [
                 'id' => $info->id,

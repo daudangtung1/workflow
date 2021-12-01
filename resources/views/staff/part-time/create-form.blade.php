@@ -331,7 +331,7 @@
                     date1 = new Date("01/01/2007 " + startTime);
                     date2 = new Date("01/01/2007 " + endTime);
                     let hours = Math.abs(date2 - date1);
-                    hours = hours / (1000 * 60 * 60);
+                    hours = hours / (1000 * 60);
                     total += hours;
 
                     $(`#${item.id}`).html(hours);

@@ -1,10 +1,14 @@
 body {
     background-color: #F4F6F9 !important;
+    font-family: "Noto Sans JP" !important;
 }
 
 aside {
     .active {
         background-color: #484d53 !important;
+    }
+    .nav-sidebar {
+        padding-left: 6px;
     }
 }
 

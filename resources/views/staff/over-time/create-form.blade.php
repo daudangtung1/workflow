@@ -270,7 +270,7 @@
                 date1 = new Date("01/01/2007 " + startTime);
                 date2 = new Date("01/01/2007 " + startTimeWorking);
                 let hours = Math.abs(date2 - date1);
-                hours = hours / (1000 * 60 * 60);
+                hours = hours / (1000 * 60);
                 totalTime = +hours;
                 $('#before_start').html(hours);
             }
@@ -279,7 +279,7 @@
                 date1 = new Date("01/01/2007 " + endTime);
                 date2 = new Date("01/01/2007 " + endTimeWorking);
                 let hours = Math.abs(date2 - date1);
-                hours = hours / (1000 * 60 * 60);
+                hours = hours / (1000 * 60);
                 totalTime = +totalTime + hours;
                 $('#after_end').html(hours);
             }
