@@ -20,7 +20,7 @@
                 <div class="os-content">
                     <!-- Sidebar Menu -->
                     <nav class="">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        <ul class="nav nav-pills nav-sidebar flex-column aside-ul" data-widget="treeview" role="menu"
                             data-accordion="false">
                             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -34,6 +34,15 @@
                                     </p>
                                 </a>
                             </li>
+
+                            <li class="nav-item clock">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-clock mr-1"></i>
+                                    <span id="dateReal"></span>
+                                    <span id="clockReal"></span>
+                                </a>
+                            </li>
+
                         </ul>
                     </nav>
                     <!-- /.sidebar-menu -->

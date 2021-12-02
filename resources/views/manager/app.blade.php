@@ -4,18 +4,18 @@
 @section('title', '総務処理')
 
 @section('content_aside')
-    <li class="nav-item mb-2">
-        <a href="{{ route('login') }}" class="nav-link active">
-            <i class="far fa-list-alt mr-2 h4 mb-0"></i>
-            <p class="h4">
+    <li class="nav-item role-name">
+        <a href="{{ route('login') }}" class="nav-link active mb-0">
+            <i class="far fa-list-alt"></i>
+            <p class="ml-1">
                 申請
             </p>
         </a>
     </li>
-    <li class="nav-item mb-2">
-        <a href="{{ route('login') }}" class="nav-link active">
-            <i class="far fa-calendar-minus mr-2 h4 mb-0"></i>
-            <p class="h4">
+    <li class="nav-item role-name sub-title">
+        <a href="{{ route('login') }}" class="nav-link active mb-0">
+            <i class="far fa-calendar-minus"></i>
+            <p class="ml-1">
                 総務処理
             </p>
         </a>

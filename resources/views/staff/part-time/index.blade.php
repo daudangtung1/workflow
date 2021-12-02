@@ -8,7 +8,7 @@
 @endsection
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/approver/parttime.css') }}">
+<link rel="stylesheet" href="{{ asset('css/staff/parttime.css') }}">
 @endpush
 
 

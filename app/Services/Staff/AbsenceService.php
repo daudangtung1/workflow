@@ -30,7 +30,7 @@ class AbsenceService extends BaseService
                 'id' => $item->id,
                 'date' => $item->date ? $item->date . '(' . $this->getDayOfWeek($item->start_date) . ')' : '',
                 'reason' => $item->reason,
-                'option' => AbsenceOption::getDescription($item->option),
+                'option' => $item->option,
                 'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
                 'approver' => $item->userApprover ? $item->userApprover->fullName: '',
                 'disable' => $item->approver ? true : false,

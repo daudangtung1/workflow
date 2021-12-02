@@ -1,7 +1,7 @@
 @push('styles')
     <!-- daterange picker -->
     <style>
-      
+        
     </style>
 @endpush
 

@@ -10,7 +10,13 @@
 
         .datepicker-days .weekend {
             background: #FFD1D1 !important;
-
+            border-radius: 50%;
+        }
+        .datepicker-days tbody tr {
+            border-bottom: 2px solid transparent;
+        }
+        .datepicker-days td {
+            width: 35px !important;
         }
 
         .form-group {
@@ -87,6 +93,11 @@
             padding: 0;
         }
 
+        textarea {
+            height: 160px !important;
+        }
+      
+
     </style>
 @endpush
 
@@ -153,6 +164,7 @@
             format: "YYYY-MM-DD",
             locale: "ja",
             daysOfWeekDisabled: [0, 6],
+          
         });
 
         $('.chosen-select').select2();
