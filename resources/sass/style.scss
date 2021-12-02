@@ -12,6 +12,7 @@ aside {
         li {
             font-size: 14px;
             font-weight: 400;
+            height: 35px !important;
             a {
                 padding-left: 15px !important;
             }
@@ -19,6 +20,7 @@ aside {
         .role-name {
             font-size: 18px;
             font-weight: 700;
+            height: 44px !important;
             i {
                 font-size: 24px;
             }
@@ -34,6 +36,37 @@ aside {
     .os-content {
         margin-top: 25px;
     }
+    .aside-ul {
+        height: calc(100vh - 93px);
+        .sub-title {
+            margin-top: 10px;
+        }
+        li {
+            margin-bottom: 5px !important;
+        }
+        .clock {
+            position: absolute;
+            bottom: 15px;
+            height: unset !important;
+            a {
+                padding: 0px !important;
+                margin: 0px !important;
+                padding-left: 5px !important;
+            }
+            i {
+                line-height: 18px;
+                font-size: 18px;
+                font-weight: 400;
+                color: #ffffff;
+            }
+            span {
+                line-height: 20px;
+                font-size: 14px;
+                font-weight: 400;
+                color: #ffffff;
+            }
+        }
+    }
 }
 
 //custom select2
@@ -48,7 +81,7 @@ aside {
 .select-time {
     .select2-selection__arrow {
         height: 35px !important;
-        background: #E9ECEF !important;
+        background: #F4F6F9 !important;
         width: 36px !important;
         border-left: 1px solid #cdcecf !important;
         border-radius: 0 5px 5px 0 !important;
@@ -57,11 +90,24 @@ aside {
         i {
             font-family: "Font Awesome 5 Free";
             font-weight: 400;
-            color: #495057;
+            color: #4B545C;
+        }
+        b {
+            color: #4B545C !important;
+            border-width: 7px 7px 0 7px !important;
+            margin-left: -7px !important;
+            width: 14px !important;
         }
     }
     .select2-selection__clear {
         display: none;
+    }
+    .select2-container--default.select2-container--open {
+        .select2-selection--single {
+            .select2-selection__arrow b {
+                border-width: 0px 7px 7px 7px !important;
+            }
+        }
     }
 }
 
@@ -134,8 +180,10 @@ aside {
 }
 
 #myTab {
+    border: none;
     a {
         color: #0000006b;
+        border: none;
     }
     .active {
         color: #4B545C;
@@ -146,7 +194,6 @@ aside {
         font-size: 18px;
         text-align: center;
     }
-    border: none;
 }
 
 @media screen and (max-width: 600px) {
@@ -165,5 +212,59 @@ input {
     .btn-primary {
         /* height: 50px !important; */
         width: 60px !important;
+    }
+}
+
+.table-hover tbody tr:hover {
+    background-color: #F4F6F9 !important;
+}
+
+.input-group-text {
+    background-color: #F4F6F9;
+    font-weight: 400;
+    font-size: 20px !important;
+    color: #4B545C !important;
+    padding: 0;
+    i {
+        width: 56px;
+    }
+}
+
+table {
+    i {
+        font-size: 20px;
+        font-weight: 400;
+        font-family: "icoFont";
+    }
+}
+
+//style all table
+.card {
+    border: none;
+    box-shadow: none;
+    .card-body {
+        .check-all {
+            text-decoration: underline;
+        }
+        padding: 18px 30px 0;
+        table {
+            a {
+                color: #000 !important;
+            }
+            thead {
+                background: #E8EDF4;
+                font-weight: 700;
+                font-size: 14px;
+            }
+            body {
+                font-weight: 400;
+                color: #4B545C;
+                font-size: 14px;
+            }
+            td,
+            th {
+                padding: 11px 0 9px 15px !important;
+            }
+        }
     }
 }

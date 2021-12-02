@@ -9,6 +9,10 @@
 
 @push('styles')
     <style>
+        table {
+            margin-top: 8px;
+        }
+
         table a {
             color: #000 !important;
         }
@@ -18,9 +22,32 @@
         }
 
         input[type="checkbox"] {
-            width: 18px;
-            height: 18px
+            width: 22px;
+            height: 22px;
+            border: 1px solid #C2C7D0;
         }
+
+        .note {
+            font-size: 16px;
+            line-height: 28px;
+            color: #4B545C;
+            margin-top: 30px;
+        }
+
+        .check-all {
+            font-size: 14px;
+            line-height: 20px;
+            color: #3B89CF;
+        }
+
+        .form-button {
+            height: 46px;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 116px 0 50px 0;
+        }
+
+        .card-body {}
 
     </style>
 @endpush
@@ -39,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 overflow-auto mt-3">
+                    <div class="col-md-12 overflow-auto mb-0">
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -70,17 +97,18 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-12">
-                        <span>
+                    <div class="col-md-6">
+                        <div class="note">
                             ※承認したデータは編集不可となります。<br>
                             ※承認期限は、締め日(毎月10日)+1営業日後です。
-                        </span>
+                        </div>
                     </div>
-                    <div class="col-md-12 mt-3">
+                    <div class="col-md-6">
                         <div class="row">
-                            <div class="col-md-8"></div>
-                            <div class="col-md-4"><button class="btn btn-primary w-100 form-button font-weight-bold"
-                                    disabled>承認</button></div>
+                            <div class="col-md-5"></div>
+                            <div class="col-md-7"><button class="btn btn-primary w-100 form-button font-weight-bold"
+                                    disabled>承認</button>
+                            </div>
                         </div>
                     </div>
                 </div>

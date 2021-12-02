@@ -47,6 +47,10 @@
             font-weight: 700;
         }
 
+        textarea {
+            height: 160px !important;
+        }
+
     </style>
 @endpush
 

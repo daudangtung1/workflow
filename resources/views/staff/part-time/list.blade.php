@@ -6,40 +6,43 @@
     </style>
 @endpush
 
-<div class="row pl-5 pr-5 pt-3">
+<div class="row">
     <div class="col-md-12">
-        <div class="form-group d-search">
-            <span class="search pr-2" data-date="{{ $dates['prev'] }}"><i class="fas fa-caret-left"></i></span>
-            <span>{{ $dates['current_text'] }} - {{ $dates['next_text'] }} </span>
-            <span class="search pl-2" data-date="{{ $dates['next'] }}"><i class="fas fa-caret-right"></i></span>
-            <!-- /.input group -->
+        <div class="row tab-content2">
+            <div class="col-md-12">
+                <div class="form-group d-search">
+                    <span class="search pr-2" data-date="{{ $dates['prev'] }}"><i class="fas fa-caret-left"></i></span>
+                    <span>{{ $dates['current_text'] }} - {{ $dates['next_text'] }} </span>
+                    <span class="search pl-2" data-date="{{ $dates['next'] }}"><i class="fas fa-caret-right"></i></span>
+                    <!-- /.input group -->
+                </div>
+            </div>
+            <div class="col-md-12 overflow-auto">
+                <table class="table table-bordered table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>日付</th>
+                            <th>開始1</th>
+                            <th>終了1</th>
+                            <th>開始2</th>
+                            <th>終了2</th>
+                            <th>開始3</th>
+                            <th>終了3</th>
+                            <th>時間外計(分)</th>
+                            <th>承認日時</th>
+                            <th>承認者</th>
+                            <th>編集</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyParttime">
+        
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
-<div class="row pl-5 pr-5 pt-3">
-    <div class="col-md-12 overflow-auto">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>日付</th>
-                    <th>開始1</th>
-                    <th>終了1</th>
-                    <th>開始2</th>
-                    <th>終了2</th>
-                    <th>開始3</th>
-                    <th>終了3</th>
-                    <th>時間外計(分)</th>
-                    <th>承認日時</th>
-                    <th>承認者</th>
-                    <th>編集</th>
-                </tr>
-            </thead>
-            <tbody id="bodyParttime">
 
-            </tbody>
-        </table>
-    </div>
-</div>
 
 {{-- loading --}}
 
