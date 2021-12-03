@@ -46,7 +46,7 @@ input {
 }
 
 .tab-content1 {
-    padding: 60px 30px 80px 30px;
+    padding: 60px 30px 126px;
 }
 
 .form-group {
@@ -145,58 +145,72 @@ input {
     line-height: 20px;
 }
 
+.right-text {
+    position: relative;
+    top: -4px;
+}
+
 .result-text {
     font-weight: 700;
     font-size: 20px;
 }
 
-table thead {
-    background: #E8EDF4 !important;
-    font-weight: 700;
-    font-size: 14px;
-}
-
-.d-search span {
-    font-weight: 700;
-}
-
-.search {
-    cursor: pointer;
-}
-
-.input-group-text {
-    border-radius: 0 0.25rem 0.25rem 0;
-    padding: 0;
-}
-
-table {
-    a {
-        color: #000 !important;
-    }
-    thead {
-        background: #E8EDF4;
+#list {
+    table thead {
+        background: #E8EDF4 !important;
         font-weight: 700;
         font-size: 14px;
     }
-    body {
-        font-weight: 400;
-        color: #4B545C;
-        font-size: 14px;
-    }
-}
-
-.d-search {
-    span {
+    .d-search span {
         font-weight: 700;
     }
     .search {
         cursor: pointer;
     }
-}
-
-.tab-content2 {
-    padding: 16px 30px 50px;
+    .input-group-text {
+        border-radius: 0 0.25rem 0.25rem 0;
+        padding: 0;
+    }
     table {
-        margin-top: 17px !important;
+        table-layout: fixed;
+        display: table;
+        width: 100%;
+        a {
+            color: #4B545C !important;
+        }
+        thead {
+            background: #E8EDF4;
+            font-weight: 700;
+            font-size: 14px;
+            th {
+                padding: 10px 16px 9px !important;
+                width: 140px !important;
+            }
+            .w-150 {
+                width: 150px !important;
+            }
+        }
+        tbody {
+            font-weight: 400;
+            color: #4B545C;
+            font-size: 14px;
+            td {
+                padding: 11px 14px 9px 16px !important;
+            }
+        }
+    }
+    .d-search {
+        span {
+            font-weight: 700;
+        }
+        .search {
+            cursor: pointer;
+        }
+    }
+    .tab-content2 {
+        padding: 10px 30px 50px;
+        table {
+            margin-top: 17px !important;
+        }
     }
 }

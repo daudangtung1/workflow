@@ -7,6 +7,11 @@
     <li class="breadcrumb-item active"><b>休暇届</b></li>
 @endsection
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/staff/vacation.css') }}">
+    
+@endpush
+
 @section('content')
     <div class="row">
         <div class="col-md-12">

@@ -7,6 +7,11 @@
     <li class="breadcrumb-item active"><b>欠勤</b></li>
 @endsection
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/staff/absence.css') }}">
+    
+@endpush
+
 @section('content')
     <div class="row">
         <div class="col-md-12">

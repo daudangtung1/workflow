@@ -1,34 +1,7 @@
 @push('styles')
     <!-- daterange picker -->
     <style>
-        table a {
-            color: #000 !important;
-        }
-
-        table thead {
-            background: #E8EDF4;
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .d-search span {
-            font-weight: 700;
-
-        }
-
-        .search {
-            cursor: pointer;
-        }
-
-        table body {
-            font-weight: 400;
-            color: #4B545C;
-            font-size: 14px;
-        }
-
-        .tab-content2 {
-            margin: 47px 30px 59px;
-        }
+        
 
     </style>
 @endpush
@@ -40,12 +13,12 @@
             <table class="table table-bordered table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>日付(開始)</th>
-                        <th>欠勤時間</th>
-                        <th>理由</th>
-                        <th>承認日時</th>
-                        <th>承認者</th>
-                        <th>編集</th>
+                        <th class="w-140">日付(開始)</th>
+                        <th class="w-140">欠勤時間</th>
+                        <th class="w-content">理由</th>
+                        <th class="w-140">承認日時</th>
+                        <th class="w-140">承認者</th>
+                        <th class="w-140">編集</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,10 +31,9 @@
                             <td>{{ $item['approver'] }}</td>
                             <td>
                                 @if ($item['disable'])
-                                    <i class="fas fa-lock"></i>
+                                    <i class="icofont-lock"></i>
                                 @else
-                                    <a href="{{ route('staff.absence.edit', $item['id']) }}"><i
-                                            class="fas fa-pencil-alt"></i></a>
+                                    <a href="{{ route('staff.absence.edit', $item['id']) }}"><i class="icofont-pencil-alt-1"></i></a>
                                 @endif
                         </tr>
                     @empty

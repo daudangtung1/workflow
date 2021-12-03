@@ -44,15 +44,30 @@ class PartTimeService extends BaseService
             ->orderBy('date', 'desc')
             ->get();
 
+        $callback = [
+            'id' => '',
+            'date' => '',
+            'start_time1' => '-',
+            'end_time1' => '-',
+            'start_time2' => '-',
+            'end_time2' => '-',
+            'start_time3' => '-',
+            'end_time3' => '-',
+            'approval_date' => '',
+            'approver' => '',
+            'time' => '',
+            'disable' => false,
+        ];
 
-        $data = [];
+        $data = $this->scopeDate($from, $to, $callback);
+        // $data = [];
 
         foreach ($listRegister as $item) {
             $time1 =  $item->start_time_first ? (strtotime($item->end_time_first) - strtotime($item->start_time_first)) / 60  : 0;
             $time2 =  $item->start_time_second ? (strtotime($item->end_time_second) - strtotime($item->start_time_second)) / 60  : 0;
             $time3 = $item->start_time_third ? (strtotime($item->end_time_third) - strtotime($item->start_time_third)) / 60  : 0;
 
-            $data[] = [
+            $data[$item->date] = [
                 'id' => $item->id,
                 'date' => $item->date . ' (' . $this->getDayOfWeek($item->date) . ')',
                 'start_time1' => $item->start_time_first ? $this->formatTime($item->start_time_first) : '-',
@@ -61,7 +76,7 @@ class PartTimeService extends BaseService
                 'end_time2' => $item->end_time_second ? $this->formatTime($item->end_time_second) : '-',
                 'start_time3' => $item->start_time_third ? $this->formatTime($item->start_time_third) : '-',
                 'end_time3' => $item->end_time_third ? $this->formatTime($item->end_time_third) : '-',
-                'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
+                'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'monthdate') : '',
                 'approver' => $item->userApprover ? $item->userApprover->fullName : '',
                 'time' => $time1 + $time2 + $time3,
                 'disable' => $item->approver ? true : false,
