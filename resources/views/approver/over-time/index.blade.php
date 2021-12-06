@@ -9,17 +9,6 @@
 
 @push('styles')
     <style>
-        table {
-            margin-top: 8px; 
-        }
-        table a {
-            color: #000 !important;
-        }
-
-        table thead {
-            background: #E8EDF4;
-        }
-
         input[type="checkbox"] {
             width: 22px;
             height: 22px;
@@ -46,7 +35,24 @@
             margin: 116px 0 50px 0;
         }
 
-        .card-body {
+        .w-230 {
+            width: 230px !important;
+        }
+
+        .w-318 {
+            width: 318px !important;
+        }
+
+        .w-291 {
+            width: 291px !important;
+        }
+
+        .w-276 {
+            width: 276px !important;
+        }
+
+        .w-150 {
+            width: 150px !important;
         }
 
     </style>
@@ -70,12 +76,12 @@
                         <table class="table table-bordered table-hover mb-0">
                             <thead>
                                 <tr>
-                                    <th>日付</th>
-                                    <th>開始時刻</th>
-                                    <th>終了時刻</th>
-                                    <th>時間外計(分)</th>
-                                    <th>申請者(社員ID)</th>
-                                    <th>承認</th>
+                                    <th class="w-230">日付</th>
+                                    <th class="w-318">開始時刻</th>
+                                    <th class="w-291">終了時刻</th>
+                                    <th class="w-276">時間外計(分)</th>
+                                    <th class="w-291">申請者(社員ID)</th>
+                                    <th class="w-150">承認</th>
                                 </tr>
                             </thead>
                             <tbody>

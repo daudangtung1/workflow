@@ -9,18 +9,6 @@
 
 @push('styles')
     <style>
-        table {
-            margin-top: 8px;
-        }
-
-        table a {
-            color: #000 !important;
-        }
-
-        table thead {
-            background: #E8EDF4;
-        }
-
         input[type="checkbox"] {
             width: 22px;
             height: 22px;
@@ -47,7 +35,17 @@
             margin: 116px 0 50px 0;
         }
 
-        .card-body {}
+        .w-150 {
+            width: 150px !important;
+        }
+
+        .w-160 {
+            width: 160px !important;
+        }
+
+        .w-140 {
+            width: 140px !important;
+        }
 
     </style>
 @endpush
@@ -70,16 +68,16 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>日付</th>
-                                    <th>開始1</th>
-                                    <th>終了1</th>
-                                    <th>開始2</th>
-                                    <th>終了2</th>
-                                    <th>開始3</th>
-                                    <th>終了3</th>
-                                    <th>時間外計(分)</th>
-                                    <th>申請者(社員ID)</th>
-                                    <th>承認</th>
+                                    <th class="w-150">日付</th>
+                                    <th class="w-160">開始1</th>
+                                    <th class="w-160">終了1</th>
+                                    <th class="w-160">開始2</th>
+                                    <th class="w-160">終了2</th>
+                                    <th class="w-160">開始3</th>
+                                    <th class="w-160">終了3</th>
+                                    <th class="w-160">時間外計(分)</th>
+                                    <th class="w-140">申請者(社員ID)</th>
+                                    <th class="w-150">承認</th>
                                 </tr>
                             </thead>
                             <tbody>

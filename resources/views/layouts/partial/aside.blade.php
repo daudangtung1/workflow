@@ -37,7 +37,7 @@
 
                             <li class="nav-item clock">
                                 <a href="#" class="nav-link">
-                                    <i class="far fa-clock mr-1"></i>
+                                    <i class="icofont-clock-time"></i>
                                     <span id="dateReal"></span>
                                     <span id="clockReal"></span>
                                 </a>

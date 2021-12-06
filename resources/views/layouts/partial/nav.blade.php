@@ -2,11 +2,15 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-stream"></i></a>
+            <a class="nav-link" data-widget="pushmenu" href="#">
+                <div style="width: 26px;border-bottom: 1.9px solid #4B545C; margin-bottom:9px"></div>
+                <div style="width: 22px;border-bottom: 1.9px solid #4B545C; margin-bottom:9px"></div>
+                <div style="width: 30px;border-bottom: 1.9px solid #4B545C; margin-bottom:9px"></div>
+            </a>
         </li>
 
     </ul>
-    <ol class="navbar-nav float-sm-left ml-2">
+    <ol class="navbar-nav float-sm-left ml-2 hide-mobile">
         <li class="breadcrumb-item"><a href="{{ route('login') }}">@yield('content_header_home')</a></li>
         @yield('content_header')
     </ol>
@@ -15,7 +19,7 @@
         <li class="nav-item d-flex avatar">
             <a class="nav-link p-0 mr-25" href="#" role="button">
                 <img src="https://adminlte.io/themes/v3/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle"> 
-                <span class="hide-mobile ml-2">{{ (auth()->user()) ? auth()->user()->fullName : '' }}</span>
+                <span class=" ml-2">{{ (auth()->user()) ? auth()->user()->fullName : '' }}</span>
             </a>
             <div class="border-li"></div>
         </li>
@@ -26,8 +30,8 @@
             <div class="border-li"></div>
         </li>
         <li class="nav-item ">
-            <a class="nav-link  pl-0 ml-25 pr-2" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                <i class="fas fa-cog"></i>
+            <a class="nav-link  pl-0 ml-25" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                <i class="icofont-gear font-24 color-nav" ></i>
             </a>
         </li>
     </ul>

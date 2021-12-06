@@ -8,48 +8,50 @@
 @endsection
 
 @push('styles')
-<style>
-    table {
-        margin-top: 8px;
-    }
+    <style>
+        input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            border: 1px solid #C2C7D0;
+        }
 
-    table a {
-        color: #000 !important;
-    }
+        .note {
+            font-size: 16px;
+            line-height: 28px;
+            color: #4B545C;
+            margin-top: 30px;
+        }
 
-    table thead {
-        background: #E8EDF4;
-    }
+        .check-all {
+            font-size: 14px;
+            line-height: 20px;
+            color: #3B89CF;
+        }
 
-    input[type="checkbox"] {
-        width: 22px;
-        height: 22px;
-        border: 1px solid #C2C7D0;
-    }
+        .form-button {
+            height: 46px;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 116px 0 50px 0;
+        }
 
-    .note {
-        font-size: 16px;
-        line-height: 28px;
-        color: #4B545C;
-        margin-top: 30px;
-    }
+        .w-150 {
+            width: 150px !important;
+        }
 
-    .check-all {
-        font-size: 14px;
-        line-height: 20px;
-        color: #3B89CF;
-    }
+        .w-160 {
+            width: 160px !important;
+        }
 
-    .form-button {
-        height: 46px;
-        font-size: 18px;
-        font-weight: 700;
-        margin: 116px 0 50px 0;
-    }
+        .w-954 {
+            width: 954px !important;
+        }
 
-    .card-body {}
+        .w-140 {
+            width: 140px !important;
+        }
 
-</style>
+    </style>
 @endpush
 
 @section('content')
@@ -70,11 +72,11 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>日付(開始)</th>
-                                    <th>欠勤時間</th>
-                                    <th>理由</th>
-                                    <th>申請者(社員ID) </th>
-                                    <th>承認 </th>
+                                    <th class="w-150">日付(開始)</th>
+                                    <th class="w-160">欠勤時間</th>
+                                    <th class="w-954">理由</th>
+                                    <th class="w-140">申請者(社員ID) </th>
+                                    <th class="w-150">承認 </th>
                                 </tr>
                             </thead>
                             <tbody>

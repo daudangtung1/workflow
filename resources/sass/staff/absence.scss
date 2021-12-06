@@ -98,8 +98,14 @@ textarea {
     height: 160px !important;
 }
 
-textarea {
-    height: 160px;
+.select2-container {
+    width: 410px !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .select2-container {
+        width: 100% !important;
+    }
 }
 
 //list 
