@@ -149,7 +149,7 @@
             $('#example_wrapper').children().find(divCsv[0])
                 .prepend(
                     '<a href="{{ route('manager.over-time.index') }}""><i class="right fas fa-caret-left "></i> <span class="ml-2 mr-5 font-weight-bold">戻る</span></a>'
-                    );
+                );
 
             $('#example_wrapper').children().find(divCsv[1])
                 .addClass('text-right').html(
@@ -187,8 +187,9 @@
             $('input[name=date]').val(date);
             $('select[name=user_register]').val(userId).trigger('change');
             $('input[name=id]').val(id);
-
-            getData(id);
+            setTimeout(() => {
+                getData(id);
+            }, 100);
         })
     </script>
 @endpush
