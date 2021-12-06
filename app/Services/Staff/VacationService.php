@@ -26,7 +26,7 @@ class VacationService extends BaseService
     public function listVacation()
     {
         $user = auth()->user();
-        $listVacation = $this->model->where('user_id', $user->id)->orderBy('start_date', 'DESC')->get();
+        $listVacation = $this->model->where('user_id', $user->id)->orderBy('start_date', 'ASC')->get();
         $data = [];
 
         foreach ($listVacation as $item) {

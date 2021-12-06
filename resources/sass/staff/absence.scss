@@ -1,0 +1,150 @@
+.tab-content {
+    background: #ffffff !important;
+}
+
+.nav-tabs .nav-link.active {
+    background: #ffffff !important;
+}
+
+.datepicker-days .weekend {
+    background: #FFD1D1 !important;
+    border-radius: 50%;
+}
+
+.datepicker-days tbody tr {
+    border-bottom: 2px solid transparent;
+}
+
+.datepicker-days td {
+    width: 35px !important;
+}
+
+.form-group {
+    margin-bottom: 0;
+    max-width: 410px !important;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+label {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+input,
+select {
+    height: 46px !important;
+}
+
+label {
+    margin-bottom: 6px !important;
+}
+
+.form-button {
+    margin-top: 70px;
+    height: 46px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.tab-content1 {
+    padding: 60px 30px 113px 30px;
+}
+
+.select-time .select2-selection {
+    height: 46px !important;
+}
+
+.select-time .select2-selection__rendered {
+    line-height: 40px !important;
+}
+
+.select-time .select2-selection__arrow {
+    height: 46px !important;
+    line-height: 30px !important;
+    width: 56px !important;
+    border-radius: 0 0.25rem 0.25rem 0 !important;
+}
+
+.fa-calendar-alt {
+    width: 56px;
+    font-size: 20px
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ced4da;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    right: 0px !important;
+    top: 0;
+    border-radius: 0 0.25rem 0.25rem 0 !important;
+    border: 1px solid #ced4da !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder,
+.select2-search__field {
+    font-size: 16px !important;
+}
+
+.input-group-text {
+    border-radius: 0 0.25rem 0.25rem 0;
+    padding: 0;
+}
+
+textarea {
+    height: 160px !important;
+}
+
+textarea {
+    height: 160px;
+}
+
+//list 
+#list {
+    table {
+        table-layout: fixed;
+        display: table;
+        width: 100%;
+        thead {
+            background: #E8EDF4;
+            font-weight: 700;
+            font-size: 14px;
+            th {
+                padding: 10px 15px 9px !important;
+                width: 140px !important;
+            }
+        }
+    }
+    .d-search span {
+        font-weight: 700;
+    }
+    .search {
+        cursor: pointer;
+    }
+    table td i,
+    table td a {
+        font-weight: 400 !important;
+        font-size: 24px;
+        color: #4B545C;
+        line-height: 24px
+    }
+    table td {
+        padding: 11px 5px 9px 15px !important;
+        font-weight: 400;
+        color: #4B545C;
+        font-size: 14px !important;
+    }
+    .tab-content2 {
+        margin: 47px 30px 50px;
+        color: #4B545C !important;
+    }
+    .w-140 {
+        width: 140px !important;
+    }
+    .w-content {
+        width: 824px !important;
+    }
+}

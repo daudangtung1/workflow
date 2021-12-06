@@ -22,7 +22,7 @@ class AbsenceService extends BaseService
     {
         $user = auth()->user();
 
-        $listAbsence = $this->model->where('user_id', $user->id)->orderBy('date', 'DESC')->get();
+        $listAbsence = $this->model->where('user_id', $user->id)->orderBy('date', 'ASC')->get();
         $data = [];
 
         foreach ($listAbsence as $item) {

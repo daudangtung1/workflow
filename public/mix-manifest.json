@@ -1,9 +1,11 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/css/OverlayScrollbars.min.css": "/css/OverlayScrollbars.min.css",
+    "/css/staff/vacation.css": "/css/staff/vacation.css",
+    "/css/staff/absence.css": "/css/staff/absence.css",
     "/css/staff/parttime.css": "/css/staff/parttime.css",
     "/css/staff/overtime.css": "/css/staff/overtime.css",
+    "/css/OverlayScrollbars.min.css": "/css/OverlayScrollbars.min.css",
     "/js/common.js": "/js/common.js",
     "/js/popper.js.map": "/js/popper.js.map",
     "/js/datepicker/moment.min.js": "/js/datepicker/moment.min.js",
@@ -21,5 +23,8 @@
     "/js/datatables/dataTables.buttons.min.js": "/js/datatables/dataTables.buttons.min.js",
     "/js/datatables/buttons.bootstrap4.min.js": "/js/datatables/buttons.bootstrap4.min.js",
     "/css/datatables/buttons.bootstrap4.min.css": "/css/datatables/buttons.bootstrap4.min.css",
-    "/js/datatables/buttons.html5.min.js": "/js/datatables/buttons.html5.min.js"
+    "/js/datatables/buttons.html5.min.js": "/js/datatables/buttons.html5.min.js",
+    "/icofont/demo.html": "/icofont/demo.html",
+    "/icofont/icofont.css": "/icofont/icofont.css",
+    "/icofont/icofont.min.css": "/icofont/icofont.min.css"
 }

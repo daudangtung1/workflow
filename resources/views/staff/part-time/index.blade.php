@@ -28,6 +28,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel"
                     aria-labelledby="home-tab">
+                    
                     @include('staff.part-time.create-form')
                 </div>
                 <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">

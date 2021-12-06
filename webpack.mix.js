@@ -56,3 +56,8 @@ mix.copy("node_modules/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4
 //mix custom style
 mix.sass("resources/sass/staff/overtime.scss", "public/css/staff/");
 mix.sass("resources/sass/staff/parttime.scss", "public/css/staff/");
+mix.sass("resources/sass/staff/absence.scss", "public/css/staff/");
+mix.sass("resources/sass/staff/vacation.scss", "public/css/staff/");
+
+//icofont
+mix.copy('resources/uploads/icofont', 'public/icofont');

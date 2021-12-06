@@ -1,6 +1,16 @@
 body {
     background-color: #F4F6F9 !important;
     font-family: "Noto Sans JP" !important;
+    a:hover {
+        text-decoration: none;
+    }
+}
+
+.content-header {
+    padding: 0;
+    .container-fluid {
+        padding: 5px 30px;
+    }
 }
 
 aside {
@@ -88,12 +98,12 @@ aside {
         text-align: center;
         padding: 0.375rem 0.75rem;
         i {
-            font-family: "Font Awesome 5 Free";
             font-weight: 400;
-            color: #4B545C;
+            color: #4B545C !important;
         }
         b {
             color: #4B545C !important;
+            border-color: #4B545C transparent transparent transparent !important;
             border-width: 7px 7px 0 7px !important;
             margin-left: -7px !important;
             width: 14px !important;
@@ -106,7 +116,26 @@ aside {
         .select2-selection--single {
             .select2-selection__arrow b {
                 border-width: 0px 7px 7px 7px !important;
+                border-color: #4B545C transparent transparent transparent !important;
             }
+        }
+    }
+    .select2-container--default {
+        .select2-selection--single {
+            padding: 6px 7px !important;
+            .select2-selection__rendered {
+                color: #000000;
+                line-height: 28px;
+                font-weight: 400;
+                font-size: 16px;
+                padding-left: 0!important;
+            }
+        }
+    }
+    .select2-container--default.select2-container--focus {
+        .select2-selection--single,
+        .select2-selection--multiple {
+            border-color: #ced4da !important;
         }
     }
 }
@@ -179,21 +208,41 @@ aside {
     }
 }
 
-#myTab {
-    border: none;
-    a {
-        color: #0000006b;
-        border: none;
+.tab-content {
+    label {
+        color: #1F232E !important;
     }
+}
+
+#myTab {
+    color: #4B545C;
+    border: none;
     .active {
         color: #4B545C;
         font-weight: 700;
+        font-size: 18px;
     }
     li {
         width: 140px;
-        font-size: 18px;
         text-align: center;
+        height: 35px;
+        a {
+            padding-top: 5px;
+            height: 35px;
+            color: #4B545C;
+            border: none;
+            font-size: 16px;
+        }
     }
+}
+
+.w-410 {
+    width: 410px;
+    float: left;
+}
+
+.left-content {
+    margin-right: 140px;
 }
 
 @media screen and (max-width: 600px) {
@@ -201,6 +250,9 @@ aside {
         .hide-mobile {
             display: none !important;
         }
+    }
+    .w-410 {
+        width: 100% !important;
     }
 }
 
@@ -267,4 +319,11 @@ table {
             }
         }
     }
+}
+
+.form-control:focus {
+    color: unset;
+    background-color: #fff;
+    border-color: #ced4da;
+    box-shadow: unset;
 }
