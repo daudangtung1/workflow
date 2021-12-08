@@ -43,16 +43,28 @@ class OverTimeService extends BaseService
         $listRegister = $this->model
             ->whereBetween('date', [$from, $to])
             ->where('user_id', $user->id)
-            ->orderBy('date', 'desc')
+            ->orderBy('date', 'asc')
             ->get();
 
         $data = [];
+        $callback = [
+            'id' => '',
+            'date' => '',
+            'start_time' => '-',
+            'end_time' =>  '-',
+            'approval_date' => '',
+            'approver' => '',
+            'time' => '',
+            'disable' => false,
+        ];
+
+        $data = $this->scopeDate($from, $to, $callback);
 
         foreach ($listRegister as $item) {
             $beStart = $item->start_time ? (strtotime($startTimeWorking) - strtotime($item->start_time)) / 60  : 0;
             $afEnd = $item->end_time ? (strtotime($item->end_time) - strtotime($endTimeWorking)) / 60  : 0;
 
-            $data[] = [
+            $data[$item->date] = [
                 'id' => $item->id,
                 'date' => $item->date . ' (' . $this->getDayOfWeek($item->date) . ')',
                 'start_time' => $item->start_time ? $this->formatTime($item->start_time) : '-',
