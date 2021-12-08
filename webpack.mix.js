@@ -58,6 +58,8 @@ mix.sass("resources/sass/staff/overtime.scss", "public/css/staff/");
 mix.sass("resources/sass/staff/parttime.scss", "public/css/staff/");
 mix.sass("resources/sass/staff/absence.scss", "public/css/staff/");
 mix.sass("resources/sass/staff/vacation.scss", "public/css/staff/");
+mix.sass("resources/sass/manager/staff.scss", "public/css/manager/");
+
 
 //icofont
 mix.copy('resources/uploads/icofont', 'public/icofont');

@@ -1,0 +1,167 @@
+.tab-content {
+    background: #ffffff !important;
+}
+
+.nav-tabs .nav-link.active {
+    background: #ffffff !important;
+}
+
+.input-group-text {
+    border-radius: 0 0.25rem 0.25rem 0;
+    padding: 0;
+}
+
+input {
+    cursor: unset !important;
+}
+
+@media only screen and (max-width: 600px) {
+    #div-null {
+        display: none;
+    }
+    .form-button {
+        margin-bottom: 30px;
+    }
+}
+
+#result {
+    color: red;
+    font-weight: bold
+}
+
+#before_start,
+#after_end {
+    font-weight: bold
+}
+
+.border-bot {
+    border-bottom: 1px solid #dbdbdb;
+    padding-bottom: 20px;
+}
+
+.d-contents {
+    display: contents;
+}
+
+.tab-content1 {
+    padding: 60px 30px 80px 30px;
+}
+
+.form-group {
+    margin-bottom: 0;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+label {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+input,
+select {
+    height: 46px !important;
+}
+
+.select-time .select2-selection {
+    height: 46px !important;
+}
+
+.select-time .select2-selection__rendered {
+    line-height: 40px !important;
+}
+
+.select-time .select2-selection__arrow {
+    height: 46px !important;
+    line-height: 30px !important;
+    width: 56px !important;
+    border-radius: 0 0.25rem 0.25rem 0 !important;
+}
+
+.fa-calendar-alt {
+    width: 56px;
+    font-size: 20px
+}
+
+.mt-13 {
+    margin-top: 13px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #1F232E;
+}
+
+.form-button {
+    margin-top: 50px;
+    height: 46px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ced4da;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    right: 0px !important;
+    top: 0;
+    border-radius: 0 0.25rem 0.25rem 0 !important;
+    border: 1px solid #ced4da !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder,
+.select2-search__field {
+    font-size: 16px !important;
+}
+
+label {
+    margin-bottom: 6px !important;
+}
+
+.tab-content-left {}
+
+input {
+    font-size: 16px !important;
+    font-weight: 400;
+}
+
+.mt-56 {
+    margin-top: 56px;
+}
+
+.min-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.result-text {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+// list 
+table a {
+    color: #000 !important;
+}
+
+table thead {
+    background: #E8EDF4;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+table body {
+    font-weight: 400;
+    color: #4B545C;
+    font-size: 14px;
+}
+
+.d-search span {
+    font-weight: 700;
+}
+
+.search {
+    cursor: pointer;
+}

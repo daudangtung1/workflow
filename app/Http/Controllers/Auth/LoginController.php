@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Enums\UserRole;
+use App\Http\Requests\Auth\ChangePasswordRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -48,10 +50,10 @@ class LoginController extends Controller
                 return redirect()->route($arrRole[$role] . '.home');
 
             Auth::logout();
-            return redirect()->back()->with('error', 'Incorrect username or password.');
+            return redirect()->back()->with('error', 'アカウントまたはパスワードが無効です。');
         }
 
-        return redirect()->back()->with('error', 'Incorrect username or password.');
+        return redirect()->back()->with('error', 'アカウントまたはパスワードが無効です。');
     }
 
     public function logout()
@@ -59,5 +61,33 @@ class LoginController extends Controller
         Auth::logout();
 
         return redirect()->route('login');
+    }
+
+    public function changePasswordForm()
+    {
+        return view('auth.change-password');
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {       
+        $user = Auth::user();
+    
+        $userPassword = $user->password;
+
+        if (!Hash::check($request->old_password, $userPassword)) {
+            return back()->withErrors(['old_password'=>'パスワードが違います。']);
+        }
+
+        $user->password = Hash::make($request->password);
+
+        $user->save();
+
+        $arrRole = [
+            UserRole::MANAGER => 'manager',
+            UserRole::STAFF => 'staff',
+            UserRole::APPROVER => 'approver',
+        ];
+
+        return redirect()->route($arrRole[$user->role] . '.home')->with('success', 'パスワードの更新は成功しました。');
     }
 }

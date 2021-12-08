@@ -21,3 +21,9 @@ Route::get('/', function () {
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('change-password', [LoginController::class, 'changePasswordForm'])->name('change_password');
+    Route::post('change-password', [LoginController::class, 'changePassword'])->name('change_password');
+});
+

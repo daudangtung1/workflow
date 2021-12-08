@@ -9,47 +9,103 @@
             background: #E8EDF4;
         }
 
+        .content4 {
+            padding: 20px 30px 38px;
+        }
+
+        .dataTables_filter input {
+            width: 278px !important;
+        }
+
+        .dataTables_filter label {
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 20px;
+            color: #4B545C;
+        }
+
+        #list table th {
+            padding: 10px 16px 9px !important;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 20px;
+
+            color: #4B545C;
+        }
+
+        #list table td {
+            padding: 10px 16px 9px !important;
+
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+
+            color: #4B545C;
+        }
+
+        .w-140 {
+            width: 140px !important;
+        }
+
+        .w-130 {
+            width: 130px !important;
+        }
+
+        .w-357 {
+            width: 357px !important;
+        }
+
+        table {
+            table-layout: fixed;
+            display: table;
+            width: 100%;
+        }
+
     </style>
     <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}">
 @endpush
 
 
-<div class="row pl-5 pr-5 pt-3">
-    <div class="col-md-12 overflow-auto">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>社員ID</th>
-                    <th>名前</th>
-                    <th>入社日</th>
-                    <th>退社日</th>
-                    <th>社員区分</th>
-                    <th>事業所名</th>
-                    <th>メールアドレス</th>
-                    <th>編集</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($listStaff as $item)
+<div class="row">
+    <div class="col-md-12">
+        <div class="content4 overflow-auto">
+
+            <table class="table table-bordered table-hover">
+                <thead>
                     <tr>
-                        <td>{{ $item->user_id }}</td>
-                        <td>{{ $item->fullName }}</td>
-                        <td>{{ $item->join_date ?? '-' }}</td>
-                        <td>{{ $item->off_date ?? '-' }}</td>
-                        <td>{{ \App\Enums\UserType::getDescription($item->type) }}</td>
-                        <td>{{ $item->branch->name ?? '-' }}</td>
-                        <td>{{ $item->email ?? '-' }}</td>
-                        <td>
-                            <a href="{{ route('manager.staff.edit', $item->id) }}"><i
-                                    class="fas fa-pencil-alt"></i></a>
+                        <th class="w-140">社員ID</th>
+                        <th class="w-130">名前</th>
+                        <th class="w-130">入社日</th>
+                        <th class="w-130">退社日</th>
+                        <th class="w-130">社員区分</th>
+                        <th class="w-130">事業所名</th>
+                        <th class="w-357">メールアドレス</th>
+                        <th class="w-140">編集</th>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="8" class="text-center">{{ __('common.data.error') }}</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @forelse ($listStaff as $item)
+                        <tr>
+                            <td>{{ $item->user_id }}</td>
+                            <td>{{ $item->fullName }}</td>
+                            <td>{{ $item->join_date ?? '-' }}</td>
+                            <td>{{ $item->off_date ?? '-' }}</td>
+                            <td>{{ \App\Enums\UserType::getDescription($item->type) }}</td>
+                            <td>{{ $item->branch->name ?? '-' }}</td>
+                            <td>{{ $item->email ?? '-' }}</td>
+                            <td>
+                                <a href="{{ route('manager.staff.edit', $item->id) }}"><i
+                                        class="icofont-pencil-alt-1"></i></a>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">{{ __('common.data.error') }}</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+
+        </div>
     </div>
 </div>
 
