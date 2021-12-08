@@ -1,0 +1,285 @@
+@push('styles')
+    <!-- daterange picker -->
+    <style>
+        #list table a {
+            color: #000 !important;
+        }
+
+        #list table thead {
+            background: #E8EDF4;
+            font-weight: 700;
+            font-size: 14px;
+
+        }
+
+        #list th {
+            padding: 10px 15px 9px !important;
+        }
+
+        #list td {
+            padding: 10px 15px 9px !important;
+            width: 140px !important;
+        }
+
+
+        input[type="checkbox"] {
+            width: 22px;
+            height: 22px !important;
+        }
+
+        a {
+            color: #000000
+        }
+
+        #example_wrapper button {
+            background-color: #3490dc;
+            border-color: #3490dc;
+            width: 250px;
+        }
+
+        .w-150 {
+            width: 150px !important;
+        }
+
+        .w-140 {
+            width: 140px !important;
+        }
+
+        .w-279 {
+            width: 270px !important;
+        }
+
+        .content3 {
+            padding: 20px 30px 200px;
+        }
+
+        .form-button-list {
+            width: 289px;
+            margin-top: 30px !important;
+            margin-bottom: 0 !important
+        }
+
+        .buttons-csv {
+            height: 46px !important;
+            width: 200px !important;
+            font-size: 18px;
+        }
+
+        .mr-40 {
+            margin-right: 40px !important;
+        }
+
+        .back {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            color: #1F232E;
+        }
+
+        .w-150 {
+            width: 150px !important;
+        }
+
+        .w-160 {
+            width: 160px !important;
+        }
+
+        #list table thead th .w-280 {
+            width: 480px !important;
+        }
+
+        #list table thead .w-140 {
+            width: 120px !important;
+        }
+
+        .check-all {
+            text-decoration: underline;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .check-all {
+                top: 0px !important;
+            }
+
+            .form-button {
+                width: 100% !important;
+            }
+        }
+
+    </style>
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
+@endpush
+<div class="row ">
+    <div class="col-md-12 ">
+        <form action="{{ route('manager.absence.update', 'all') }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="content3">
+
+                <div class="row ">
+                    <div class="col-md-12 overflow-auto">
+                        <table class="table table-bordered table-hover" id="example">
+                            <thead>
+                                <tr>
+                                    <th class="w-160">日付(開始)</th>
+                                    <th class="w-150">申請者</th>
+                                    <th class="w-150">所属事業所</th>
+                                    <th class="w-150">欠勤時間</th>
+                                    <th style="width: 410px !important">理由</th>
+                                    <th class="w-160">承認日時</th>
+                                    <th class="w-160">承認者</th>
+                                    <th class="w-150">総務承認</th>
+                                    <th class="w-160">編集</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($dataAbsence as $item)
+                                    <tr>
+                                        <td>{{ $item['date'] }}</td>
+                                        <td>{{ $item['user'] }}</td>
+                                        <td>{{ $item['branch'] }}</td>
+                                        <td>{{ $item['option_name'] }}</td>
+                                        <td>{{ $item['reason'] }}</td>
+                                        <td>{{ $item['approver'] }}</td>
+                                        <td>{{ $item['approval_date'] }}</td>
+                                        <td>
+                                            @if (!$item['manager_confirm'])
+                                                <input type="checkbox" name="id[]" class="check-one"
+                                                    value="{{ $item['id'] }}">
+                                            @endif
+                                        </td>
+                                        <td> <a href="javascript:void(0)" class="btnEdit"
+                                                data-id="{{ $item['id'] }}" data-user-id="{{ $item['user_id'] }}"
+                                                data-date="{{ $item['date_register'] }}"
+                                                data-option="{{ $item['option'] }}"
+                                                data-reason="{{ $item['reason'] }}"
+                                                data-manager="{{ $item['manager_confirm'] }}"
+                                                data-approver="{{ $item['approver_id'] }}"
+                                                data-approval-date="{{ $item['approval_date'] }}">
+                                                <i class="icofont-pencil-alt-1"></i></a></td>
+
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="9" class="text-center">{{ __('common.data.error') }}</td>
+                                        <td class="d-none"></td>
+                                        <td class="d-none"></td>
+                                        <td class="d-none"></td>
+                                        <td class="d-none"></td>
+                                        <td class="d-none"></td>
+                                        <td class="d-none"></td>
+                                        <td class="d-none"></td>
+                                        <td class="d-none"></td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-12 mt-30 text-right"><button
+                        class="btn btn-primary  form-button-list form-button" disabled>承認</button>
+                </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{{-- loading --}}
+
+@push('scripts')
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/buttons.bootstrap4.min.js') }}"></script>
+
+    <script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            var table = $('#example').DataTable({
+                lengthChange: false,
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": false,
+                "info": false,
+                "autoWidth": false,
+                "responsive": true,
+                buttons: [{
+                    extend: 'csv',
+                    text: '<b>CSVダウンロード</b>'
+                }]
+            });
+
+            table.buttons().container()
+                .appendTo('#example_wrapper .col-md-6:eq(0)');
+
+            let divCsv = $('#example_wrapper').children().children();
+            $('#example_wrapper').children().find(divCsv[0])
+                .prepend(
+                    '<a class="back" href="{{ route('manager.part_time.index') }}"><i class="right fas fa-caret-left "></i> <span class="ml-2 mr-40 back">戻る</span></a>'
+                );
+
+            $('#example_wrapper').children().find(divCsv[0]).css('margin-bottom', '20px');
+
+            $('#example_wrapper').children().find(divCsv[1])
+                .addClass('text-right').html(
+                    '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 45px" href="javascript:void(0)">全てチェック</a>'
+                    )
+        });
+
+        $(document).on('click', '.check-all', function() {
+            if ($('.check-one').length == $('.check-one:checked').length) {
+                $('.check-one').prop('checked', false)
+            } else {
+                $('.check-one').prop('checked', true)
+            }
+
+            checkSubmit();
+        })
+
+        $('.check-one').click(function() {
+            checkSubmit();
+        })
+
+        function checkSubmit() {
+            if ($('.check-one:checked').length > 0) {
+                $('.form-button-list').prop('disabled', false);
+            } else {
+                $('.form-button-list').prop('disabled', true);
+            }
+        }
+
+        $('.btnEdit').click(function() {
+            $('.form-button').prop('disabled', false);
+
+            $('#edit-tab').click();
+
+            let date = $(this).data('date');
+            let manager = $(this).data('manager');
+            let approvalDate = $(this).data('approval-date');
+            let approver = $(this).data('approver');
+            let userId = $(this).data('user-id');
+            let id = $(this).data('id');
+            let option = $(this).data('option');
+            let reason = $(this).data('reason');
+
+            $('input[name=date]').val(date);
+            $('select[name=approver]').val(approver).trigger('change');
+            $('select[name=option]').val(option).trigger('change');
+            $('input[name=approval_date]').val(approvalDate);
+            $('select[name=user_register]').val(userId).trigger('change');
+            $(`select[name=manager_status_edit]`).val(manager).trigger('change');
+            $('input[name=id]').val(id);
+            $('textarea[name=reason]').val(reason);
+
+            if (!manager)
+                $(`select[name=manager_status_edit]`).val('{{ \App\Enums\ManagerStatus::PENDING }}').trigger(
+                    'change');
+            //getData(id);
+        })
+    </script>
+@endpush
