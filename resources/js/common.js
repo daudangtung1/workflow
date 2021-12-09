@@ -46,11 +46,12 @@ function startTime() {
     var min = today.getMinutes();
     var sec = today.getSeconds();
     //Add a zero in front of numbers<10
-    hr = checkTime(hr);
-    min = checkTime(min);
-    sec = checkTime(sec);
-    document.getElementById("clockReal").innerHTML = hr + " : " + min + " : " + sec;
-    var time = setTimeout(function() { startTime() }, 1000);
+    hr = checkRealTime(hr);
+    min = checkRealTime(min);
+    sec = checkRealTime(sec);
+    document.getElementById("clockReal").innerHTML = hr + " : " + min;
+    // document.getElementById("clockReal").innerHTML = hr + " : " + min + " : " + sec;
+    var time = setTimeout(function() { startTime() }, 15000);
 
     var months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
     var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -58,13 +59,13 @@ function startTime() {
     var curDay = today.getDate();
     var curMonth = months[today.getMonth()];
     var curYear = today.getFullYear();
-    var date = curYear + "/" + checkTime(curMonth) + "/" + checkTime(curDay) + '(月)';
+    var date = curYear + "/" + checkRealTime(curMonth) + "/" + checkRealTime(curDay) + '(月)';
     document.getElementById("dateReal").innerHTML = date;
 
-    var time = setTimeout(function() { startTime() }, 1000);
+    var time = setTimeout(function() { startTime() }, 15000);
 }
 
-function checkTime(i) {
+function checkRealTime(i) {
     if (i < 10) {
         i = "0" + i;
     }

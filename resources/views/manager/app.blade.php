@@ -6,7 +6,7 @@
 @section('content_aside')
     <li class="nav-item role-name">
         <a href="{{ route('login') }}" class="nav-link active mb-0">
-            <i class="far fa-list-alt"></i>
+            <i class="icofont-paper"></i>
             <p class="ml-1">
                 申請
             </p>
@@ -14,7 +14,7 @@
     </li>
     <li class="nav-item role-name sub-title">
         <a href="{{ route('login') }}" class="nav-link active mb-0">
-            <i class="far fa-calendar-minus"></i>
+            <i class="icofont-tasks-alt"></i>
             <p class="ml-1">
                 総務処理
             </p>

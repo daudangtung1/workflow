@@ -298,9 +298,10 @@ input {
 
 table {
     i {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: 400;
         font-family: "icoFont";
+        color: #4B545C;
     }
 }
 
@@ -357,4 +358,15 @@ table {
 
 .color-nav {
     color: #4B545C;
+}
+
+.dataTable {
+    th {
+        border-bottom: none !important;
+        border-top: none !important;
+    }
+}
+
+input {
+    font-size: 16px !important;
 }

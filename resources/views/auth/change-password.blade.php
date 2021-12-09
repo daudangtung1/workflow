@@ -30,8 +30,9 @@
         .card {
             margin: auto;
             width: 470px;
-            height: 446px;
+            height: auto;
             color: #1F232E !important;
+            padding-bottom: 30px;
         }
 
         .title1 {
@@ -46,7 +47,7 @@
             font-weight: bold;
             font-size: 24px;
             line-height: 35px;
-            margin: 30px 0 30px 0;
+            margin: 30px 0 0 0;
             color: #000;
         }
 
@@ -59,19 +60,14 @@
             margin: 30px 0 0 0;
         }
 
-        input[type="text"],
-        input[type="password"] {
+        input {
             font-size: 16px;
             height: 46px !important;
         }
 
-        input[type="text"]::placeholder {
-            font-size: 16px;
-            line-height: 23px;
-            font-weight: 400;
-        }
 
-        input[type="password"]::placeholder {
+
+        input[type="old_password"]::placeholder, input[type="confirm_password"]::placeholder, input[type="password"]::placeholder {
             font-size: 13px;
             line-height: 18px;
             font-weight: 500;
@@ -115,35 +111,54 @@
 <body class="antialiased">
 
     <div class="wrapper text-center">
-        <form action="{{ route('login') }}" method="POST">
+        <form action="{{ route('change_password') }}" method="POST">
             @csrf
             <p class="title1">ワークフローシステムへようこそ</h2>
             <div class="card">
-                <p class="sub-title"><b>ログイン</b></h3>
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show ml-4 mr-4" role="alert">
-                            {{ session('error') }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endif
-                <div class="form-group text-left">
-                    <label for="">社員ID</label>
-                    <input type="text" class="form-control" name="username" placeholder="社員ID又はメールアドレスをご入力ください">
-
-                </div>
+                <p class="sub-title"><b>パスワードを変更する</b></h3>
+                   
+                        
                 <div class="form-group text-left form-m-t">
-                    <label for="">パスワード</label>
-                    <input type="password" class="form-control" name="password" placeholder="●●●●●●●●">
+                    <label for="">以前のパスワード</label>
+                    <input type="password" class="form-control" name="old_password" placeholder="●●●●●●●●" required >
+                    @error('old_password')
+                    <div class="alert alert-danger alert-dismissible fade show " role="alert">
+                        {{ $message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @enderror
+                </div>
 
-                </div>
                 <div class="form-group text-left form-m-t">
-                    <input type="checkbox" name="remember" id="remember">
-                    <label class="remember" for="remember"> 自動ログイン</label>
+                    <label for="">新しいパスワード</label>
+                    <input type="password" class="form-control" name="password" placeholder="●●●●●●●●" required >
+                    @error('password')
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ $message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @enderror
                 </div>
+
+                <div class="form-group text-left form-m-t">
+                    <label for="">パスワードを再設定</label>
+                    <input type="password" class="form-control" name="confirm_password" placeholder="●●●●●●●●" required >
+                    @error('confirm_password')
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ $message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @enderror
+                </div>
+
                 <div class="form-group form-m-t">
-                    <button class="btn btn-primary w-100">ログイン</button>
+                    <button class="btn btn-primary w-100">変化する</button>
                 </div>
             </div>
         </form>

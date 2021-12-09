@@ -17,20 +17,20 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto test">
         <li class="nav-item d-flex avatar">
-            <a class="nav-link p-0 mr-25" href="#" role="button">
+            <a class="nav-link p-0 mr-25" href="{{route('change_password')}}" role="button">
                 <img src="https://adminlte.io/themes/v3/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle"> 
                 <span class=" ml-2">{{ (auth()->user()) ? auth()->user()->fullName : '' }}</span>
             </a>
             <div class="border-li"></div>
         </li>
         <li class="nav-item d-flex hide-mobile">
-            <a class="nav-link  pl-0 ml-25 mr-25"  href="#" role="button">
+            <a class="nav-link  pl-0 ml-25 mr-25"  href="{{route('change_password')}}" role="button">
                 社員ID: {{ (auth()->user()) ? auth()->user()->user_id : '' }}
             </a>
             <div class="border-li"></div>
         </li>
         <li class="nav-item ">
-            <a class="nav-link  pl-0 ml-25" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+            <a class="nav-link  pl-0 ml-25"  href="{{route('change_password')}}">
                 <i class="icofont-gear font-24 color-nav" ></i>
             </a>
         </li>
