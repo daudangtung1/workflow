@@ -6,8 +6,7 @@
     </style>
 @endpush
 
-<div class="row ">
-    <div class="col-md-12">
+
         <div class="tab-content1">
             <form
                 action="{{ isset($infoVacation) ? route('staff.vacation.update', $infoVacation['id']) : route('staff.vacation.store') }}"
@@ -93,8 +92,7 @@
                 </div>
             </form>
         </div>
-    </div>
-</div>
+
 @push('scripts')
     <script>
         var dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';

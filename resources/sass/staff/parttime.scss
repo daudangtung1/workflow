@@ -22,18 +22,47 @@ input {
     width: 184px !important;
 }
 
-@media only screen and (max-width: 600px) {
+.d-flex1 {
+    display: flex !important;
+}
+
+.mt-65 {
+    margin-top: 65px;
+}
+
+.mt-62 {
+    margin-top: 62px;
+}
+
+@media only screen and (max-width: 1300px) {
+    .left-content {
+        margin-right: 80px !important;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+    .d-flex1 {
+        display: block !important;
+    }
     #div-null {
         display: none;
-    }
-    .form-button {
-        margin-bottom: 30px;
     }
     .select2-container {
         width: 100% !important;
     }
+    .form-button {
+        margin-bottom: 30px;
+    }
+    .mt-65 {
+        margin-top: 30px;
+    }
+    .mt-62 {
+        margin-top: 30px;
+    }
 }
 
+// @media only screen and (max-width: 600px) {
+// }
 #result {
     color: red;
     font-weight: bold
@@ -131,19 +160,9 @@ label {
     margin-bottom: 6px !important;
 }
 
-.tab-content-left {}
-
 input {
     font-size: 16px !important;
     font-weight: 400;
-}
-
-.mt-65 {
-    margin-top: 65px;
-}
-
-.mt-62 {
-    margin-top: 62px;
 }
 
 .min-text {
@@ -187,7 +206,7 @@ input {
             font-size: 14px;
             th {
                 padding: 10px 16px 9px !important;
-                width: 140px !important;
+                width: 120px !important;
             }
             .w-150 {
                 width: 150px !important;
@@ -220,4 +239,9 @@ input {
 
 .left-content {
     margin-right: 140px;
+}
+
+.span-date {
+    margin-left: 10px !important;
+    margin-right: 11px !important;
 }

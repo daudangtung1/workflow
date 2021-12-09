@@ -35,8 +35,7 @@
             display: inline-flex
         }
 
-
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 1023px) {
             .span-date {
                 display: block;
                 padding-left: 0;
@@ -48,6 +47,20 @@
             }
 
         }
+
+
+        /* @media screen and (max-width: 600px) {
+            .span-date {
+                display: block;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .w-185 {
+                width: 100% !important;
+            }
+
+        } */
         .mb-83 {
             margin-bottom: 83px;
         }
@@ -56,8 +69,7 @@
 @endpush
 
 <form action="{{ route('manager.over-time.show', 'search') }}" method="GET">
-    <div class="row">
-        <div class="col-md-12">
+  
             <div class="content3">
                 <div class="w-410">
                     <div class="row">
@@ -76,7 +88,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center span-date">~</div>
-                                <div class="w-185 inline-flex input-group date input-date" id="end_date"
+                                <div class="w-185 float-right inline-flex input-group date input-date" id="end_date"
                                     data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input" data-target="#end_date"
                                         name="end_date" placeholder="年-月-日" data-toggle="datetimepicker"
@@ -173,8 +185,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
 </form>
 

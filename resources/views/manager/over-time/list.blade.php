@@ -76,24 +76,46 @@
             color: #1F232E;
         }
 
+
         .check-all {
             text-decoration: underline;
         }
 
+
+
         @media only screen and (max-width: 600px) {
             .check-all {
-                top: 0px !important;
+                top: -5px !important;
             }
+
             .form-button {
                 width: 100% !important;
             }
+
+            #myTab li {
+                width: 120px !important;
+            }
+        }
+
+
+        .back:hover {
+            color: #1F232E;
+        }
+
+        .check-all:hover {
+            text-decoration: underline;
+            color: #1F232E;
+        }
+
+        .buttons-csv:hover {
+            background-color: #227dc7 !important;
+            border-color: #2176bd !important;
         }
 
     </style>
     <link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
 @endpush
-<div class="row">
-    <div class="col-md-12">
+
         <form action="{{ route('manager.over-time.update', 'all') }}" method="POST">
             @csrf
             @method('PUT')
@@ -118,7 +140,7 @@
                                     <th class="w-140">終了時刻</th>
                                     <th class="w-140">時間外計(分)</th>
                                     <th class="w-140">承認者</th>
-                                    <th class="w-279">承認日時</th>
+                                    <th class="w-150">承認日時</th>
                                     <th class="w-140">総務承認</th>
                                     <th class="w-140">編集</th>
                                 </tr>
@@ -171,8 +193,6 @@
                 </div>
             </div>
         </form>
-    </div>
-</div>
 
 
 {{-- loading --}}
@@ -215,7 +235,7 @@
 
             $('#example_wrapper').children().find(divCsv[1])
                 .addClass('text-right').html(
-                    '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 45px" href="javascript:void(0)">全てチェック</a>'
+                    '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 37px" href="javascript:void(0)">全てチェック</a>'
                 )
         });
 

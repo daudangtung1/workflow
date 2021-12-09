@@ -2,12 +2,12 @@
     <!-- daterange picker -->
     <link rel="stylesheet" href="{{ asset('css/daterangepicker/daterangepicker.css') }}">
     <style>
+/* width */
 
     </style>
 @endpush
 
-<div class="row">
-    <div class="col-md-12">
+
         <div class="tab-content2">
             <div class="row ">
                 <div class="col-md-12">
@@ -20,7 +20,7 @@
                         <!-- /.input group -->
                     </div>
                 </div>
-                <div class="col-md-12 overflow-auto">
+                <div class="col-md-12 overflow-auto scroll-table">
                     <table class="table table-bordered table-hover mb-0">
                         <thead>
                             <tr>
@@ -33,7 +33,7 @@
                                 <th>終了3</th>
                                 <th>時間外計(分)</th>
                                 <th>承認日時</th>
-                                <th>承認者</th>
+                                <th class="w-150">承認者</th>
                                 <th>編集</th>
                             </tr>
                         </thead>
@@ -44,8 +44,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
 
 {{-- loading --}}
@@ -93,11 +91,9 @@
                                 <td colspan="11" class="text-center">{{ __('common.data.error') }}</td>
                             </tr>`);
 
-                    $('#bodyParttime').html(body);
-                    $('body').css({
-                        'overflow': 'auto',
-                        'padding': 0,
-                    });
+                    $('body #bodyParttime').html('');
+                    $('body #bodyParttime').append(body);
+                   
 
                     //render search
                     let search = (
@@ -110,6 +106,12 @@
 
                     unLoading();
                     // $(document).off('click', '#list-tab');
+                
+                        $('body').css({
+                        'height': '100vh !important',
+                        'overflow': 'auto',
+                        'padding': 0,
+                    });
                 }
             })
         });

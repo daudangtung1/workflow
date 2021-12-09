@@ -30,7 +30,8 @@
         .card {
             margin: auto;
             width: 470px;
-            height: 446px;
+            height: auto;
+            padding-bottom: 40px;
             color: #1F232E !important;
         }
 
@@ -103,10 +104,18 @@
             font-weight: 500 !important;
         }
 
+
         @media only screen and (max-width: 600px) {
             .card {
                 width: 100% !important;
+
+
             }
+
+            .wrapper {
+                padding: 0px;
+            }
+
         }
 
     </style>

@@ -140,13 +140,13 @@
                     <div class="col-md-12">
                         <div class="content2">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-inline-block">
+                                <div class="col-md-12 d-flex">
+                                    <div >
                                         <span class="title">営業日カレンダー</span><br>
                                         <span class="sub-title">休業日にチェックを入れてください</span>
                                     </div>
 
-                                    <div class="d-inline-block c-year">
+                                    <div class="c-year">
                                         <a href="javascript:void(0)" class="prev"
                                             data-year="{{ request()->prev }}">
                                             <i class="right fas fa-caret-left"></i></a>

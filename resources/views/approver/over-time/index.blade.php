@@ -9,12 +9,6 @@
 
 @push('styles')
     <style>
-        input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
-            border: 1px solid #C2C7D0;
-        }
-
         .note {
             font-size: 16px;
             line-height: 28px;
@@ -33,6 +27,8 @@
             font-size: 18px;
             font-weight: 700;
             margin: 116px 0 50px 0;
+            width: 410px !important;
+            min-width: 320px;
         }
 
         .w-230 {
@@ -53,6 +49,19 @@
 
         .w-150 {
             width: 150px !important;
+        }
+
+        @media only screen and (max-width: 1165px) {
+            .form-button {
+                margin: 30px 0 50px 0px !important;
+                width: 100% !important;
+            }
+            
+        }
+        @media only screen and (max-width: 600px) {
+            .button-right {
+                width: 100% !important;
+            }
         }
 
     </style>
@@ -76,11 +85,11 @@
                         <table class="table table-bordered table-hover mb-0">
                             <thead>
                                 <tr>
-                                    <th class="w-230">日付</th>
-                                    <th class="w-318">開始時刻</th>
-                                    <th class="w-291">終了時刻</th>
-                                    <th class="w-276">時間外計(分)</th>
-                                    <th class="w-291">申請者(社員ID)</th>
+                                    <th class="w-150">日付</th>
+                                    <th class="w-150">開始時刻</th>
+                                    <th class="w-150">終了時刻</th>
+                                    <th class="w-150">時間外計(分)</th>
+                                    <th class="w-230">申請者(社員ID)</th>
                                     <th class="w-150">承認</th>
                                 </tr>
                             </thead>
@@ -92,8 +101,13 @@
                                         <td>{{ $item['end_time'] }}</td>
                                         <td>{{ $item['time'] }}</td>
                                         <td>{{ $item['user'] }}</td>
-                                        <td><input type="checkbox" name="id[]" class="check-one"
-                                                value="{{ $item['id'] }}"></td>
+                                        <td>
+                                            <label class="custom-check">
+                                                <input type="checkbox" name="id[]" class="check-one"
+                                                    value="{{ $item['id'] }}">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -103,20 +117,17 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-6">
-                        <div class="note">
+                    <div class="col-md-12">
+                        <div class="note float-left">
                             ※承認したデータは編集不可となります。<br>
                             ※承認期限は、締め日(毎月10日)+1営業日後です。
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-5"></div>
-                            <div class="col-md-7"><button class="btn btn-primary w-100 form-button font-weight-bold"
-                                    disabled>承認</button>
-                            </div>
+                        <div class="float-right button-right">
+                            <button class="btn btn-primary w-100 form-button font-weight-bold" disabled>承認</button>
                         </div>
+                        <div style="clear: both"></div>
                     </div>
+
 
                 </div>
             </form>

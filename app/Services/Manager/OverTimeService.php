@@ -88,15 +88,15 @@ class OverTimeService extends BaseService
                 'id' => $item->id,
                 'user_id' => $item->user_id,
                 'date_register' => $item->date,
-                'user' => $user ? $user->fullName : '',
+                'user' => $user ? $user->fullName : '-',
                 'date' => $item->date . ' (' . $this->getDayOfWeek($item->date) . ')',
                 'start_time' => $item->start_time ? $this->formatTime($item->start_time) : '-',
                 'end_time' => $item->end_time ? $this->formatTime($item->end_time) : '-',
-                'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
-                'approver' => $item->userApprover ? $item->userApprover->first_name . ' ' . $item->userApprover->last_name : '',
+                'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '-',
+                'approver' => $item->userApprover ? $item->userApprover->first_name . ' ' . $item->userApprover->last_name : '-',
                 'time' => $beStart + $afEnd,
                 'manager_confirm' => $item->manager_confirm ? true : false,
-                'branch' => $user->branch ? $user->branch->name : '',
+                'branch' => $user->branch ? $user->branch->name : '-',
             ];
         }
 

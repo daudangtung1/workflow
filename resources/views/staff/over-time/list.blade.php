@@ -7,8 +7,7 @@
     </style>
 @endpush
 
-<div class="row">
-    <div class="col-md-12">
+
         <div class="tab-content2">
             <div class="row ">
                 <div class="col-md-12">
@@ -27,11 +26,11 @@
                         <thead>
                             <tr>
                                 <th class="w-150">日付</th>
-                                <th class="w-250">開始時刻</th>
-                                <th class="w-250">終了時刻</th>
-                                <th class="w-250">時間外計(分)</th>
-                                <th class="w-250">承認日時</th>
-                                <th class="w-250">承認者</th>
+                                <th class="w-120">開始時刻</th>
+                                <th class="w-120">終了時刻</th>
+                                <th class="w-120">時間外計(分)</th>
+                                <th class="w-150">承認日時</th>
+                                <th class="w-150">承認者</th>
                                 <th class="w-150">編集</th>
                             </tr>
                         </thead>
@@ -42,8 +41,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
 
 
 @push('scripts')

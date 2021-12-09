@@ -122,7 +122,7 @@ aside {
     }
     .select2-container--default {
         .select2-selection--single {
-            padding: 6px 7px !important;
+            padding: 6px 15px !important;
             .select2-selection__rendered {
                 color: #000000;
                 line-height: 28px;
@@ -224,10 +224,6 @@ aside {
     }
 }
 
-.card {
-    margin: 40px 30px;
-}
-
 #myTab {
     color: #4B545C;
     border: none;
@@ -258,57 +254,17 @@ aside {
 
 .w-410 {
     width: 410px;
-    float: left;
 }
 
-@media screen and (max-width: 600px) {
-    .hide-mobile {
-        display: none !important;
-    }
-    .w-410 {
-        width: 100% !important;
-    }
-}
-
-input {
-    cursor: unset !important;
-}
-
-.table-condensed {
-    .btn-primary {
-        /* height: 50px !important; */
-        width: 60px !important;
-    }
-}
-
-.table-hover tbody tr:hover {
-    background-color: #F4F6F9 !important;
-}
-
-.input-group-text {
-    background-color: #F4F6F9;
-    font-weight: 400;
-    font-size: 20px !important;
-    color: #4B545C !important;
-    padding: 0;
-    i {
-        width: 56px;
-    }
-}
-
-table {
-    i {
-        font-size: 24px;
-        font-weight: 400;
-        font-family: "icoFont";
-        color: #4B545C;
-    }
+.d-flex2 {
+    display: flex;
 }
 
 //style all table
 .card {
     border: none;
     box-shadow: none;
+    margin: 40px 30px;
     .card-body {
         .check-all {
             text-decoration: underline;
@@ -345,6 +301,63 @@ table {
     }
 }
 
+@media screen and (max-width: 1023px) {
+    .hide-mobile {
+        display: none !important;
+    }
+    .w-410 {
+        width: 100% !important;
+    }
+    .d-flex2 {
+        display: block !important;
+    }
+    #myTab {
+        padding: 5px 0px 0 !important;
+    }
+    #myTabContent {
+        margin: 0px !important;
+    }
+    .card {
+        margin: 40px 0 !important;
+    }
+}
+
+input {
+    cursor: unset !important;
+    padding-left: 15px !important;
+}
+
+.table-condensed {
+    .btn-primary {
+        /* height: 50px !important; */
+        width: 60px !important;
+    }
+}
+
+.table-hover tbody tr:hover {
+    background-color: #F4F6F9 !important;
+}
+
+.input-group-text {
+    background-color: #F4F6F9;
+    font-weight: 400;
+    font-size: 20px !important;
+    color: #4B545C !important;
+    padding: 0;
+    i {
+        width: 56px;
+    }
+}
+
+table {
+    i {
+        font-size: 24px;
+        font-weight: 400;
+        font-family: "icoFont";
+        color: #4B545C;
+    }
+}
+
 .form-control:focus {
     color: unset;
     background-color: #fff;
@@ -369,4 +382,113 @@ table {
 
 input {
     font-size: 16px !important;
+}
+
+//scroll
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+//checkbox 
+.custom-check {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+/* Hide the browser's default checkbox */
+
+.custom-check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+/* Create a custom checkbox */
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: #fff;
+    border: 1px solid #C2C7D0;
+}
+
+
+/* On mouse-over, add a grey background color */
+
+.custom-check:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+
+/* When the checkbox is checked, add a blue background */
+
+.custom-check input:checked~.checkmark {
+    background-color: #fff;
+}
+
+
+/* Create the checkmark/indicator (hidden when not checked) */
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+/* Show the checkmark when checked */
+
+.custom-check input:checked~.checkmark:after {
+    display: block;
+}
+
+
+/* Style the checkmark/indicator */
+
+.custom-check .checkmark:after {
+    left: 7px;
+    top: 0px;
+    width: 7px;
+    height: 16px;
+    border: solid #4B545C;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }

@@ -11,8 +11,8 @@ class ChangePasswordRequest extends BaseRequest
     {
         return [
             'old_password' => 'required',
-            'password' => 'required|same:confirm_password|min:6',
-            'confirm_password' => 'required',
+            'password' => 'required|min:6',
+            'confirm_password' => 'required|same:password',
         ];
     }
 
@@ -28,7 +28,7 @@ class ChangePasswordRequest extends BaseRequest
     public function messages()
     {
         return [
-            'password.same' => 'パスワードが一致しません。',
+            'confirm_password.same' => 'パスワードが一致しません。',
         ];
     }
 }
