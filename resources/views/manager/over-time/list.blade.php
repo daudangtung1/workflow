@@ -129,7 +129,7 @@
                         </div>
                     </div>
                 </div> --}}
-                    <div class="col-md-12 overflow-auto">
+                    <div class="col-md-12">
                         <table class="table table-bordered table-hover" id="example">
                             <thead>
                                 <tr>
@@ -158,8 +158,11 @@
                                         <td>{{ $item['approval_date'] }}</td>
                                         <td>
                                             @if (!$item['manager_confirm'])
+                                            <label class="custom-check">
                                                 <input type="checkbox" name="id[]" class="check-one"
                                                     value="{{ $item['id'] }}">
+                                            <span class="checkmark"></span>
+                                            </label>
                                             @endif
                                         </td>
                                         <td> <a href="javascript:void(0)" class="btnEdit"
@@ -236,7 +239,8 @@
             $('#example_wrapper').children().find(divCsv[1])
                 .addClass('text-right').html(
                     '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 37px" href="javascript:void(0)">全てチェック</a>'
-                )
+                );
+                $('.dataTable').parent().addClass('overflow-auto');
         });
 
         $(document).on('click', '.check-all', function() {

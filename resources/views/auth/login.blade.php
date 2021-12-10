@@ -108,12 +108,19 @@
         @media only screen and (max-width: 600px) {
             .card {
                 width: 100% !important;
+            }
 
-
+            .title1 {
+                font-size: 24px;
             }
 
             .wrapper {
                 padding: 0px;
+            }
+
+            input[type="text"]::placeholder {
+                font-size: 13px;
+
             }
 
         }

@@ -99,7 +99,24 @@
             .form-button {
                 width: 100% !important;
             }
+
+            
         }
+
+        .back:hover {
+            color: #1F232E;
+        }
+
+        .check-all:hover {
+            text-decoration: underline;
+            color: #1F232E;
+        }
+
+        .buttons-csv:hover {
+            background-color: #227dc7 !important;
+            border-color: #2176bd !important;
+        }
+
 
     </style>
     <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}">
@@ -111,8 +128,11 @@
             @csrf
             @method('PUT')
             <div class="content3">
+                <div id="divBtn">
+                    
+                </div>
                 <div class="row">
-                    <div class="col-md-12 overflow-auto">
+                    <div class="col-md-12 ">
                         <table class="table table-bordered table-hover" id="example">
                             <thead>
 
@@ -154,8 +174,10 @@
                                         <td>{{ $item['approval_date'] }}</td>
                                         <td>
                                             @if (!$item['manager_confirm'])
+                                            <label class="custom-check">
                                                 <input type="checkbox" name="id[]" class="check-one"
                                                     value="{{ $item['id'] }}">
+                                                <span class="checkmark"></span>
                                             @endif
                                         </td>
                                         <td> <a href="javascript:void(0)" class="btnEdit"
@@ -245,7 +267,9 @@
 
             $('#example_wrapper').children().find(divCsv[1])
                 .addClass('text-right').html(
-                    '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 45px" href="javascript:void(0)">全てチェック</a>')
+                    '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 45px" href="javascript:void(0)">全てチェック</a>');
+
+                    $('.dataTable').parent().addClass('overflow-auto');
         });
 
         $(document).on('click', '.check-all', function() {

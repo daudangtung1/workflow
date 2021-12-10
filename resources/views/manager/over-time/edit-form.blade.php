@@ -5,12 +5,17 @@
             margin-top: 279px !important;
         }
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (max-width: 1023px) {
             small {
                 position: unset !important;
                 display: block;
                 margin-left: 0 !important;
+                line-height: 23px !important;
             }
+        }
+
+        @media only screen and (max-width: 600px) {
+           
 
             #div-null {
                 display: none;

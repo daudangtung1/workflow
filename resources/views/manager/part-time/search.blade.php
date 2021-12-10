@@ -36,7 +36,7 @@
         }
 
 
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 1023px) {
             .span-date {
                 display: block;
                 padding-left: 0;
@@ -64,6 +64,11 @@
             color: #4B545C !important;
         }
 
+        #home .span-date {
+            margin-left: 0px !important;
+            margin-right: 0px !important; 
+        }
+
     </style>
 @endpush
 
@@ -88,7 +93,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center span-date">~</div>
-                                <div class="w-185 inline-flex input-group date input-date" id="end_date"
+                                <div class="w-185 float-right inline-flex input-group date input-date" id="end_date"
                                     data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input" data-target="#end_date"
                                         name="end_date" placeholder="年-月-日" data-toggle="datetimepicker"

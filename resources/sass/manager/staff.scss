@@ -105,6 +105,26 @@ input {
     font-weight: 700;
 }
 
+@media only screen and (max-width: 1300px) {
+    .row-1 {
+        width: 100% !important;
+        .col1-6 {
+            .select2-container {
+                width: 100% !important;
+            }
+            .input-date {
+                width: 100% !important;
+                input {
+                    width: 0 !important;
+                }
+            }
+            input {
+                width: 100% !important;
+            }
+        }
+    }
+}
+
 @media only screen and (max-width: 600px) {
     .row-1 {
         width: 100% !important;

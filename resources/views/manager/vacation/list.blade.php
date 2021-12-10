@@ -106,12 +106,26 @@
             }
         }
 
+        .back:hover {
+            color: #1F232E;
+        }
+
+        .check-all:hover {
+            text-decoration: underline;
+            color: #1F232E;
+        }
+
+        .buttons-csv:hover {
+            background-color: #227dc7 !important;
+            border-color: #2176bd !important;
+        }
+
+
     </style>
     <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
 @endpush
-<div class="row ">
-    <div class="col-md-12 ">
+
         <div class="content3">
             <form action="{{ route('manager.vacation.update', 'all') }}" method="POST">
                 @csrf
@@ -146,8 +160,11 @@
                                         <td>{{ $item['approval_date'] }}</td>
                                         <td>
                                             @if (!$item['manager_confirm'])
+                                            <label class="custom-check">
                                                 <input type="checkbox" name="id[]" class="check-one"
                                                     value="{{ $item['id'] }}">
+                                                <span class="checkmark"></span>
+                                            </label>
                                             @endif
                                         </td>
                                         <td> <a href="javascript:void(0)" class="btnEdit"
@@ -185,8 +202,6 @@
                 </div>
             </form>
         </div>
-    </div>
-</div>
 
 
 {{-- loading --}}
@@ -231,7 +246,9 @@
 
             $('#example_wrapper').children().find(divCsv[1])
                 .addClass('text-right').html(
-                    '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 45px" href="javascript:void(0)">全てチェック</a>')
+                    '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 45px" href="javascript:void(0)">全てチェック</a>');
+
+            $('.dataTable').parent().addClass('overflow-auto');
         });
 
         $(document).on('click', '.check-all', function() {

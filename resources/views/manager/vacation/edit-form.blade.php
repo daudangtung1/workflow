@@ -21,6 +21,8 @@
             small {
                 position: unset !important;
                 display: block;
+                line-height: 24px !important;
+                margin-left: 0 !important;
             }
 
             .select-100 .select2-container {
@@ -30,9 +32,12 @@
 
         small {
             position: absolute;
-            margin-left: 5px;
-            line-height: 35px;
+            font-size: 14px;
+            line-height: 46px;
+            font-weight: 400;
+            color: #1F232E;
             width: 100%;
+            margin-left: 15px;
         }
 
         .mr-280 {
