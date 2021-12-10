@@ -28,15 +28,45 @@ input {
     width: 337px !important;
 }
 
-@media only screen and (max-width: 600px) {
-    #div-null {
-        display: none;
+.left-content {
+    margin-right: 140px;
+}
+
+.mt-56 {
+    margin-top: 56px;
+}
+
+@media only screen and (max-width: 1330px) {
+    .left-content {
+        margin-right: 35px !important;
+    }
+    .select2-container {
+        width: 230px !important;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+    .ml-11 {
+        margin-left: 0 !important;
     }
     .form-button {
         margin-bottom: 30px;
     }
-    .ml-11 {
-        margin-left: 0 !important;
+    .mt-56,
+    .mt-63 {
+        margin-top: 30px !important;
+    }
+    .select2-container {
+        width: 70% !important;
+    }
+    .form-button-delete {
+        margin-top: 30px !important;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #div-null {
+        display: none;
     }
     .select2-container {
         width: 100% !important;
@@ -155,10 +185,6 @@ input {
     font-weight: 400;
 }
 
-.mt-56 {
-    margin-top: 56px;
-}
-
 .min-text {
     font-weight: 400;
     font-size: 14px;
@@ -169,10 +195,6 @@ input {
     font-weight: 700;
     font-size: 20px;
     line-height: 20px;
-}
-
-.left-content {
-    margin-right: 140px;
 }
 
 #list {
@@ -205,8 +227,8 @@ input {
             .w-150 {
                 width: 150px !important;
             }
-            .w-250 {
-                width: 245px !important;
+            .w-120 {
+                width: 120px !important;
             }
         }
         tbody {

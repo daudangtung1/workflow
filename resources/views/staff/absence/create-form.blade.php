@@ -4,8 +4,7 @@
     </style>
 @endpush
 
-<div class="row ">
-    <div class="col-12">
+
         <div class="tab-content1">
             <form
                 action="{{ isset($infoAbsence->id) ? route('staff.absence.update', $infoAbsence->id) : route('staff.absence.store') }}"
@@ -60,8 +59,7 @@
                 </div>
             </form>
         </div>
-    </div>
-</div>
+
 @push('scripts')
     <script>
         var dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';

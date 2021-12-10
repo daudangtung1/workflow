@@ -5,9 +5,7 @@
     </style>
 @endpush
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="tab-content1">
+        <div class="tab-content1 d-flex2">
             <div class="w-410 left-content">
                 <form action="{{ route('staff.over-time.store') }}" method="POST">
                     @csrf
@@ -136,8 +134,6 @@
 
             <div style="clear: both"></div>
         </div>
-    </div>
-</div>
 
 @push('scripts')
     <script>

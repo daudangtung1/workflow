@@ -4,15 +4,18 @@
         .form-button-delete {
             margin-top: 279px !important;
         }
+
         @media only screen and (max-width: 600px) {
             small {
                 position: unset !important;
                 display: block;
                 margin-left: 0 !important;
             }
+
             #div-null {
                 display: none;
             }
+
             .form-button-delete {
                 margin-top: 50px !important;
             }
@@ -36,222 +39,241 @@
             margin-top: 63px !important;
         }
 
-        
+
 
         .left-content {
             margin-right: 290px !important;
         }
 
+
+        @media screen and (max-width: 1494px) {
+            .select-time1 .select2-container {
+                width: 70% !important;
+            }
+        }
+
+        @media only screen and (max-width: 1330px) {
+            .manager .left-content {
+                margin-right: 150px !important;
+            }
+        }
+
+        @media only screen and (max-width: 1023px) {
+            small {
+                position: unset;
+                margin-left: 0px !important;
+            }
+        }
+
+        .span-aprrover {}
+
+        .select-time1 .select2-container {
+            width: 100% !important;
+        }
+
     </style>
 @endpush
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="tab-content1">
-            <div class="w-410 left-content">
-                <form class="formSm" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group select-time select-search">
-                                <label for="">申請者ID</label>
 
-                                <select class="chosen-select" name="user_register">
-                                    <option value="" data-name="">&nbsp;</option>
-                                    @foreach ($staffs as $item)
-                                        <option value="{{ $item->id }}" data-name="{{ $item->fullName }}"
-                                            data-start-time="{{ \Carbon\Carbon::parse($item->start_time_working)->format('H:i') }}"
-                                            data-end-time="{{ \Carbon\Carbon::parse($item->end_time_working)->format('H:i') }}">
-                                            {{ $item->id . ' - ' . $item->fullName }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <small></small>
+<div class="tab-content1 d-flex2 manager">
+    <div class="w-410 left-content">
+        <form class="formSm" method="POST">
+            @csrf
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group select-time select-search">
+                        <label for="">申請者ID</label>
 
-                            </div>
-                        </div>
-                    </div>
+                        <select class="chosen-select" name="user_register">
+                            <option value="" data-name="">&nbsp;</option>
+                            @foreach ($staffs as $item)
+                                <option value="{{ $item->id }}" data-name="{{ $item->fullName }}"
+                                    data-start-time="{{ \Carbon\Carbon::parse($item->start_time_working)->format('H:i') }}"
+                                    data-end-time="{{ \Carbon\Carbon::parse($item->end_time_working)->format('H:i') }}">
+                                    {{ $item->id . ' - ' . $item->fullName }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <small></small>
 
-                    <div class="row  mt-30">
-                        <div class="col-md-12 col-xs-12">
-                            <div class="form-group">
-                                <label for="">日付</label>
-
-                                <div class="input-group date input-date" id="date" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" data-target="#date"
-                                        name="date" placeholder="年-月-日" required data-toggle="datetimepicker"
-                                        value="" />
-                                    <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="icofont-calendar"></i></div>
-                                    </div>
-                                </div>
-
-                                <!-- /.input group -->
-                            </div>
-                            <!-- /.form group -->
-                        </div>
-                    </div>
-
-                    <div class="row mt-30">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>開始時刻</label>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="select-time">
-                                            <select class="chosen-select" name="start_time">
-                                                <option value=""></option>
-
-                                            </select>
-                                            <span class="ml-11">
-                                                30分単位
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-30">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>終了時刻</label>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="select-time">
-                                            <select class="chosen-select" name="end_time">
-                                                <option value=""></option>
-
-                                            </select>
-                                            <span class="ml-11">
-                                                30分単位
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-30">
-                        <div class="col-md-12">
-                            <div class="form-group select-time select-search">
-                                <label for="">所属営ID</label>
-                                <select class="chosen-select" name="approver">
-                                    <option value="" data-name="">&nbsp;</option>
-                                    @foreach ($approvers as $item)
-                                        <option value="{{ $item->id }}" data-name="{{ $item->fullName }}">
-                                            {{ $item->id . ' - ' . $item->fullName }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <small></small>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-30">
-                        <div class="col-md-12">
-                            <div class="form-group ">
-                                <label for="">承認状態</label>
-
-                                <div class="input-group date input-date" id="approval_date" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#approval_date" name="approval_date" placeholder="年-月-日"
-                                        data-toggle="datetimepicker" value="" />
-                                    <div class="input-group-append" data-target="#approval_date"
-                                        data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="icofont-clock-time"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-30">
-                        <div class="col-md-12">
-                            <div class="form-group select-time select-100">
-                                <label for="">総務確認</label>
-                                <select class="chosen-select" name="manager_status_edit">
-                                    <option value="" data-name="">&nbsp;</option>
-                                    @foreach (\App\Enums\ManagerStatus::asArray() as $item)
-                                        <option value="{{ $item }}">
-                                            {{ \App\Enums\ManagerStatus::getDescription($item) }}
-                                        </option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-                    <input type="hidden" name="start_time_working">
-                    <input type="hidden" name="end_time_working">
-                    <input type="hidden" name="id">
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-primary w-100 text-center form-button-edit form-button"
-                                disabled>更新 </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="w-410">
-                <div class="row hide-mobile" style="height: 262px">
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group border-bot min-text">
-                            <div>
-                                <span
-                                    class="min-text">業前作業時間（~{{ \Carbon\Carbon::parse(auth()->user()->start_time_working)->format('H:i') }}）</span>
-                                <span class="float-right"><span id="before_start" class="result-text"></span>
-                                    分</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group border-bot mt-63 min-text">
-                            <div>
-                                <span
-                                    class="min-text">業後作業時間（{{ \Carbon\Carbon::parse(auth()->user()->end_time_working)->format('H:i') }}~）</span>
-                                <span class="float-right"><span id="after_end" class="result-text"></span>
-                                    分</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group  mt-63 ">
-                            <div>
-                                <span class="min-text">時間外勤務計</span>
-                                <span class="float-right"><span id="result" class="result-text"></span>
-                                    分</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <button
-                            class="btn btn-primary w-100 text-center form-button-delete font-weight-bold form-button"
-                            disabled>削除
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <div style="clear: both"></div>
+            <div class="row  mt-30">
+                <div class="col-md-12 col-xs-12">
+                    <div class="form-group">
+                        <label for="">日付</label>
+
+                        <div class="input-group date input-date" id="date" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date"
+                                placeholder="年-月-日" required data-toggle="datetimepicker" value="" />
+                            <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="icofont-calendar"></i></div>
+                            </div>
+                        </div>
+
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                </div>
+            </div>
+
+            <div class="row mt-30">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>開始時刻</label>
+                        <div class="row">
+                            <div class="col">
+                                <div class="select-time select-time1 select-min">
+                                    <select class="chosen-select" name="start_time">
+                                        <option value=""></option>
+
+                                    </select>
+                                    <small>
+                                        30分単位
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-30">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>終了時刻</label>
+                        <div class="row">
+                            <div class="col">
+                                <div class="select-time select-time1 select-min">
+                                    <select class="chosen-select" name="end_time">
+                                        <option value=""></option>
+
+                                    </select>
+                                    <small>
+                                        30分単位
+                                    </small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-30">
+                <div class="col-md-12">
+                    <div class="form-group select-time select-search">
+                        <label for="">所属営ID</label>
+                        <select class="chosen-select" name="approver">
+                            <option value="" data-name="">&nbsp;</option>
+                            @foreach ($approvers as $item)
+                                <option value="{{ $item->id }}" data-name="{{ $item->fullName }}">
+                                    {{ $item->id . ' - ' . $item->fullName }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <small class="span-aprrover"></small>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-30">
+                <div class="col-md-12">
+                    <div class="form-group ">
+                        <label for="">承認状態</label>
+
+                        <div class="input-group date input-date" id="approval_date" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#approval_date"
+                                name="approval_date" placeholder="年-月-日" data-toggle="datetimepicker" value="" />
+                            <div class="input-group-append" data-target="#approval_date" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-30">
+                <div class="col-md-12">
+                    <div class="form-group select-time select-100">
+                        <label for="">総務確認</label>
+                        <select class="chosen-select" name="manager_status_edit">
+                            <option value="" data-name="">&nbsp;</option>
+                            @foreach (\App\Enums\ManagerStatus::asArray() as $item)
+                                <option value="{{ $item }}">
+                                    {{ \App\Enums\ManagerStatus::getDescription($item) }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="start_time_working">
+            <input type="hidden" name="end_time_working">
+            <input type="hidden" name="id">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary w-100 text-center form-button-edit form-button"
+                        disabled>更新 </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="w-410">
+        <div class="row hide-mobile" style="height: 262px">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group border-bot min-text">
+                    <div>
+                        <span
+                            class="min-text">業前作業時間（~<span id="span_start"></span>）</span>
+                        <span class="float-right"><span id="before_start" class="result-text"></span>
+                            分</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group border-bot mt-63 min-text">
+                    <div>
+                        <span
+                            class="min-text">業後作業時間（<span id="span_end"></span>~）</span>
+                        <span class="float-right"><span id="after_end" class="result-text"></span>
+                            分</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group  mt-63 ">
+                    <div>
+                        <span class="min-text">時間外勤務計</span>
+                        <span class="float-right"><span id="result" class="result-text"></span>
+                            分</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary w-100 text-center form-button-delete  form-button" disabled>削除
+                </button>
+            </div>
         </div>
     </div>
+
+    <div style="clear: both"></div>
 </div>
+
 @push('scripts')
     <script>
         $('.form-button-edit').click(function() {

@@ -5,9 +5,8 @@
     </style>
 @endpush
 
-<div class="row ">
-    <div class="col-md-12">
-        <div class="tab-content1">
+
+        <div class="tab-content1 d-flex2">
             <div class="w-410 left-content">
                 <form action="{{ route('staff.part-time.store') }}" method="POST">
                     @csrf
@@ -36,24 +35,26 @@
                                 <div class="form-group">
                                     <label>申請時刻1</label>
                                     <div class="row">
-                                        <div class="col select-time">
-                                            <select class="chosen-select" name="start_time_first">
-                                                <option value=""></option>
-                                                @foreach ($times as $item)
-                                                    <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                    <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="m-auto text-center">~</div>
-                                        <div class="col select-time">
-                                            <select class="chosen-select" name="end_time_first">
-                                                <option value=""></option>
-                                                @foreach ($times as $item)
-                                                    <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                    <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="col-md-12 d-flex1">
+                                            <div class="select-time">
+                                                <select class="chosen-select" name="start_time_first">
+                                                    <option value=""></option>
+                                                    @foreach ($times as $item)
+                                                        <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
+                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="m-auto text-center span-date">~</div>
+                                            <div class="select-time">
+                                                <select class="chosen-select" name="end_time_first">
+                                                    <option value=""></option>
+                                                    @foreach ($times as $item)
+                                                        <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
+                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     @error('end_time_first')
@@ -68,25 +69,28 @@
                                 <div class="form-group">
                                     <label>申請時刻2</label>
                                     <div class="row">
-                                        <div class="col select-time">
-                                            <select class="chosen-select" name="start_time_second">
-                                                <option value=""></option>
-                                                @foreach ($times as $item)
-                                                    <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                    <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="col-md-12 d-flex1">
+                                            <div class="select-time">
+                                                <select class="chosen-select" name="start_time_second">
+                                                    <option value=""></option>
+                                                    @foreach ($times as $item)
+                                                        <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
+                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="m-auto text-center span-date">~</div>
+                                            <div class="select-time">
+                                                <select class="chosen-select" name="end_time_second">
+                                                    <option value=""></option>
+                                                    @foreach ($times as $item)
+                                                        <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
+                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="m-auto text-center">~</div>
-                                        <div class="col select-time">
-                                            <select class="chosen-select" name="end_time_second">
-                                                <option value=""></option>
-                                                @foreach ($times as $item)
-                                                    <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                    <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -97,24 +101,26 @@
                                 <div class="form-group">
                                     <label>申請時刻3</label>
                                     <div class="row">
-                                        <div class="col select-time">
-                                            <select class="chosen-select" name="start_time_third">
-                                                <option value=""></option>
-                                                @foreach ($times as $item)
-                                                    <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                    <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="text-center m-auto">~</div>
-                                        <div class="col select-time">
-                                            <select class="chosen-select" name="end_time_third">
-                                                <option value=""></option>
-                                                @foreach ($times as $item)
-                                                    <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                    <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="col-md-12 d-flex1">
+                                            <div class="select-time">
+                                                <select class="chosen-select" name="start_time_third">
+                                                    <option value=""></option>
+                                                    @foreach ($times as $item)
+                                                        <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
+                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="text-center m-auto span-date">~</div>
+                                            <div class="select-time">
+                                                <select class="chosen-select" name="end_time_third">
+                                                    <option value=""></option>
+                                                    @foreach ($times as $item)
+                                                        <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
+                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -172,9 +178,7 @@
             </div>
             <div style="clear: both"></div>
         </div>
-    </div>
-    
-</div>
+
 @push('scripts')
     <script>
         var arrName = {
