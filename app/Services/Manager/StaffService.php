@@ -40,8 +40,11 @@ class StaffService extends BaseService
         return $this->workingPartModel->all();
     }
 
-    public function listUser($role)
+    public function listUser($role = '')
     {
-        return $this->userModel->where('role', $role)->orderBy('created_at', 'DESC')->get();
+        return $this->userModel->when($role, function ($query) use ($role) {
+            $query->where('role', $role);
+        })
+        ->orderBy('created_at', 'DESC')->get();
     }
 }

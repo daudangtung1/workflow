@@ -1,10 +1,10 @@
 @extends('manager.app')
 
 @section('active_staff', 'active')
-@section('title', '休暇届')
+@section('title', '社員管理')
 
 @section('content_header')
-    <li class="breadcrumb-item active"><b>休暇届</b></li>
+    <li class="breadcrumb-item active"><b>社員管理</b></li>
 @endsection
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/manager/staff.css') }}">

@@ -43,7 +43,7 @@ class StaffController extends Controller
 
 
         if ($request->list)
-            $arrParam['listStaff'] = $this->staffService->listUser(UserRole::STAFF);
+            $arrParam['listStaff'] = $this->staffService->listUser();
 
         return view('manager.staff.index', $arrParam);
     }
@@ -51,6 +51,10 @@ class StaffController extends Controller
     public function store(CreateStaffRequest $request)
     {
         try {
+            $role = UserRole::STAFF; 
+
+            if($request->manager) $role = UserRole::MANAGER;
+
             $data = [
                 'user_id' => $request->user_id,
                 'first_name' => $request->first_name,
@@ -66,7 +70,7 @@ class StaffController extends Controller
                 'password' => bcrypt($request->password),
                 'start_time_working' => $request->start_time_working,
                 'end_time_working' => $request->end_time_working,
-                'role' => UserRole::STAFF,
+                'role' => $role,
             ];
             $this->staffService->createStaff($data);
 
@@ -108,6 +112,10 @@ class StaffController extends Controller
     public function update(UpdateStaffRequest $request, $id)
     {
         try {
+            $role = UserRole::STAFF; 
+
+            if($request->manager) $role = UserRole::MANAGER;
+
             $data = [
                 'user_id' => $request->user_id,
                 'first_name' => $request->first_name,
@@ -122,7 +130,7 @@ class StaffController extends Controller
                 'email' => $request->email,
                 'start_time_working' => $request->start_time_working,
                 'end_time_working' => $request->end_time_working,
-                'role' => UserRole::STAFF,
+                'role' => $role,
             ];
 
             if ($request->password)
