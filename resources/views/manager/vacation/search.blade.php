@@ -103,8 +103,7 @@
     </style>
 @endpush
 <form action="{{ route('manager.vacation.show', 'search') }}" method="GET">
-    <div class="row">
-        <div class="col-md-12">
+
             <div class="content3">
                 <div class="w-410">
                     <div class="row">
@@ -123,7 +122,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center span-date">~</div>
-                                <div class="w-185 inline-flex input-group date input-date" id="end_date"
+                                <div class="w-185 float-right inline-flex input-group date input-date" id="end_date"
                                     data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input" data-target="#end_date"
                                         name="end_date" placeholder="年-月-日" data-toggle="datetimepicker"
@@ -220,8 +219,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+   
 
 </form>
 @push('scripts')

@@ -36,6 +36,7 @@
             </div><!-- /.container-fluid -->
         </div>
     </div>
+    <div id="sidebar-overlay"></div>
 </body>
 
 <script src="{{ asset('js/app.js') }}"></script>

@@ -106,19 +106,32 @@
             }
         }
 
+        .back:hover {
+            color: #1F232E;
+        }
+
+        .check-all:hover {
+            text-decoration: underline;
+            color: #1F232E;
+        }
+
+        .buttons-csv:hover {
+            background-color: #227dc7 !important;
+            border-color: #2176bd !important;
+        }
+
     </style>
     <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
 @endpush
-<div class="row ">
-    <div class="col-md-12 ">
+
         <form action="{{ route('manager.absence.update', 'all') }}" method="POST">
             @csrf
             @method('PUT')
             <div class="content3">
 
                 <div class="row ">
-                    <div class="col-md-12 overflow-auto">
+                    <div class="col-md-12 ">
                         <table class="table table-bordered table-hover" id="example">
                             <thead>
                                 <tr>
@@ -145,8 +158,11 @@
                                         <td>{{ $item['approval_date'] }}</td>
                                         <td>
                                             @if (!$item['manager_confirm'])
+                                            <label class="custom-check">
                                                 <input type="checkbox" name="id[]" class="check-one"
                                                     value="{{ $item['id'] }}">
+                                                    <span class="checkmark"></span>
+                                            </label>
                                             @endif
                                         </td>
                                         <td> <a href="javascript:void(0)" class="btnEdit"
@@ -182,8 +198,6 @@
                 </div>
             </div>
         </form>
-    </div>
-</div>
 
 
 {{-- loading --}}
@@ -220,7 +234,7 @@
             let divCsv = $('#example_wrapper').children().children();
             $('#example_wrapper').children().find(divCsv[0])
                 .prepend(
-                    '<a class="back" href="{{ route('manager.part_time.index') }}"><i class="right fas fa-caret-left "></i> <span class="ml-2 mr-40 back">戻る</span></a>'
+                    '<a class="back" href="{{ route('manager.absence.index') }}"><i class="right fas fa-caret-left "></i> <span class="ml-2 mr-40 back">戻る</span></a>'
                 );
 
             $('#example_wrapper').children().find(divCsv[0]).css('margin-bottom', '20px');
@@ -228,7 +242,8 @@
             $('#example_wrapper').children().find(divCsv[1])
                 .addClass('text-right').html(
                     '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 45px" href="javascript:void(0)">全てチェック</a>'
-                    )
+                    );
+                    $('.dataTable').parent().addClass('overflow-auto');
         });
 
         $(document).on('click', '.check-all', function() {

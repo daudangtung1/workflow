@@ -67,7 +67,8 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Tokyo',
+    // 'timezone' => 'Asia/Tokyo',
+    'timezone' => 'Asia/Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------

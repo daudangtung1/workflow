@@ -37,17 +37,6 @@
         }
 
 
-        @media screen and (max-width: 600px) {
-            .span-date {
-                margin: 49% !important;
-                width: auto !important;
-            }
-
-            .w-185 {
-                width: 100% !important;
-            }
-
-        }
 
         .mb-83 {
             margin-bottom: 83px !important;
@@ -80,7 +69,7 @@
             border-radius: 0 0.25rem 0.25rem 0 !important;
         }
 
-        .select2-selection__arrow i{
+        .select2-selection__arrow i {
             width: 56px !important;
             font-size: 20px;
             color: #4B545C;
@@ -103,11 +92,35 @@
             font-size: 16px !important;
         }
 
+        .form-button {
+            width: 410px;
+        }
+
+
+        @media screen and (max-width: 600px) {
+            .span-date {
+                margin: 49% !important;
+                width: auto !important;
+            }
+
+            .w-185 {
+                width: 100% !important;
+            }
+
+            .form-button {
+                width: 100% !important;
+            }
+
+            .content3 .form-group {
+                max-width: 100% !important;
+            }
+
+        }
+
     </style>
 @endpush
- <form action="{{ route('manager.absence.show', 'search') }}" method="GET">
-    <div class="row">
-        <div class="col-md-12">
+<form action="{{ route('manager.absence.show', 'search') }}" method="GET">
+ 
             <div class="content3">
                 <div class="w-410">
                     <div class="row">
@@ -218,13 +231,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-primary w-100 form-button mb-83 mt-50">検索</button>
+                            <button class="btn btn-primary  form-button mb-83 mt-50">検索</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
 </form>
 @push('scripts')

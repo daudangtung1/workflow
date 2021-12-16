@@ -51,8 +51,8 @@
             width: 130px !important;
         }
 
-        .w-357 {
-            width: 357px !important;
+        .w-200 {
+            width: 200px !important;
         }
 
         table {
@@ -66,48 +66,46 @@
 @endpush
 
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="content4 overflow-auto">
 
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th class="w-140">社員ID</th>
-                        <th class="w-130">名前</th>
-                        <th class="w-130">入社日</th>
-                        <th class="w-130">退社日</th>
-                        <th class="w-130">社員区分</th>
-                        <th class="w-130">事業所名</th>
-                        <th class="w-357">メールアドレス</th>
-                        <th class="w-140">編集</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($listStaff as $item)
+        <div class="content4 ">
+            <div >
+                <table class="table table-bordered table-hover">
+                    <thead>
                         <tr>
-                            <td>{{ $item->user_id }}</td>
-                            <td>{{ $item->fullName }}</td>
-                            <td>{{ $item->join_date ?? '-' }}</td>
-                            <td>{{ $item->off_date ?? '-' }}</td>
-                            <td>{{ \App\Enums\UserType::getDescription($item->type) }}</td>
-                            <td>{{ $item->branch->name ?? '-' }}</td>
-                            <td>{{ $item->email ?? '-' }}</td>
-                            <td>
-                                <a href="{{ route('manager.staff.edit', $item->id) }}"><i
-                                        class="icofont-pencil-alt-1"></i></a>
+                            <th class="w-130">社員ID</th>
+                            <th class="w-130">名前</th>
+                            <th class="w-130">入社日</th>
+                            <th class="w-130">退社日</th>
+                            <th class="w-130">社員区分</th>
+                            <th class="w-130">事業所名</th>
+                            <th class="w-200">メールアドレス</th>
+                            <th class="w-130">編集</th>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8" class="text-center">{{ __('common.data.error') }}</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-
+                    </thead>
+                    <tbody>
+                        @forelse ($listStaff as $item)
+                            <tr>
+                                <td>{{ $item->user_id }}</td>
+                                <td>{{ $item->fullName }}</td>
+                                <td>{{ $item->join_date ?? '-' }}</td>
+                                <td>{{ $item->off_date ?? '-' }}</td>
+                                <td>{{ \App\Enums\UserType::getDescription($item->type) }}</td>
+                                <td>{{ $item->branch->name ?? '-' }}</td>
+                                <td>{{ $item->email ?? '-' }}</td>
+                                <td>
+                                    <a href="{{ route('manager.staff.edit', $item->id) }}"><i
+                                            class="icofont-pencil-alt-1"></i></a>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8" class="text-center">{{ __('common.data.error') }}</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-</div>
+
 
 {{-- loading --}}
 
@@ -128,5 +126,6 @@
                 "search": "<b>検索</b>"
             }
         });
+        $('.dataTable').parent().addClass('overflow-auto');
     </script>
 @endpush

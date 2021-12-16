@@ -34,14 +34,16 @@
                                     </p>
                                 </a>
                             </li>
-
                             <li class="nav-item clock">
                                 <a href="#" class="nav-link">
                                     <i class="icofont-clock-time"></i>
-                                    <span id="dateReal"></span>
-                                    <span id="clockReal"></span>
+                                    <p>
+                                        <span id="dateReal"></span>
+                                        <span id="clockReal"></span>
+                                    </p>
                                 </a>
                             </li>
+
 
                         </ul>
                     </nav>

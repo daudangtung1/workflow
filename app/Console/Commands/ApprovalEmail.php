@@ -48,7 +48,7 @@ class ApprovalEmail extends Command
      */
     public function handle()
     {
-        $afterDay = Carbon::now()->addDay(3);
+        $afterDay = Carbon::now()->subDay(3);
         $overTimeDelay = OvertimeRegister::where('created_at', '>=', $afterDay)
             ->whereNull('approver')
             ->with('user')

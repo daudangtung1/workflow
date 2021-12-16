@@ -2,48 +2,46 @@
     <!-- daterange picker -->
     <link rel="stylesheet" href="{{ asset('css/daterangepicker/daterangepicker.css') }}">
     <style>
-/* width */
+        /* width */
 
     </style>
 @endpush
 
 
-        <div class="tab-content2">
-            <div class="row ">
-                <div class="col-md-12">
-                    <div class="form-group d-search">
-                        <span class="search pr-2" data-date="{{ $dates['prev'] }}"><i
-                                class="fas fa-caret-left"></i></span>
-                        <span>{{ $dates['current_text'] }} - {{ $dates['next_text'] }} </span>
-                        <span class="search pl-2" data-date="{{ $dates['next'] }}"><i
-                                class="fas fa-caret-right"></i></span>
-                        <!-- /.input group -->
-                    </div>
-                </div>
-                <div class="col-md-12 overflow-auto scroll-table">
-                    <table class="table table-bordered table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th class="w-150">日付</th>
-                                <th>開始1</th>
-                                <th>終了1</th>
-                                <th>開始2</th>
-                                <th>終了2</th>
-                                <th>開始3</th>
-                                <th>終了3</th>
-                                <th>時間外計(分)</th>
-                                <th>承認日時</th>
-                                <th class="w-150">承認者</th>
-                                <th>編集</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bodyParttime">
-
-                        </tbody>
-                    </table>
-                </div>
+<div class="tab-content2">
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="form-group d-search">
+                <span class="search pr-2" data-date="{{ $dates['prev'] }}"><i class="fas fa-caret-left"></i></span>
+                <span>{{ $dates['current_text'] }} - {{ $dates['next_text'] }} </span>
+                <span class="search pl-2" data-date="{{ $dates['next'] }}"><i class="fas fa-caret-right"></i></span>
+                <!-- /.input group -->
             </div>
         </div>
+        <div class="col-md-12 overflow-auto scroll-table">
+            <table class="table table-bordered table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th class="w-150">日付</th>
+                        <th>開始1</th>
+                        <th>終了1</th>
+                        <th>開始2</th>
+                        <th>終了2</th>
+                        <th>開始3</th>
+                        <th>終了3</th>
+                        <th>時間外計(分)</th>
+                        <th>承認日時</th>
+                        <th class="w-150">承認者</th>
+                        <th>編集</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyParttime">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
 {{-- loading --}}
@@ -93,7 +91,7 @@
 
                     $('body #bodyParttime').html('');
                     $('body #bodyParttime').append(body);
-                   
+
 
                     //render search
                     let search = (
@@ -106,12 +104,14 @@
 
                     unLoading();
                     // $(document).off('click', '#list-tab');
-                
-                        $('body').css({
+
+                    $('body').css({
                         'height': '100vh !important',
                         'overflow': 'auto',
                         'padding': 0,
                     });
+                    //scrollbar
+                    $('.scroll-table').floatingScrollbar();
                 }
             })
         });

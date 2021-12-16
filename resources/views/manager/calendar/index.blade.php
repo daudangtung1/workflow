@@ -107,18 +107,36 @@
             color: #444444;
 
         }
+
         .dataTables_scrollBody {
             overflow: hidden !important;
         }
-        
+
         @media only screen and (max-width: 600px) {
             .dataTables_scrollBody {
-            overflow: scroll !important;
-        }
+                overflow: scroll !important;
+            }
         }
 
-        .dataTables_scrollBody:hover, .dataTables_scrollBody:active {
+        .dataTables_scrollBody:hover,
+        .dataTables_scrollBody:active {
             overflow: auto !important;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .c-year {
+                margin-top: 15px;
+            }
+            .c-year .prev {
+                margin-left: 0px;
+            }
+
+            .d-ubflex {
+                display: block !important;
+            }
+            td {
+                text-align: center !important;
+            }
         }
 
     </style>
@@ -128,7 +146,7 @@
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link pl-5 pr-5 active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
                 aria-selected="true"><b>登録</b></a>
         </li>
     </ul>
@@ -136,12 +154,11 @@
         <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
             <form action="{{ route('manager.calendar.store') }}" method="POST">
                 @csrf
-                <div class="row">
-                    <div class="col-md-12">
+                
                         <div class="content2">
                             <div class="row">
-                                <div class="col-md-12 d-flex">
-                                    <div >
+                                <div class="col-md-12 d-flex d-ubflex">
+                                    <div>
                                         <span class="title">営業日カレンダー</span><br>
                                         <span class="sub-title">休業日にチェックを入れてください</span>
                                     </div>
@@ -202,9 +219,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
+                
             </form>
         </div>
     </div>

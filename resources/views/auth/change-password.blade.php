@@ -103,6 +103,10 @@
             .card {
                 width: 100% !important;
             }
+
+            .title1 {
+                font-size: 24px;
+            }
         }
 
     </style>

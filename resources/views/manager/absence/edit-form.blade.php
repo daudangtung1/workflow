@@ -13,18 +13,16 @@
             padding-top: 2px !important;
         }
 
-        @media only screen and (max-width: 600px) {
-            small {
-                position: unset !important;
-                display: block;
-            }
-        }
+        
 
         small {
             position: absolute;
-            margin-left: 5px;
-            line-height: 35px;
+            font-size: 14px;
+            line-height: 46px;
+            font-weight: 400;
+            color: #1F232E;
             width: 100%;
+            margin-left: 15px;
         }
 
         .datepicker-days .weekend {
@@ -36,12 +34,49 @@
             margin-right: 280px;
         }
 
+        @media only screen and (max-width: 1490px) {
+            .mr-280 {
+                margin-right: 100px !important; 
+            }
+        }
+
+        @media only screen and (max-width: 1310px) {
+            .mr-280 {
+                margin-right: 10px !important; 
+            }
+        }
+
+        @media only screen and (max-width: 1023px) {
+            .mr-280 {
+                margin-right: 0 !important; 
+            }
+            .form-button {
+                width: 410px !important;
+            }
+            small {
+                position: unset !important;
+                display: block;
+                margin-left: 0px !important;
+                line-height: 24px !important;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            
+            .form-button {
+                width: 100% !important;
+            }
+
+            .tab-content1 .form-group {
+                max-width: 100% !important;
+            }
+        }
+
     </style>
 @endpush
 <form class="formSm" method="POST">
     @csrf
-    <div class="row ">
-        <div class="col-md-12">
+   
             <div class="tab-content1 pb-71">
                 <div class="row">
                     <div class="col-md-12">
@@ -144,9 +179,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
- 
+    
     <input type="hidden" name="id">
 
 </form>
