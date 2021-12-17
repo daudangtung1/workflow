@@ -240,7 +240,7 @@
                             <div class="col-md-12 mt-30">
                                 <div class="form-group">
                                     <div class="select-time select-search select-100">
-                                        <label for="">所属営ID</label>
+                                        <label for="">承認者ID</label>
                                         <select class="chosen-select" name="approver">
                                             <option value="" data-name="">&nbsp;</option>
                                             @foreach ($approvers as $item)

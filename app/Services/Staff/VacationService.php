@@ -3,14 +3,16 @@
 namespace App\Services\Staff;
 
 use App\Enums\VacationType;
+use App\Models\Calendar;
 use App\Services\BaseService;
 use App\Models\Vacation;
 
 class VacationService extends BaseService
 {
-    public function __construct(Vacation $model)
+    public function __construct(Vacation $model, Calendar $calendarModel)
     {
         $this->model = $model;
+        $this->calendarModel = $calendarModel;
     }
 
     public function createVacation($data = [])
@@ -43,6 +45,11 @@ class VacationService extends BaseService
         }
 
         return $data;
+    }
+
+    public function listCalendar()
+    {
+        return $this->calendarModel->get();
     }
 
     public function infoVacation($id = '')

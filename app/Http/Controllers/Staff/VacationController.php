@@ -19,9 +19,11 @@ class VacationController extends Controller
     public function index()
     {
         $listVacation =  $this->vacationService->listVacation();
+        $listCalendar =  $this->vacationService->listCalendar();
 
         return view('staff.vacation.index', [
             'listVacation' => $listVacation,
+            'listCalendar' => $listCalendar,
         ]);
     }
 
@@ -51,9 +53,12 @@ class VacationController extends Controller
 
         $infoVacation =  $this->vacationService->infoVacation($id);
 
+        $listCalendar =  $this->vacationService->listCalendar();
+
         return view('staff.vacation.index', [
             'listVacation' => $listVacation,
             'infoVacation' => $infoVacation,
+            'listCalendar' => $listCalendar,
         ]);
     }
 

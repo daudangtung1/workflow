@@ -171,7 +171,7 @@
             <div class="row mt-30">
                 <div class="col-md-12">
                     <div class="form-group select-time select-search">
-                        <label for="">所属営ID</label>
+                        <label for="">承認者ID</label>
                         <select class="chosen-select" name="approver">
                             <option value="" data-name="">&nbsp;</option>
                             @foreach ($approvers as $item)
@@ -323,7 +323,7 @@
                     allowClear: true,
                 });
             }
-            $('.select-min .select2-selection__arrow').html('<i class="far fa-clock"></i>');
+            $('.select-min .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
 
             $('.select-search .select2-selection__arrow').html(
                 '<i class="icofont-search-2"></i>');
@@ -336,76 +336,7 @@
             $(this).parent().find('small').html(name);
             $(this).parent().find('.select2-selection__rendered').html(value);
 
-            let startTime = $('select[name=user_register] option:selected').data('start-time');
-            let endTime = $('select[name=user_register] option:selected').data('end-time');
-
-            //set value input
-            $('input[name=start_time_working]').val(startTime);
-            $('input[name=end_time_working]').val(endTime);
-            $('#span_start').html(startTime);
-            $('#span_end').html(endTime);
-
-            $.ajax({
-                url: "{{ route('manager.over-time.edit', 'getTime') }}",
-                type: 'get',
-                dataType: 'json',
-                data: {
-                    user: $(this).val(),
-                    start_time_working: startTime,
-                    end_time_working: endTime,
-                },
-                success: function(data) {
-                    $('select[name=start_time]').empty();
-                    $('select[name=start_time]').append($('<option>').attr('value', '')
-                        .text(''))
-
-                    $.each(data.start, function(key, item) {
-                        let time = item['hour'] + ':' + item['minutes']['00'];
-                        $('select[name=start_time]').append($('<option>').attr('value', time)
-                            .text(time))
-
-                        if (item['minutes']['30']) {
-                            let time = item['hour'] + ':' + item['minutes']['30'];
-                            $('select[name=start_time]').append($('<option>').attr('value',
-                                time).text(time))
-                        }
-                    });
-
-                    $('select[name=start_time]').trigger('change');
-
-                    $(`select[name=start_time]`).select2({
-                        placeholder: '07:30',
-                        allowClear: true,
-                    });
-
-                    //end time
-                    $('select[name=end_time]').empty();
-                    $('select[name=end_time]').append($('<option>').attr('value', '')
-                        .text(''));
-
-                    $.each(data.end, function(key, item) {
-                        if (item['minutes']['00']) {
-                            let time = item['hour'] + ':' + item['minutes']['00'];
-                            $('select[name=end_time]').append($('<option>').attr('value', time)
-                                .text(time))
-                        }
-
-                        let time = item['hour'] + ':' + item['minutes']['30'];
-                        $('select[name=end_time]').append($('<option>').attr('value', time)
-                            .text(time))
-                    });
-
-                    $('select[name=end_time]').trigger('change');
-
-                    $(`select[name=end_time]`).select2({
-                        placeholder: '07:30',
-                        allowClear: true,
-                    });
-                    $('.select-min .select2-selection__arrow').html('<i class="far fa-clock"></i>');
-
-                }
-            });
-
+            
 
             //getData();
         });

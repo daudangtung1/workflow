@@ -2,7 +2,7 @@
 
 return [
     'update' => [
-        'success' => 'を更新しました。',
+        'success' => '更新しました。',
         'error' => 'が更新できません。',
     ],
 

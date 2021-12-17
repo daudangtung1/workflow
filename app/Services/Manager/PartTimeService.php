@@ -64,7 +64,7 @@ class PartTimeService extends BaseService
                 return $query->whereNull('approver');
             })
             // manager status
-            ->when($request->manager_status, function ($query) use ($request) {
+            ->when($request->manager_status && $request->manager_status != 'all', function ($query) use ($request) {
                 if ($request->manager_status ==  ManagerStatus::PROCESSED)
                     return $query->whereNotNull('manager_confirm');
 

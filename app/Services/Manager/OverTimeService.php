@@ -64,7 +64,7 @@ class OverTimeService extends BaseService
                 return $query->whereNull('approver');
             })
             // manager status
-            ->when($request->manager_status, function ($query) use ($request) {
+            ->when($request->manager_status != 'all' && $request->manager_status, function ($query) use ($request) {
                 if ($request->manager_status ==  ManagerStatus::PROCESSED)
                     return $query->whereNotNull('manager_confirm');
 
@@ -76,8 +76,8 @@ class OverTimeService extends BaseService
         $data = [];
 
         foreach ($listOverTime as $item) {
-            $startTimeWorking = $item->user->start_time_working ? $this->formatTime($item->user->start_time_working) : '';
-            $endTimeWorking = $item->user->end_time_working ? $this->formatTime($item->user->end_time_working) : '';
+            $startTimeWorking = $item->start_time_working ? $this->formatTime($item->start_time_working) : '';
+            $endTimeWorking = $item->end_time_working ? $this->formatTime($item->end_time_working) : '';
 
             $beStart = $item->start_time ? (strtotime($startTimeWorking) - strtotime($item->start_time)) / 60 : 0;
             $afEnd = $item->end_time ? (strtotime($item->end_time) - strtotime($endTimeWorking)) / 60 : 0;
@@ -97,6 +97,8 @@ class OverTimeService extends BaseService
                 'time' => $beStart + $afEnd,
                 'manager_confirm' => $item->manager_confirm ? true : false,
                 'branch' => $user->branch ? $user->branch->name : '-',
+                'start_time_working' => $startTimeWorking,
+                'end_time_working' => $endTimeWorking,
             ];
         }
 

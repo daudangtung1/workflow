@@ -168,6 +168,8 @@
                                         <td> <a href="javascript:void(0)" class="btnEdit"
                                                 data-id="{{ $item['id'] }}"
                                                 data-date="{{ $item['date_register'] }}"
+                                                data-start_time_working="{{ $item['start_time_working'] }}"
+                                                data-end_time_working="{{ $item['end_time_working'] }}"
                                                 data-user-id="{{ $item['user_id'] }}">
                                                 <i class="icofont-pencil-alt-1"></i></a></td>
 
@@ -271,12 +273,90 @@
             let date = $(this).data('date');
             let userId = $(this).data('user-id');
             let id = $(this).data('id');
+            let startTime = $(this).data('start_time_working');
+            let endTime = $(this).data('end_time_working');
+            
             $('input[name=date]').val(date);
             $('select[name=user_register]').val(userId).trigger('change');
             $('input[name=id]').val(id);
+
+            setSelectTime(startTime, endTime);
+
             setTimeout(() => {
                 getData(id);
             }, 500);
-        })
+        });
+
+        function setSelectTime (startTime, endTime) {
+            // let startTime = $('select[name=user_register] option:selected').data('start-time');
+            // let endTime = $('select[name=user_register] option:selected').data('end-time');
+
+            //set value input
+            $('input[name=start_time_working]').val(startTime);
+            $('input[name=end_time_working]').val(endTime);
+            $('#span_start').html(startTime);
+            $('#span_end').html(endTime);
+
+            $.ajax({
+                url: "{{ route('manager.over-time.edit', 'getTime') }}",
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    start_time_working: startTime,
+                    end_time_working: endTime,
+                },
+                success: function(data) {
+                    $('select[name=start_time]').empty();
+                    $('select[name=start_time]').append($('<option>').attr('value', '')
+                        .text(''))
+
+                    $.each(data.start, function(key, item) {
+                        let time = item['hour'] + ':' + item['minutes']['00'];
+                        $('select[name=start_time]').append($('<option>').attr('value', time)
+                            .text(time))
+
+                        if (item['minutes']['30']) {
+                            let time = item['hour'] + ':' + item['minutes']['30'];
+                            $('select[name=start_time]').append($('<option>').attr('value',
+                                time).text(time))
+                        }
+                    });
+
+                    $('select[name=start_time]').trigger('change');
+
+                    $(`select[name=start_time]`).select2({
+                        placeholder: '07:30',
+                        allowClear: true,
+                    });
+
+                    //end time
+                    $('select[name=end_time]').empty();
+                    $('select[name=end_time]').append($('<option>').attr('value', '')
+                        .text(''));
+
+                    $.each(data.end, function(key, item) {
+                        if (item['minutes']['00']) {
+                            let time = item['hour'] + ':' + item['minutes']['00'];
+                            $('select[name=end_time]').append($('<option>').attr('value', time)
+                                .text(time))
+                        }
+
+                        let time = item['hour'] + ':' + item['minutes']['30'];
+                        $('select[name=end_time]').append($('<option>').attr('value', time)
+                            .text(time))
+                    });
+
+                    $('select[name=end_time]').trigger('change');
+
+                    $(`select[name=end_time]`).select2({
+                        placeholder: '17:30',
+                        allowClear: true,
+                    });
+                    $('.select-min .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
+
+                }
+            });
+
+        }
     </script>
 @endpush

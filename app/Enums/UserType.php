@@ -13,6 +13,7 @@ use BenSampo\Enum\Enum;
 final class UserType extends Enum implements LocalizedEnum
 {
     const FULLTIME = 1;
+    const PARTTIME = 2;
 
     public static function getDescription($value): string
     {

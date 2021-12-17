@@ -35,7 +35,7 @@ class CalendarController extends Controller
             $to = $arrDate[count($arrDate) - 1]['day'];
 
             Calendar::whereBetween('date', [$from, $to])
-                ->where('user_id', $userId)
+                // ->where('user_id', $userId)
                 ->delete();
 
             foreach ($request->day as $item) {
@@ -122,7 +122,7 @@ class CalendarController extends Controller
         $to = $arrDate[count($arrDate) - 1]['day'];
 
         $listCalendar =  Calendar::whereBetween('date', [$from, $to])
-            ->where('user_id', $userId)
+            // ->where('user_id', $userId)
             ->get();
 
         $arrCalendar = [];

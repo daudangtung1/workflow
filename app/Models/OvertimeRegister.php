@@ -17,6 +17,8 @@ class OvertimeRegister extends BaseModel
         'approval_date',
         'approver',
         'manager_confirm',
+        'start_time_working',
+        'end_time_working',
     ];
 
     public function user()
