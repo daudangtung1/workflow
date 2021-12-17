@@ -37,8 +37,7 @@ class OverTimeService extends BaseService
         $to = $dates['next'] . '-10';
 
         $user = auth()->user();
-        $startTimeWorking = $this->formatTime($user->start_time_working);
-        $endTimeWorking = $this->formatTime($user->end_time_working);
+
 
         $listRegister = $this->model
             ->whereBetween('date', [$from, $to])
@@ -61,6 +60,9 @@ class OverTimeService extends BaseService
         $data = $this->scopeDate($from, $to, $callback);
 
         foreach ($listRegister as $item) {
+            $startTimeWorking = $this->formatTime($item->start_time_working);
+            $endTimeWorking = $this->formatTime($item->end_time_working);
+
             $beStart = $item->start_time ? (strtotime($startTimeWorking) - strtotime($item->start_time)) / 60  : 0;
             $afEnd = $item->end_time ? (strtotime($item->end_time) - strtotime($endTimeWorking)) / 60  : 0;
 
@@ -89,11 +91,15 @@ class OverTimeService extends BaseService
             // $endTimeWorking = $this->formatTime($user->end_time_working);
             // $beStart = $info->start_time ? (strtotime($startTimeWorking) - strtotime($info->start_time)) / 60 / 60 : 0;
             // $afEnd = $info->end_time ? (strtotime($info->end_time) - strtotime($endTimeWorking)) / 60 / 60 : 0;
-
+            $startTimeWorking = $this->formatTime($info->start_time_working);
+            $endTimeWorking = $this->formatTime($info->end_time_working);
+            
             return [
                 'id' => $info->id,
                 'date' => $info->date,
                 'disable' => $info->approver ? true : false,
+                'start_time_working' => $startTimeWorking,
+                'end_time_working' => $endTimeWorking,
             ];
         }
     }
@@ -104,8 +110,8 @@ class OverTimeService extends BaseService
         $info = $this->model->where(['date' => $date, 'user_id' => $user->id])->first();
 
         if ($info) {
-            $startTimeWorking = $this->formatTime($user->start_time_working);
-            $endTimeWorking = $this->formatTime($user->end_time_working);
+            $startTimeWorking = $this->formatTime($info->start_time_working);
+            $endTimeWorking = $this->formatTime($info->end_time_working);
             $beStart = $info->start_time ? (strtotime($startTimeWorking) - strtotime($info->start_time)) / 60  : 0;
             $afEnd = $info->end_time ? (strtotime($info->end_time) - strtotime($endTimeWorking)) / 60  : 0;
 
@@ -116,10 +122,17 @@ class OverTimeService extends BaseService
                 'end_time' => $this->formatTime($info->end_time),
                 'before_start' => $beStart,
                 'after_end' => $afEnd,
+                'start_time_working' => $startTimeWorking,
+                'end_time_working' => $endTimeWorking,
                 'total' => $beStart + $afEnd,
                 'disable' => $info->approver ? true : false,
+                'time' => $this->getTime($startTimeWorking, $endTimeWorking),
             ];
         }
+
+        return [
+            'time' => $this->getTime(),
+        ];
     }
 
     public function getDate($date = '')
@@ -139,4 +152,52 @@ class OverTimeService extends BaseService
             $e->getMessage();
         }
     }
+
+    public function getTime($startTimeWorking = '', $endTimeWorking = '')
+    {
+        $user = auth()->user();
+        $startTimeWorking = $startTimeWorking ? Carbon::parse($startTimeWorking) : Carbon::parse($user->start_time_working) ;
+        $endTimeWorking = $endTimeWorking ? Carbon::parse($endTimeWorking) :  Carbon::parse($user->end_time_working);
+
+        $times = [];
+
+        for ($i = 0; $i < 24; $i++) {
+            $hour = $i < 10 ? '0' . $i : $i;
+
+            if ($startTimeWorking->format('H') >= $hour) {
+                $timeCheck = true;
+
+                if (($startTimeWorking->format('H') == $hour && $startTimeWorking->format('i') == '00')) {
+                    $timeCheck = false;
+                }
+
+                $times['start'][] = [
+                    'hour' => $hour,
+                    'minutes' => [
+                        '00' => '00',
+                        '30' => $timeCheck ? '30' : false,
+                    ],
+                ];
+            }
+
+            if ($endTimeWorking->format('H') <= $hour) {
+                $timeCheck = true;
+
+                if (($endTimeWorking->format('H') == $hour && $endTimeWorking->format('i') == '30')) {
+                    $timeCheck = false;
+                }
+
+                $times['end'][] = [
+                    'hour' => $hour,
+                    'minutes' => [
+                        '00' => $timeCheck ? '00' : false,
+                        '30' => '30',
+                    ],
+                ];
+            }
+        }
+
+        return $times;
+    }
+
 }

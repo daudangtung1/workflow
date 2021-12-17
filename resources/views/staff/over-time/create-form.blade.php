@@ -90,6 +90,8 @@
                             <button class="btn btn-primary w-100 text-center form-button" disabled>申請(登録) </button>
                         </div>
                     </div>
+                    <input type="hidden" name="start_time_working" value="{{ \Carbon\Carbon::parse(auth()->user()->start_time_working)->format('H:i') }}">
+                    <input type="hidden" name="end_time_working" value="{{ \Carbon\Carbon::parse(auth()->user()->end_time_working)->format('H:i') }}">
                 </form>
             </div>
             <div class="w-410">
@@ -99,7 +101,7 @@
                     <div class="col-md-12">
                         <div class="form-group border-bot min-text">
                             <div >
-                                    <span class="min-text">業前作業時間（~{{ \Carbon\Carbon::parse(auth()->user()->start_time_working)->format('H:i') }}）</span>
+                                    <span class="min-text">業前作業時間（~<span id="start_time_working">{{ \Carbon\Carbon::parse(auth()->user()->start_time_working)->format('H:i') }}</span>）</span>
                                     <span class="float-right"><span id="before_start" class="result-text"></span>
                                         分</span>
                             </div>
@@ -111,7 +113,7 @@
                     <div class="col-md-12">
                         <div class="form-group border-bot mt-56 min-text">
                             <div>
-                                    <span class="min-text">業後作業時間（{{ \Carbon\Carbon::parse(auth()->user()->end_time_working)->format('H:i') }}~）</span>
+                                    <span class="min-text">業後作業時間（<span id="end_time_working">{{ \Carbon\Carbon::parse(auth()->user()->end_time_working)->format('H:i') }}</span>~）</span>
                                     <span class="float-right"><span id="after_end" class="result-text"></span>
                                         分</span>
                             </div>
@@ -166,6 +168,9 @@
                 $('.form-button').html('申請(登録)');
             }
 
+            let startTimeWorking = "{{ \Carbon\Carbon::parse(auth()->user()->start_time_working)->format('H:i') }}";
+            let endTimeWorking = "{{ \Carbon\Carbon::parse(auth()->user()->end_time_working)->format('H:i') }}";
+
             $.ajax({
                 url: "{{ route('staff.over-time.edit', 'info-register') }}",
                 type: 'get',
@@ -174,8 +179,24 @@
                     date: date,
                 },
                 success: function(data) {
+                    setSelectTime(data.time);
+                    
+                    if(data.start_time_working)
+                        startTimeWorking = data.start_time_working;
+
+                    if(data.end_time_working)
+                        endTimeWorking = data.end_time_working;
+
+
                     $(`select[name=start_time]`).val(data.start_time).trigger('change');
                     $(`select[name=end_time]`).val(data.end_time).trigger('change');
+                    $('.select-time select').prop('disabled', false);  
+
+                    $(`input[name=start_time_working]`).val(startTimeWorking);
+                    $(`input[name=end_time_working]`).val(endTimeWorking);
+
+                    $('#start_time_working').html(startTimeWorking);
+                    $('#end_time_working').html(endTimeWorking);
                     
                     caculate();
 
@@ -183,7 +204,7 @@
                         $('.form-button').removeClass('btn-primary');
                         $('.form-button').addClass('btn-danger');
                         $('.form-button').html('承認済み');
-                        $('.form-button').prop('disabled', true);  
+                        $('.form-button, .select-time select').prop('disabled', true);  
                     }
                 }
             })
@@ -210,8 +231,8 @@
             let disable = true; 
             let startTime = $(`select[name=start_time]`).val();
             let endTime = $(`select[name=end_time]`).val();
-            let startTimeWorking = "{{ \Carbon\Carbon::parse(auth()->user()->start_time_working)->format('H:i') }}";
-            let endTimeWorking = "{{ \Carbon\Carbon::parse(auth()->user()->end_time_working)->format('H:i') }}";
+            let startTimeWorking = $(`input[name=start_time_working]`).val();
+            let endTimeWorking = $(`input[name=end_time_working]`).val();
 
             let totalTime = 0;
 
@@ -242,6 +263,56 @@
             $('.form-button').prop('disabled', disable);  
             
             $('#result').html(totalTime);
+        }
+
+        function setSelectTime (data) {
+                    $('select[name=start_time]').empty();
+                    $('select[name=start_time]').append($('<option>').attr('value', '')
+                        .text(''))
+
+                    $.each(data.start, function(key, item) {
+                        let time = item['hour'] + ':' + item['minutes']['00'];
+                        $('select[name=start_time]').append($('<option>').attr('value', time)
+                            .text(time))
+
+                        if (item['minutes']['30']) {
+                            let time = item['hour'] + ':' + item['minutes']['30'];
+                            $('select[name=start_time]').append($('<option>').attr('value',
+                                time).text(time))
+                        }
+                    });
+
+                    $('select[name=start_time]').trigger('change');
+
+                    $(`select[name=start_time]`).select2({
+                        placeholder: '07:00',
+                        allowClear: true,
+                    });
+
+                    //end time
+                    $('select[name=end_time]').empty();
+                    $('select[name=end_time]').append($('<option>').attr('value', '')
+                        .text(''));
+
+                    $.each(data.end, function(key, item) {
+                        if (item['minutes']['00']) {
+                            let time = item['hour'] + ':' + item['minutes']['00'];
+                            $('select[name=end_time]').append($('<option>').attr('value', time)
+                                .text(time))
+                        }
+
+                        let time = item['hour'] + ':' + item['minutes']['30'];
+                        $('select[name=end_time]').append($('<option>').attr('value', time)
+                            .text(time))
+                    });
+
+                    $('select[name=end_time]').trigger('change');
+
+                    $(`select[name=end_time]`).select2({
+                        placeholder: '17:30',
+                        allowClear: true,
+                    });
+                    $('.select-time .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
         }
 
     </script>

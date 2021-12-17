@@ -166,7 +166,7 @@
                     <div class="row mt-30">
                         <div class="col-md-12">
                             <div class="form-group select-time select-100">
-                                <label for="">所属営ID</label>
+                                <label for="">承認者ID</label>
                                 <select class="chosen-select" name="branch_id">
                                     <option value="" data-name="">&nbsp;</option>
                                     @foreach ($branchs as $item)
@@ -201,9 +201,10 @@
                             <div class="form-group select-time select-100">
                                 <label for="">総務確認</label>
                                 <select class="chosen-select" name="manager_status">
-                                    <option value="" data-name="">&nbsp;</option>
+                                    <option value="all" data-name="">&nbsp;</option>
                                     @foreach (\App\Enums\ManagerStatus::asArray() as $item)
                                         <option value="{{ $item }}"
+                                            {{ !request()->manager_status && $item == \App\Enums\ManagerStatus::PENDING  ? 'selected' : '' }}
                                             {{ request()->manager_status == $item ? 'selected' : '' }}>
                                             {{ \App\Enums\ManagerStatus::getDescription($item) }}
                                         </option>

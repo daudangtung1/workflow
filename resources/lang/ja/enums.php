@@ -11,6 +11,9 @@ return [
         VacationType::FULL_DAY => '有給1日',
         VacationType::MORNING => '有給0.5日午前',
         VacationType::AFTERNOON => '有給0.5日午後',
+        VacationType::FULL_DAY_SPECIAL => '特別休暇1日',
+        VacationType::MORNING_SPECIAL => '特別休暇0.5日午前',
+        VacationType::AFTERNOON_SPECIAL => '特別休暇0.5日午後',
     ],
     AbsenceOption::class => [
         AbsenceOption::FIRST => '１時間',
@@ -18,7 +21,8 @@ return [
         AbsenceOption::THIRD => '3時間',
     ],
     UserType::class => [
-        UserType::FULLTIME => '正社員'
+        UserType::FULLTIME => '正社員',
+        UserType::PARTTIME => 'パート',
     ],
     ApproverStatus::class => [
         ApproverStatus::APPROVED => '済',
