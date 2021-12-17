@@ -21,7 +21,16 @@
             padding: 0 !important;
         }
 
-
+        .lManager {
+            line-height: 46px;
+            margin-left: 5px;
+        }
+        input[name="manager"] {
+            width: 22px;
+            height: 22px !important;
+            position: relative;
+            top: 5px;
+        }
     </style>
 @endpush
 
@@ -258,7 +267,11 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="row row-1">
+                    <div class="col-md-12 col1-12 mt-30">
+                        <input type="checkbox" name="manager" id="manager" {{ $infoUser->role == \App\Enums\UserRole::MANAGER ? 'checked' : '' }}> <label class="lManager" for="manager">総務権限</label>
+                    </div>
+                </div>
                 {{-- button --}}
                 <div class="row row-1">
                     <div class="col-md-12 col1-12 text-center">

@@ -49,12 +49,12 @@ class LoginController extends Controller
             if (Auth::user()->join_date <= Carbon::now()->format('Y-m-d') && !Auth::user()->off_date)
                 return redirect()->route($arrRole[$role] . '.home');
 
-            Auth::logout();
-
+            
             if(Auth::user()->join_date > Carbon::now()->format('Y-m-d')) return redirect()->back()->with('error', 'アカウントまたはパスワードが無効です。');
             
             if(Auth::user()->off_date) return redirect()->back()->with('error', '退職日以降はログインできません。');
-            
+
+            Auth::logout();
         }
 
         return redirect()->back()->with('error', 'アカウントまたはパスワードが無効です。');

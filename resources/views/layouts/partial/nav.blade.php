@@ -16,10 +16,9 @@
     </ol>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto test">
-        <li class="nav-item d-flex avatar">
-            <a class="nav-link p-0 mr-25" href="{{route('login')}}" role="button">
-                <img src="https://adminlte.io/themes/v3/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle"> 
-                <span class=" ml-2">{{ (auth()->user()) ? auth()->user()->fullName : '' }}</span>
+        <li class="nav-item d-flex">
+            <a class="nav-link  pl-0 ml-25 mr-25 font-weight-bold"  role="button">
+                <span >{{ (auth()->user()) ? auth()->user()->fullName : '' }}</span>
             </a>
             <div class="border-li"></div>
         </li>
