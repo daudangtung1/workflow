@@ -25,6 +25,7 @@ class VacationController extends Controller
             'branchs' => $this->vacationService->listBranch(),
             'active' => 'index',
             'approvers' => $this->vacationService->listUser(UserRole::APPROVER),
+            'listCalendar' => $this->vacationService->listCalendar(),
         ]);
     }
 
@@ -35,7 +36,7 @@ class VacationController extends Controller
                 'user_id' => $request->user_register,
                 'start_date' => $request->start_date_register,
                 'end_date' => $request->end_date_register,
-                'type' => $request->type,
+                'type' => $request->type  == 'vacation' ? $request->option_vacation : $request->type,
                 'reason' => $request->reason,
                 'approver' => $request->approver,
                 'approval_date' => $request->approval_date ? Carbon::parse($request->approval_date)->format('Y-m-d H:i:s') : null,
@@ -65,6 +66,7 @@ class VacationController extends Controller
             'active' => 'show',
             'dataVacation' => $dataVacation,
             'approvers' => $this->vacationService->listUser(UserRole::APPROVER),
+            'listCalendar' => $this->vacationService->listCalendar(),
         ]);
     }
 

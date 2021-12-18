@@ -6,6 +6,7 @@ use App\Enums\ApproverStatus;
 use App\Enums\ManagerStatus;
 use App\Enums\VacationType;
 use App\Models\Branch;
+use App\Models\Calendar;
 use App\Models\User;
 use App\Models\Vacation;
 use App\Services\BaseService;
@@ -15,12 +16,14 @@ class VacationService extends BaseService
 {
     protected $branchModel;
     protected $userModel;
+    protected $calendarModel;
 
-    public function __construct(Vacation $vacationModel, Branch $branchModel, User $userModel)
+    public function __construct(Vacation $vacationModel, Branch $branchModel, User $userModel, Calendar $calendarModel)
     {
         $this->branchModel = $branchModel;
         $this->userModel = $userModel;
         $this->model = $vacationModel;
+        $this->calendarModel = $calendarModel;
     }
 
     public function listBranch()
@@ -121,5 +124,10 @@ class VacationService extends BaseService
     public function deleteVacation($id)
     {
         return $this->model->where('id', $id)->delete();
+    }
+
+    public function listCalendar()
+    {
+        return $this->calendarModel->get();
     }
 }

@@ -44,6 +44,21 @@
             margin-right: 280px;
         }
 
+        .pb-20 {
+            padding-bottom: 20px;
+        }
+
+        .mt-20 {
+            padding-top: 20px;
+            font-size: 14px;
+            color: #000000;
+            font-weight: 400;
+        }
+        .datepicker-days td.disabled {
+            background: #FFD1D1 !important;
+            border-radius: 50%;
+        }
+
     </style>
 @endpush
 <div class="row ">
@@ -74,7 +89,7 @@
                     <div class="col-md-12">
                         <label for="">日付</label>
                         <div class="form-group ">
-                            <div class=" input-group date input-date d-inlin-flex col-mobile-date" id="start_date_register"
+                            <div class=" input-group date input-date d-inlin-flex col-mobile-date input-date-disable" id="start_date_register"
                                 data-target-input="nearest">
                                 <input type="text" class="form-control datetimepicker-input" data-target="#start_date_register"
                                     name="start_date_register" placeholder="年-月-日" required data-toggle="datetimepicker"
@@ -84,7 +99,7 @@
                                 </div>
                             </div>
                             <div class="text-center span-date ">~</div>
-                            <div class="input-group date input-date d-inlin-flex col-mobile-date" id="end_date_register"
+                            <div class="input-group date input-date d-inlin-flex col-mobile-date input-date-disable" id="end_date_register"
                                 data-target-input="nearest">
                                 <input type="text" class="form-control datetimepicker-input" data-target="#end_date_register"
                                     name="end_date_register" placeholder="年-月-日" required data-toggle="datetimepicker"
@@ -101,35 +116,65 @@
                     <div class="col-md-12 mt-30">
                         <div class="row ">
                             <div class="col-md-12">
-                                <div class="w-410">
-                                    <label class="d-block" for="">種別</label>
-                                    <div class="col-radio d-radio col-mobile">
-                                        <input type="radio" id="fullday" name="type"
-                                            {{ !isset($infoVacation) ? 'checked' : '' }}
-                                            {{ isset($infoVacation) && $infoVacation['type'] == \App\Enums\VacationType::FULL_DAY ? 'checked' : '' }}
-                                            value="{{ \App\Enums\VacationType::FULL_DAY }}">
-                                        <label
-                                            for="fullday">{{ \App\Enums\VacationType::getDescription(\App\Enums\VacationType::FULL_DAY) }}</label>
-                                    </div>
-                                    <div class="col-radio   d-radio col-mobile">
-                                        <input type="radio" id="morning" name="type"
-                                            {{ isset($infoVacation) && $infoVacation['type'] == \App\Enums\VacationType::MORNING ? 'checked' : '' }}
-                                            value="{{ \App\Enums\VacationType::MORNING }}">
-                                        <label for="morning">
-                                            {{ \App\Enums\VacationType::getDescription(\App\Enums\VacationType::MORNING) }}
-                                        </label>
-                                    </div>
-                                    <div class="col-radio d-radio col-mobile">
-                                        <input type="radio" id="afternoon" name="type"
-                                            {{ isset($infoVacation) && $infoVacation['type'] == \App\Enums\VacationType::AFTERNOON ? 'checked' : '' }}
-                                            value="{{ \App\Enums\VacationType::AFTERNOON }}">
-                                        <label for="afternoon">
-                                            {{ \App\Enums\VacationType::getDescription(\App\Enums\VacationType::AFTERNOON) }}
-                                    </div>
+                                <div class="w-auto1">
+                                    <label class="d-block" for="">休暇種別</label>
+                                    <table>
+                                        @php($i = 0)
+                                        @foreach (collect(\App\Enums\VacationType::asArray())->chunk(3)->all() as $chunk)
+                                            @php($i++)
+        
+                                            @if ($i <= 2)
+                                                </tr>
+                                                @foreach ($chunk as $item)
+                                                    <td class="pr-4 pb-20">
+                                                        <div class="col-radio d-radio col-mobile">
+                                                            <input type="radio" id="day{{ $item }}" name="type" required
+                                                                value="{{ $item }}"
+                                                                {{ isset($infoVacation) && $infoVacation['type'] == $item ? 'checked' : '' }}>
+                                                            <label for="day{{ $item }}">
+                                                                {{ \App\Enums\VacationType::getDescription($item) }}
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                @endforeach
+                                                <tr>
+                                                @else
+                                                <tr>
+                                                    <td class="pr-4 ">
+                                                        <div class="col-radio d-radio col-mobile">
+                                                            <input type="radio" id="vacation" name="type" value="vacation"
+                                                                required
+                                                                {{ isset($infoVacation) && $infoVacation['type'] > 6 ? 'checked' : '' }}>
+                                                            <label for="vacation">
+                                                                欠勤
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="pr-4 ">
+                                                        <div class="form-group select-time">
+                                                            <select class="chosen-select" name="option_vacation">
+                                                                @foreach ($chunk as $item)
+                                                                    <option value="{{ $item }}"
+                                                                        {{ isset($infoVacation) && $infoVacation['type'] == $item ? 'selected' : '' }}>
+                                                                        <span style="color: #6A6A6A !important;">欠勤</span> {{ \App\Enums\VacationType::getDescription($item) }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    <td class="pr-4"></td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                        <tr>
+                                            <td colspan="3" class="mt-20">※欠勤は有料の無い社員のみ使用可能</td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+                   
                     <div class="col-md-12 mt-30">
                         <label class="d-block" for="">理由</label>
                         <textarea class="form-control w-410" name="reason" id="reason" rows="5"
@@ -201,6 +246,17 @@
 
 @push('scripts')
     <script>
+        $('.input-date-disable').datetimepicker({
+            format: "YYYY-MM-DD",
+            locale: "ja",
+            disabledDates: [
+                @foreach ($listCalendar as $item)
+                    moment("{{ $item->date }}"),
+                @endforeach
+            ],
+            daysOfWeekDisabled: [0, 6],
+        });
+
         $('.form-button-edit').click(function() {
             let formData = new FormData($('.formSm')[0]);
             $('.formSm').attr({

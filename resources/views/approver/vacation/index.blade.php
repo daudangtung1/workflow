@@ -9,7 +9,6 @@
 
 @push('styles')
     <style>
-
         input[type="checkbox"] {
             width: 22px;
             height: 22px;
@@ -59,14 +58,14 @@
                 margin: 30px 0 50px 0px !important;
                 width: 100% !important;
             }
-            
+
         }
+
         @media only screen and (max-width: 600px) {
             .button-right {
                 width: 100% !important;
             }
         }
-
 
     </style>
 @endpush
@@ -92,6 +91,7 @@
                                     <th class="w-150">日付(開始)</th>
                                     <th class="w-160">日付(終了)</th>
                                     <th class="w-160">種別</th>
+                                    <th class="w-160">時問</th>
                                     <th class="w-795">理由</th>
                                     <th class="w-140">申請者(社員ID)</th>
                                     <th class="w-150">承認</th>
@@ -102,14 +102,15 @@
                                     <tr>
                                         <td>{{ $item['start_date'] }}</td>
                                         <td>{{ $item['end_date'] }}</td>
-                                        <td>{{ $item['type'] }}</td>
+                                        <td>{{ $item['type_id'] > 6 ? '欠勤' : $item['type'] }}</td>
+                                        <td>{{ $item['type_id'] > 6 ? $item['type'] : '-' }}</td>
                                         <td>{{ $item['reason'] }}</td>
                                         <td>{{ $item['user'] }}</td>
                                         <td><label class="custom-check">
-                                            <input type="checkbox" name="id[]" class="check-one"
-                                                value="{{ $item['id'] }}">
-                                            <span class="checkmark"></span>
-                                        </label></td>
+                                                <input type="checkbox" name="id[]" class="check-one"
+                                                    value="{{ $item['id'] }}">
+                                                <span class="checkmark"></span>
+                                            </label></td>
                                     </tr>
                                 @empty
                                     <tr>
