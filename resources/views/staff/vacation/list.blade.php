@@ -15,6 +15,7 @@
                         <th class="w-140">日付(開始)</th>
                         <th class="w-140">日付(終了)</th>
                         <th class="w-140">種別</th>
+                        <th class="w-140">時問</th>
                         <th class="w-content">理由</th>
                         <th class="w-140">承認日時</th>
                         <th class="w-140">承認者</th>
@@ -26,7 +27,8 @@
                         <tr>
                             <td>{{ $item['start_date'] }}</td>
                             <td>{{ $item['end_date'] }}</td>
-                            <td>{{ $item['type'] }}</td>
+                            <td>{{ $item['type_id'] > 6 ? '欠勤' : $item['type'] }}</td>
+                            <td>{{ $item['type_id'] > 6 ? $item['type'] : '-' }}</td>
                             <td>{{ $item['reason'] }}</td>
                             <td>{{ $item['approval_date'] }}</td>
                             <td>{{ $item['approver'] }}</td>

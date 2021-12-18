@@ -38,6 +38,7 @@ class VacationService extends BaseService
                 'end_date' => $item->end_date ? $item->end_date . '(' . $this->getDayOfWeek($item->end_date) . ')' : '',
                 'reason' => $item->reason,
                 'type' => VacationType::getDescription($item->type),
+                'type_id' => $item->type,
                 'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
                 'approver' => $item->userApprover ? $item->userApprover->fullName : '',
                 'disable' => $item->approver ? true : false,
