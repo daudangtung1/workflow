@@ -15,7 +15,9 @@ final class VacationType extends Enum implements LocalizedEnum
     const MORNING_SPECIAL = 4;
     const AFTERNOON_SPECIAL = 5;
 
-
+    const FIRST = 7;
+    const SECOND = 8;
+    const THIRD = 9;
 
     public static function getDescription($value): string
     {

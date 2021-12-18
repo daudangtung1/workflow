@@ -69,7 +69,7 @@
             </p>
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" style="display: none">
         <a href="{{ route('manager.absence.index') }}" class="nav-link @yield('active_absence')">
             <p>
                 欠勤届

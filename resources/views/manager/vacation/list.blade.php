@@ -140,6 +140,7 @@
                                     <th class="w-150">申請者</th>
                                     <th class="w-150">所属事業所</th>
                                     <th class="w-160">種別</th>
+                                    <th class="w-160">時問</th>
                                     <th style="width: 410px !important">理由</th>
                                     <th class="w-160">承認日時</th>
                                     <th class="w-160">承認者</th>
@@ -154,7 +155,8 @@
                                         <td>{{ $item['end_date'] }}</td>
                                         <td>{{ $item['user'] }}</td>
                                         <td>{{ $item['branch'] }}</td>
-                                        <td>{{ $item['type_name'] }}</td>
+                                        <td>{{ $item['type'] > 6 ? '欠勤' : $item['type_name'] }}</td>
+                                        <td>{{ $item['type'] > 6 ? $item['type_name'] : '-' }}</td>
                                         <td>{{ $item['reason'] }}</td>
                                         <td>{{ $item['approver'] }}</td>
                                         <td>{{ $item['approval_date'] }}</td>
@@ -288,8 +290,12 @@
             let id = $(this).data('id');
             let type = $(this).data('type');
             let reason = $(this).data('reason');
-
-            $(`input.radio[value=${type}]`).prop('checked', true);
+            if(type <= 6) {
+                $(`#day${type}`).prop('checked', true);
+            } else {
+                $(`#vacation`).prop('checked', true);
+                $(`select[name=option_vacation]`).val(type).trigger('change');
+            }
             $('input[name=start_date_register]').val(startDate);
             $('input[name=end_date_register]').val(endDate);
             $('select[name=approver]').val(approver).trigger('change');

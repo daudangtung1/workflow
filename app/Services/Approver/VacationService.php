@@ -25,6 +25,7 @@ class VacationService extends BaseService
                 'end_date' => $item->end_date ? $item->end_date . '(' . $this->getDayOfWeek($item->end_date) . ')' : '',
                 'reason' => $item->reason,
                 'type' => VacationType::getDescription($item->type),
+                'type_id' => $item->type,
                 'user' => $item->user->fullName. ' (' . $item->user->user_id . ')',
             ];
         }

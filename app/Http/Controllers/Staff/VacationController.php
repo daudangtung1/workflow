@@ -31,13 +31,13 @@ class VacationController extends Controller
     {
         try {
             $user = auth()->user();
-
+           
             $data = [
                 'user_id' => $user->id,
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
                 'reason' => $request->reason,
-                'type' => $request->type,
+                'type' => $request->type  == 'vacation' ? $request->option_vacation : $request->type,
             ];
             $this->vacationService->createVacation($data);
 
@@ -68,7 +68,7 @@ class VacationController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'reason' => $request->reason,
-            'type' => $request->type,
+            'type' => $request->type  == 'vacation' ? $request->option_vacation : $request->type,
         ];
         $this->vacationService->updateVacation($data, $id);
 
