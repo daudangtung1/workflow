@@ -11,7 +11,6 @@ $(function() {
         format: "YYYY-MM-DD",
         locale: "ja",
     });
-
 });
 
 //loading
@@ -115,8 +114,7 @@ $(window).on("orientationchange", function() {
         } else {
             $("body").addClass("sidebar-collapse");
         }
-    }, 500)
-
+    }, 500);
 });
 $(window).resize();
 $(document).on("click", "#sidebar-overlay", function() {
@@ -125,3 +123,14 @@ $(document).on("click", "#sidebar-overlay", function() {
         $("body").addClass("sidebar-collapse sidebar-closed");
     }
 });
+
+function makeDangerAlert(message, id) {
+    $(`#${id}`).html("");
+    $(`#${id}`)
+        .html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>${message}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>`);
+}

@@ -7,7 +7,7 @@
 
         <div class="tab-content1 d-flex2">
             <div class="w-410 left-content">
-                <form action="{{ route('staff.over-time.store') }}" method="POST">
+                <form action="{{ route('approver.staff-over-time.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="notiDanger">
@@ -92,7 +92,7 @@
                     <input type="hidden" name="id" value="{{ (isset($infoRegister) && !$infoRegister['disable']) ? $infoRegister['id'] : '' }}">
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-primary w-100 text-center form-button">申請(登録) </button>
+                            <button class="btn btn-primary w-100 text-center form-button" disabled>申請(登録) </button>
                         </div>
                     </div>
                     <input type="hidden" name="start_time_working" value="{{ \Carbon\Carbon::parse(auth()->user()->start_time_working)->format('H:i') }}">
@@ -177,7 +177,7 @@
             let endTimeWorking = "{{ \Carbon\Carbon::parse(auth()->user()->end_time_working)->format('H:i') }}";
 
             $.ajax({
-                url: "{{ route('staff.over-time.edit', 'info-register') }}",
+                url: "{{ route('approver.staff-over-time.edit', 'info-register') }}",
                 type: 'get',
                 dataType: 'json',
                 data: {

@@ -4,6 +4,9 @@ use App\Http\Controllers\Approver\AbsenceController;
 use App\Http\Controllers\Approver\OverTimeController;
 use App\Http\Controllers\Approver\PartTimeController;
 use App\Http\Controllers\Approver\VacationController;
+use App\Http\Controllers\Manager\StaffOverTimeController;
+use App\Http\Controllers\Manager\StaffPartTimeController;
+use App\Http\Controllers\Manager\StaffVacationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,4 +23,8 @@ Route::group(['middleware' => 'auth.approver'], function () {
     Route::post('/vacation', [VacationController::class, 'store'])->name('vacation.store');
     Route::get('/absence', [AbsenceController::class, 'index'])->name('absence.index');
     Route::post('/absence', [AbsenceController::class, 'store'])->name('absence.store');
+
+    Route::resource('staff-over-time', StaffOverTimeController::class);
+    Route::resource('staff-part-time', StaffPartTimeController::class);
+    Route::resource('staff-vacation', StaffVacationController::class);
 });

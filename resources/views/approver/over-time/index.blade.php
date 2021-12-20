@@ -1,6 +1,6 @@
 @extends('approver.app')
 
-@section('active_overtime', 'active')
+@section('active_overtime1', 'active')
 @section('title', '時間外･交通費申請')
 
 @section('content_header')

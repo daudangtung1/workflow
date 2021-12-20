@@ -16,14 +16,16 @@
             <a class="nav-link {{ $active == 'index' ? 'active' : '' }}" id="home-tab" data-toggle="tab" href="#home"
                 role="tab" aria-controls="home" aria-selected="true"><b>検索</b></a>
         </li>
-        <li class="nav-item d-{{ $active == 'show' ? '' : 'none' }}" role="presentation">
+        @if ($active == 'show')
+        <li class="nav-item" role="presentation">
             <a class="nav-link  {{ $active == 'show' ? 'active' : '' }}" id="list-tab" data-toggle="tab" href="#list"
                 role="tab" aria-controls="list" aria-selected="true"><b>検索結果</b></a>
         </li>
-        <li class="nav-item " role="presentation">
+        <li class="nav-item d-none" role="presentation">
             <a class="nav-link" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit"
                 aria-selected="true"><b>修正</b></a>
         </li>
+        @endif
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade  {{ $active == 'index' ? 'active show' : '' }}" id="home" role="tabpanel"

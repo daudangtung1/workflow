@@ -90,7 +90,6 @@
                         <label for="">申請者ID</label>
 
                         <select class="chosen-select" name="user_register">
-                            <option value="" data-name="">&nbsp;</option>
                             @foreach ($staffs as $item)
                                 <option value="{{ $item->id }}" data-name="{{ $item->fullName }}"
                                     data-start-time="{{ \Carbon\Carbon::parse($item->start_time_working)->format('H:i') }}"
@@ -281,24 +280,34 @@
 
 @push('scripts')
     <script>
-        $('.form-button-edit').click(function() {
+        $('.form-button-edit').click(function(e) {
             let formData = new FormData($('.formSm')[0]);
-            $('.formSm').attr({
-                method: 'POST',
-                action: '{{ route('manager.over-time.store') }}'
-            });
-            // $('.formSm').append('<input type="hidden" name="_method" value="PUT">');
-            $('.formSm').submit();
+
+            if (confirm('すでに”登録されたデータがあります。上書き更新してもよろしいですか？')) {
+                $('.formSm').attr({
+                    method: 'POST',
+                    action: '{{ route('manager.over-time.store') }}'
+                });
+                // $('.formSm').append('<input type="hidden" name="_method" value="PUT">');
+                $('.formSm').submit();
+            } else {
+                e.preventDefault();
+            }
         });
 
-        $('.form-button-delete').click(function() {
+        $('.form-button-delete').click(function(e) {
             let formData = new FormData($('.formSm')[0]);
-            $('.formSm').attr({
-                method: 'POST',
-                action: '{{ route('manager.over-time.destroy', 'delete') }}'
-            });
-            $('.formSm').append('<input type="hidden" name="_method" value="DELETE">');
-            $('.formSm').submit();
+
+            if (confirm('対象日付の申請データを削除します。よろしいですか？')) {
+                $('.formSm').attr({
+                    method: 'POST',
+                    action: '{{ route('manager.over-time.destroy', 'delete') }}'
+                });
+                $('.formSm').append('<input type="hidden" name="_method" value="DELETE">');
+                $('.formSm').submit();
+            } else {
+                e.preventDefault();
+            }
         })
 
         var arrName = {

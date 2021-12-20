@@ -8,7 +8,7 @@
 
         <div class="tab-content1 d-flex2">
             <div class="w-410 left-content">
-                <form action="{{ route('staff.part-time.store') }}" method="POST">
+                <form action="{{ route('approver.staff-part-time.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="notiDanger">
@@ -242,7 +242,7 @@
 
             // resetForm();
             $.ajax({
-                url: "{{ route('staff.part-time.edit', 'info-register') }}",
+                url: "{{ route('approver.staff-part-time.edit', 'info-register') }}",
                 type: 'get',
                 dataType: 'json',
                 data: {
@@ -309,7 +309,7 @@
 
             if (total > 0 && date >= dateNow && $('.form-button').html() != '承認済み' && checkTimeStart())
                 disable = false;
-
+            
             $('#notiDanger').html('');
             if(disable) makeDangerAlert('期間が無効になっている', 'notiDanger');
 

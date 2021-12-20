@@ -269,6 +269,7 @@
 
         $('.btnEdit').click(function() {
             $('#edit-tab').click();
+            $('#edit-tab').parent().removeClass('d-none');
 
             let date = $(this).data('date');
             let userId = $(this).data('user-id');

@@ -296,7 +296,7 @@
 
         $('.btnEdit').click(function() {
             $('.form-button').prop('disabled', false);
-
+            $('#edit-tab').parent().removeClass('d-none');
             $('#edit-tab').click();
 
             let date = $(this).data('date');

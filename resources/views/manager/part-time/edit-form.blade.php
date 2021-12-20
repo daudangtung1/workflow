@@ -99,15 +99,17 @@
         <div class="col-md-12">
             <div class="tab-content1 pb-71 d-flex2">
                 <div class="w-410 left-content">
-                    <form action="{{ route('staff.part-time.store') }}" method="POST">
-                    @csrf
+                    <div class="row">
+                        <div class="col-md-12" id="notiDanger">
+
+                        </div>
+                    </div>
                     <div class="row ">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="select-time select-search select-100">
                                     <label for="">申請者ID</label>
                                     <select class="chosen-select" name="user_register">
-                                        <option value="" data-name="">&nbsp;</option>
                                         @foreach ($staffs as $item)
                                             <option value="{{ $item->id }}" data-name="{{ $item->fullName }}">
                                                 {{ $item->id . ' - ' . $item->fullName }}
@@ -288,7 +290,6 @@
                             </div>
                         </div>
                         <input type="hidden" name="id" value="{{ (isset($infoRegister) && !$infoRegister['disable']) ? $infoRegister['id'] : '' }}">
-                    </form>
                 </div>
                 <div class="w-410">
                     <div class="row" id="div-null" style="height: 257px">
@@ -348,24 +349,34 @@
 @push('scripts')
     <script>
         
-        $('.form-button-edit').click(function() {
+        $('.form-button-edit').click(function(e) {
             let formData = new FormData($('.formSm')[0]);
-            $('.formSm').attr({
-                method: 'POST',
-                action: '{{ route('manager.part_time.update_info', 'update') }}'
-            });
-            $('.formSm').append('<input type="hidden" name="_method" value="PUT">');
-            $('.formSm').submit();
+
+            if (confirm('すでに”登録されたデータがあります。上書き更新してもよろしいですか？')) {
+                $('.formSm').attr({
+                    method: 'POST',
+                    action: '{{ route('manager.part_time.update_info', 'update') }}'
+                });
+                $('.formSm').append('<input type="hidden" name="_method" value="PUT">');
+                $('.formSm').submit();
+            } else {
+                e.preventDefault();
+            }
         });
 
-        $('.form-button-delete').click(function() {
+        $('.form-button-delete').click(function(e) {
             let formData = new FormData($('.formSm')[0]);
-            $('.formSm').attr({
-                method: 'POST',
-                action: '{{ route('manager.part_time.destroy', 'delete') }}'
-            });
-            $('.formSm').append('<input type="hidden" name="_method" value="DELETE">');
-            $('.formSm').submit();
+
+            if (confirm('対象日付の申請データを削除します。よろしいですか？')) {
+                $('.formSm').attr({
+                    method: 'POST',
+                    action: '{{ route('manager.part_time.destroy', 'delete') }}'
+                });
+                $('.formSm').append('<input type="hidden" name="_method" value="DELETE">');
+                $('.formSm').submit();
+            } else {
+                e.preventDefault();
+            }
         })
 
         $('select[name=user_register]').change(function() {
@@ -470,14 +481,50 @@
             });
             let id = $('input[name=id]').val();
 
-            if (total > 0 && id)
+            if (total > 0 && id && checkTimeStart())
                 disable = false;
+
+            $('#notiDanger').html('');
+            if(disable) makeDangerAlert('期間が無効になっている', 'notiDanger');
 
             $('.form-button').prop('disabled', disable);  
 
             $('#result').html(total);
         }
 
+        function checkTimeStart() {
+            var start1 = $(`select[name=start_time_first]`).val();
+            var end1 = $(`select[name=end_time_first]`).val();
+            var start2 = $(`select[name=start_time_second]`).val();
+            var end2 = $(`select[name=end_time_second]`).val();
+            var start3 = $(`select[name=start_time_third]`).val();
+            var end3 = $(`select[name=end_time_third]`).val();
+
+            let check = true;
+
+            if(start1 > end1 || start2 > end2 || start3 > end3) {
+                console.log(1);
+                check = false;
+            }
+
+            if(start2 < end1 && end1 != '' && start2 != '') {
+                console.log(2);
+                check = false;
+
+            }
+
+            if(start3 < end2 && end2 != '' && start3 != '') {
+                check = false;
+                console.log(end2, start3);
+            }
+
+            if(start3 < end1 && end1 != '' && start3 != '') {
+                check = false;
+                console.log(end2, start3);
+            }
+
+           return check;
+        }
 
     </script>
 @endpush
