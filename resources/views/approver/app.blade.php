@@ -5,14 +5,21 @@
 
 @section('content_aside')
     <li class="nav-item role-name ">
-        <a href="{{ route('login') }}" class="nav-link active mb-0">
+        <a href="#" class="nav-link active mb-0">
             <i class="icofont-paper"></i>
             <p class="ml-1">
                 申請
             </p>
         </a>
     </li>
-    
+    <li class="nav-item role-name sub-title">
+        <a href="#" class="nav-link active">
+            <i class="icofont-law-document"></i>
+            <p class="ml-1">
+                承認作業
+            </p>
+        </a>
+    </li>
     <li class="nav-item">
         <a href="{{ route('approver.staff-over-time.index') }}" class="nav-link @yield('active_overtime')">
             <p>
@@ -21,6 +28,7 @@
             </p>
         </a>
     </li>
+    
     <li class="nav-item">
         <a href="{{ route('approver.staff-part-time.index') }}" class="nav-link @yield('active_parttime')">
             <p>
@@ -37,14 +45,7 @@
             </p>
         </a>
     </li>
-    <li class="nav-item role-name sub-title">
-        <a href="{{ route('login') }}" class="nav-link active">
-            <i class="icofont-law-document"></i>
-            <p class="ml-1">
-                承認作業
-            </p>
-        </a>
-    </li>
+   
     <li class="nav-item">
         <a href="{{ route('approver.over_time.index') }}" class="nav-link @yield('active_overtime1') ">
             <p>
