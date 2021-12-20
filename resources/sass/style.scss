@@ -351,6 +351,15 @@ aside {
     div.dataTables_wrapper div.dataTables_filter input {
         width: auto !important;
     }
+    .sidebar-mini.sidebar-collapse .main-sidebar:hover,
+    .sidebar-mini.sidebar-collapse .main-sidebar.sidebar-focused {
+        width: 250px;
+    }
+    .sidebar-mini.sidebar-collapse .main-sidebar:hover .nav-link p,
+    .sidebar-mini.sidebar-collapse .main-sidebar:focus {
+        opacity: 1;
+        visibility: unset;
+    }
 }
 
 @media screen and (max-width: 600px) {
