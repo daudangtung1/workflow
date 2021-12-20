@@ -95,8 +95,7 @@
 @endpush
 <form class="formSm" method="POST">
     @csrf
-    <div class="row ">
-        <div class="col-md-12">
+    
             <div class="tab-content1 pb-71 d-flex2">
                 <div class="w-410 left-content">
                     <div class="row">
@@ -339,9 +338,7 @@
                 </div>
                 <div style="clear: both"></div>
             </div>
-        </div>
-        
-    </div>
+       
     <input type="hidden" name="id">
 
 </form>

@@ -122,8 +122,7 @@
     <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
 @endpush
-<div class="row">
-    <div class="col-md-12">
+
         <form action="{{ route('manager.part_time.update', 'all') }}" method="POST">
             @csrf
             @method('PUT')
@@ -222,9 +221,7 @@
                 </div>
             </div>
         </form>
-    </div>
-</div>
-
+  
 
 {{-- loading --}}
 

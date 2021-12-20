@@ -92,9 +92,6 @@
                 width: 100% !important;
             }
 
-            #myTab li {
-                width: 120px !important;
-            }
         }
 
 

@@ -55,9 +55,6 @@ function startTime() {
     sec = checkRealTime(sec);
     document.getElementById("clockReal").innerHTML = hr + " : " + min;
     // document.getElementById("clockReal").innerHTML = hr + " : " + min + " : " + sec;
-    var time = setTimeout(function() {
-        startTime();
-    }, 30000);
 
     var months = [
         "01",

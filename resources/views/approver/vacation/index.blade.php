@@ -65,6 +65,9 @@
             .button-right {
                 width: 100% !important;
             }
+            .button-right button {
+                min-width: 100% !important;
+            }
         }
 
     </style>
