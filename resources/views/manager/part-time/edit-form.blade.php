@@ -348,6 +348,13 @@
         
         $('.form-button-edit').click(function(e) {
             let formData = new FormData($('.formSm')[0]);
+            let time = $(`#result`).html();
+
+            if(time*1 <= 0 || !checkTimeStart()) {
+                e.preventDefault();
+                $('#notiDanger').html('');
+                return makeDangerAlert('期間が無効になっている', 'notiDanger');
+            }
 
             if (confirm('すでに”登録されたデータがあります。上書き更新してもよろしいですか？')) {
                 $('.formSm').attr({
@@ -398,12 +405,7 @@
             },
         });
 
-        $('#date').datetimepicker({
-            useCurrent: false,
-            format: "YYYY-MM-DD",
-            locale: "ja",
-            daysOfWeekDisabled: [0, 6],
-        });
+      
 
         //////
         var arrName = {
@@ -441,6 +443,7 @@
 
         function caculate() {
             resetForm();
+            $('#notiDanger').html('');
             let disable = true; 
             let total = 0;
 
@@ -478,11 +481,8 @@
             });
             let id = $('input[name=id]').val();
 
-            if (total > 0 && id && checkTimeStart())
+            if (total > 0 && id)
                 disable = false;
-
-            $('#notiDanger').html('');
-            if(disable) makeDangerAlert('期間が無効になっている', 'notiDanger');
 
             $('.form-button').prop('disabled', disable);  
 
@@ -500,24 +500,20 @@
             let check = true;
 
             if(start1 > end1 || start2 > end2 || start3 > end3) {
-                console.log(1);
                 check = false;
             }
 
             if(start2 < end1 && end1 != '' && start2 != '') {
-                console.log(2);
                 check = false;
 
             }
 
             if(start3 < end2 && end2 != '' && start3 != '') {
                 check = false;
-                console.log(end2, start3);
             }
 
             if(start3 < end1 && end1 != '' && start3 != '') {
                 check = false;
-                console.log(end2, start3);
             }
 
            return check;

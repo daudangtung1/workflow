@@ -191,7 +191,7 @@
             let time = $(`#result`).html();
             let date = $('input[name=date]').val();
 
-            if(time*1 <= 0 || !date) {
+            if(time*1 <= 0 || !date || !checkTimeStart()) {
                 $('#notiDanger').html('');
                 return makeDangerAlert('期間が無効になっている', 'notiDanger');
             }
@@ -217,7 +217,6 @@
 
                 $(`select[name=${index}]`).change(() => {
                     caculate();
-                    checkTimeStart();
                 });
             }
              $('.select-time .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
@@ -268,12 +267,13 @@
                     $(`select[name=end_time_second]`).val(data.end_time_second).trigger('change');
                     $(`select[name=start_time_third]`).val(data.start_time_third).trigger('change');
                     $(`select[name=end_time_third]`).val(data.end_time_third).trigger('change');
+                    $('.select-time select').prop('disabled', false);
 
                     if (data.disable) {
                         $('.form-button').removeClass('btn-primary');
                         $('.form-button').addClass('btn-danger');
                         $('.form-button').html('承認済み');
-                        $('.form-button').prop('disabled', true);  
+                         $('.form-button, .select-time select').prop('disabled', true);    
                     }
                 }
             })
@@ -320,7 +320,7 @@
             let dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
             let date = $('input[name=date]').val();
 
-            if (date >= dateNow && $('.form-button').html() != '承認済み' && checkTimeStart())
+            if (date >= dateNow && $('.form-button').html() != '承認済み')
                 disable = false;
 
             $('#notiDanger').html('');
