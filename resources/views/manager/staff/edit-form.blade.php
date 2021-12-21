@@ -95,7 +95,7 @@
                                 <input type="text" class="form-control datetimepicker-input" data-target="#join_date"
                                     name="join_date" placeholder="年-月-日"  data-toggle="datetimepicker" value="{{ $infoUser->join_date }}" />
                                 <div class="input-group-append" data-target="#join_date" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="icofont-calendart"></i></div>
+                                    <div class="input-group-text"><i class="icofont-calendar"></i></div>
                                 </div>
                             </div>
                             <small>入社日前はログインできません。</small>
@@ -109,7 +109,7 @@
                                 <input type="text" class="form-control datetimepicker-input" data-target="#off_date"
                                     name="off_date" placeholder="年-月-日"  data-toggle="datetimepicker" value="{{  $infoUser->off_date  }}" />
                                 <div class="input-group-append" data-target="#off_date" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="icofont-calendart"></i></div>
+                                    <div class="input-group-text"><i class="icofont-calendar"></i></div>
                                 </div>
                             </div>
                             退職日以降はログインできません。

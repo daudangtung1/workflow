@@ -8,7 +8,7 @@
 
         <div class="tab-content1 d-flex2">
             <div class="w-410 left-content">
-                <form action="{{ route('approver.staff-part-time.store') }}" method="POST">
+                <form action="{{ route('approver.staff-part-time.store') }}" class="frmSubmit" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="notiDanger">
@@ -186,6 +186,19 @@
 
 @push('scripts')
     <script>
+        $('.form-button').click(e => {
+            e.preventDefault();
+            let time = $(`#result`).html();
+            let date = $('input[name=date]').val();
+
+            if(time*1 <= 0 || !date) {
+                $('#notiDanger').html('');
+                return makeDangerAlert('期間が無効になっている', 'notiDanger');
+            }
+
+            $('.frmSubmit').submit();
+        })
+
         var arrName = {
             start_time_first: '09:00',
             end_time_first: '12:00',
@@ -307,11 +320,11 @@
             let dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
             let date = $('input[name=date]').val();
 
-            if (total > 0 && date >= dateNow && $('.form-button').html() != '承認済み' && checkTimeStart())
+            if (date >= dateNow && $('.form-button').html() != '承認済み' && checkTimeStart())
                 disable = false;
-            
+
             $('#notiDanger').html('');
-            if(disable) makeDangerAlert('期間が無効になっている', 'notiDanger');
+            if(disable && $('.form-button').html() != '承認済み') makeDangerAlert('期間が無効になっている', 'notiDanger');
 
             $('button').prop('disabled', disable);  
 
@@ -329,24 +342,20 @@
             let check = true;
 
             if(start1 > end1 || start2 > end2 || start3 > end3) {
-                console.log(1);
                 check = false;
             }
 
             if(start2 < end1 && end1 != '' && start2 != '') {
-                console.log(2);
                 check = false;
 
             }
 
             if(start3 < end2 && end2 != '' && start3 != '') {
                 check = false;
-                console.log(end2, start3);
             }
 
             if(start3 < end1 && end1 != '' && start3 != '') {
                 check = false;
-                console.log(end2, start3);
             }
 
            return check;

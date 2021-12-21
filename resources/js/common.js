@@ -103,6 +103,14 @@ $(window).resize(function() {
     } else {
         $("body").addClass("sidebar-collapse");
     }
+
+    if ($(window).width() < 991) {
+        console.log($(window).width());
+        $('.role-name').removeClass('menu-is-opening');
+        $('.role-name').removeClass(' menu-open');
+        $('.role-name ul').css('display', 'none');
+
+    }
 });
 $(window).on("orientationchange", function() {
     setTimeout(() => {

@@ -7,7 +7,7 @@
 
         <div class="tab-content1 d-flex2">
             <div class="w-410 left-content">
-                <form action="{{ route('staff.over-time.store') }}" method="POST">
+                <form action="{{ route('staff.over-time.store') }}" class="frmSubmit" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="notiDanger">
@@ -144,6 +144,18 @@
 
 @push('scripts')
     <script>
+        $('.form-button').click(e => {
+            e.preventDefault();
+            let time = $(`#result`).html();
+            let date = $('input[name=date]').val();
+
+            if(time*1 <= 0 || !date) {
+                $('#notiDanger').html('');
+                return makeDangerAlert('期間が無効になっている', 'notiDanger');
+            }
+
+            $('.frmSubmit').submit();
+        })
         var arrName = {
             start_time: '07:00',
             end_time: '17:30',
@@ -203,14 +215,14 @@
                     $('#start_time_working').html(startTimeWorking);
                     $('#end_time_working').html(endTimeWorking);
                     
-                    caculate();
-
                     if (data.disable) {
                         $('.form-button').removeClass('btn-primary');
                         $('.form-button').addClass('btn-danger');
                         $('.form-button').html('承認済み');
                         $('.form-button, .select-time select').prop('disabled', true);  
                     }
+
+                    caculate();
                 }
             })
         });
@@ -262,14 +274,15 @@
             let dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
             let date = $('input[name=date]').val();
 
-            if (totalTime > 0 && date >= dateNow && $('.form-button').html() != '承認済み')
+            if (date >= dateNow && $('.form-button').html() != '承認済み')
                 disable = false;
 
             $('#notiDanger').html('');
-            if(disable) makeDangerAlert('期間が無効になっている', 'notiDanger');
+            
+            if(disable && $('.form-button').html() != '承認済み')
+               makeDangerAlert('期間が無効になっている', 'notiDanger');
 
             $('.form-button').prop('disabled', disable);  
-            
             $('#result').html(totalTime);
         }
 

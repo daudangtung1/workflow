@@ -64,6 +64,9 @@
         @endif
         <div class="row">
             <div class="col-md-12">
+                <div class="w-410" id="notiDanger"></div>
+            </div>
+            <div class="col-md-12">
                 <label for="">日付</label>
                 <div class="form-group ">
                     <div class=" input-group date input-date d-inlin-flex col-mobile-date" id="start_date"
@@ -218,9 +221,12 @@
 
         function checkDate(date, dateCheck) {
             $('.form-button').prop('disabled', false);
+            $('#notiDanger').html('');
 
-            if (date > dateCheck)
+            if (date > dateCheck) {
+                 makeDangerAlert('期間が無効になっている', 'notiDanger');
                 $('.form-button').prop('disabled', true);
+            }
         }
 
         @if (isset($infoVacation))

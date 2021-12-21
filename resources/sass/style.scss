@@ -22,7 +22,7 @@ aside {
         li {
             font-size: 14px;
             font-weight: 400;
-            height: 35px !important;
+            height: auto;
             a {
                 padding-left: 15px !important;
             }
@@ -30,10 +30,16 @@ aside {
         .role-name {
             font-size: 18px;
             font-weight: 700;
-            height: 44px !important;
+            height: auto;
             i {
                 font-size: 24px;
             }
+        }
+        .fa-caret-right {
+            font-size: 14px !important;
+        }
+        .nav-treeview .active {
+            color: #C2C7D0 !important;
         }
     }
     .header-1 {
