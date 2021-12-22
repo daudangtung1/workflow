@@ -36,8 +36,9 @@
             line-height: 46px;
             font-weight: 400;
             color: #1F232E;
-            width: 100%;
             margin-left: 15px;
+            width: 200px;
+
         }
 
         .mr-280 {
@@ -54,6 +55,7 @@
             color: #000000;
             font-weight: 400;
         }
+
         .datepicker-days td.disabled {
             background: #FFD1D1 !important;
             border-radius: 50%;
@@ -61,8 +63,7 @@
 
     </style>
 @endpush
-<div class="row ">
-    <div class="col-md-12">
+
         <div class="tab-content1">
             <form class="formSm" method="POST">
                 @csrf
@@ -73,7 +74,6 @@
                             <div class="select-time select-search select-100">
 
                                 <select class="chosen-select" name="user_register">
-                                    <option value="" data-name="">&nbsp;</option>
                                     @foreach ($staffs as $item)
                                         <option value="{{ $item->id }}" data-name="{{ $item->fullName }}">
                                             {{ $item->id . ' - ' . $item->fullName }}
@@ -89,22 +89,24 @@
                     <div class="col-md-12">
                         <label for="">日付</label>
                         <div class="form-group ">
-                            <div class=" input-group date input-date d-inlin-flex col-mobile-date input-date-disable" id="start_date_register"
-                                data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" data-target="#start_date_register"
-                                    name="start_date_register" placeholder="年-月-日" required data-toggle="datetimepicker"
-                                     />
-                                <div class="input-group-append" data-target="#start_date_register" data-toggle="datetimepicker">
+                            <div class=" input-group date input-date d-inlin-flex col-mobile-date input-date-disable"
+                                id="start_date_register" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input"
+                                    data-target="#start_date_register" name="start_date_register" placeholder="年-月-日"
+                                    required data-toggle="datetimepicker" />
+                                <div class="input-group-append" data-target="#start_date_register"
+                                    data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="icofont-calendar"></i></div>
                                 </div>
                             </div>
                             <div class="text-center span-date ">~</div>
-                            <div class="input-group date input-date d-inlin-flex col-mobile-date input-date-disable" id="end_date_register"
-                                data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" data-target="#end_date_register"
-                                    name="end_date_register" placeholder="年-月-日" required data-toggle="datetimepicker"
-                                    value="" />
-                                <div class="input-group-append" data-target="#end_date_register" data-toggle="datetimepicker">
+                            <div class="input-group date input-date d-inlin-flex col-mobile-date input-date-disable"
+                                id="end_date_register" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input"
+                                    data-target="#end_date_register" name="end_date_register" placeholder="年-月-日"
+                                    required data-toggle="datetimepicker" value="" />
+                                <div class="input-group-append" data-target="#end_date_register"
+                                    data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="icofont-calendar"></i></div>
                                 </div>
                             </div>
@@ -120,16 +122,17 @@
                                     <label class="d-block" for="">休暇種別</label>
                                     <table>
                                         @php($i = 0)
-                                        @foreach (collect(\App\Enums\VacationType::asArray())->chunk(3)->all() as $chunk)
+                                        @foreach (collect(\App\Enums\VacationType::asArray())->chunk(3)->all()
+    as $chunk)
                                             @php($i++)
-        
+
                                             @if ($i <= 2)
                                                 </tr>
                                                 @foreach ($chunk as $item)
                                                     <td class="pr-4 pb-20">
                                                         <div class="col-radio d-radio col-mobile">
-                                                            <input type="radio" id="day{{ $item }}" name="type" required
-                                                                value="{{ $item }}"
+                                                            <input type="radio" id="day{{ $item }}" name="type"
+                                                                required value="{{ $item }}"
                                                                 {{ isset($infoVacation) && $infoVacation['type'] == $item ? 'checked' : '' }}>
                                                             <label for="day{{ $item }}">
                                                                 {{ \App\Enums\VacationType::getDescription($item) }}
@@ -142,8 +145,8 @@
                                                 <tr>
                                                     <td class="pr-4 ">
                                                         <div class="col-radio d-radio col-mobile">
-                                                            <input type="radio" id="vacation" name="type" value="vacation"
-                                                                required
+                                                            <input type="radio" id="vacation" name="type"
+                                                                value="vacation" required
                                                                 {{ isset($infoVacation) && $infoVacation['type'] > 6 ? 'checked' : '' }}>
                                                             <label for="vacation">
                                                                 欠勤
@@ -156,7 +159,9 @@
                                                                 @foreach ($chunk as $item)
                                                                     <option value="{{ $item }}"
                                                                         {{ isset($infoVacation) && $infoVacation['type'] == $item ? 'selected' : '' }}>
-                                                                        <span style="color: #6A6A6A !important;">欠勤</span> {{ \App\Enums\VacationType::getDescription($item) }}
+                                                                        <span
+                                                                            style="color: #6A6A6A !important;">欠勤</span>
+                                                                        {{ \App\Enums\VacationType::getDescription($item) }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -174,7 +179,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="col-md-12 mt-30">
                         <label class="d-block" for="">理由</label>
                         <textarea class="form-control w-410" name="reason" id="reason" rows="5"
@@ -232,7 +237,8 @@
                     </div>
 
                     <div class="col-md-12">
-                        <button disabled class="btn btn-primary w-410 form-button form-button-edit mr-280"><b>更新</b></button>
+                        <button disabled
+                            class="btn btn-primary w-410 form-button form-button-edit mr-280"><b>更新</b></button>
                         <button class="btn btn-primary w-410 form-button form-button-delete" disabled><b>削除</b></button>
 
                     </div>
@@ -241,8 +247,6 @@
 
             </form>
         </div>
-    </div>
-</div>
 
 @push('scripts')
     <script>
@@ -257,24 +261,33 @@
             daysOfWeekDisabled: [0, 6],
         });
 
-        $('.form-button-edit').click(function() {
+        $('.form-button-edit').click(function(e) {
             let formData = new FormData($('.formSm')[0]);
-            $('.formSm').attr({
-                method: 'POST',
-                action: '{{ route('manager.vacation.update_vacation', 'update') }}'
-            });
-            $('.formSm').append('<input type="hidden" name="_method" value="PUT">');
-            $('.formSm').submit();
+            if (confirm('すでに”登録されたデータがあります。上書き更新してもよろしいですか？')) {
+                $('.formSm').attr({
+                    method: 'POST',
+                    action: '{{ route('manager.vacation.update_vacation', 'update') }}'
+                });
+                $('.formSm').append('<input type="hidden" name="_method" value="PUT">');
+                $('.formSm').submit();
+            } else {
+                e.preventDefault();
+            }
         });
 
-        $('.form-button-delete').click(function() {
+        $('.form-button-delete').click(function(e) {
             let formData = new FormData($('.formSm')[0]);
-            $('.formSm').attr({
-                method: 'POST',
-                action: '{{ route('manager.vacation.destroy', 'delete') }}'
-            });
-            $('.formSm').append('<input type="hidden" name="_method" value="DELETE">');
-            $('.formSm').submit();
+
+            if (confirm('対象日付の申請データを削除します。よろしいですか？')) {
+                $('.formSm').attr({
+                    method: 'POST',
+                    action: '{{ route('manager.vacation.destroy', 'delete') }}'
+                });
+                $('.formSm').append('<input type="hidden" name="_method" value="DELETE">');
+                $('.formSm').submit();
+            } else {
+                e.preventDefault();
+            }
         })
 
         $('select[name=user_register]').change(function() {

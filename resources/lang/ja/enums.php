@@ -14,7 +14,7 @@ return [
         VacationType::FULL_DAY_SPECIAL => '特別休暇1日',
         VacationType::MORNING_SPECIAL => '特別休暇0.5日午前',
         VacationType::AFTERNOON_SPECIAL => '特別休暇0.5日午後',
-        VacationType::FIRST => '１時間',
+        VacationType::FIRST => '1時間',
         VacationType::SECOND => '2時間',
         VacationType::THIRD => '3時間',
     ],

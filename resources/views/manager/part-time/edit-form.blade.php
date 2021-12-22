@@ -95,19 +95,20 @@
 @endpush
 <form class="formSm" method="POST">
     @csrf
-    <div class="row ">
-        <div class="col-md-12">
+    
             <div class="tab-content1 pb-71 d-flex2">
                 <div class="w-410 left-content">
-                    <form action="{{ route('staff.part-time.store') }}" method="POST">
-                    @csrf
+                    <div class="row">
+                        <div class="col-md-12" id="notiDanger">
+
+                        </div>
+                    </div>
                     <div class="row ">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="select-time select-search select-100">
                                     <label for="">申請者ID</label>
                                     <select class="chosen-select" name="user_register">
-                                        <option value="" data-name="">&nbsp;</option>
                                         @foreach ($staffs as $item)
                                             <option value="{{ $item->id }}" data-name="{{ $item->fullName }}">
                                                 {{ $item->id . ' - ' . $item->fullName }}
@@ -288,7 +289,6 @@
                             </div>
                         </div>
                         <input type="hidden" name="id" value="{{ (isset($infoRegister) && !$infoRegister['disable']) ? $infoRegister['id'] : '' }}">
-                    </form>
                 </div>
                 <div class="w-410">
                     <div class="row" id="div-null" style="height: 257px">
@@ -338,9 +338,7 @@
                 </div>
                 <div style="clear: both"></div>
             </div>
-        </div>
-        
-    </div>
+       
     <input type="hidden" name="id">
 
 </form>
@@ -348,24 +346,41 @@
 @push('scripts')
     <script>
         
-        $('.form-button-edit').click(function() {
+        $('.form-button-edit').click(function(e) {
             let formData = new FormData($('.formSm')[0]);
-            $('.formSm').attr({
-                method: 'POST',
-                action: '{{ route('manager.part_time.update_info', 'update') }}'
-            });
-            $('.formSm').append('<input type="hidden" name="_method" value="PUT">');
-            $('.formSm').submit();
+            let time = $(`#result`).html();
+
+            if(time*1 <= 0 || !checkTimeStart()) {
+                e.preventDefault();
+                $('#notiDanger').html('');
+                return makeDangerAlert('期間が無効になっている', 'notiDanger');
+            }
+
+            if (confirm('すでに”登録されたデータがあります。上書き更新してもよろしいですか？')) {
+                $('.formSm').attr({
+                    method: 'POST',
+                    action: '{{ route('manager.part_time.update_info', 'update') }}'
+                });
+                $('.formSm').append('<input type="hidden" name="_method" value="PUT">');
+                $('.formSm').submit();
+            } else {
+                e.preventDefault();
+            }
         });
 
-        $('.form-button-delete').click(function() {
+        $('.form-button-delete').click(function(e) {
             let formData = new FormData($('.formSm')[0]);
-            $('.formSm').attr({
-                method: 'POST',
-                action: '{{ route('manager.part_time.destroy', 'delete') }}'
-            });
-            $('.formSm').append('<input type="hidden" name="_method" value="DELETE">');
-            $('.formSm').submit();
+
+            if (confirm('対象日付の申請データを削除します。よろしいですか？')) {
+                $('.formSm').attr({
+                    method: 'POST',
+                    action: '{{ route('manager.part_time.destroy', 'delete') }}'
+                });
+                $('.formSm').append('<input type="hidden" name="_method" value="DELETE">');
+                $('.formSm').submit();
+            } else {
+                e.preventDefault();
+            }
         })
 
         $('select[name=user_register]').change(function() {
@@ -390,12 +405,7 @@
             },
         });
 
-        $('#date').datetimepicker({
-            useCurrent: false,
-            format: "YYYY-MM-DD",
-            locale: "ja",
-            daysOfWeekDisabled: [0, 6],
-        });
+      
 
         //////
         var arrName = {
@@ -433,6 +443,7 @@
 
         function caculate() {
             resetForm();
+            $('#notiDanger').html('');
             let disable = true; 
             let total = 0;
 
@@ -478,6 +489,35 @@
             $('#result').html(total);
         }
 
+        function checkTimeStart() {
+            var start1 = $(`select[name=start_time_first]`).val();
+            var end1 = $(`select[name=end_time_first]`).val();
+            var start2 = $(`select[name=start_time_second]`).val();
+            var end2 = $(`select[name=end_time_second]`).val();
+            var start3 = $(`select[name=start_time_third]`).val();
+            var end3 = $(`select[name=end_time_third]`).val();
+
+            let check = true;
+
+            if(start1 > end1 || start2 > end2 || start3 > end3) {
+                check = false;
+            }
+
+            if(start2 < end1 && end1 != '' && start2 != '') {
+                check = false;
+
+            }
+
+            if(start3 < end2 && end2 != '' && start3 != '') {
+                check = false;
+            }
+
+            if(start3 < end1 && end1 != '' && start3 != '') {
+                check = false;
+            }
+
+           return check;
+        }
 
     </script>
 @endpush

@@ -22,7 +22,7 @@ aside {
         li {
             font-size: 14px;
             font-weight: 400;
-            height: 35px !important;
+            height: auto;
             a {
                 padding-left: 15px !important;
             }
@@ -30,10 +30,16 @@ aside {
         .role-name {
             font-size: 18px;
             font-weight: 700;
-            height: 44px !important;
+            height: auto;
             i {
                 font-size: 24px;
             }
+        }
+        .fa-caret-right {
+            font-size: 14px !important;
+        }
+        .nav-treeview .active {
+            color: #C2C7D0 !important;
         }
     }
     .header-1 {
@@ -319,11 +325,58 @@ aside {
     }
 }
 
+//custom sidebar
+@media screen and (max-width: 991px) {
+    .sidebar-collapse .main-sidebar,
+    .sidebar-collapse .main-sidebar::before {
+        margin-left: 0 !important;
+        width: 4.6rem;
+        overflow: hidden;
+        height: calc(100vh + 67px);
+    }
+    .sidebar-mini.sidebar-collapse .nav-sidebar .nav-link {
+        height: 40px;
+    }
+    .sidebar-mini.sidebar-collapse .nav-sidebar .nav-link p {
+        width: 0;
+        white-space: nowrap;
+        animation-fill-mode: both;
+        opacity: 0;
+        visibility: hidden;
+    }
+    .main-header {
+        z-index: 9999;
+        position: fixed;
+        width: 100%;
+        top: 0;
+    }
+    .content-wrapper {
+        margin-left: 4.6rem !important;
+        padding-top: 67px;
+    }
+    div.dataTables_wrapper div.dataTables_filter input {
+        width: auto !important;
+    }
+    .sidebar-mini.sidebar-collapse .main-sidebar:hover,
+    .sidebar-mini.sidebar-collapse .main-sidebar.sidebar-focused {
+        width: 250px;
+    }
+    .sidebar-mini.sidebar-collapse .main-sidebar:hover .nav-link p,
+    .sidebar-mini.sidebar-collapse .main-sidebar:focus {
+        opacity: 1;
+        visibility: unset;
+    }
+}
+
 @media screen and (max-width: 600px) {
     #myTab {
         padding: 5px 0 0 10px !important;
         li {
-            width: 110px !important;
+            width: unset !important;
+        }
+        td,
+        th {
+            display: block;
         }
     }
     #myTabContent {

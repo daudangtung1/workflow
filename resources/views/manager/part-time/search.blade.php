@@ -73,8 +73,7 @@
 @endpush
 
 <form action="{{ route('manager.part_time.show', 'search') }}" method="GET">
-    <div class="row">
-        <div class="col-md-12">
+ 
             <div class="content3">
                 <div class="w-410">
                     <div class="row">
@@ -191,8 +190,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+    
 
 </form>
 

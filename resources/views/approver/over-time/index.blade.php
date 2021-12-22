@@ -1,6 +1,6 @@
 @extends('approver.app')
 
-@section('active_overtime', 'active')
+@section('active_overtime1', 'active')
 @section('title', '時間外･交通費申請')
 
 @section('content_header')
@@ -61,6 +61,9 @@
         @media only screen and (max-width: 600px) {
             .button-right {
                 width: 100% !important;
+            }
+            .button-right button {
+                min-width: 100% !important;
             }
         }
 

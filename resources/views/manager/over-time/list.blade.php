@@ -92,9 +92,6 @@
                 width: 100% !important;
             }
 
-            #myTab li {
-                width: 120px !important;
-            }
         }
 
 
@@ -142,7 +139,7 @@
                                     <th class="w-140">承認者</th>
                                     <th class="w-150">承認日時</th>
                                     <th class="w-140">総務承認</th>
-                                    <th class="w-140">編集</th>
+                                    <th class="w-140">修正</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -269,6 +266,7 @@
 
         $('.btnEdit').click(function() {
             $('#edit-tab').click();
+            $('#edit-tab').parent().removeClass('d-none');
 
             let date = $(this).data('date');
             let userId = $(this).data('user-id');

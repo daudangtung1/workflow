@@ -1,6 +1,6 @@
 @extends('approver.app')
 
-@section('active_vacation', 'active')
+@section('active_vacation1', 'active')
 @section('title', '全てチェック')
 
 @section('content_header')
@@ -65,6 +65,9 @@
             .button-right {
                 width: 100% !important;
             }
+            .button-right button {
+                min-width: 100% !important;
+            }
         }
 
     </style>
@@ -88,8 +91,7 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th class="w-150">日付(開始)</th>
-                                    <th class="w-160">日付(終了)</th>
+                                    <th class="w-150">日付</th>
                                     <th class="w-160">種別</th>
                                     <th class="w-160">時問</th>
                                     <th class="w-795">理由</th>
@@ -101,7 +103,6 @@
                                 @forelse ($listVacation as $item)
                                     <tr>
                                         <td>{{ $item['start_date'] }}</td>
-                                        <td>{{ $item['end_date'] }}</td>
                                         <td>{{ $item['type_id'] > 6 ? '欠勤' : $item['type'] }}</td>
                                         <td>{{ $item['type_id'] > 6 ? $item['type'] : '-' }}</td>
                                         <td>{{ $item['reason'] }}</td>

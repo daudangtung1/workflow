@@ -1,6 +1,6 @@
 @extends('approver.app')
 
-@section('active_parttime', 'active')
+@section('active_parttime1', 'active')
 @section('title', 'パート出勤簿')
 
 @section('content_header')
@@ -58,6 +58,9 @@
         @media only screen and (max-width: 600px) {
             .button-right {
                 width: 100% !important;
+            }
+            .button-right button {
+                min-width: 100% !important;
             }
         }
     </style>

@@ -4,6 +4,7 @@ namespace App\Services\Manager;
 
 use App\Enums\ApproverStatus;
 use App\Enums\ManagerStatus;
+use App\Enums\UserRole;
 use App\Models\Branch;
 use App\Models\OvertimeRegister;
 use App\Models\User;
@@ -27,9 +28,11 @@ class OverTimeService extends BaseService
         return $this->branchModel->all();
     }
 
-    public function listUser($role)
+    public function listUser($role = '')
     {
-        return $this->userModel->where('role', $role)->orderBy('created_at', 'DESC')->get();
+        return $this->userModel->where('role', $role)->when($role == UserRole::STAFF, function ($q) {
+            return $q->orWhere('role', UserRole::APPROVER);
+        })->orderBy('created_at', 'DESC')->get();
     }
 
     public function listOverTime($request)

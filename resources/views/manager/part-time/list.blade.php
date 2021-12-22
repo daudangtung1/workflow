@@ -122,8 +122,7 @@
     <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
 @endpush
-<div class="row">
-    <div class="col-md-12">
+
         <form action="{{ route('manager.part_time.update', 'all') }}" method="POST">
             @csrf
             @method('PUT')
@@ -152,7 +151,7 @@
                                     <th class="w-160">承認者</th>
 
                                     <th>総務承認</th>
-                                    <th class="w-150">編集</th>
+                                    <th class="w-150">修正</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -222,9 +221,7 @@
                 </div>
             </div>
         </form>
-    </div>
-</div>
-
+  
 
 {{-- loading --}}
 
@@ -296,7 +293,7 @@
 
         $('.btnEdit').click(function() {
             $('.form-button').prop('disabled', false);
-
+            $('#edit-tab').parent().removeClass('d-none');
             $('#edit-tab').click();
 
             let date = $(this).data('date');

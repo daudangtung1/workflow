@@ -135,8 +135,7 @@
                         <table class="table table-bordered table-hover" id="example">
                             <thead>
                                 <tr>
-                                    <th class="w-160">日付(開始)</th>
-                                    <th class="w-160">日付(終了)</th>
+                                    <th class="w-160">日付</th>
                                     <th class="w-150">申請者</th>
                                     <th class="w-150">所属事業所</th>
                                     <th class="w-160">種別</th>
@@ -145,14 +144,13 @@
                                     <th class="w-160">承認日時</th>
                                     <th class="w-160">承認者</th>
                                     <th class="w-160">総務承認</th>
-                                    <th class="w-160">編集</th>
+                                    <th class="w-160">修正</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($dataVacation as $item)
                                     <tr>
                                         <td>{{ $item['start_date'] }}</td>
-                                        <td>{{ $item['end_date'] }}</td>
                                         <td>{{ $item['user'] }}</td>
                                         <td>{{ $item['branch'] }}</td>
                                         <td>{{ $item['type'] > 6 ? '欠勤' : $item['type_name'] }}</td>
@@ -278,6 +276,7 @@
         $('.btnEdit').click(function() {
             $('.form-button').prop('disabled', false);
 
+            $('#edit-tab').parent().removeClass('d-none');
             $('#edit-tab').click();
 
             let date = $(this).data('date');

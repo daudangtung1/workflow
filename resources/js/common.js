@@ -11,7 +11,6 @@ $(function() {
         format: "YYYY-MM-DD",
         locale: "ja",
     });
-
 });
 
 //loading
@@ -56,9 +55,6 @@ function startTime() {
     sec = checkRealTime(sec);
     document.getElementById("clockReal").innerHTML = hr + " : " + min;
     // document.getElementById("clockReal").innerHTML = hr + " : " + min + " : " + sec;
-    var time = setTimeout(function() {
-        startTime();
-    }, 30000);
 
     var months = [
         "01",
@@ -107,6 +103,14 @@ $(window).resize(function() {
     } else {
         $("body").addClass("sidebar-collapse");
     }
+
+    if ($(window).width() < 991) {
+        console.log($(window).width());
+        $('.role-name').removeClass('menu-is-opening');
+        $('.role-name').removeClass(' menu-open');
+        $('.role-name ul').css('display', 'none');
+
+    }
 });
 $(window).on("orientationchange", function() {
     setTimeout(() => {
@@ -115,8 +119,7 @@ $(window).on("orientationchange", function() {
         } else {
             $("body").addClass("sidebar-collapse");
         }
-    }, 500)
-
+    }, 500);
 });
 $(window).resize();
 $(document).on("click", "#sidebar-overlay", function() {
@@ -125,3 +128,14 @@ $(document).on("click", "#sidebar-overlay", function() {
         $("body").addClass("sidebar-collapse sidebar-closed");
     }
 });
+
+function makeDangerAlert(message, id) {
+    $(`#${id}`).html("");
+    $(`#${id}`)
+        .html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>${message}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>`);
+}

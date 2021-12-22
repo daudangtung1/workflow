@@ -8,7 +8,7 @@
 
         <div class="tab-content1 d-flex2">
             <div class="w-410 left-content">
-                <form action="{{ route('staff.part-time.store') }}" class="frmSubmit" method="POST">
+                <form action="{{ route('approver.staff-part-time.store') }}" class="frmSubmit" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="notiDanger">
@@ -254,7 +254,7 @@
 
             // resetForm();
             $.ajax({
-                url: "{{ route('staff.part-time.edit', 'info-register') }}",
+                url: "{{ route('approver.staff-part-time.edit', 'info-register') }}",
                 type: 'get',
                 dataType: 'json',
                 data: {
@@ -273,8 +273,7 @@
                         $('.form-button').removeClass('btn-primary');
                         $('.form-button').addClass('btn-danger');
                         $('.form-button').html('承認済み');
-                        $('.form-button, .select-time select').prop('disabled', true);  
-
+                         $('.form-button, .select-time select').prop('disabled', true);    
                     }
                 }
             })
@@ -348,6 +347,7 @@
 
             if(start2 < end1 && end1 != '' && start2 != '') {
                 check = false;
+
             }
 
             if(start3 < end2 && end2 != '' && start3 != '') {

@@ -16,13 +16,13 @@
     </ol>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto test">
-        <li class="nav-item d-flex">
+        <li class="nav-item d-flex hide-mobile">
             <a class="nav-link  pl-0 ml-25 mr-25 font-weight-bold"  role="button">
                 <span >{{ (auth()->user()) ? auth()->user()->fullName : '' }}</span>
             </a>
             <div class="border-li"></div>
         </li>
-        <li class="nav-item d-flex hide-mobile">
+        <li class="nav-item d-flex ">
             <a class="nav-link  pl-0 ml-25 mr-25 font-weight-bold"  href="{{route('login')}}" role="button">
                 社員ID: {{ (auth()->user()) ? auth()->user()->user_id : '' }}
             </a>

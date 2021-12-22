@@ -56,7 +56,7 @@
 
 <div class="tab-content1">
     <form
-        action="{{ isset($infoVacation) ? route('staff.vacation.update', $infoVacation['id']) : route('staff.vacation.store') }}"
+        action="{{ isset($infoVacation) ? route('approver.staff-vacation.update', $infoVacation['id']) : route('approver.staff-vacation.store') }}"
         method="POST">
         @csrf
         @if (isset($infoVacation))
