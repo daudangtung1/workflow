@@ -144,7 +144,7 @@
                                     <th class="w-160">承認日時</th>
                                     <th class="w-160">承認者</th>
                                     <th class="w-160">総務承認</th>
-                                    <th class="w-160">編集</th>
+                                    <th class="w-160">修正</th>
                                 </tr>
                             </thead>
                             <tbody>

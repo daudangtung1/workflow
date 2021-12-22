@@ -151,7 +151,7 @@
                                     <th class="w-160">承認者</th>
 
                                     <th>総務承認</th>
-                                    <th class="w-150">編集</th>
+                                    <th class="w-150">修正</th>
                                 </tr>
                             </thead>
                             <tbody>
