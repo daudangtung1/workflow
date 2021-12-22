@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers\Approver;
 
 use App\Http\Controllers\Controller;
 use App\Services\Staff\PartTimeService;
@@ -33,13 +33,13 @@ class StaffPartTimeController extends Controller
 
         //form edit
         if ($request->register)
-            return view('manager.staff-part-time.index', [
+            return view('approver.staff-part-time.index', [
                 'infoRegister' => $this->parttimeService->infoRegister($request->register),
                 'times' => $times,
                 'dates' => $dates,
             ]);
 
-        return view('manager.staff-part-time.index', [
+        return view('approver.staff-part-time.index', [
             'times' => $times,
             'dates' => $dates,
         ]);
@@ -78,7 +78,7 @@ class StaffPartTimeController extends Controller
 
             $this->parttimeService->registerPartTime($data);
 
-            return redirect()->route('manager.staff-part-time.index')->with('success', $message);
+            return redirect()->route('approver.staff-part-time.index')->with('success', $message);
         } catch (\Exception $e) {
             $e->getMessage();
         }

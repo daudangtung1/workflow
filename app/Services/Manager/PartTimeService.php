@@ -31,7 +31,8 @@ class PartTimeService extends BaseService
     public function listUser($role = '')
     {
         return $this->userModel->where('role', $role)->when($role == UserRole::STAFF, function ($q) {
-            return $q->orWhere('role', UserRole::APPROVER);
+            $q->orWhere('role', UserRole::APPROVER);
+            $q->orWhere('role', UserRole::MANAGER);
         })->orderBy('created_at', 'DESC')->get();
     }
 
@@ -98,7 +99,7 @@ class PartTimeService extends BaseService
                 'start_time3' => $item->start_time_third ? $this->formatTime($item->start_time_third) : '-',
                 'end_time3' => $item->end_time_third ? $this->formatTime($item->end_time_third) : '-',
                 'time' => $time1 + $time2 + $time3,
-                
+
                 'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
                 'approver' => $item->userApprover ? $item->userApprover->first_name . $item->userApprover->last_name : '',
                 'approver_id' => $item->approver,

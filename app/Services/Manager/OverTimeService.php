@@ -31,7 +31,8 @@ class OverTimeService extends BaseService
     public function listUser($role = '')
     {
         return $this->userModel->where('role', $role)->when($role == UserRole::STAFF, function ($q) {
-            return $q->orWhere('role', UserRole::APPROVER);
+            $q->orWhere('role', UserRole::APPROVER);
+            $q->orWhere('role', UserRole::MANAGER);
         })->orderBy('created_at', 'DESC')->get();
     }
 
@@ -147,10 +148,10 @@ class OverTimeService extends BaseService
 
     public function registerOverTime($param)
     {
-            $id = $param['id'];
-            unset($param['id']);
+        $id = $param['id'];
+        unset($param['id']);
 
-            return $this->model->where('id', $id)->update($param);
+        return $this->model->where('id', $id)->update($param);
     }
     // public function registerOverTime($param)
     // {

@@ -21,13 +21,13 @@ class StaffOverTimeController extends Controller
         $dates = $this->overtimeService->getDate($request->date_ranger);
 
         if ($request->register)
-            return view('approver.staff-over-time.index', [
+            return view('manager.staff-over-time.index', [
                 'infoRegister' => $this->overtimeService->infoRegister($request->register),
                 'times' => $this->getTime(),
                 'dates' => $dates,
             ]);
 
-        return view('approver.staff-over-time.index', [
+        return view('manager.staff-over-time.index', [
             'times' => $this->getTime(),
             'dates' => $dates,
         ]);
@@ -102,13 +102,13 @@ class StaffOverTimeController extends Controller
 
             if ($request->id) {
                 $data['id'] = $request->id;
-                
+
                 $message = __('common.update.success');
             }
 
             $this->overtimeService->registerOverTime($data);
 
-            return redirect()->route('approver.staff-over-time.index')->with('success', $message);
+            return redirect()->route('manager.staff-over-time.index')->with('success', $message);
         } catch (\Exception $e) {
             return $e->getMessage();
         }

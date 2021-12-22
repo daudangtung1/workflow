@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Staff;
+namespace App\Http\Controllers\Approver;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Services\Staff\OverTimeService;
 
-class OverTimeController extends Controller
+class StaffOverTimeController extends Controller
 {
     protected $overtimeService;
 
@@ -21,13 +21,13 @@ class OverTimeController extends Controller
         $dates = $this->overtimeService->getDate($request->date_ranger);
 
         if ($request->register)
-            return view('staff.over-time.index', [
+            return view('approver.staff-over-time.index', [
                 'infoRegister' => $this->overtimeService->infoRegister($request->register),
                 'times' => $this->getTime(),
                 'dates' => $dates,
             ]);
 
-        return view('staff.over-time.index', [
+        return view('approver.staff-over-time.index', [
             'times' => $this->getTime(),
             'dates' => $dates,
         ]);
@@ -108,7 +108,7 @@ class OverTimeController extends Controller
 
             $this->overtimeService->registerOverTime($data);
 
-            return redirect()->route('staff.over-time.index')->with('success', $message);
+            return redirect()->route('approver.staff-over-time.index')->with('success', $message);
         } catch (\Exception $e) {
             return $e->getMessage();
         }
