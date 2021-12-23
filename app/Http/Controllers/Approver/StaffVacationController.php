@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers\Approver;
 
 use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
@@ -21,7 +21,7 @@ class StaffVacationController extends Controller
         $listVacation =  $this->vacationService->listVacation();
         $listCalendar =  $this->vacationService->listCalendar();
 
-        return view('manager.staff-vacation.index', [
+        return view('approver.staff-vacation.index', [
             'listVacation' => $listVacation,
             'listCalendar' => $listCalendar,
         ]);
@@ -41,7 +41,7 @@ class StaffVacationController extends Controller
             ];
             $this->vacationService->createVacation($data);
 
-            return redirect()->route('manager.staff-vacation.index')->with('success', __('common.create.success'));
+            return redirect()->route('approver.staff-vacation.index')->with('success', __('common.create.success'));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -55,7 +55,7 @@ class StaffVacationController extends Controller
 
         $listCalendar =  $this->vacationService->listCalendar();
 
-        return view('manager.staff-vacation.index', [
+        return view('approver.staff-vacation.index', [
             'listVacation' => $listVacation,
             'infoVacation' => $infoVacation,
             'listCalendar' => $listCalendar,
@@ -72,6 +72,6 @@ class StaffVacationController extends Controller
         ];
         $this->vacationService->updateVacation($data, $id);
 
-        return redirect()->route('manager.staff-vacation.index')->with('success', __('common.update.success'));
+        return redirect()->route('approver.staff-vacation.index')->with('success', __('common.update.success'));
     }
 }

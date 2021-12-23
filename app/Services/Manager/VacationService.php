@@ -34,7 +34,8 @@ class VacationService extends BaseService
     public function listUser($role = '')
     {
         return $this->userModel->where('role', $role)->when($role == UserRole::STAFF, function ($q) {
-            return $q->orWhere('role', UserRole::APPROVER);
+            $q->orWhere('role', UserRole::APPROVER);
+            $q->orWhere('role', UserRole::MANAGER);
         })->orderBy('created_at', 'DESC')->get();
     }
 
