@@ -1,9 +1,16 @@
 @push('styles')
     <!-- daterange picker -->
     <style>
-        .datepicker-days td.disabled {
+        .datepicker-days td.disabled,.datepicker-days td.weekend {
             background: #FFD1D1 !important;
             border-radius: 50%;
+            color: #000000 !important;
+            cursor: pointer !important;
+        }
+
+        .datepicker-days td.active {
+            background: #007bff !important;
+            border-radius: 0.25rem;
         }
 
         .select-time .select2-selection {
@@ -167,16 +174,40 @@
                     <button class="btn btn-danger w-100  w-410" disabled>承認済み</button>
                 @else
                     <button class="btn btn-primary w-100 form-button  w-410">申請(登録) </button>
-
                 @endif
             </div>
         </div>
     </form>
 </div>
-
+<div style="overflow:hidden;">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-8">
+                <div id="datetimepicker13"></div>
+            </div>
+        </div>
+    </div>
+    
+</div>
 @push('scripts')
-
+<script type="text/javascript">
+    // $(function () {
+    //     $('#datetimepicker13').datetimepicker({
+    //         inline: true,
+    //         sideBySide: true,disabledDates: [
+    //             @foreach ($listCalendar as $item)
+    //                 moment("{{ $item->date }}"),
+    //             @endforeach
+    //         ],
+    //     });
+    // });
+</script>
     <script>
+        $('.datepicker-days').click((e) => {
+            alert();
+            $(this).removeClass('disabled');
+        });
+
         $('.chosen-select').select2();
         $('.input-date').datetimepicker({
             format: "YYYY-MM-DD",
@@ -186,7 +217,6 @@
                     moment("{{ $item->date }}"),
                 @endforeach
             ],
-            daysOfWeekDisabled: [0, 6],
         });
         $('input[name=end_date]').prop('readonly', true);
             

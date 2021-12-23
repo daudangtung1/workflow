@@ -48,11 +48,6 @@ class VacationService extends BaseService
         return $data;
     }
 
-    public function listCalendar()
-    {
-        return $this->calendarModel->get();
-    }
-
     public function infoVacation($id = '')
     {
         $info = $this->model->findOrFail($id);

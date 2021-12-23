@@ -144,6 +144,17 @@
 
 @push('scripts')
     <script>
+        $('.input-date').datetimepicker({
+            format: "YYYY-MM-DD",
+            locale: "ja",
+            disabledDates: [
+                @foreach ($listCalendar as $item)
+                    moment("{{ $item->date }}"),
+                @endforeach
+            ],
+            daysOfWeekDisabled: [0, 6],
+        });
+
         $('.form-button').click(e => {
             e.preventDefault();
             let time = $(`#result`).html();
@@ -156,11 +167,13 @@
 
             $('.frmSubmit').submit();
         })
+        
         var arrName = {
             start_time: '07:00',
             end_time: '17:30',
         };
         var dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
+        
         $(document).ready(function() {
             for (const [index, item] of Object.entries(arrName)) {
                 $(`select[name=${index}]`).select2({
