@@ -133,7 +133,7 @@ function makeDangerAlert(message, id) {
     $(`#${id}`).html("");
     $(`#${id}`)
         .html(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>${message}</strong>
+            <strong style="font-size: 13px">${message}</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

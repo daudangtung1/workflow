@@ -126,7 +126,7 @@ class OverTimeService extends BaseService
                 'end_time_working' => $endTimeWorking,
                 'total' => $beStart + $afEnd,
                 'disable' => $info->approver ? true : false,
-                'time' => $this->getTime($startTimeWorking, $endTimeWorking),
+                'time' => $this->getTime($info->start_time_working, $info->end_time_working),
             ];
         }
 
@@ -158,7 +158,8 @@ class OverTimeService extends BaseService
         $user = auth()->user();
         $startTimeWorking = $startTimeWorking ? Carbon::parse($startTimeWorking) : Carbon::parse($user->start_time_working) ;
         $endTimeWorking = $endTimeWorking ? Carbon::parse($endTimeWorking) :  Carbon::parse($user->end_time_working);
-
+        $startTimeWorking->subMinute(30);
+        $endTimeWorking->addMinute(30);
         $times = [];
 
         for ($i = 0; $i < 24; $i++) {

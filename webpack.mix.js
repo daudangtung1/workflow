@@ -23,10 +23,10 @@ mix.copy(
         "node_modules/admin-lte/plugins/moment/locale/ja.js",
         "public/js/datepicker"
     )
-    .copy(
-        "node_modules/admin-lte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js",
-        "public/js/datepicker"
-    )
+    // .copy(
+    //     "node_modules/admin-lte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js",
+    //     "public/js/datepicker"
+    // )
     .copy(
         "node_modules/admin-lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css",
         "public/css/datepicker"

@@ -1,7 +1,16 @@
 @push('styles')
     <!-- daterange picker -->
     <style>
-        
+        .datepicker-days td.disabled2,
+        .datepicker-days td.weekend {
+            background: #FFD1D1 !important;
+            border-radius: 50%;
+        }
+
+        .datepicker-days td.active {
+            background: #007bff !important;
+            border-radius: 0.25rem;
+        }
     </style>
 @endpush
 
@@ -33,7 +42,7 @@
                             <!-- /.form group -->
                         </div>
                     </div>
-        
+                    
                     <div class="row mt-30">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -141,9 +150,11 @@
 
             <div style="clear: both"></div>
         </div>
-
+        <input type="hidden" id="message" value="期間が無効になっている">
 @push('scripts')
     <script>
+            
+
         $('.form-button').click(e => {
             e.preventDefault();
             let time = $(`#result`).html();
@@ -156,11 +167,13 @@
 
             $('.frmSubmit').submit();
         })
+        
         var arrName = {
             start_time: '07:00',
             end_time: '17:30',
         };
         var dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
+        
         $(document).ready(function() {
             for (const [index, item] of Object.entries(arrName)) {
                 $(`select[name=${index}]`).select2({
@@ -214,6 +227,12 @@
 
                     $('#start_time_working').html(startTimeWorking);
                     $('#end_time_working').html(endTimeWorking);
+
+                    if(data.id) {
+                        $('#message').val('指定された日付には、既に申請済みデータがあります。');
+                    } else{
+                        $('#message').val('期間が無効になっている');
+                    }
                     
                     if (data.disable) {
                         $('.form-button').removeClass('btn-primary');
@@ -280,7 +299,7 @@
             $('#notiDanger').html('');
             
             if(disable && $('.form-button').html() != '承認済み')
-               makeDangerAlert('期間が無効になっている', 'notiDanger');
+               makeDangerAlert($('#message').val(), 'notiDanger');
 
             $('.form-button').prop('disabled', disable);  
             $('#result').html(totalTime);
@@ -335,7 +354,18 @@
                     });
                     $('.select-time .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
         }
-
+        $('.input-date').datetimepicker({
+            format: "YYYY-MM-DD",
+            locale: "ja",
+            useCurrent: false,
+            disabledDates: [
+                 @foreach ($listCalendar as $item)
+                    moment("{{ $item->date }}"),
+                 @endforeach
+            ],
+            daysOfWeekDisabled: [0, 6],
+        });       
+        
     </script>
 
 @endpush

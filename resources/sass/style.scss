@@ -39,7 +39,7 @@ aside {
             font-size: 14px !important;
         }
         .nav-treeview .active {
-            color: #C2C7D0 !important;
+            color: #FFFFFF !important;
         }
     }
     .header-1 {
@@ -561,7 +561,6 @@ input {
     transform: rotate(45deg);
 }
 
-.datepicker-days td.vacation {
-    background: red !important;
-    border-radius: 50%;
+.select2-container--open {
+    width: unset !important;
 }
