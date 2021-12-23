@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Carbon\Carbon;
+use App\Models\Calendar;
 
 class BaseService
 {
@@ -75,5 +76,10 @@ class BaseService
         }
 
         return $arrDate;
+    }
+
+    public function listCalendar()
+    {
+        return Calendar::all();
     }
 }

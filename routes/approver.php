@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth.approver'], function () {
     Route::get('home', function () {
-        return view('approver.app');
+        return view('approver.index');
     })->name('home');
     
     Route::get('/over-time', [OverTimeController::class, 'index'])->name('over_time.index');

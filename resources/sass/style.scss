@@ -560,3 +560,8 @@ input {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+.datepicker-days td.vacation {
+    background: red !important;
+    border-radius: 50%;
+}

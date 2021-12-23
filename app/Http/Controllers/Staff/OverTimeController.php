@@ -19,17 +19,20 @@ class OverTimeController extends Controller
     public function index(Request $request)
     {
         $dates = $this->overtimeService->getDate($request->date_ranger);
+        $listCalendar =  $this->overtimeService->listCalendar();
 
         if ($request->register)
             return view('staff.over-time.index', [
                 'infoRegister' => $this->overtimeService->infoRegister($request->register),
                 'times' => $this->getTime(),
                 'dates' => $dates,
+                'listCalendar' => $listCalendar,
             ]);
 
         return view('staff.over-time.index', [
             'times' => $this->getTime(),
             'dates' => $dates,
+            'listCalendar' => $listCalendar,
         ]);
     }
 

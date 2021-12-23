@@ -107,7 +107,7 @@ $(window).resize(function() {
     if ($(window).width() < 991) {
         console.log($(window).width());
         $('.role-name').removeClass('menu-is-opening');
-        $('.role-name').removeClass(' menu-open');
+        $('.role-name').removeClass('menu-open');
         $('.role-name ul').css('display', 'none');
 
     }
