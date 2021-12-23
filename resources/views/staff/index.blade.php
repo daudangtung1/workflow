@@ -1,8 +1,10 @@
 @extends('staff.app')
 
 @push('scripts')
-<script>
-    $('body').removeClass('sidebar-collapse');
-    $('body').addClass('sidebar-open');
-</script>
+    <script>
+        setTimeout(() => {
+            $('body').removeClass('sidebar-collapse');
+            $('body').addClass('sidebar-open');
+        }, 500);
+    </script>
 @endpush
