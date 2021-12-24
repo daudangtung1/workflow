@@ -34,7 +34,7 @@
                                 @if ($item['disable'])
                                     <i class="icofont-lock"></i>
                                 @else
-                                    <a href="{{ route('approver.staff-vacation.edit', $item['id']) }}"><i
+                                    <a href="{{ route('manager.staff-vacation.edit', $item['id']) }}"><i
                                             class="icofont-pencil-alt-1"></i></a>
                                 @endif
                         </tr>

@@ -1,11 +1,10 @@
 @push('styles')
     <!-- daterange picker -->
     <style>
-        .datepicker-days td.disabled,.datepicker-days td.weekend {
+        .datepicker-days td.disabled2,
+        .datepicker-days td.weekend {
             background: #FFD1D1 !important;
             border-radius: 50%;
-            color: #000000 !important;
-            cursor: pointer !important;
         }
 
         .datepicker-days td.active {
@@ -54,9 +53,11 @@
             color: #000000;
             font-weight: 400;
         }
+
         input[readonly] {
             background: #ffffff !important;
         }
+
     </style>
 @endpush
 
@@ -89,7 +90,7 @@
                     <div class="input-group date input-date d-inlin-flex col-mobile-date" id="end_date"
                         data-target-input="nearest">
                         <input type="text" class="form-control datetimepicker-input" data-target="#end_date"
-                            name="end_date" placeholder="年-月-日" required data-toggle="datetimepicker" value="" />
+                            name="end_date" placeholder="年-月-日" required data-toggle="datetimepicker" value="{{ isset($infoVacation) ? $infoVacation['end_date'] : '' }}" />
                         <div class="input-group-append" data-target="#end_date" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="icofont-calendar"></i></div>
                         </div>
@@ -117,7 +118,7 @@
                                                 <div class="col-radio d-radio col-mobile">
                                                     <input type="radio" id="day{{ $item }}" name="type" required
                                                         value="{{ $item }}"
-                                                        {{ !isset($infoVacation) &&  \App\Enums\VacationType::FULL_DAY==$item ? 'checked' : '' }}
+                                                        {{ !isset($infoVacation) && \App\Enums\VacationType::FULL_DAY == $item ? 'checked' : '' }}
                                                         {{ isset($infoVacation) && $infoVacation['type'] == $item ? 'checked' : '' }}>
                                                     <label for="day{{ $item }}">
                                                         {{ \App\Enums\VacationType::getDescription($item) }}
@@ -144,7 +145,8 @@
                                                         @foreach ($chunk as $item)
                                                             <option value="{{ $item }}"
                                                                 {{ isset($infoVacation) && $infoVacation['type'] == $item ? 'selected' : '' }}>
-                                                                <span style="color: #6A6A6A !important;">欠勤</span> {{ \App\Enums\VacationType::getDescription($item) }}
+                                                                <span style="color: #6A6A6A !important;">欠勤</span>
+                                                                {{ \App\Enums\VacationType::getDescription($item) }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -179,35 +181,11 @@
         </div>
     </form>
 </div>
-<div style="overflow:hidden;">
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-8">
-                <div id="datetimepicker13"></div>
-            </div>
-        </div>
-    </div>
-    
-</div>
-@push('scripts')
-<script type="text/javascript">
-    // $(function () {
-    //     $('#datetimepicker13').datetimepicker({
-    //         inline: true,
-    //         sideBySide: true,disabledDates: [
-    //             @foreach ($listCalendar as $item)
-    //                 moment("{{ $item->date }}"),
-    //             @endforeach
-    //         ],
-    //     });
-    // });
-</script>
-    <script>
-        $('.datepicker-days').click((e) => {
-            alert();
-            $(this).removeClass('disabled');
-        });
 
+@push('scripts')
+
+    <script>
+        
         $('.chosen-select').select2();
         $('.input-date').datetimepicker({
             format: "YYYY-MM-DD",
@@ -219,7 +197,7 @@
             ],
         });
         $('input[name=end_date]').prop('readonly', true);
-            
+
 
         var dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
 
@@ -249,20 +227,21 @@
             checkDate(startDate, date);
         });
 
-        function checkDate(date, dateCheck) {
+        function checkDate(date, dateCheck, message = '') {
             $('.form-button').prop('disabled', false);
             $('#notiDanger').html('');
 
             if (date > dateCheck) {
-                 makeDangerAlert('期間が無効になっている', 'notiDanger');
+                if(message == '')
+                    message = '期間が無効になっている';
+
+                makeDangerAlert(message, 'notiDanger');
                 $('.form-button').prop('disabled', true);
             }
         }
 
         @if (isset($infoVacation))
-            setTimeout(() => {
-            $('input[name=end_date]').val(`{{ $infoVacation['end_date'] }}`);
-            }, 1000);
+            checkDate(dateNow, "{{ $infoVacation['end_date'] }}", "指定された日付には、既に申請済みデータがあります。")
         @endif
     </script>
 @endpush

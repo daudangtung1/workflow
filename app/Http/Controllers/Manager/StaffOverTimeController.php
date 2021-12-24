@@ -25,10 +25,12 @@ class StaffOverTimeController extends Controller
                 'infoRegister' => $this->overtimeService->infoRegister($request->register),
                 'times' => $this->getTime(),
                 'dates' => $dates,
+                'listCalendar' => $this->overtimeService->listCalendar(),
             ]);
 
         return view('manager.staff-over-time.index', [
             'times' => $this->getTime(),
+            'listCalendar' => $this->overtimeService->listCalendar(),
             'dates' => $dates,
         ]);
     }
@@ -36,8 +38,8 @@ class StaffOverTimeController extends Controller
     public function getTime()
     {
         $user = auth()->user();
-        $startTimeWorking = Carbon::parse($user->start_time_working);
-        $endTimeWorking = Carbon::parse($user->end_time_working);
+        $startTimeWorking = Carbon::parse($user->start_time_working)->subMinute(30);
+        $endTimeWorking = Carbon::parse($user->end_time_working)->addMinute(30);
         $times = [];
 
         for ($i = 0; $i < 24; $i++) {

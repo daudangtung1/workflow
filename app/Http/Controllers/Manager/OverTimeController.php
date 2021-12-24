@@ -101,8 +101,8 @@ class OverTimeController extends Controller
     public function getTime($startTimeWorking = '', $endTimeWorking = '')
     {
         // $user = auth()->user();
-        $startTimeWorking = Carbon::parse($startTimeWorking);
-        $endTimeWorking = Carbon::parse($endTimeWorking);
+        $startTimeWorking = Carbon::parse($startTimeWorking)->subMinute(30);
+        $endTimeWorking = Carbon::parse($endTimeWorking)->addMinute(30);
         $times = [];
 
         for ($i = 0; $i < 24; $i++) {

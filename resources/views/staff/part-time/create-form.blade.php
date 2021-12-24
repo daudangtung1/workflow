@@ -183,7 +183,7 @@
             </div>
             <div style="clear: both"></div>
         </div>
-
+        <input type="hidden" id="message" value="期間が無効になっている">
 @push('scripts')
     <script>
         $('.form-button').click(e => {
@@ -269,6 +269,12 @@
                     $(`select[name=end_time_third]`).val(data.end_time_third).trigger('change');
                     $('.select-time select').prop('disabled', false);
 
+                    if(data.id) {
+                        $('#message').val('指定された日付には、既に申請済みデータがあります。');
+                    } else{
+                        $('#message').val('期間が無効になっている');
+                    }
+
                     if (data.disable) {
                         $('.form-button').removeClass('btn-primary');
                         $('.form-button').addClass('btn-danger');
@@ -276,6 +282,7 @@
                         $('.form-button, .select-time select').prop('disabled', true);  
 
                     }
+                    caculate();
                 }
             })
         });
@@ -325,7 +332,7 @@
                 disable = false;
 
             $('#notiDanger').html('');
-            if(disable && $('.form-button').html() != '承認済み') makeDangerAlert('期間が無効になっている', 'notiDanger');
+            if(disable && $('.form-button').html() != '承認済み') makeDangerAlert($('#message').val(), 'notiDanger');
 
             $('button').prop('disabled', disable);  
 
