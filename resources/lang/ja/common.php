@@ -7,7 +7,7 @@ return [
     ],
 
     'create' => [
-        'success' => 'を追加しました。',
+        'success' => '登録しました。',
         'error' => 'が追加できません。',
     ],
 

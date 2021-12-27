@@ -17,7 +17,7 @@ $(function() {
 function loading() {
     $("body .modal-backdrop").remove();
     $("body")
-        .prepend(`<div class="modal-loading fade " data-backdrop="static" data-keyboard="false" tabindex="-1">
+        .prepend(`<div class="modal-loading fade " style="height: 0" data-backdrop="static" data-keyboard="false" tabindex="-1">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content" style="width: 48px">
                     <span class="fa fa-spinner fa-spin fa-3x"></span>

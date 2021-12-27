@@ -1,6 +1,11 @@
 @push('styles')
     <!-- daterange picker -->
     <style>
+        
+        #list table {
+            table-layout: unset !important;
+        }
+        
         #list table a {
             color: #000 !important;
         }
@@ -84,8 +89,8 @@
             width: 160px !important;
         }
 
-        #list table thead .w-140 {
-            width: 120px !important;
+        #list table thead .w-auto {
+            width: auto !important;
         }
 
         .check-all {
@@ -136,22 +141,21 @@
                             <thead>
 
                                 <tr>
-                                    <th class="w-160">日付(開始)</th>
-                                    <th class="w-150">申請者</th>
-                                    <th class="w-150">所属事業所</th>
+                                    <th class="w-auto">日付(開始)</th>
+                                    <th class="w-auto">申請者</th>
+                                    <th class="w-auto">所属事業所</th>
 
-                                    <th class="w-140">開始1</th>
-                                    <th class="w-140">終了1</th>
-                                    <th class="w-140">開始2</th>
-                                    <th class="w-140">終了2</th>
-                                    <th class="w-140">開始3</th>
-                                    <th class="w-140">終了3</th>
-                                    <th class="w-140">時間外計(分)</th>
-                                    <th class="w-160">承認日時</th>
-                                    <th class="w-160">承認者</th>
-
-                                    <th>総務承認</th>
-                                    <th class="w-150">修正</th>
+                                    <th class="w-auto">開始1</th>
+                                    <th class="w-auto">終了1</th>
+                                    <th class="w-auto">開始2</th>
+                                    <th class="w-auto">終了2</th>
+                                    <th class="w-auto">開始3</th>
+                                    <th class="w-auto">終了3</th>
+                                    <th class="w-auto">時間外計(分)</th>
+                                    <th class="w-auto">承認者</th>
+                                    <th class="w-auto">承認日時</th>
+                                    <th class="w-auto">総務承認</th>
+                                    <th class="w-auto">修正</th>
                                 </tr>
                             </thead>
                             <tbody>

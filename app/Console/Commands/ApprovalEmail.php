@@ -50,7 +50,7 @@ class ApprovalEmail extends Command
     {
         $afterDay = Carbon::now()->subDay(3);
         $overTimeDelay = OvertimeRegister::where('created_at', '>=', $afterDay)
-            ->whereNull('approver')
+            ->whereNull('approver_id')
             ->with('user')
             ->get();
 
@@ -61,7 +61,7 @@ class ApprovalEmail extends Command
         }
 
         $partTimeDelay = ParttimeRegister::where('created_at', '>=', $afterDay)
-            ->whereNull('approver')
+            ->whereNull('approver_id')
             ->with('user')
             ->get();
 
@@ -72,7 +72,7 @@ class ApprovalEmail extends Command
         }
 
         $vacationDelay = Vacation::where('created_at', '>=', $afterDay)
-            ->whereNull('approver')
+            ->whereNull('approver_id')
             ->with('user')
             ->get();
 
@@ -83,7 +83,7 @@ class ApprovalEmail extends Command
         }
 
         $absenceDelay = Absence::where('created_at', '>=', $afterDay)
-            ->whereNull('approver')
+            ->whereNull('approver_id')
             ->with('user')
             ->get();
 
