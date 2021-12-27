@@ -1,6 +1,9 @@
 @push('styles')
     <!-- daterange picker -->
     <style>
+        #list table {
+            table-layout: unset !important;
+        }
         #list table a {
             color: #000 !important;
         }
@@ -84,14 +87,11 @@
             width: 160px !important;
         }
 
-        #list table thead th .w-280 {
-            width: 480px !important;
+        #list table thead th .w-auto {
+            width: auto !important;
         }
 
-        #list table thead .w-140 {
-            width: 120px !important;
-        }
-
+    
         .check-all {
             text-decoration: underline;
         }
@@ -135,16 +135,16 @@
                         <table class="table table-bordered table-hover" id="example">
                             <thead>
                                 <tr>
-                                    <th class="w-160">日付</th>
-                                    <th class="w-150">申請者</th>
-                                    <th class="w-150">所属事業所</th>
-                                    <th class="w-160">種別</th>
-                                    <th class="w-160">時問</th>
-                                    <th style="width: 410px !important">理由</th>
-                                    <th class="w-160">承認日時</th>
-                                    <th class="w-160">承認者</th>
-                                    <th class="w-160">総務承認</th>
-                                    <th class="w-160">修正</th>
+                                    <th class="w-auto">日付</th>
+                                    <th class="w-auto">申請者</th>
+                                    <th class="w-auto">所属事業所</th>
+                                    <th class="w-auto">種別</th>
+                                    <th class="w-auto">時問</th>
+                                    <th style="padding-right: 300px !important">理由</th>
+                                    <th class="w-auto">承認日時</th>
+                                    <th class="w-auto">承認者</th>
+                                    <th class="w-auto">総務承認</th>
+                                    <th class="w-auto">修正</th>
                                 </tr>
                             </thead>
                             <tbody>

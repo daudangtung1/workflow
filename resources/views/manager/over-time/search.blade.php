@@ -1,6 +1,9 @@
 @push('styles')
     <!-- daterange picker -->
     <style>
+        .content-wrapper .content3 .select2-container {
+            width: 100% !important;
+        }
         .tab-content {
             background: #ffffff !important;
         }

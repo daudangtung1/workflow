@@ -85,9 +85,11 @@ aside {
     }
 }
 
-//custom select2
-.select2-container {
-    width: 100% !important;
+.content-wrapper {
+    //custom select2
+    .select2-container {
+        width: 100% !important;
+    }
 }
 
 .select2-selection {
@@ -559,8 +561,4 @@ input {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-}
-
-.select2-container--open {
-    width: unset !important;
 }

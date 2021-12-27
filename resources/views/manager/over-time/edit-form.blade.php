@@ -76,6 +76,10 @@
             width: 100% !important;
         }
 
+        .content-wrapper .tab-content1 .select2-container {
+            width: 100% !important;
+        }
+
     </style>
 @endpush
 

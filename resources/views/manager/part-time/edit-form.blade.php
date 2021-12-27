@@ -1,6 +1,13 @@
 @push('styles')
     <!-- daterange picker -->
     <style>
+        .content-wrapper .tab-content1 .select2-container {
+            width: 100% !important;
+        }
+        .select-min {
+            width: 188px !important;
+        }
+
         .tab-content {
             background: #ffffff !important;
         }
@@ -84,6 +91,9 @@
             .form-button-delete {
                 margin-top: 50px !important;
             }
+            .select-min {
+                width: 100% !important;
+            }
 
         }
 
@@ -91,6 +101,7 @@
             padding-bottom: 71px !important;
         }
 
+        
     </style>
 @endpush
 <form class="formSm" method="POST">

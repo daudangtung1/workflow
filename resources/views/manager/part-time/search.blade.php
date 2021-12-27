@@ -69,6 +69,10 @@
             margin-right: 0px !important; 
         }
 
+        .content-wrapper .content3 .select2-container {
+            width: 100% !important;
+        }
+
     </style>
 @endpush
 
