@@ -201,4 +201,9 @@ class OverTimeService extends BaseService
         return $times;
     }
 
+    public function delete($id)
+    {
+        return $this->model->where('id', $id)->delete();
+    }
+
 }

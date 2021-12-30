@@ -160,8 +160,9 @@
                                 @foreach ($approvers as $item)
                                     <option value="{{ $item->id }}"
                                         data-name="{{ $item->fullName }}"
+                                        data-user="{{ $item->user_id }}"
                                         {{ $infoUser->approver_first == $item->id ? 'selected' : '' }}>
-                                        {{ $item->id . ' - ' . $item->fullName }}
+                                        {{ $item->user_id . ' - ' . $item->fullName }}
                                     </option>
                                 @endforeach
                                 
@@ -180,11 +181,12 @@
                             <label for="">承認者2社員ID</label>
                             <select class="chosen-select" name="approver_second" >
                                 <option value="" data-name="">&nbsp;</option>
-                                @foreach ($managers as $item)
+                                @foreach ($approvers as $item)
                                 <option value="{{ $item->id }}" 
                                     data-name="{{ $item->fullName }}"
+                                    data-user="{{ $item->user_id }}"
                                     {{ $infoUser->approver_second == $item->id ? 'selected' : '' }}>
-                                    {{ $item->id . ' - ' . $item->fullName }}
+                                    {{ $item->user_id . ' - ' . $item->fullName }}
                                 </option>
                             @endforeach
                             </select>
@@ -310,7 +312,7 @@
 
         $('select[name=approver_first]').change(function (){
             let name = $('select[name=approver_first] option:selected').attr('data-name');
-            let value = $(this).val();
+            let value = $('select[name=approver_first] option:selected').attr('data-user');
 
             $(this).parent().find('small').html(name);
             $(this).parent().find('.select2-selection__rendered').html(value);
@@ -318,7 +320,7 @@
 
         $('select[name=approver_second]').change(function (){
             let name = $('select[name=approver_second] option:selected').attr('data-name');
-            let value = $(this).val();
+            let value =  $('select[name=approver_second] option:selected').attr('data-user');
 
             $(this).parent().find('small').html(name);
             $(this).parent().find('.select2-selection__rendered').html(value);

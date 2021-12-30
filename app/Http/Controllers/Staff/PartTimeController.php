@@ -37,11 +37,13 @@ class PartTimeController extends Controller
                 'infoRegister' => $this->parttimeService->infoRegister($request->register),
                 'times' => $times,
                 'dates' => $dates,
+                'listCalendar' =>  $this->parttimeService->listCalendar(),
             ]);
 
         return view('staff.part-time.index', [
             'times' => $times,
             'dates' => $dates,
+            'listCalendar' =>  $this->parttimeService->listCalendar(),
         ]);
     }
 
@@ -78,7 +80,7 @@ class PartTimeController extends Controller
 
             $this->parttimeService->registerPartTime($data);
 
-            return redirect()->route('staff.part-time.index')->with('success', $message);
+            return redirect()->route('staff-part-time.index')->with('success', $message);
         } catch (\Exception $e) {
             $e->getMessage();
         }
@@ -104,5 +106,16 @@ class PartTimeController extends Controller
         $infoRegister = $this->parttimeService->infoRegisterByDate($request->date);
 
         return response()->json($infoRegister);
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $this->parttimeService->delete($id);
+
+            return redirect()->route('staff-part-time.index')->with('success', __('common.delete.success'));
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
     }
 }

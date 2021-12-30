@@ -41,7 +41,7 @@ class VacationController extends Controller
             ];
             $this->vacationService->createVacation($data);
 
-            return redirect()->route('staff.vacation.index')->with('success', __('common.create.success'));
+            return redirect()->route('staff-vacation.index')->with('success', __('common.create.success'));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -72,6 +72,16 @@ class VacationController extends Controller
         ];
         $this->vacationService->updateVacation($data, $id);
 
-        return redirect()->route('staff.vacation.index')->with('success', __('common.update.success'));
+        return redirect()->route('staff-vacation.index')->with('success', __('common.update.success'));
+    }
+    public function destroy($id)
+    {
+        try {
+            $this->vacationService->delete($id);
+
+            return redirect()->route('staff-vacation.index')->with('success', __('common.delete.success'));
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
     }
 }

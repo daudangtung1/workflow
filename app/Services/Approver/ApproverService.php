@@ -49,6 +49,7 @@ class ApproverService extends BaseService
             ->whereNull('approver')
             ->whereHas('user', function ($query) {
                 $query->where('approver_first', auth()->user()->id);
+                $query->orWhere('approver_second', auth()->user()->id);
             })
             ->orderBy('date', 'DESC')
             ->get();
@@ -67,6 +68,7 @@ class ApproverService extends BaseService
             ->whereNull('approver')
             ->whereHas('user', function ($query) {
                 $query->where('approver_first', auth()->user()->id);
+                $query->orWhere('approver_second', auth()->user()->id);
             })
             ->orderBy('date', 'DESC')
             ->get();
@@ -85,6 +87,7 @@ class ApproverService extends BaseService
             ->where('start_date', '>=', $from)
             ->whereHas('user', function ($query) {
                 $query->where('approver_first', auth()->user()->id);
+                $query->orWhere('approver_second', auth()->user()->id);
             })
             ->orderBy('start_date', 'DESC')
             ->get();

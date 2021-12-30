@@ -16,7 +16,7 @@
 
         <div class="tab-content1 d-flex2">
             <div class="w-410 left-content">
-                <form action="{{ route('approver.staff-over-time.store') }}" class="frmSubmit" method="POST">
+                <form action="{{ route('staff-over-time.store') }}" class="frmSubmit" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-12" id="notiDanger">
@@ -31,7 +31,7 @@
                                 <div class="input-group date input-date" id="date" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date"
                                         placeholder="年-月-日" required data-toggle="datetimepicker"
-                                        value="{{ isset($infoRegister) ? $infoRegister['date'] : '' }}" />
+                                        value="{{ request()->date ? request()->date : '' }}" />
                                     <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="icofont-calendar"></i></div>
                                     </div>
@@ -101,7 +101,7 @@
                     <input type="hidden" name="id" value="{{ (isset($infoRegister) && !$infoRegister['disable']) ? $infoRegister['id'] : '' }}">
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-primary w-100 text-center form-button">申請(登録) </button>
+                            <button class="btn btn-primary w-100 text-center form-button form-sbm"> 更新(修正)</button>
                         </div>
                     </div>
                     <input type="hidden" name="start_time_working" value="{{ \Carbon\Carbon::parse(auth()->user()->start_time_working)->format('H:i') }}">
@@ -109,7 +109,7 @@
                 </form>
             </div>
             <div class="w-410">
-                <div class="row hide-mobile" style="height: 158px">
+                <div class="row hide-mobile" style="height: 75px">
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -138,12 +138,21 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group  mt-56 ">
-                            <div >
+                            <div>
                                     <span class="min-text">時間外勤務計</span>
                                     <span class="float-right"><span id="result" class="result-text"></span>
                                         分</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="{{ route('staff-over-time.destroy', $infoRegister['id']) }}" class="frmDelete" method="POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            @csrf
+                            <button class="btn btn-danger w-100 text-center form-button form-delete" type="button"> 削除</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -153,9 +162,13 @@
         <input type="hidden" id="message" value="期間が無効になっている">
 @push('scripts')
     <script>
-            
+        $('.form-delete').click(() => {
+            if(confirm('本当に削除しますか？')) {
+                $('.frmDelete').submit();
+            }
+        })
 
-        $('.form-button').click(e => {
+        $('.form-sbm').click(e => {
             e.preventDefault();
             let time = $(`#result`).html();
             let date = $('input[name=date]').val();
@@ -166,12 +179,24 @@
             }
 
             $('.frmSubmit').submit();
-        })
+        });
+
+        var objMessage = {
+            registered: '指定された日付に申請済みデータがあります。上書きしますか？',
+            approved: '指定された日付にはすでに承認済みデータが存在するため、登録できません',
+            outside: '申請可能期間外のため、登録できません',
+        };
+
+        var dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
+        @php($date = \Carbon\Carbon::now()->day < 11 ? \Carbon\Carbon::now()->subMonth()->toDateString() : \Carbon\Carbon::now()->toDateString());
+        var formDateCheck = '{{ \Carbon\Carbon::parse($date)->format("Y-m-11") }}';
+        var toDateCheck = '{{ \Carbon\Carbon::parse($date)->addMonth()->format("Y-m-10") }}';
         
         var arrName = {
             start_time: '07:00',
             end_time: '17:30',
         };
+        
         var dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
         
         $(document).ready(function() {
@@ -192,17 +217,17 @@
             if(date == 'Invalid Date')
                 date = $('input[name=date]').val();
 
-            if($('.form-button').html() == '承認済み') {
-                $('.form-button').removeClass('btn-danger');
-                $('.form-button').addClass('btn-primary');
-                $('.form-button').html('申請(登録)');
+            if($('.form-sbm').html() == '承認済み') {
+                $('.form-sbm').removeClass('btn-danger');
+                $('.form-sbm').addClass('btn-primary');
+                $('.form-sbm').html('更新(修正)');
             }
 
             let startTimeWorking = "{{ \Carbon\Carbon::parse(auth()->user()->start_time_working)->format('H:i') }}";
             let endTimeWorking = "{{ \Carbon\Carbon::parse(auth()->user()->end_time_working)->format('H:i') }}";
 
             $.ajax({
-                url: "{{ route('approver.staff-over-time.edit', 'info-register') }}",
+                url: "{{ route('staff-over-time.edit', 'info-register') }}",
                 type: 'get',
                 dataType: 'json',
                 data: {
@@ -228,20 +253,27 @@
                     $('#start_time_working').html(startTimeWorking);
                     $('#end_time_working').html(endTimeWorking);
 
-                    if(data.id) {
-                        $('#message').val('指定された日付には、既に申請済みデータがあります。');
-                    } else{
-                        $('#message').val('期間が無効になっている');
+                    
+                    let checkOverride = 0;    
+                   //approved
+                    if(data.id && data.id != `{{ $infoRegister['id'] }}`) {
+                        $('#message').val(objMessage.registered);
+                        checkOverride = 1;
+                    }
+                     //outside
+                    if(date < formDateCheck || date > toDateCheck) {
+                        $('#message').val(objMessage.outside);
                     }
                     
                     if (data.disable) {
-                        $('.form-button').removeClass('btn-primary');
-                        $('.form-button').addClass('btn-danger');
-                        $('.form-button').html('承認済み');
-                        $('.form-button, .select-time select').prop('disabled', true);  
+                        $('.form-sbm').removeClass('btn-primary');
+                        $('.form-sbm').addClass('btn-danger');
+                        $('.form-sbm').html('承認済み');
+                        $('.form-sbm, .select-time select').prop('disabled', true);  
+                        $('#message').val(objMessage.approved);
                     }
 
-                    caculate();
+                    caculate(checkOverride);
                 }
             })
         });
@@ -262,7 +294,7 @@
 
 
 
-        function caculate() {
+        function caculate(checkOverride = 0) {
             resetForm();
             let disable = true; 
             let startTime = $(`select[name=start_time]`).val();
@@ -290,18 +322,17 @@
                 $('#after_end').html(hours);
             }
 
-            let dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
-            let date = $('input[name=date]').val();
+            date = $('input[name=date]').val();
 
-            if (date >= dateNow && $('.form-button').html() != '承認済み')
+            if (date >= formDateCheck && date <= toDateCheck && $('.form-button').html() != '承認済み')
                 disable = false;
 
             $('#notiDanger').html('');
             
-            if(disable && $('.form-button').html() != '承認済み')
+            if(disable || checkOverride == 1)
                makeDangerAlert($('#message').val(), 'notiDanger');
 
-            $('.form-button').prop('disabled', disable);  
+            $('.form-sbm').prop('disabled', disable);  
             $('#result').html(totalTime);
         }
 

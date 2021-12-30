@@ -111,7 +111,7 @@ class OverTimeController extends Controller
 
             $this->overtimeService->registerOverTime($data);
 
-            return redirect()->route('staff.over-time.index')->with('success', $message);
+            return redirect()->route('staff-over-time.index')->with('success', $message);
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -137,5 +137,16 @@ class OverTimeController extends Controller
         $infoRegister = $this->overtimeService->infoRegisterByDate($request->date);
 
         return response()->json($infoRegister);
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $this->overtimeService->delete($id);
+
+            return redirect()->route('staff-over-time.index')->with('success', __('common.delete.success'));
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
     }
 }

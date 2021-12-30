@@ -12,7 +12,8 @@
             <table class="table table-bordered table-hover mb-0">
                 <thead>
                     <tr>
-                        <th class="w-140">日付</th>
+                        <th class="w-140">日付(開始)</th>
+                        <th class="w-140">日付(終了)</th>
                         <th class="w-140">種別</th>
                         <th class="w-140">時問</th>
                         <th class="w-content">理由</th>
@@ -25,6 +26,7 @@
                     @forelse ($listVacation as $item)
                         <tr>
                             <td>{{ $item['start_date'] }}</td>
+                            <td>{{ $item['end_date'] }}</td>
                             <td>{{ $item['type_id'] > 6 ? '欠勤' : $item['type'] }}</td>
                             <td>{{ $item['type_id'] > 6 ? $item['type'] : '-' }}</td>
                             <td>{{ $item['reason'] }}</td>
@@ -34,7 +36,7 @@
                                 @if ($item['disable'])
                                 <i class="icofont-lock"></i>
                                 @else
-                                    <a href="{{ route('staff.vacation.edit', $item['id']) }}"><i class="icofont-pencil-alt-1"></i></a>
+                                    <a href="{{ route('staff-vacation.edit', $item['id']) }}"><i class="icofont-pencil-alt-1"></i></a>
                                 @endif
                         </tr>
                     @empty

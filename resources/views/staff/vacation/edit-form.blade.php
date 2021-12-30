@@ -64,7 +64,7 @@
 
 <div class="tab-content1">
     <form
-        action="{{ isset($infoVacation) ? route('staff.vacation.update', $infoVacation['id']) : route('staff.vacation.store') }}"
+        action="{{ isset($infoVacation) ? route('staff-vacation.update', $infoVacation['id']) : route('staff-vacation.store') }}"
         method="POST">
         @csrf
         @if (isset($infoVacation))
@@ -175,31 +175,36 @@
                 @if (isset($infoVacation) && $infoVacation['disable'])
                     <button class="btn btn-danger w-100  w-410" disabled>承認済み</button>
                 @else
-                    <button class="btn btn-primary w-100 form-button  w-410">申請(登録) </button>
+                    <button class="btn btn-primary w-100 form-sbm form-button  w-410" style="margin-right: 90px">更新(修正)</button>
                 @endif
+                <button type="button" class="btn btn-danger w-100 form-delete form-button  w-410">削除</button>
             </div>
         </div>
     </form>
 </div>
+<form
+        action="{{ route('staff-vacation.destroy', $infoVacation['id']) }}" class="frmDelete"
+        method="POST">
+    @csrf
+    <input type="hidden" name="_method" value="DELETE">
+    </form>
 
 @push('scripts')
 
     <script>
         
         $('.chosen-select').select2();
-        $('.input-date').datetimepicker({
-            format: "YYYY-MM-DD",
-            locale: "ja",
-            disabledDates: [
-                @foreach ($listCalendar as $item)
-                    moment("{{ $item->date }}"),
-                @endforeach
-            ],
+        $('.form-delete').click(() => {
+            if(confirm('本当に削除しますか？')) {
+                $('.frmDelete').submit();
+            }
         });
-        $('input[name=end_date]').prop('readonly', true);
-
+        // $('input[name=end_date]').prop('readonly', true);
 
         var dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
+        @php($date = \Carbon\Carbon::now()->day < 11 ? \Carbon\Carbon::now()->subMonth()->toDateString() : \Carbon\Carbon::now()->toDateString());
+        var formDateCheck = '{{ \Carbon\Carbon::parse($date)->format("Y-m-11") }}';
+        var toDateCheck = '{{ \Carbon\Carbon::parse($date)->addMonth()->format("Y-m-10") }}';
 
         $("#start_date").on("change.datetimepicker", function(e) {
             let date = new Date(e.date);
@@ -211,7 +216,7 @@
                 $('input[name=end_date]').val('');
             }
 
-            $('.form-button').prop('disabled', false);
+            $('.form-sbm').prop('disabled', false);
 
             checkDate(dateNow, date);
         });
@@ -222,26 +227,41 @@
 
             let startDate = $('input[name=start_date]').val();
 
-            $('.form-button').prop('disabled', false);
+            $('.form-sbm').prop('disabled', false);
 
             checkDate(startDate, date);
         });
 
-        function checkDate(date, dateCheck, message = '') {
-            $('.form-button').prop('disabled', false);
+        function checkDate(date, dateCheck) {
+            $('.form-sbm').prop('disabled', false);
             $('#notiDanger').html('');
-
+            date = $('input[name=start_date]').val();
             if (date > dateCheck) {
-                if(message == '')
-                    message = '期間が無効になっている';
 
-                makeDangerAlert(message, 'notiDanger');
-                $('.form-button').prop('disabled', true);
+                makeDangerAlert('期間が無効になっている', 'notiDanger');
+                $('.form-sbm').prop('disabled', true);
+            }
+            
+            if(date < formDateCheck || date > toDateCheck) {
+                $('#notiDanger').html('');
+                makeDangerAlert('申請可能期間外のため、登録できません', 'notiDanger');
+                $('.form-sbm').prop('disabled', true);
             }
         }
 
-        @if (isset($infoVacation))
-            checkDate(dateNow, "{{ $infoVacation['end_date'] }}", "指定された日付には、既に申請済みデータがあります。")
-        @endif
+        // @if (isset($infoVacation))
+        //     checkDate(dateNow, "{{ $infoVacation['end_date'] }}", "指定された日付には、既に申請済みデータがあります。")
+        // @endif
+
+        $('.input-date').datetimepicker({
+            format: "YYYY-MM-DD",
+            locale: "ja",
+            useCurrnet: false,
+            disabledDates: [
+                @foreach ($listCalendar as $item)
+                    moment("{{ $item->date }}"),
+                @endforeach
+            ],
+        });
     </script>
 @endpush

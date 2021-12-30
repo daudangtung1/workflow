@@ -26,6 +26,7 @@ class OverTimeController extends Controller
             'active' => 'index',
             'times' => $this->getTime(),
             'approvers' => $this->overTimeService->listUser(UserRole::APPROVER),
+            'listCalendar' =>  $this->overTimeService->listCalendar(),
         ]);
     }
 
@@ -66,6 +67,7 @@ class OverTimeController extends Controller
             'dataRegister' =>  $dataRegister,
             'times' => $this->getTime(),
             'approvers' => $this->overTimeService->listUser(UserRole::APPROVER),
+            'listCalendar' =>  $this->overTimeService->listCalendar(),
         ]);
     }
 

@@ -12,8 +12,8 @@ class CreateStaffRequest extends BaseRequest
         $this->redirect = route('manager.staff.index');
         return [
             'user_id' => 'unique:users|required|integer',
-            'approver_first' => 'required',
-            'approver_second' => 'required',
+            // 'approver_first' => 'required',
+            // 'approver_second' => 'required',
             'start_time_working' => 'required',
             'end_time_working' => 'required',
             'password' => 'min:6',
@@ -24,8 +24,8 @@ class CreateStaffRequest extends BaseRequest
     public function attributes()
     {
         return [
-            'approver_first' => '承認者1社員ID',
-            'approver_second' => '承認者2社員ID',
+            // 'approver_first' => '承認者1社員ID',
+            // 'approver_second' => '承認者2社員ID',
             'user_id' => '社員ID',
             'password' => 'パスワード',
             'email' => 'メールアドレス',
