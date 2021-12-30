@@ -11,8 +11,8 @@ Route::group(['middleware' => 'auth.staff'], function () {
         return view('staff.index');
     })->name('home');
 
-    Route::resource('over-time', OverTimeController::class);
-    Route::resource('part-time', PartTimeController::class);
-    Route::resource('vacation', VacationController::class);
-    Route::resource('absence', AbsenceController::class);
+    // Route::resource('over-time', OverTimeController::class);
+    // Route::resource('part-time', PartTimeController::class);
+    // Route::resource('vacation', VacationController::class);
+    // Route::resource('absence', AbsenceController::class);
 });

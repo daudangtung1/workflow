@@ -73,6 +73,17 @@
             width: 100% !important;
         }
 
+        .datepicker-days td.disabled2,
+        .datepicker-days td.weekend {
+            background: #FFD1D1 !important;
+            border-radius: 50%;
+        }
+
+        .datepicker-days td.active {
+            background: #007bff !important;
+            border-radius: 0.25rem;
+        }
+
     </style>
 @endpush
 
@@ -219,5 +230,16 @@
         });
 
         $('select').change();
+        $('.input-date').datetimepicker({
+            format: "YYYY-MM-DD",
+            locale: "ja",
+            useCurrent: false,
+            disabledDates: [
+                 @foreach ($listCalendar as $item)
+                    moment("{{ $item->date }}"),
+                 @endforeach
+            ],
+            daysOfWeekDisabled: [0, 6],
+        });
     </script>
 @endpush

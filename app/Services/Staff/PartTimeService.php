@@ -140,4 +140,9 @@ class PartTimeService extends BaseService
             ];
         }
     }
+
+    public function delete($id)
+    {
+        return $this->model->where('id', $id)->delete();
+    }
 }

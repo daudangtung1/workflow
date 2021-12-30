@@ -15,8 +15,8 @@ class UpdateStaffRequest extends BaseRequest
                 'required',
                 'integer'
             ],
-            'approver_first' => 'required',
-            'approver_second' => 'required',
+            // 'approver_first' => 'required',
+            // 'approver_second' => 'required',
             'start_time_working' => 'required',
             'end_time_working' => 'required',
             'password' => 'nullable|min:6',
@@ -29,8 +29,8 @@ class UpdateStaffRequest extends BaseRequest
     public function attributes()
     {
         return [
-            'approver_first' => '承認者1社員ID',
-            'approver_second' => '承認者2社員ID',
+            // 'approver_first' => '承認者1社員ID',
+            // 'approver_second' => '承認者2社員ID',
             'user_id' => '社員ID',
             'password' => 'パスワード',
             'email' => 'メールアドレス',

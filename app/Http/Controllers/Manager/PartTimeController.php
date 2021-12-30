@@ -26,6 +26,7 @@ class PartTimeController extends Controller
             'active' => 'index',
             'times' => $this->getTime(),
             'approvers' => $this->partTimeService->listUser(UserRole::APPROVER),
+            'listCalendar' =>  $this->partTimeService->listCalendar(),
         ]);
     }
 
@@ -40,6 +41,7 @@ class PartTimeController extends Controller
             'times' => $this->getTime(),
             'dataPartTime' => $dataPartTime,
             'approvers' => $this->partTimeService->listUser(UserRole::APPROVER),
+            'listCalendar' =>  $this->partTimeService->listCalendar(),
         ]);
     }
 

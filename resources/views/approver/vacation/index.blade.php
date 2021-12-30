@@ -45,8 +45,8 @@
             width: 160px !important;
         }
 
-        .w-795 {
-            width: 600px !important;
+        .w-500 {
+            width: 500px !important;
         }
 
         .w-140 {
@@ -91,10 +91,11 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th class="w-150">日付</th>
-                                    <th class="w-160">種別</th>
-                                    <th class="w-160">時問</th>
-                                    <th class="w-795">理由</th>
+                                    <th class="w-140">日付(開始)</th>
+                                    <th class="w-140">日付(終了)</th>
+                                    <th class="w-140">種別</th>
+                                    <th class="w-140">時問</th>
+                                    <th class="w-500">理由</th>
                                     <th class="w-140">申請者(社員ID)</th>
                                     <th class="w-150">承認</th>
                                 </tr>
@@ -103,6 +104,7 @@
                                 @forelse ($listVacation as $item)
                                     <tr>
                                         <td>{{ $item['start_date'] }}</td>
+                                        <td>{{ $item['end_date'] }}</td>
                                         <td>{{ $item['type_id'] > 6 ? '欠勤' : $item['type'] }}</td>
                                         <td>{{ $item['type_id'] > 6 ? $item['type'] : '-' }}</td>
                                         <td>{{ $item['reason'] }}</td>

@@ -24,6 +24,43 @@
                             data-accordion="false">
                             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+                            <li class="nav-item role-name menu-is-opening menu-open">
+                                <a href="#" class="nav-link active">
+                                    <i class="icofont-paper"></i>
+                                    <p class="ml-1">
+                                        申請
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview" style="display: block;">
+                                    <li class="nav-item">
+                                        <a href="{{ route('staff-over-time.index') }}"
+                                            class="nav-link @yield('active_staff_overtime')">
+                                            <p>
+                                                時間外申請
+                                                <i class="right fas fa-caret-right"></i>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('staff-part-time.index') }}"
+                                            class="nav-link @yield('active_staff_parttime')">
+                                            <p>
+                                                パート出勤簿
+                                                <i class="right fas fa-caret-right"></i>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('staff-vacation.index') }}"
+                                            class="nav-link  @yield('active_staff_vacation')">
+                                            <p>
+                                                休暇届
+                                                <i class="right fas fa-caret-right"></i>
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
 
                             @yield('content_aside')
                             <li class="nav-item">

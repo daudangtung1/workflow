@@ -63,4 +63,9 @@ class VacationService extends BaseService
 
         return $data;
     }
+
+    public function delete($id)
+    {
+        return $this->model->where('id', $id)->delete();
+    }
 }

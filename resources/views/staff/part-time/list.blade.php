@@ -53,7 +53,7 @@
             let date = $(this).attr('data-date');
 
             $.ajax({
-                url: "{{ route('staff.part-time.show', 'list-part-time') }}",
+                url: "{{ route('staff-part-time.show', 'list-part-time') }}",
                 type: 'get',
                 dataType: 'json',
                 data: {
@@ -61,7 +61,7 @@
                 },
                 success: function(res) {
                     let body = '';
-                    let redirect = "{{ route('staff.part-time.index') }}";
+                    let redirect = "{{ route('staff-part-time.index') }}";
 
                     //render table
                     $.each(res.data, function(key, item) {

@@ -51,7 +51,7 @@
             let date = $(this).attr('data-date');
 
             $.ajax({
-                url: "{{ route('staff.over-time.show', 'list-over-time') }}",
+                url: "{{ route('staff-over-time.show', 'list-over-time') }}",
                 type: 'get',
                 dataType: 'json',
                 data: {
@@ -59,11 +59,11 @@
                 },
                 success: function(res) {
                     let body = '';
-                    let redirect = "{{ route('staff.over-time.index') }}";
+                    let redirect = "{{ route('staff-over-time.index') }}";
                      //render table
                      $.each(res.data, function(key, item) {
                         let icon = item.disable ? '<i class="icofont-lock"></i>' :
-                            `<a href="${redirect}?register=${item.id}" ><i class="icofont-pencil-alt-1"></i></a>`
+                            `<a href="${redirect}?register=${item.id}&date=${key}" ><i class="icofont-pencil-alt-1"></i></a>`
 
                         body += (`<tr>
                                 <td>${item.date}</td>
