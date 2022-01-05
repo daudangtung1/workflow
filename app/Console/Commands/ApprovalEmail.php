@@ -49,49 +49,51 @@ class ApprovalEmail extends Command
     public function handle()
     {
         $afterDay = Carbon::now()->subDay(3);
-        $overTimeDelay = OvertimeRegister::where('created_at', '>=', $afterDay)
-            ->whereNull('approver_id')
-            ->with('user')
+        $overTimeDelay = OvertimeRegister::where('created_at', '<', $afterDay)
+            ->whereNull('approver')
             ->get();
 
         foreach ($overTimeDelay as $item) {
-            $user = User::find($item->approver_first);
+            $approver1 = User::find($item->user->approver_first ?? 0);
+            $approver2 = User::find($item->user->approver_first ?? 0);
 
-            Log::info($user->notify(new NotifyApprovalEmail()));
+            if(isset($approver1->email))
+                Log::info($approver1->notify(new NotifyApprovalEmail()));
+
+            if(isset($approver2->email))
+                Log::info($approver2->notify(new NotifyApprovalEmail()));
         }
 
-        $partTimeDelay = ParttimeRegister::where('created_at', '>=', $afterDay)
-            ->whereNull('approver_id')
-            ->with('user')
+        $partTimeDelay = ParttimeRegister::where('created_at', '<', $afterDay)
+            ->whereNull('approver')
             ->get();
 
         foreach ($partTimeDelay as $item) {
-            $user = User::find($item->approver_first);
+            $approver1 = User::find($item->user->approver_first ?? 0);
+            $approver2 = User::find($item->user->approver_first ?? 0);
 
-            Log::info($user->notify(new NotifyApprovalEmail()));
+            if(isset($approver1->email))
+                Log::info($approver1->notify(new NotifyApprovalEmail()));
+
+            if(isset($approver2->email))
+                Log::info($approver2->notify(new NotifyApprovalEmail()));
         }
 
-        $vacationDelay = Vacation::where('created_at', '>=', $afterDay)
-            ->whereNull('approver_id')
-            ->with('user')
+        $vacationDelay = Vacation::where('created_at', '<', $afterDay)
+            ->whereNull('approver')
             ->get();
 
         foreach ($vacationDelay as $item) {
-            $user = User::find($item->approver_first);
+            $approver1 = User::find($item->user->approver_first ?? 0);
+            $approver2 = User::find($item->user->approver_first ?? 0);
 
-            Log::info($user->notify(new NotifyApprovalEmail()));
+            if(isset($approver1->email))
+                Log::info($approver1->notify(new NotifyApprovalEmail()));
+
+            if(isset($approver2->email))
+                Log::info($approver2->notify(new NotifyApprovalEmail()));
         }
 
-        $absenceDelay = Absence::where('created_at', '>=', $afterDay)
-            ->whereNull('approver_id')
-            ->with('user')
-            ->get();
-
-        foreach ($absenceDelay as $item) {
-            $user = User::find($item->approver_first);
-
-            Log::info($user->notify(new NotifyApprovalEmail()));
-        }
 
         //$user = User::find(1);
         //Log::info($overTimeDelay);
