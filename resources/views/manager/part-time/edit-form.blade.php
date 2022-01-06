@@ -160,6 +160,7 @@
                                                 <div class="select-time  select-min ">
                                                     <select class="chosen-select" name="start_time_first">
                                                         <option value=""></option>
+                                                        <option value="0">&nbsp;</option>
                                                         @foreach ($times as $item)
                                                             <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
                                                             <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
@@ -170,6 +171,7 @@
                                                 <div class="select-time  select-min">
                                                     <select class="chosen-select" name="end_time_first">
                                                         <option value=""></option>
+                                                        <option value="0">&nbsp;</option>
                                                         @foreach ($times as $item)
                                                             <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
                                                             <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
@@ -195,6 +197,7 @@
                                                 <div class="select-time select-min">
                                                     <select class="chosen-select" name="start_time_second">
                                                         <option value=""></option>
+                                                        <option value="0">&nbsp;</option>
                                                         @foreach ($times as $item)
                                                             <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
                                                             <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
@@ -205,6 +208,7 @@
                                                 <div class="select-time select-min">
                                                     <select class="chosen-select" name="end_time_second">
                                                         <option value=""></option>
+                                                        <option value="0">&nbsp;</option>
                                                         @foreach ($times as $item)
                                                             <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
                                                             <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
@@ -226,6 +230,7 @@
                                                 <div class="select-time select-min select1">
                                                     <select class="chosen-select" name="start_time_third">
                                                         <option value=""></option>
+                                                        <option value="0">&nbsp;</option>
                                                         @foreach ($times as $item)
                                                             <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
                                                             <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
@@ -236,6 +241,7 @@
                                                 <div class="select-time select-min">
                                                     <select class="chosen-select" name="end_time_third">
                                                         <option value=""></option>
+                                                        <option value="0">&nbsp;</option>
                                                         @foreach ($times as $item)
                                                             <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
                                                             <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
@@ -356,7 +362,12 @@
 
 @push('scripts')
     <script>
-        
+        $('.chosen-select').on('select2:select', function (e) {
+            if($(this).val() == 0 ) {
+                $(this).val('').trigger('change');
+            }
+           
+        });
         $('.form-button-edit').click(function(e) {
             let formData = new FormData($('.formSm')[0]);
             let time = $(`#result`).html();

@@ -18,7 +18,7 @@
         }
 
         input[name='year_text'] {
-            width: 80px;
+            width: 100px;
             display: inline;
         }
 
@@ -37,7 +37,8 @@
 
         .c-year i {
             font-size: 20px;
-            margin-top: 3px
+            position: relative;
+            top: 2px;
         }
 
         table {
@@ -108,8 +109,17 @@
 
         }
 
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .dataTables_scrollBody::-webkit-scrollbar {
+            display: none;
+        }
+
         .dataTables_scrollBody {
-            overflow: hidden !important;
+            /* overflow: hidden !important; */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
         }
 
         @media only screen and (max-width: 600px) {
@@ -120,13 +130,22 @@
 
         .dataTables_scrollBody:hover,
         .dataTables_scrollBody:active {
+            width: calc(100% + 15px) !important;
             overflow: auto !important;
+            -ms-overflow-style: unset;
+            /* IE and Edge */
+            scrollbar-width: unset;
+        }
+
+        .dataTables_scrollBody:hover::-webkit-scrollbar {
+            display: block;
         }
 
         @media only screen and (max-width: 600px) {
             .c-year {
                 margin-top: 15px;
             }
+
             .c-year .prev {
                 margin-left: 0px;
             }
@@ -134,6 +153,7 @@
             .d-ubflex {
                 display: block !important;
             }
+
             td {
                 text-align: center !important;
             }
@@ -154,72 +174,68 @@
         <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
             <form action="{{ route('manager.calendar.store') }}" method="POST">
                 @csrf
-                
-                        <div class="content2">
-                            <div class="row">
-                                <div class="col-md-12 d-flex d-ubflex">
-                                    <div>
-                                        <span class="title">営業日カレンダー</span><br>
-                                        <span class="sub-title">休業日にチェックを入れてください</span>
-                                    </div>
 
-                                    <div class="c-year">
-                                        <a href="javascript:void(0)" class="prev"
-                                            data-year="{{ request()->prev }}">
-                                            <i class="right fas fa-caret-left"></i></a>
-                                        <input type="text" name="year_text" id="year_text"
-                                            value="{{ request()->year_text }}" data-year="{{ request()->year }}"
-                                            class="form-control text-center ">
-                                        <input type="hidden" name="year" value="{{ request()->year }}">
-                                        <a href="javascript:void(0)" class="next"
-                                            data-year="{{ request()->next }}">
-                                            <i class="right fas fa-caret-right"></i></a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-12 overflow-auto">
-                                    <table id="table1">
-                                        <thead>
-                                            <tr>
-                                                <th style="color: #E40E0E; background-color: #F2DEDE">日</th>
-                                                <th style="background: #fff">月</th>
-                                                <th style="background: #fff">火</th>
-                                                <th style="background: #fff">水</th>
-                                                <th style="background: #fff">木</th>
-                                                <th style="background: #fff">金</th>
-                                                <th style="color: #3B89CF; background-color: #D9EDF7">土</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($calendar as $item)
-                                                @if ($item['week'] == 0)
-                                                    <tr>
-                                                @endif
-                                                <td style="background-color: {{ $item['color'] }}"><input type="checkbox"
-                                                        name="day[]" id="day{{ $item['day'] }}"
-                                                        value="{{ $item['day'] }}"
-                                                        {{ isset($arrCalendar[$item['day']]) ? 'checked' : '' }}>
-                                                    <label
-                                                        for="day{{ $item['day'] }}">{{ \Carbon\Carbon::parse($item['day'])->format('m/d') }}</label>
-                                                </td>
-                                                @if ($item['week'] == 6)
-                                                    </tr>
-                                                @endif
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                <div class="content2">
+                    <div class="row">
+                        <div class="col-md-12 d-flex d-ubflex">
+                            <div>
+                                <span class="title">営業日カレンダー</span><br>
+                                <span class="sub-title">休業日にチェックを入れてください</span>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary  frm-button">登録(更新)</button>
-                                </div>
+                            <div class="c-year">
+                                <a href="javascript:void(0)" class="prev" data-year="{{ request()->prev }}">
+                                    <i class="right fas fa-caret-left"></i></a>
+                                <input type="text" name="year_text" id="year_text" value="{{ request()->year_text }}"
+                                    data-year="{{ request()->year }}" class="form-control text-center ">
+                                <input type="hidden" name="year" value="{{ request()->year }}">
+                                <a href="javascript:void(0)" class="next" data-year="{{ request()->next }}">
+                                    <i class="right fas fa-caret-right"></i></a>
                             </div>
                         </div>
-                
+
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12 overflow-auto">
+                            <table id="table1">
+                                <thead>
+                                    <tr>
+                                        <th style="color: #E40E0E; background-color: #F2DEDE">日</th>
+                                        <th style="background: #fff">月</th>
+                                        <th style="background: #fff">火</th>
+                                        <th style="background: #fff">水</th>
+                                        <th style="background: #fff">木</th>
+                                        <th style="background: #fff">金</th>
+                                        <th style="color: #3B89CF; background-color: #D9EDF7">土</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($calendar as $item)
+                                        @if ($item['week'] == 0)
+                                            <tr>
+                                        @endif
+                                        <td style="background-color: {{ $item['color'] }}"><input type="checkbox"
+                                                name="day[]" id="day{{ $item['day'] }}" value="{{ $item['day'] }}"
+                                                {{ isset($arrCalendar[$item['day']]) ? 'checked' : '' }}>
+                                            <label
+                                                for="day{{ $item['day'] }}">{{ \Carbon\Carbon::parse($item['day'])->format('m/d') }}</label>
+                                        </td>
+                                        @if ($item['week'] == 6)
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary  frm-button">登録(更新)</button>
+                        </div>
+                    </div>
+                </div>
+
             </form>
         </div>
     </div>

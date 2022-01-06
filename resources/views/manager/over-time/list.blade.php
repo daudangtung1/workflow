@@ -209,6 +209,12 @@
 
 
     <script>
+        $('.chosen-select').on('select2:select', function (e) {
+            if($(this).val() == 0 ) {
+                $(this).val('').trigger('change');
+            }
+           
+        });
         $(document).ready(function() {
             var table = $('#example').DataTable({
                 lengthChange: false,
@@ -306,7 +312,10 @@
                 success: function(data) {
                     $('select[name=start_time]').empty();
                     $('select[name=start_time]').append($('<option>').attr('value', '')
-                        .text(''))
+                        .text(''));
+
+                    $('select[name=start_time]').append($('<option>').attr('value', '0')
+                        .text('\u00A0'));
 
                     $.each(data.start, function(key, item) {
                         let time = item['hour'] + ':' + item['minutes']['00'];
@@ -331,6 +340,8 @@
                     $('select[name=end_time]').empty();
                     $('select[name=end_time]').append($('<option>').attr('value', '')
                         .text(''));
+                    $('select[name=end_time]').append($('<option>').attr('value', '0')
+                        .text('\u00A0'));
 
                     $.each(data.end, function(key, item) {
                         if (item['minutes']['00']) {

@@ -36,7 +36,7 @@ class StaffController extends Controller
             'branchs' => $this->staffService->listBranch(),
             'workingParts' => $this->staffService->listWorkingPart(),
             'approvers' => $this->staffService->listUser(UserRole::APPROVER),
-            'managers' => $this->staffService->listUser(UserRole::MANAGER),
+            // 'managers' => $this->staffService->listUser(UserRole::MANAGER),
             'times' => $times,
             'listStaff' => [],
         ];
@@ -51,9 +51,10 @@ class StaffController extends Controller
     public function store(CreateStaffRequest $request)
     {
         try {
-            $role = UserRole::STAFF; 
+            $role = UserRole::STAFF;
 
-            if($request->manager) $role = UserRole::MANAGER;
+            if ($request->manager) $role = UserRole::MANAGER;
+
 
             $data = [
                 'user_id' => $request->user_id,
@@ -73,6 +74,13 @@ class StaffController extends Controller
                 'role' => $role,
             ];
             $this->staffService->createStaff($data);
+
+            //update role
+            if ($request->approver_first)
+                $this->staffService->updateRole($request->approver_first);
+
+            if ($request->approver_second)
+                $this->staffService->updateRole($request->approver_second);
 
             return redirect()->route('manager.staff.index')->with('success', __('common.create.success'));
         } catch (\Exception $e) {
@@ -98,7 +106,7 @@ class StaffController extends Controller
             'branchs' => $this->staffService->listBranch(),
             'workingParts' => $this->staffService->listWorkingPart(),
             'approvers' => $this->staffService->listUser(UserRole::APPROVER),
-            'managers' => $this->staffService->listUser(UserRole::MANAGER),
+            // 'managers' => $this->staffService->listUser(UserRole::MANAGER),
             'times' => $times,
             'action' => 'update',
             'infoUser' => User::findOrFail($id),
@@ -112,9 +120,12 @@ class StaffController extends Controller
     public function update(UpdateStaffRequest $request, $id)
     {
         try {
-            $role = UserRole::STAFF; 
+            $role = $request->role;
 
-            if($request->manager) $role = UserRole::MANAGER;
+            if ($request->manager) $role = UserRole::MANAGER;
+
+            //remove role old id
+            $user = $this->staffService->getInfo($id);
 
             $data = [
                 'user_id' => $request->user_id,
@@ -137,6 +148,17 @@ class StaffController extends Controller
                 $data['password'] = bcrypt($request->password);
 
             $this->staffService->updateStaff($data, $id);
+
+            //update role
+            if ($request->approver_first != $user->approver_first) {
+                $this->staffService->updateRole($request->approver_first);
+                $this->staffService->removeRole($user->approver_first);
+            }
+
+            if ($request->approver_second != $user->approver_second) {
+                $this->staffService->updateRole($request->approver_second);
+                $this->staffService->removeRole($user->approver_second);
+            }
 
             return redirect()->route('manager.staff.edit', $id)->with('success', __('common.update.success'));
         } catch (\Exception $e) {
