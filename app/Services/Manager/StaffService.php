@@ -41,12 +41,18 @@ class StaffService extends BaseService
         return $this->workingPartModel->all();
     }
 
-    public function listUser($role = '')
+    public function listUser($role = '', $idUser = '')
     {
+
         return $this->userModel->when($role, function ($query) use ($role) {
-            $query->where('role', UserRole::STAFF)
-                ->orWhere('role', UserRole::APPROVER);
+            $query->where(function ($subQ) {
+                $subQ->where('role', UserRole::STAFF)
+                    ->orWhere('role', UserRole::APPROVER);
+            });
         })
+            ->when($idUser, function ($query) use ($idUser) {
+                $query->where('id', '<>', $idUser);
+            })
             ->orderBy('created_at', 'DESC')->get();
     }
 

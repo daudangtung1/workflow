@@ -128,18 +128,18 @@
             }
         }
 
-        .dataTables_scrollBody:hover,
+        /* .dataTables_scrollBody:hover,
         .dataTables_scrollBody:active {
             width: calc(100% + 15px) !important;
             overflow: auto !important;
-            -ms-overflow-style: unset;
+            -ms-overflow-style: unset; */
             /* IE and Edge */
-            scrollbar-width: unset;
-        }
+            /* scrollbar-width: unset;
+        } */
 
-        .dataTables_scrollBody:hover::-webkit-scrollbar {
+        /* .dataTables_scrollBody:hover::-webkit-scrollbar {
             display: block;
-        }
+        } */
 
         @media only screen and (max-width: 600px) {
             .c-year {

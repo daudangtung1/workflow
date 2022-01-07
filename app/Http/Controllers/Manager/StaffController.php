@@ -105,7 +105,7 @@ class StaffController extends Controller
         $arrParam = [
             'branchs' => $this->staffService->listBranch(),
             'workingParts' => $this->staffService->listWorkingPart(),
-            'approvers' => $this->staffService->listUser(UserRole::APPROVER),
+            'approvers' => $this->staffService->listUser(UserRole::APPROVER, $id),
             // 'managers' => $this->staffService->listUser(UserRole::MANAGER),
             'times' => $times,
             'action' => 'update',
