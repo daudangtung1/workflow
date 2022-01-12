@@ -52,6 +52,7 @@
                                         <div class="select-time">
                                             <select class="chosen-select" name="start_time">
                                                 <option value=""></option>
+                                                <option value="0">&nbsp;</option>
                                                 @foreach ($times['start'] as $item)
                                                     <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
                                                     @if ($item['minutes']['30'])
@@ -80,6 +81,7 @@
                                             <div class="select-time">
                                                 <select class="chosen-select" name="end_time">
                                                     <option value=""></option>
+                                                    <option value="0">&nbsp;</option>
                                                     @foreach ($times['end'] as $item)
                                                         @if ($item['minutes']['00'])
                                                             <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
@@ -153,6 +155,12 @@
         <input type="hidden" id="message" value="期間が無効になっている">
 @push('scripts')
     <script>
+        $('.chosen-select').on('select2:select', function (e) {
+            if($(this).val() == 0 ) {
+                $(this).val('').trigger('change');
+            }
+           
+        });
         $('.form-button').click(e => {
             e.preventDefault();
             let time = $(`#result`).html();
@@ -324,7 +332,9 @@
         function setSelectTime (data) {
                     $('select[name=start_time]').empty();
                     $('select[name=start_time]').append($('<option>').attr('value', '')
-                        .text(''))
+                        .text(''));
+                    $('select[name=start_time]').append($('<option>').attr('value', '0')
+                        .text('\u00A0'));
 
                     $.each(data.start, function(key, item) {
                         let time = item['hour'] + ':' + item['minutes']['00'];
@@ -349,6 +359,9 @@
                     $('select[name=end_time]').empty();
                     $('select[name=end_time]').append($('<option>').attr('value', '')
                         .text(''));
+                    
+                    $('select[name=end_time]').append($('<option>').attr('value', '0')
+                        .text('\u00A0'));
 
                     $.each(data.end, function(key, item) {
                         if (item['minutes']['00']) {

@@ -280,6 +280,7 @@
                         <button class="btn btn-primary w-50 form-button font-weight-bold">申請(登録)</button>
                     </div>
                 </div>
+                <input type="hidden" name="role" value="{{ $infoUser->role }}">
             </form>
         </div>
 

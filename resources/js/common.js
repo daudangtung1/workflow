@@ -70,18 +70,18 @@ function startTime() {
         "11",
         "12",
     ];
-    var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    var days = ["日", "月", "火", "水", "木", "金", "土"];
     var curWeekDay = days[today.getDay()];
     var curDay = today.getDate();
     var curMonth = months[today.getMonth()];
     var curYear = today.getFullYear();
     var date =
         curYear +
-        "/" +
-        checkRealTime(curMonth) +
-        "/" +
+        "年" +
+        (curMonth) +
+        "月" +
         checkRealTime(curDay) +
-        "(月)";
+        `日 (${curWeekDay})`;
     document.getElementById("dateReal").innerHTML = date;
 
     var time = setTimeout(function() {
@@ -105,7 +105,7 @@ $(window).resize(function() {
     }
 
     if ($(window).width() < 991) {
-        console.log($(window).width());
+        // console.log($(window).width());
         $('.role-name').removeClass('menu-is-opening');
         $('.role-name').removeClass('menu-open');
         $('.role-name ul').css('display', 'none');

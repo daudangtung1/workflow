@@ -2,6 +2,7 @@
 
 namespace App\Services\Manager;
 
+use App\Enums\UserRole;
 use App\Models\Branch;
 use App\Models\WorkingPart;
 use App\Models\User;
@@ -12,7 +13,7 @@ class StaffService extends BaseService
     protected $branchModel;
     protected $workingPartModel;
     protected $userModel;
-    
+
     public function __construct(Branch $branchModel, WorkingPart $workingPartModel, User $userModel)
     {
         $this->branchModel = $branchModel;
@@ -40,11 +41,42 @@ class StaffService extends BaseService
         return $this->workingPartModel->all();
     }
 
-    public function listUser($role = '')
+    public function listUser($role = '', $idUser = '')
     {
+
         return $this->userModel->when($role, function ($query) use ($role) {
-            $query->where('role', $role);
+            $query->where(function ($subQ) {
+                $subQ->where('role', UserRole::STAFF)
+                    ->orWhere('role', UserRole::APPROVER);
+            });
         })
-        ->orderBy('created_at', 'DESC')->get();
+            ->when($idUser, function ($query) use ($idUser) {
+                $query->where('id', '<>', $idUser);
+            })
+            ->orderBy('created_at', 'DESC')->get();
+    }
+
+    public function updateRole($idUser)
+    {
+        return $this->userModel->where('id', $idUser)
+            ->update(['role' => UserRole::APPROVER]);
+    }
+
+    public function getInfo($idUser)
+    {
+        return $this->userModel->where('id', $idUser)->first();
+    }
+
+    public function removeRole($idUser)
+    {
+        $checkRole = $this->userModel
+            ->where('approver_first', $idUser)
+            ->orWhere('approver_second', $idUser)
+            ->first();
+
+        if (!$checkRole) {
+            return $this->userModel->where('id', $idUser)
+                ->update(['role' => UserRole::STAFF]);
+        }
     }
 }
