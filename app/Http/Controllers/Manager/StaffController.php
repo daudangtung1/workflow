@@ -35,7 +35,7 @@ class StaffController extends Controller
         $arrParam = [
             'branchs' => $this->staffService->listBranch(),
             'workingParts' => $this->staffService->listWorkingPart(),
-            'approvers' => $this->staffService->listUser(UserRole::APPROVER),
+            'approvers' => $this->staffService->listUser(),
             // 'managers' => $this->staffService->listUser(UserRole::MANAGER),
             'times' => $times,
             'listStaff' => [],
@@ -105,7 +105,7 @@ class StaffController extends Controller
         $arrParam = [
             'branchs' => $this->staffService->listBranch(),
             'workingParts' => $this->staffService->listWorkingPart(),
-            'approvers' => $this->staffService->listUser(UserRole::APPROVER, $id),
+            'approvers' => $this->staffService->listUser('', $id),
             // 'managers' => $this->staffService->listUser(UserRole::MANAGER),
             'times' => $times,
             'action' => 'update',
@@ -120,7 +120,7 @@ class StaffController extends Controller
     public function update(UpdateStaffRequest $request, $id)
     {
         try {
-            $role = $request->role;
+            $role = UserRole::STAFF;
 
             if ($request->manager) $role = UserRole::MANAGER;
 

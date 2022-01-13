@@ -35,6 +35,7 @@ class User extends Authenticatable
         'start_time_working',
         'end_time_working',
         'role',
+        'active_menu_approver',
     ];
 
     /**

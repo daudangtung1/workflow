@@ -2,6 +2,7 @@
 
 namespace App\Services\Manager;
 
+use App\Enums\UserApproverMenu;
 use App\Enums\UserRole;
 use App\Models\Branch;
 use App\Models\WorkingPart;
@@ -59,7 +60,7 @@ class StaffService extends BaseService
     public function updateRole($idUser)
     {
         return $this->userModel->where('id', $idUser)
-            ->update(['role' => UserRole::APPROVER]);
+            ->update(['active_menu_approver' => UserApproverMenu::SHOW]);
     }
 
     public function getInfo($idUser)
@@ -76,7 +77,7 @@ class StaffService extends BaseService
 
         if (!$checkRole) {
             return $this->userModel->where('id', $idUser)
-                ->update(['role' => UserRole::STAFF]);
+                ->update(['active_menu_approver' => UserApproverMenu::NOT_SHOW]);
         }
     }
 }

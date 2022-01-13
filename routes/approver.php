@@ -10,7 +10,7 @@ use App\Http\Controllers\Approver\StaffVacationController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['middleware' => 'auth.approver'], function () {
+Route::group(['middleware' => 'auth.staff'], function () {
     Route::get('home', function () {
         return view('approver.index');
     })->name('home');

@@ -18,7 +18,7 @@ class LoginController extends Controller
             $arrRole = [
                 UserRole::MANAGER => 'manager',
                 UserRole::STAFF => 'staff',
-                UserRole::APPROVER => 'approver',
+                UserRole::APPROVER => 'staff',
             ];
 
             $role = Auth::user()->role;
@@ -40,7 +40,7 @@ class LoginController extends Controller
             $arrRole = [
                 UserRole::MANAGER => 'manager',
                 UserRole::STAFF => 'staff',
-                UserRole::APPROVER => 'approver',
+                UserRole::APPROVER => 'staff',
             ];
 
             $role = Auth::user()->role;
