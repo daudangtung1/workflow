@@ -16,9 +16,12 @@ class NotifyApprovalEmail extends Notification
      *
      * @return void
      */
-    public function __construct()
+
+    protected $url;
+
+    public function __construct($url = '')
     {
-        //
+        $this->url = $url;
     }
 
     /**
@@ -41,11 +44,10 @@ class NotifyApprovalEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->success()
-                    ->subject('Phê duyệt yêu cầu')
-                    ->line('Bạn có yêu cầu cần phê duyệt.')
-                    ->action('Truy cập', route('login'))
-                    ->line('Cảm ơn đã sử dụng phần mềm!');
+            ->success()
+            ->subject('Phê duyệt yêu cầu')
+            ->line('未承認データがあります。確認して下さい。')
+            ->line($this->url);
     }
 
     /**
