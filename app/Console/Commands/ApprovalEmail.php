@@ -54,8 +54,8 @@ class ApprovalEmail extends Command
         $afterDay = Carbon::now()->subDay(3);
 
         //================ overtime ===================
-        $overTimeDelay = OvertimeRegister::where('created_at', '<', $afterDay)
-            ->whereBetween('date', [$from, $to])
+        $overTimeDelay = OvertimeRegister::where('date', '<', $afterDay)
+            ->where('date', '>=', $from)
             ->whereNull('approver')
             ->get();
 
@@ -64,15 +64,15 @@ class ApprovalEmail extends Command
             $approver2 = User::find($item->user->approver_first ?? 0);
 
             if (isset($approver1->email))
-                Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . '/approver/over-time')));
+                Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/over-time')));
 
             if (isset($approver2->email))
-                Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . '/approver/over-time')));
+                Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/over-time')));
         }
 
-         //================ parttime ===================
-        $partTimeDelay = ParttimeRegister::where('created_at', '<', $afterDay)
-            ->whereBetween('date', [$from, $to])
+        //================ parttime ===================
+        $partTimeDelay = ParttimeRegister::where('date', '<', $afterDay)
+            ->where('date', '>=', $from)
             ->whereNull('approver')
             ->get();
 
@@ -81,15 +81,15 @@ class ApprovalEmail extends Command
             $approver2 = User::find($item->user->approver_second ?? 0);
 
             if (isset($approver1->email))
-                Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . '/approver/part-time')));
+                Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/part-time')));
 
             if (isset($approver2->email))
-                Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . '/approver/part-time')));
+                Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/part-time')));
         }
 
         //================ vacation ===================
-        $vacationDelay = Vacation::where('created_at', '<', $afterDay)
-            ->whereBetween('start_date', [$from, $to])
+        $vacationDelay = Vacation::where('start_date', '<', $afterDay)
+            ->where('start_date', '>=', $from)
             ->whereNull('approver')
             ->get();
 
@@ -98,10 +98,10 @@ class ApprovalEmail extends Command
             $approver2 = User::find($item->user->approver_second ?? 0);
 
             if (isset($approver1->email))
-                Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . '/approver/vacation')));
+                Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/vacation')));
 
             if (isset($approver2->email))
-                Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . '/approver/vacation')));
+                Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/vacation')));
         }
 
 
