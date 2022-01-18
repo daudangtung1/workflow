@@ -52,6 +52,8 @@ class ApprovalEmail extends Command
         $to = $this->getDate()['to'];
 
         $afterDay = Carbon::now()->subDay(3);
+
+        //================ overtime ===================
         $overTimeDelay = OvertimeRegister::where('created_at', '<', $afterDay)
             ->whereBetween('date', [$from, $to])
             ->whereNull('approver')
@@ -68,6 +70,7 @@ class ApprovalEmail extends Command
                 Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . '/approver/over-time')));
         }
 
+         //================ parttime ===================
         $partTimeDelay = ParttimeRegister::where('created_at', '<', $afterDay)
             ->whereBetween('date', [$from, $to])
             ->whereNull('approver')
@@ -75,7 +78,7 @@ class ApprovalEmail extends Command
 
         foreach ($partTimeDelay as $item) {
             $approver1 = User::find($item->user->approver_first ?? 0);
-            $approver2 = User::find($item->user->approver_first ?? 0);
+            $approver2 = User::find($item->user->approver_second ?? 0);
 
             if (isset($approver1->email))
                 Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . '/approver/part-time')));
@@ -84,6 +87,7 @@ class ApprovalEmail extends Command
                 Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . '/approver/part-time')));
         }
 
+        //================ vacation ===================
         $vacationDelay = Vacation::where('created_at', '<', $afterDay)
             ->whereBetween('start_date', [$from, $to])
             ->whereNull('approver')
@@ -91,7 +95,7 @@ class ApprovalEmail extends Command
 
         foreach ($vacationDelay as $item) {
             $approver1 = User::find($item->user->approver_first ?? 0);
-            $approver2 = User::find($item->user->approver_first ?? 0);
+            $approver2 = User::find($item->user->approver_second ?? 0);
 
             if (isset($approver1->email))
                 Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . '/approver/vacation')));
