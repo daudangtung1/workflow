@@ -45,7 +45,7 @@ class NotifyApprovalEmail extends Notification
     {
         return (new MailMessage)
             ->success()
-            ->subject('Phê duyệt yêu cầu')
+            ->subject('未承認データがあります。確認して下さい。')
             ->line('未承認データがあります。確認して下さい。')
             ->line($this->url);
     }
