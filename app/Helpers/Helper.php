@@ -6,7 +6,7 @@ if (!function_exists('formatRole')) {
         $arrRole = [
             \App\Enums\UserRole::MANAGER => 'manager',
             \App\Enums\UserRole::STAFF => 'staff',
-            \App\Enums\UserRole::APPROVER => 'approver',
+            \App\Enums\UserRole::APPROVER => 'staff',
         ];
         
         return $arrRole[$role];

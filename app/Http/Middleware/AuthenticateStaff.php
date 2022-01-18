@@ -27,7 +27,7 @@ class AuthenticateStaff
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()) {
-            if(Auth::user()->role == UserRole::APPROVER) {
+            if (Auth::user()->active_menu_approver == \App\Enums\UserApproverMenu::SHOW) {
                 $request->overTime = $this->approverService->getOverTime();
                 $request->partTime = $this->approverService->getPartTime();
                 $request->absence = $this->approverService->getAbsence();

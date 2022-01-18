@@ -16,10 +16,10 @@
         </div>
         <div class="os-content-glue"></div>
         <div class="os-padding">
-            <div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;">
-                <div class="os-content">
+            <div class="os-viewport os-viewport-native-scrollbars-invisible" >
+                <div class="os-content" style="overflow-y: auto; margin-top: 0; padding-top: 25px">
                     <!-- Sidebar Menu -->
-                    <nav class="">
+                    <nav class="" >
                         <ul class="nav nav-pills nav-sidebar flex-column aside-ul" data-widget="treeview" role="menu"
                             data-accordion="false">
                             <!-- Add icons to the links using the .nav-icon class
@@ -71,6 +71,8 @@
                                     </p>
                                 </a>
                             </li>
+                            <li  style="height: 60px">
+                            </li>
                             <li class="nav-item clock">
                                 <a href="#" class="nav-link">
                                     <i class="icofont-clock-time"></i>
@@ -90,12 +92,12 @@
         </div>
         <div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden">
             <div class="os-scrollbar-track">
-                <div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);"></div>
+                <div class="os-scrollbar-handle"></div>
             </div>
         </div>
         <div class="os-scrollbar os-scrollbar-vertical os-scrollbar-auto-hidden">
             <div class="os-scrollbar-track">
-                <div class="os-scrollbar-handle" style="height: 26.7376%; transform: translate(0px, 0px);"></div>
+                <div class="os-scrollbar-handle"></div>
             </div>
         </div>
         <div class="os-scrollbar-corner"></div>
