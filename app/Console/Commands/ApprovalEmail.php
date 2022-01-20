@@ -52,6 +52,7 @@ class ApprovalEmail extends Command
         $to = $this->getDate()['to'];
 
         $afterDay = Carbon::now()->subDay(3);
+        $arrMail = [];
 
         //================ overtime ===================
         $overTimeDelay = OvertimeRegister::where('date', '<', $afterDay)
@@ -60,15 +61,28 @@ class ApprovalEmail extends Command
             ->get();
 
         foreach ($overTimeDelay as $item) {
-            $approver1 = User::find($item->user->approver_first ?? 0);
-            $approver2 = User::find($item->user->approver_first ?? 0);
+            if ($item->user->approver_first) {
+                $user = $item->user->approver_first;
+                $count = isset($arrMail[$user]['over_time']) ? $arrMail[$user]['over_time'] : 0;
+                $arrMail[$user]['over_time'] =  $count + 1;
+            }
 
-            if (isset($approver1->email))
-                Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/over-time')));
+            if ($item->user->approver_second && $item->user->approver_second != $item->user->approver_first) {
+                $user = $item->user->approver_second;
+                $count = isset($arrMail[$user]['over_time']) ? $arrMail[$user]['over_time'] : 0;
+                $arrMail[$user]['over_time'] =  $count + 1;
+            }
 
-            if (isset($approver2->email))
-                Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/over-time')));
+            // $approver1 = User::find($item->user->approver_first ?? 0);
+            // $approver2 = User::find($item->user->approver_second ?? 0);
+
+            // if (isset($approver1->email))
+            //     Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/over-time')));
+
+            // if (isset($approver2->email))
+            //     Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/over-time')));
         }
+
 
         //================ parttime ===================
         $partTimeDelay = ParttimeRegister::where('date', '<', $afterDay)
@@ -77,14 +91,25 @@ class ApprovalEmail extends Command
             ->get();
 
         foreach ($partTimeDelay as $item) {
-            $approver1 = User::find($item->user->approver_first ?? 0);
-            $approver2 = User::find($item->user->approver_second ?? 0);
+            if ($item->user->approver_first) {
+                $user = $item->user->approver_first;
+                $count = isset($arrMail[$user]['part_time']) ? $arrMail[$user]['part_time'] : 0;
+                $arrMail[$user]['part_time'] =  $count + 1;
+            }
 
-            if (isset($approver1->email))
-                Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/part-time')));
+            if ($item->user->approver_second && $item->user->approver_second != $item->user->approver_first) {
+                $user = $item->user->approver_second;
+                $count = isset($arrMail[$user]['part_time']) ? $arrMail[$user]['part_time'] : 0;
+                $arrMail[$user]['part_time'] =  $count + 1;
+            }
+            // $approver1 = User::find($item->user->approver_first ?? 0);
+            // $approver2 = User::find($item->user->approver_second ?? 0);
 
-            if (isset($approver2->email))
-                Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/part-time')));
+            // if (isset($approver1->email))
+            //     Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/part-time')));
+
+            // if (isset($approver2->email))
+            //     Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/part-time')));
         }
 
         //================ vacation ===================
@@ -94,16 +119,32 @@ class ApprovalEmail extends Command
             ->get();
 
         foreach ($vacationDelay as $item) {
-            $approver1 = User::find($item->user->approver_first ?? 0);
-            $approver2 = User::find($item->user->approver_second ?? 0);
+            if ($item->user->approver_first) {
+                $user = $item->user->approver_first;
+                $count = isset($arrMail[$user]['vacation']) ? $arrMail[$user]['vacation'] : 0;
+                $arrMail[$user]['vacation'] =  $count + 1;
+            }
 
-            if (isset($approver1->email))
-                Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/vacation')));
+            if ($item->user->approver_second && $item->user->approver_second != $item->user->approver_first) {
+                $user = $item->user->approver_second;
+                $count = isset($arrMail[$user]['vacation']) ? $arrMail[$user]['vacation'] : 0;
+                $arrMail[$user]['vacation'] =  $count + 1;
+            }
+            // $approver1 = User::find($item->user->approver_first ?? 0);
+            // $approver2 = User::find($item->user->approver_second ?? 0);
 
-            if (isset($approver2->email))
-                Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/vacation')));
+            // if (isset($approver1->email))
+            //     Log::info($approver1->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/vacation')));
+
+            // if (isset($approver2->email))
+            //     Log::info($approver2->notify(new NotifyApprovalEmail(env('APP_URL') . 'approver/vacation')));
         }
 
+        foreach ($arrMail as $userId => $item) {
+            $user = User::find($userId);
+            // Log::info($user->id);
+            $user->notify(new NotifyApprovalEmail($item));
+        }
 
         //$user = User::find(1);
         //Log::info($overTimeDelay);
@@ -122,8 +163,8 @@ class ApprovalEmail extends Command
             $date = Carbon::now()->subMonth()->format('Y-m');
 
 
-        $from = Carbon::parse($date)->subMonths()->format('Y-m') . '-11';
-        $to = Carbon::parse($date)->addMonth()->format('Y-m') . '-10';
+        $from = Carbon::parse($date)->format('Y-m') . '-11';
+        $to = Carbon::parse($date)->format('Y-m') . '-10';
 
 
         return [

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
 class NotifyApprovalEmail extends Notification
 {
@@ -17,11 +18,11 @@ class NotifyApprovalEmail extends Notification
      * @return void
      */
 
-    protected $url;
+    protected $data;
 
-    public function __construct($url = '')
+    public function __construct($data = [])
     {
-        $this->url = $url;
+        $this->data = $data;
     }
 
     /**
@@ -43,11 +44,25 @@ class NotifyApprovalEmail extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->success()
-            ->subject('未承認データがあります。確認して下さい。')
-            ->line('未承認データがあります。確認して下さい。')
-            ->line($this->url);
+        $message = new MailMessage;
+
+        $message->success()
+            ->subject('未承認データがあります。確認して下さい。');
+
+        if (isset($this->data['over_time']))
+            $message->line('時間外申請 (' . $this->data['over_time'] . ')')
+                ->line(env('APP_URL') . 'approver/over-time');
+
+        if (isset($this->data['part_time']))
+            $message->line('パート申請 (' . $this->data['part_time'] . ')')
+                ->line(env('APP_URL') . 'approver/part-time');
+
+        if (isset($this->data['vacation']))
+            $message->line('休暇申請 (' . $this->data['vacation'] . ')')
+                ->line(env('APP_URL') . 'approver/vacation');
+
+
+        return $message;
     }
 
     /**
