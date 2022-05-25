@@ -46,7 +46,7 @@
 <script src="{{ asset('js/datepicker/ja.js') }}"></script>
 <script src="{{ asset('js/common.js') }}"></script>
 <script src="{{ asset('js/select2/select2.min.js') }}"></script>
-
+<script src="{{ asset('js/main.js')}}"></script>
 @stack('scripts')
 
 </html>
