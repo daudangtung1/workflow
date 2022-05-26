@@ -42,18 +42,9 @@
 @push('scripts')
 <script>
     $(document).load(".search", function() {
-        
+        let date_now = $('#date_now_hidden').val();
         loading();
         let date = $(this).attr('data-date');
-        let date_now = $('#date_now_hidden').val();
-
-        function TestObject (name) {
-            return {
-                getObjectName: function() {
-                return name
-            }
-        };
-            }
 
         $.ajax({
             url: "{{ route('staff-over-time.show', 'list-over-time') }}",
@@ -67,10 +58,10 @@
                 let body = '';
                 let redirect = "{{ route('staff-over-time.index') }}";
                 //render table
-                // console.log(res.data);
                 $.each(res.data, function(key, item) {
                     let icon = item.disable ? '<i class="icofont-lock"></i>' :
                         `<a href="${redirect}?register=${item.id}&date=${key}" ><i class="icofont-pencil-alt-1"></i></a>`
+
                     body += (`<tr>
                                 <td>${item.date}</td>
                                 <td>${item.start_time}</td>
@@ -86,7 +77,6 @@
                     body += (`<tr>
                                 <td colspan="7" class="text-center">{{ __('common.data.error') }}</td>
                             </tr>`);
-                
 
                 $('#bodyOvertime').html(body);
 
@@ -105,7 +95,14 @@
 
                 unLoading();
             }
-        });
+        })
+    });
+
+    $('#table_ot tr').each(function() {
+        // if($(this).find('td').html()== '2022-05-19') console.log(1);
+
+        // else console.log(2)
+        console.log($(this).find('td').text());
     });
 </script>
 @endpush

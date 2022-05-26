@@ -13,6 +13,23 @@
         }
 
         .w-410{width: 415px;}
+        .start-time-wrap{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .start-time-wrap>input{
+            width: 340px;
+        }
+        .icon_event_none{
+            position: absolute;
+            top: 0;
+            right: 75px;
+            border: 1px solid #ced4da;
+            pointer-events: none;
+             /* border-right: none; */
+        }
     </style>
 @endpush
 
@@ -51,13 +68,11 @@
                                 <label>開始時刻</label>
                                 <div class="row">
                                     <div class="col">
-                                        <div class="select-time">
-                                            <!-- <select class="chosen-select" name="start_time" id="start_time">
-                                                <option value=""></option>
-    
-                                            </select> -->
-
-                                            <input type="text" class="timepicker chosen-select" name="start_time" id="start_time">
+                                        <div class="select-time start-time-wrap">
+                                            <input type="time" class="timepicker form-control chosen-select" name="start_time" id="start_time">
+                                            <div class="icon_event_none select2-selection__arrow">
+                                                <i class="icofont-clock-time"></i>
+                                            </div>
                                             <span class="ml-11">
                                                 30分単位
                                             </span>
@@ -76,17 +91,11 @@
                                     <label>終了時刻</label>
                                     <div class="row">
                                         <div class="col">
-                                            <div class="select-time">
-                                                <select class="chosen-select" name="end_time">
-                                                    <option value=""></option>
-                                                    <option value="0">&nbsp;</option>
-                                                    @foreach ($times['end'] as $item)
-                                                        @if ($item['minutes']['00'])
-                                                            <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                            @endif
-                                                            <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                        @endforeach
-                                                </select>
+                                            <div class="select-time start-time-wrap">
+                                                <input type="time" class="timepicker form-control chosen-select" name="end_time" id="end_time">
+                                                <div class="icon_event_none select2-selection__arrow">
+                                                    <i class="icofont-clock-time"></i>
+                                                </div>
                                                 <span class="ml-11">
                                                     30分単位
                                                 </span>
@@ -327,60 +336,7 @@
             $('#result').html(totalTime);
         }
 
-        function setSelectTime (data) {
-                    $('select[name=start_time]').empty();
-                    $('select[name=start_time]').append($('<option>').attr('value', '')
-                        .text(''));
-                    $('select[name=start_time]').append($('<option>').attr('value', '0')
-                        .text('\u00A0'));
 
-                    $.each(data.start, function(key, item) {
-                        let time = item['hour'] + ':' + item['minutes']['00'];
-                        $('select[name=start_time]').append($('<option>').attr('value', time)
-                            .text(time))
-
-                        if (item['minutes']['30']) {
-                            let time = item['hour'] + ':' + item['minutes']['30'];
-                            $('select[name=start_time]').append($('<option>').attr('value',
-                                time).text(time))
-                        }
-                    });
-
-                    $('select[name=start_time]').trigger('change');
-
-                    $(`select[name=start_time]`).select2({
-                        placeholder: '07:00',
-                        allowClear: true,
-                    });
-
-                    //end time
-                    $('select[name=end_time]').empty();
-                    $('select[name=end_time]').append($('<option>').attr('value', '')
-                        .text(''));
-                    
-                    $('select[name=end_time]').append($('<option>').attr('value', '0')
-                        .text('\u00A0'));
-
-                    $.each(data.end, function(key, item) {
-                        if (item['minutes']['00']) {
-                            let time = item['hour'] + ':' + item['minutes']['00'];
-                            $('select[name=end_time]').append($('<option>').attr('value', time)
-                                .text(time))
-                        }
-
-                        let time = item['hour'] + ':' + item['minutes']['30'];
-                        $('select[name=end_time]').append($('<option>').attr('value', time)
-                            .text(time))
-                    });
-
-                    $('select[name=end_time]').trigger('change');
-
-                    $(`select[name=end_time]`).select2({
-                        placeholder: '17:30',
-                        allowClear: true,
-                    });
-                    $('.select-time .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
-        }
         $('.input-date').datetimepicker({
             format: "YYYY-MM-DD",
             locale: "ja",
@@ -394,7 +350,8 @@
         });       
         
 
-    $('.timepicker').wickedpicker();
-    </script>
+    $('#start_time').datetimepicker();
+    $('#endtime').datetimepicker();
+</script>
 
 @endpush
