@@ -69,6 +69,7 @@ class OverTimeService extends BaseService
             $data[$item->date] = [
                 'id' => $item->id,
                 'date' => $item->date . ' (' . $this->getDayOfWeek($item->date) . ')',
+                // 'date' => Carbon::parse($item->date)->format('Y年m月d'),
                 'start_time' => $item->start_time ? $this->formatTime($item->start_time) : '-',
                 'end_time' => $item->end_time ? $this->formatTime($item->end_time) : '-',
                 'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',

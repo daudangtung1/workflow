@@ -11,6 +11,7 @@
             background: #007bff !important;
             border-radius: 0.25rem;
         }
+        .w-410{width: 415px;}
     </style>
 @endpush
 

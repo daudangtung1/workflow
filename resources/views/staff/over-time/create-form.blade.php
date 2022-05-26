@@ -11,6 +11,8 @@
             background: #007bff !important;
             border-radius: 0.25rem;
         }
+
+        .w-410{width: 415px;}
     </style>
 @endpush
 
@@ -50,16 +52,12 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="select-time">
-                                            <select class="chosen-select" name="start_time">
+                                            <!-- <select class="chosen-select" name="start_time" id="start_time">
                                                 <option value=""></option>
-                                                <option value="0">&nbsp;</option>
-                                                @foreach ($times['start'] as $item)
-                                                    <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                    @if ($item['minutes']['30'])
-                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
+    
+                                            </select> -->
+
+                                            <input type="text" class="timepicker chosen-select" name="start_time" id="start_time">
                                             <span class="ml-11">
                                                 30分単位
                                             </span>
@@ -395,6 +393,8 @@
             daysOfWeekDisabled: [0, 6],
         });       
         
+
+    $('.timepicker').wickedpicker();
     </script>
 
 @endpush
