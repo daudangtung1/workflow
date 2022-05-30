@@ -19,10 +19,15 @@ class CreateVacationsTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->text('reason');
-            $table->text('type');
+            $table->text('type')->nullable();
             $table->dateTime('approval_date')->nullable();
             $table->integer('approver')->nullable();
             $table->integer('manager_confirm')->nullable();
+            $table->time('start_time_1')->nullable();
+            $table->time('end_time_1')->nullable();
+            $table->time('start_time_2')->nullable();
+            $table->time('end_time_2')->nullable();
+            $table->string('total_time')->nullable();
             $table->timestamps();
         });
     }

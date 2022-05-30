@@ -107,8 +107,7 @@
                             <label class="d-block" for="">休暇種別</label>
                             <table>
                                 @php($i = 0)
-                                @foreach (collect(\App\Enums\VacationType::asArray())->chunk(3)->all()
-    as $chunk)
+                                @foreach (collect(\App\Enums\VacationType::asArray())->chunk(3)->all() as $chunk)
                                     @php($i++)
 
                                     @if ($i <= 2)
@@ -139,26 +138,19 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td class="pr-4 ">
-                                                <div class="form-group select-time">
-                                                    <select class="chosen-select" name="option_vacation">
-                                                        @foreach ($chunk as $item)
-                                                            <option value="{{ $item }}"
-                                                                {{ isset($infoVacation) && $infoVacation['type'] == $item ? 'selected' : '' }}>
-                                                                <span style="color: #6A6A6A !important;">欠勤</span>
-                                                                {{ \App\Enums\VacationType::getDescription($item) }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+                                            <td class="pr-4">
+                                                <div class="form-group" id="start_time">
+                                                    <input type="time" name="start_time" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time'] : '' }}"> 
                                                 </div>
                                             </td>
-                                            <td class="pr-4"></td>
+                                            <td class="pr-4">
+                                            <div class="form-group" id="end_time">
+                                                    <input type="time" name="end_time" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time'] : '' }}"> 
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endif
                                 @endforeach
-                                <tr>
-                                    <td colspan="3" class="mt-20">※欠勤は有料の無い社員のみ使用可能</td>
-                                </tr>
                             </table>
                         </div>
                     </div>

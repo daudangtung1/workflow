@@ -107,8 +107,7 @@
                             <label class="d-block" for="">休暇種別</label>
                             <table>
                                 @php($i = 0)
-                                @foreach (collect(\App\Enums\VacationType::asArray())->chunk(3)->all()
-    as $chunk)
+                                @foreach (collect(\App\Enums\VacationType::asArray())->chunk(3)->all() as $chunk)
                                     @php($i++)
 
                                     @if ($i <= 2)
@@ -139,26 +138,34 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td class="pr-4 ">
-                                                <div class="form-group select-time">
-                                                    <select class="chosen-select" name="option_vacation">
-                                                        @foreach ($chunk as $item)
-                                                            <option value="{{ $item }}"
-                                                                {{ isset($infoVacation) && $infoVacation['type'] == $item ? 'selected' : '' }}>
-                                                                <span style="color: #6A6A6A !important;">欠勤</span>
-                                                                {{ \App\Enums\VacationType::getDescription($item) }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+
+                                            <td class="pr-4">
+                                               
+                                                <div class="form-group" id="start_time_1">
+                                                    <input type="time" name="start_time_1" class="form-control"> 
                                                 </div>
                                             </td>
-                                            <td class="pr-4"></td>
+                                            <td class="pr-4">
+                                            <div class="form-group" id="end_time_1">
+                                                    <input type="time" name="end_time_1" class="form-control"> 
+                                                </div>
+                                            </td>
+                                            <td class="pr-4">
+                                            
+                                                <div class="form-group" id="start_time_2">
+                                                    <input type="time" name="start_time_2" class="form-control"> 
+                                                </div>
+                                            </td>
+                                            <td class="pr-4">
+                                            <div class="form-group" id="end_time_2">
+                                                    <input type="time" name="end_time_2" class="form-control"> 
+                                                </div>
+                                            </td>
                                         </tr>
+                                        
                                     @endif
                                 @endforeach
-                                <tr>
-                                    <td colspan="3" class="mt-20">※欠勤は有料の無い社員のみ使用可能</td>
-                                </tr>
+
                             </table>
                         </div>
                     </div>
@@ -183,9 +190,7 @@
 </div>
 
 @push('scripts')
-
     <script>
-        
         $('.chosen-select').select2();
         
         // $('input[name=end_date]').prop('readonly', true);
@@ -252,5 +257,47 @@
                 @endforeach
             ],
         });
+
+        
     </script>
+
+
+
+<script>
+    $(document).ready(function(){
+
+    
+    $('#start_time').datetimepicker({
+        format: 'HH:mm',
+        disabledTimeIntervals: [[moment({ h: 0 }), moment({ h: 6 })], [moment({ h: 17, m: 30 }), moment({ h: 24 })]],
+        enableMinutes: [0, 30],
+        stepping: 15,
+        format: 'HH:00'
+    });
+
+    $('.form-group input[type=time]').on('change', function(){
+        var input_data=$('.form-group input[type=time]');
+        if(input_data != "") {
+            $('#day4').attr('disabled', true);
+            $('#day5').attr('disabled', true);
+        }
+    });
+
+    $('.col-radio input[type=radio]').on('change',function(){
+        console.log($(this).is(":checked"));
+        if($(this).is(":checked") && $(this).val()==4 || $(this).val()==5){
+            $('#start_time_1 input').hide();
+            $('#end_time_1 input').hide();
+            $('#start_time_2 input').hide();
+            $('#end_time_2 input').hide();
+        }
+        else{
+            $('#start_time_1 input').show();
+            $('#end_time_1 input').show();
+            $('#start_time_2 input').show();
+            $('#end_time_2 input').show();
+        }
+    });
+});
+</script>
 @endpush

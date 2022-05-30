@@ -17,6 +17,9 @@ class Vacation extends BaseModel
         'type',
         'approval_date',
         'approver',
+        'start_time',
+        'end_time',
+        'total_time',
     ];
 
     public function user()
