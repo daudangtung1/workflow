@@ -6,6 +6,8 @@ use App\Enums\VacationType;
 use App\Models\Calendar;
 use App\Services\BaseService;
 use App\Models\Vacation;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class VacationService extends BaseService
 {
@@ -47,6 +49,17 @@ class VacationService extends BaseService
         }
 
         return $data;
+    }
+
+    public function listYear()
+    {
+        $listYear=Vacation::select(DB::raw('SUBSTR(start_date, 1, 4) as year'))->groupBy('year')->pluck('year')->toArray();
+        if (!in_array(Carbon::now()->year, $listYear)) {
+            array_push($listYear, Carbon::now()->year);
+        }
+
+        sort($listYear);
+        return $listYear;
     }
 
     public function infoVacation($id = '')

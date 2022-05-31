@@ -8,6 +8,7 @@ use App\Services\Staff\VacationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
+
 class VacationController extends Controller
 {
     protected $vacationService;
@@ -21,10 +22,12 @@ class VacationController extends Controller
     {
         $listVacation =  $this->vacationService->listVacation();
         $listCalendar =  $this->vacationService->listCalendar();
+        $listYear=$this->vacationService->listYear();
 
         return view('staff.vacation.index', [
             'listVacation' => $listVacation,
             'listCalendar' => $listCalendar,
+            'listYear' => $listYear
         ]);
     }
 
