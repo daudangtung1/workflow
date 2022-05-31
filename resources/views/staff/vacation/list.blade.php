@@ -43,14 +43,14 @@
         <div class="overflow-auto tab-content2">
             <div class="staff_vacation_header">
                 <p>過去申請一覧（申請日降順/過去1年分）</p>
-                <div class="tk-search-btn tk-timesheet">
+                {{--<div class="tk-search-btn tk-timesheet">
                     <select class="tk-select" name="year">
                         @foreach ($listYear as $item)
                         <option value="{{ $item }}" {{ $item == request()->year ? 'selected' : '' }}>
                             {{ $item }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div>--}}
             </div>
             <table class="table table-bordered table-hover mb-0" id="list_table">
                 <thead>
@@ -109,9 +109,9 @@
         "ordering": false
     });
 
-    $('.tk-timesheet').change(function() {
-        let year = $('select[name=year]').val();
-        location.assign(`{{ route('staff-vacation.index') }}?year=${year}`)
-    });
+    // $('.tk-timesheet').change(function() {
+    //     let year = $('select[name=year]').val();
+    //     location.assign(`{{ route('staff-vacation.index') }}?year=${year}`)
+    // });
 </script>
 @endpush

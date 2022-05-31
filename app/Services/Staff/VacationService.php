@@ -53,7 +53,7 @@ class VacationService extends BaseService
 
     public function listYear()
     {
-        $listYear=Vacation::select(DB::raw('SUBSTR(start_date, 1, 4) as year'))->groupBy('year')->pluck('year')->toArray();
+        $listYear=Vacation::select(DB::raw('SUBSTR(start_date, 1, 4) as year'))->groupBy('year')->orderBy('year', 'DESC')->pluck('year')->toArray();
         if (!in_array(Carbon::now()->year, $listYear)) {
             array_push($listYear, Carbon::now()->year);
         }
