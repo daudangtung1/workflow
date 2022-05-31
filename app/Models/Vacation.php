@@ -17,8 +17,10 @@ class Vacation extends BaseModel
         'type',
         'approval_date',
         'approver',
-        'start_time',
-        'end_time',
+        'start_time_1',
+        'end_time_1',
+        'start_time_2',
+        'end_time_2',
         'total_time',
     ];
 

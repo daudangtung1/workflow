@@ -37,34 +37,33 @@ class VacationController extends Controller
                 $request->end_time = null;
                 $total_time = '';
             }
-            if(!$request->start_time_1 || !$request->end_time_1) return back()->with('error', 'Invalid time 1!');
+            if (!$request->start_time_1 || !$request->end_time_1) return back()->with('error', 'Invalid time 1!');
             $datetime_start_1 = strtotime($request->start_date . " " . $request->start_time_1);
             $datetime_end_1 =  strtotime($request->end_date . " " . $request->end_time_1);
-            
-            $date_sub_total_1 = ($datetime_end_1 - $datetime_start_1) / 86400;
-           
-            if ($date_sub_total_1 <= 0 && $request->type == 0 && $request->type == 3 && $request->type == 6) return back()->with('error', 'Date and time input wrong!');
-            if(!$request->start_time_2 || !$request->end_time_2){
-                $total_hour_1=floor($date_sub_total_1);
-                $total_minutes_1=$date_sub_total_1 *60 - ($total_hour_1 * 60);
-                $total_time = $total_hour_1 . ':' .  $total_hour_1;
-            }
 
-            else{
+            $date_sub_total_1 = ($datetime_end_1 - $datetime_start_1) / 3600;
+            if ($datetime_end_1 < $datetime_start_1) return back()->with('error', 'Date and time input wrong!');
+
+            if (!$request->start_time_2 || !$request->end_time_2) {
+
+                $total_hour_1 = floor($date_sub_total_1);
+                $total_minutes_1 = $date_sub_total_1 * 60 - ($total_hour_1 * 60);
+                $total_time = $total_hour_1 . ':' . $total_minutes_1;
+            } else {
                 $datetime_start_2 = strtotime($request->start_date . " " . $request->start_time_2);
                 $datetime_end_2 = strtotime($request->end_date . " " . $request->end_time_2);
-                $date_sub_total_2 = ($datetime_end_2 - $datetime_start_2) / 86400;
-                if ($date_sub_total_2 <= 0 && $request->type == 0 && $request->type == 3 && $request->type == 6) return back()->with('error', 'Date and time input wrong!');
-                $total_hour_1=floor($date_sub_total_1);
-                $total_hour_2=floor($date_sub_total_2);
-                $total_hour=$total_hour_1 + $total_hour_2;
+                if ($datetime_end_2 < $datetime_start_2) return back()->with('error', 'Date and time input wrong!');
+                $date_sub_total_2 = ($datetime_end_2 - $datetime_start_2) / 3600;
                 
-                $total_minutes_1=$date_sub_total_1 *60 - ($total_hour_1 * 60);
-                $total_minutes_2=$date_sub_total_2 *60 - ($total_hour_2 * 60);
-                $total_minutes=$total_minutes_1 + $total_minutes_2;
+                $total_hour_1 = floor($date_sub_total_1);
+                $total_hour_2 = floor($date_sub_total_2);
+                $total_hour = $total_hour_1 + $total_hour_2;
+
+                $total_minutes_1 = $date_sub_total_1 * 60 - ($total_hour_1 * 60);
+                $total_minutes_2 = $date_sub_total_2 * 60 - ($total_hour_2 * 60);
+                $total_minutes = $total_minutes_1 + $total_minutes_2;
 
                 $total_time = $total_hour . ':' .  $total_minutes;
-
             }
 
             $data = [
@@ -104,19 +103,37 @@ class VacationController extends Controller
 
     public function update(Request $request, $id)
     {
-        $datetime_start = strtotime($request->start_date . " " . $request->start_time);
-        $datetime_end = strtotime($request->end_date . " " . $request->end_time);
-        $date_sub_total = ($datetime_end - $datetime_start) / (3600);
-        if ($date_sub_total <= 0) return back()->with('error', 'Date and time input wrong!');
-        if ($date_sub_total >= 24) {
-            $total_date = floor($date_sub_total / 24);
-            $total_hour = floor(($date_sub_total - $total_date * 24) / 24);
-            $total_minutes = floor(($date_sub_total - $total_date * 24) % 24);
-            $total_time = $total_date . 'D ' . $total_hour . ':' . $total_minutes;
+        if ($request->type == 5 || $request->type == 4 || $request->type == 1 || $request->type == 2) {
+            $request->start_time = null;
+            $request->end_time = null;
+            $total_time = '';
+        }
+        if (!$request->start_time_1 || !$request->end_time_1) return back()->with('error', 'Invalid time 1!');
+        $datetime_start_1 = strtotime($request->start_date . " " . $request->start_time_1);
+        $datetime_end_1 =  strtotime($request->end_date . " " . $request->end_time_1);
+
+        $date_sub_total_1 = ($datetime_end_1 - $datetime_start_1) / 3600;
+        if ($date_sub_total_1 <= 0 && $request->type == 0 && $request->type == 3 && $request->type == 6) return back()->with('error', 'Date and time input wrong!');
+
+        if (!$request->start_time_2 || !$request->end_time_2) {
+            $total_hour_1 = floor($date_sub_total_1);
+            $total_minutes_1 = $date_sub_total_1 * 60 - ($total_hour_1 * 60);
+            $total_time = $total_hour_1 . ':' . $total_minutes_1;
         } else {
-            $total_hour = floor($date_sub_total);
-            $total_minutes = $date_sub_total * 60 - ($total_hour * 60);
-            $total_time = $total_hour . ':' .  $total_minutes . ':00';
+            $datetime_start_2 = strtotime($request->start_date . " " . $request->start_time_2);
+            $datetime_end_2 = strtotime($request->end_date . " " . $request->end_time_2);
+            $date_sub_total_2 = ($datetime_end_2 - $datetime_start_2) / 3600;
+            if ($date_sub_total_1 <= 0 && $request->type == 0 && $request->type == 3 && $request->type == 6) return back()->with('error', 'Date and time input wrong!');
+            if ($date_sub_total_2 <= 0 && $request->type == 0 && $request->type == 3 && $request->type == 6) return back()->with('error', 'Date and time input wrong!');
+            $total_hour_1 = floor($date_sub_total_1);
+            $total_hour_2 = floor($date_sub_total_2);
+            $total_hour = $total_hour_1 + $total_hour_2;
+
+            $total_minutes_1 = $date_sub_total_1 * 60 - ($total_hour_1 * 60);
+            $total_minutes_2 = $date_sub_total_2 * 60 - ($total_hour_2 * 60);
+            $total_minutes = $total_minutes_1 + $total_minutes_2;
+
+            $total_time = $total_hour . ':' .  $total_minutes;
         }
 
         $data = [
@@ -125,8 +142,10 @@ class VacationController extends Controller
             'reason' => $request->reason,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
+            'start_time_1' => $request->start_time_1,
+            'end_time_1' => $request->end_time_1,
+            'start_time_2' => $request->start_time_2,
+            'end_time_2' => $request->end_time_2,
             'total_time' => $total_time,
         ];
         $this->vacationService->updateVacation($data, $id);

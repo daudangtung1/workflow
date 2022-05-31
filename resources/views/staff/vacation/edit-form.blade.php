@@ -1,4 +1,6 @@
 @push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+
     <!-- daterange picker -->
     <style>
         .datepicker-days td.disabled2,
@@ -56,6 +58,38 @@
 
         input[readonly] {
             background: #ffffff !important;
+        }
+
+        .w-140{
+            width: 140px;
+        }
+
+        .relative{
+            position: relative;
+        }
+
+        .relative>div{
+            position: absolute;
+            top: 0;
+            right: 0;
+            pointer-events: none;
+            height: 100%;
+        }
+        .relative>div i{
+            font-size: 20px;
+        }
+
+        .relative>div>div{
+            border-radius: 0 5px 5px 0 !important;
+        }
+
+        /*----custom flatickr----*/
+        .flatpickr-calendar.animate.open{
+            width: 140px;
+        }
+
+        .flatpickr-time input.flatpickr-minute, .flatpickr-time input.flatpickr-hour{
+            padding-left: 0 !important;
         }
 
     </style>
@@ -128,6 +162,7 @@
                                         <tr>
                                         @else
                                         <tr>
+                                            @if(Auth::user()->role==1)
                                             <td class="pr-4 ">
                                                 <div class="col-radio d-radio col-mobile">
                                                     <input type="radio" id="vacation" name="type" value="vacation"
@@ -138,14 +173,45 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td class="pr-4">
-                                                <div class="form-group" id="start_time">
-                                                    <input type="time" name="start_time" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time'] : '' }}"> 
+                                            @endif
+                                            <td class="pr-4 form_time">
+                                                <div class="form-group">
+                                                <div class="relative w-140">
+                                                    <input type="time" name="start_time_1" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time_1'] : '' }}" id="start_time_1"> 
+                                                    <div class="input-group-append">
+                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                        </div>
+                                                </div>
                                                 </div>
                                             </td>
-                                            <td class="pr-4">
-                                            <div class="form-group" id="end_time">
-                                                    <input type="time" name="end_time" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time'] : '' }}"> 
+                                            <td class="pr-4 form_time">
+                                            <div class="form-group">
+                                            <div class="relative w-140">
+                                                    <input type="time" name="end_time_1" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time_1'] : '' }}" id="end_time_1"> 
+                                                    <div class="input-group-append">
+                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                        </div>
+                                            </div>
+                                                </div>
+                                            </td>
+                                            <td class="pr-4 form_time">
+                                                <div class="form-group">
+                                                <div class="relative w-140">
+                                                    <input type="time" name="start_time_2" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time_2'] : '' }}" id="start_time_2"> 
+                                                    <div class="input-group-append">
+                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                        </div>
+                                                </div>
+                                                </div>
+                                            </td>
+                                            <td class="pr-4 form_time">
+                                            <div class="form-group">
+                                            <div class="relative w-140">
+                                                    <input type="time" name="end_time_2" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time_2'] : '' }}" id="end_time_2"> 
+                                                    <div class="input-group-append">
+                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                        </div>
+                                            </div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -256,4 +322,72 @@
             ],
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+
+    <script>
+    $(document).ready(function(){
+
+    $("#start_time_1").flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        time_24hr: true,
+        dateFormat: "H:i",
+        minuteIncrement: 30,
+        time_24hr: true,
+        maxTime: '11:30',
+        defaultHour: '00',
+        defaultMinute: '00',
+    });
+    $("#end_time_1").flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        time_24hr: true,
+        dateFormat: "H:i",
+        minuteIncrement: 30,
+        disable: [13,14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+        maxTime: '11:30',
+        defaultHour: '00',
+        defaultMinute: '00',
+    });
+    $("#start_time_2").flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        time_24hr: true,
+        dateFormat: "H:i",
+        minuteIncrement: 30,
+        minTime: '12:00',
+        defaultHour: '12',
+        defaultMinute: '00',
+    });
+    $("#end_time_2").flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        time_24hr: true,
+        dateFormat: "H:i",
+        minuteIncrement: 30,
+        minTime: '12:00',
+        defaultHour: '12',
+        defaultMinute: '00',
+    });
+
+    $('.form-group input[type=time]').on('change', function(){
+        var input_data=$('.form-group input[type=time]');
+        if(input_data != "") {
+            $('#day4').attr('disabled', true);
+            $('#day5').attr('disabled', true);
+        }
+    });
+
+    $('.col-radio input[type=radio]').on('change',function(){
+        console.log($(this).is(":checked"));
+        if($(this).is(":checked") && $(this).val()==4 || $(this).val()==5){
+            $('.form_time').hide();
+        }
+        else{
+            $('.form_time').show();
+        }
+    });
+});
+</script>
 @endpush
