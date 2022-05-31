@@ -3,7 +3,9 @@
     <link rel="stylesheet" href="{{ asset('css/daterangepicker/daterangepicker.css') }}">
     <style>
         /* width */
-
+        .bg-red{
+            background: red !important;
+        }
     </style>
 @endpush
 
@@ -18,6 +20,7 @@
                 <!-- /.input group -->
             </div>
         </div>
+        <input type="hidden" value="{{(\Carbon\Carbon::now()->format('Y-m-d'))}}" id="date_check_now">
         <div class="col-md-12 overflow-auto scroll-table">
             <table class="table table-bordered table-hover mb-0">
                 <thead>
@@ -67,9 +70,9 @@
                     $.each(res.data, function(key, item) {
                         let icon = item.disable ? '<i class="icofont-lock"></i>' :
                             `<a  href="${redirect}?register=${item.id}&date=${key}" ><i class="icofont-pencil-alt-1"></i></a>`
-
-                        body += (`<tr>
-                                <td >${item.date}</td>
+                            
+                        body += (`<tr data-date=${item.date}>
+                                <td>${item.date}</td>
                                 <td>${item.start_time1}</td>
                                 <td>${item.end_time1}</td>
                                 <td>${item.start_time2}</td>
@@ -115,5 +118,14 @@
                 }
             })
         });
+        
+    </script>
+    <script>
+        let date_check=$('#date_check_now').val();
+            $('#bodyParttime > tr').each(function(){
+                console.log($(this).data("date"));
+                if($(this).data('date') === date_check) console.log(1);
+                $(this).addClass('bg-red');
+            })
     </script>
 @endpush

@@ -11,10 +11,22 @@
             background: #007bff !important;
             border-radius: 0.25rem;
         }
+        
+        .relative{
+            position: relative;width: 187px;
+        }
+        .relative>input{
+            cursor: pointer;
+        }
+         .relative>.input-group-append{
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            pointer-events: none;
+        } 
     </style>
 @endpush
-
-
         <div class="tab-content1 d-flex2">
             <div class="w-410 left-content">
                 <form action="{{ route('staff-part-time.store') }}" class="frmSubmit" method="POST">
@@ -51,25 +63,25 @@
                                     <div class="row">
                                         <div class="col-md-12 d-flex1">
                                             <div class="select-time">
-                                                <select class="chosen-select" name="start_time_first">
-                                                    <option value=""></option>
-                                                    <option value="0">&nbsp;</option>
-                                                    @foreach ($times as $item)
-                                                        <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <div class="input-group">
+                                                    <div class="relative" id="start_time_first">
+                                                        <input type="text" class="form-control chosen-select datetimepicker-input" name="start_time_first" data-target="#start_time_first" data-toggle="datetimepicker" readonly data-value="2019/09/20 15:00">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                        </div> 
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="m-auto text-center span-date">~</div>
                                             <div class="select-time">
-                                                <select class="chosen-select" name="end_time_first">
-                                                    <option value=""></option>
-                                                    <option value="0">&nbsp;</option>
-                                                    @foreach ($times as $item)
-                                                        <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <div class="input-group">
+                                                <div class="relative">
+                                                    <input type="time" class="form-control chosen-select" name="end_time_first">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                    </div>
+                                                </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -87,25 +99,25 @@
                                     <div class="row">
                                         <div class="col-md-12 d-flex1">
                                             <div class="select-time">
-                                                <select class="chosen-select" name="start_time_second">
-                                                    <option value=""></option>
-                                                    <option value="0">&nbsp;</option>
-                                                    @foreach ($times as $item)
-                                                        <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <div class="input-group">
+                                                <div class="relative">
+                                                    <input type="time" class="form-control chosen-select" name="start_time_second">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                    </div>
+                                                </div>
+                                                </div>
                                             </div>
                                             <div class="m-auto text-center span-date">~</div>
                                             <div class="select-time">
-                                                <select class="chosen-select" name="end_time_second">
-                                                    <option value=""></option>
-                                                    <option value="0">&nbsp;</option>
-                                                    @foreach ($times as $item)
-                                                        <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <div class="input-group">
+                                                <div class="relative">
+                                                    <input type="time" class="form-control chosen-select" name="end_time_second">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                    </div>
+                                                </div>
+                                                </div>
                                             </div>
                                         </div>
                                         
@@ -121,25 +133,25 @@
                                     <div class="row">
                                         <div class="col-md-12 d-flex1">
                                             <div class="select-time">
-                                                <select class="chosen-select" name="start_time_third">
-                                                    <option value=""></option>
-                                                    <option value="0">&nbsp;</option>
-                                                    @foreach ($times as $item)
-                                                        <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <div class="input-group">
+                                                <div class="relative">
+                                                    <input type="time" class="form-control chosen-select" name="start_time_third">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                    </div>
+                                                </div>
+                                                </div>
                                             </div>
                                             <div class="text-center m-auto span-date">~</div>
                                             <div class="select-time">
-                                                <select class="chosen-select" name="end_time_third">
-                                                    <option value=""></option>
-                                                    <option value="0">&nbsp;</option>
-                                                    @foreach ($times as $item)
-                                                        <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <div class="input-group">
+                                                <div class="relative">
+                                                    <input type="time" class="form-control chosen-select" name="end_time_third">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                    </div>
+                                                </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -247,7 +259,7 @@
                     allowClear: true,
                 });
 
-                $(`select[name=${index}]`).change(() => {
+                $(`input[name=${index}]`).change(() => {
                     caculate();
                 });
             }
@@ -293,13 +305,13 @@
                     date: date,
                 },
                 success: function(data) {
-                    $(`select[name=start_time_first]`).val(data.start_time_first).trigger('change');
-                    $(`select[name=end_time_first]`).val(data.end_time_first).trigger('change');
-                    $(`select[name=start_time_second]`).val(data.start_time_second).trigger('change');
-                    $(`select[name=end_time_second]`).val(data.end_time_second).trigger('change');
-                    $(`select[name=start_time_third]`).val(data.start_time_third).trigger('change');
-                    $(`select[name=end_time_third]`).val(data.end_time_third).trigger('change');
-                    $('.select-time select').prop('disabled', false);
+                    $(`input[name=start_time_first]`).val(data.start_time_first).trigger('change');
+                    $(`input[name=end_time_first]`).val(data.end_time_first).trigger('change');
+                    $(`input[name=start_time_second]`).val(data.start_time_second).trigger('change');
+                    $(`input[name=end_time_second]`).val(data.end_time_second).trigger('change');
+                    $(`input[name=start_time_third]`).val(data.start_time_third).trigger('change');
+                    $(`input[name=end_time_third]`).val(data.end_time_third).trigger('change');
+                    $('.select-time input').prop('disabled', false);
 
                     let checkOverride = 0;
                     //approved
@@ -317,7 +329,7 @@
                         $('.form-button').removeClass('btn-primary');
                         $('.form-button').addClass('btn-danger');
                         $('.form-button').html('承認済み');
-                        $('.form-button, .select-time select').prop('disabled', true);  
+                        $('.form-button, .select-time input').prop('disabled', true);  
                         $('#message').val(objMessage.approved);
                     }
                     caculate(checkOverride);
@@ -331,18 +343,18 @@
             let total = 0;
 
             let arrTime = [{
-                    startTime: $(`select[name=start_time_first]`).val(),
-                    endTime: $(`select[name=end_time_first]`).val(),
+                    startTime: $(`input[name=start_time_first]`).val(),
+                    endTime: $(`input[name=end_time_first]`).val(),
                     id: 'time1',
                 },
                 {
-                    startTime: $(`select[name=start_time_second]`).val(),
-                    endTime: $(`select[name=end_time_second]`).val(),
+                    startTime: $(`input[name=start_time_second]`).val(),
+                    endTime: $(`input[name=end_time_second]`).val(),
                     id: 'time2',
                 },
                 {
-                    startTime: $(`select[name=start_time_third]`).val(),
-                    endTime: $(`select[name=end_time_third]`).val(),
+                    startTime: $(`input[name=start_time_third]`).val(),
+                    endTime: $(`input[name=end_time_third]`).val(),
                     id: 'time3',
                 }
             ];
@@ -378,12 +390,12 @@
         }
 
         function checkTimeStart() {
-            var start1 = $(`select[name=start_time_first]`).val();
-            var end1 = $(`select[name=end_time_first]`).val();
-            var start2 = $(`select[name=start_time_second]`).val();
-            var end2 = $(`select[name=end_time_second]`).val();
-            var start3 = $(`select[name=start_time_third]`).val();
-            var end3 = $(`select[name=end_time_third]`).val();
+            var start1 = $(`input[name=start_time_first]`).val();
+            var end1 = $(`input[name=end_time_first]`).val();
+            var start2 = $(`input[name=start_time_second]`).val();
+            var end2 = $(`input[name=end_time_second]`).val();
+            var start3 = $(`input[name=start_time_third]`).val();
+            var end3 = $(`input[name=end_time_third]`).val();
 
             let check = true;
 
@@ -416,6 +428,12 @@
                 @endforeach
             ],
         });
+        var default_date= "1990-01-11 13:00";
+        $('#start_time_first').datetimepicker({
+            format: "yyyy-mm-dd H:m",
+            useCurrent: false,
+            minuteStep: 1,
+        })
 
     </script>
 
