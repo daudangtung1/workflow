@@ -115,17 +115,17 @@
                     });
                     //scrollbar
                     $('.scroll-table').floatingScrollbar();
+
+                    $('#bodyParttime > tr').each(function(index){
+                        var date_check=$('#date_check_now').val();
+                        if($(this).data('date') === date_check) {
+                            $(this).addClass('bg-red');
+                        };
+                    })
                 }
             })
+            
         });
-        
     </script>
-    <script>
-        let date_check=$('#date_check_now').val();
-            $('#bodyParttime > tr').each(function(){
-                console.log($(this).data("date"));
-                if($(this).data('date') === date_check) console.log(1);
-                $(this).addClass('bg-red');
-            })
-    </script>
+
 @endpush
