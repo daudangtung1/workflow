@@ -43,4 +43,3 @@ Route::get('config/cache', function () {
 
     print_r('clear cache complete');
 });
-
