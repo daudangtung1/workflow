@@ -33,13 +33,13 @@ class BaseService
     public function getDayOfWeek($day)
     {
         $arr = [
-            0 => 'Sun',
-            1 => 'Mon',
-            2 => 'Tue',
-            3 => 'Wed',
-            4 => 'Thu',
-            5 => 'Fri',
-            6 => 'Sat',
+            0 => '日',
+            1 => '月',
+            2 => '火',
+            3 => '水',
+            4 => '木',
+            5 => '金',
+            6 => '土',
         ];
 
         return $arr[Carbon::parse($day)->dayOfWeek];
@@ -56,6 +56,9 @@ class BaseService
             'current_text' => Carbon::parse($date)->format('Y年m月'),
             'next' => Carbon::parse($next)->format('Y-m'),
             'next_text' => Carbon::parse($next)->format('Y年m月'),
+
+            'current_text_full' => Carbon::parse($date)->format('Y年m月分 (d/m)'),
+            'next_text_full' => Carbon::parse($next)->format('Y年m月分 (d/m)'),
         ];
     }
 

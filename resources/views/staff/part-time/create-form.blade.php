@@ -77,7 +77,7 @@
                                             <div class="select-time">
                                                 <div class="input-group">
                                                     <div class="relative">
-                                                        <input type="text" class="form-control chosen-select" name="start_time_first" placeholder="09:00" readonly id="start_time_first">
+                                                        <input type="text" class="form-control chosen-select" name="start_time_first" placeholder="{{\Carbon\Carbon::parse(Auth::user()->start_time_working)->format('H:i')}}" readonly id="start_time_first">
                                                         <div class="input-group-append">
                                                             <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                         </div> 
@@ -124,7 +124,7 @@
                                             <div class="select-time">
                                                 <div class="input-group">
                                                 <div class="relative">
-                                                    <input type="time" class="form-control chosen-select" name="end_time_second" placeholder="16:00" readonly id="end_time_second">
+                                                    <input type="time" class="form-control chosen-select" name="end_time_second" placeholder="{{\Carbon\Carbon::parse(Auth::user()->end_time_working)->format('H:i')}}" readonly id="end_time_second">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                     </div>
