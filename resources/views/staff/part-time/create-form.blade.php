@@ -1,4 +1,5 @@
 @push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
     <!-- daterange picker -->
     <style>
         .datepicker-days td.disabled2,
@@ -25,6 +26,18 @@
             height: 100%;
             pointer-events: none;
         } 
+
+        .flatpickr-input[readonly]{
+            background: #fff;
+            /* color: #fff; */
+            
+        }
+        
+        input::-webkit-input-placeholder {
+            color: black;
+            opacity: 0.5 !important;
+        }
+        
     </style>
 @endpush
         <div class="tab-content1 d-flex2">
@@ -42,8 +55,7 @@
                                 <label for="">日付</label>
     
                                 <div class="input-group date input-date" id="date" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date"
-                                        placeholder="年-月-日" required data-toggle="datetimepicker" value="{{ request()->date ? request()->date : '' }}" />
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date" placeholder="年-月-日" required data-toggle="datetimepicker" value="{{ request()->date ? request()->date : '' }}" id="date_readonly">
                                     <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="icofont-calendar"></i></div>
                                     </div>
@@ -64,8 +76,8 @@
                                         <div class="col-md-12 d-flex1">
                                             <div class="select-time">
                                                 <div class="input-group">
-                                                    <div class="relative" id="start_time_first">
-                                                        <input type="text" class="form-control chosen-select datetimepicker-input" name="start_time_first" data-target="#start_time_first" data-toggle="datetimepicker" readonly data-value="2019/09/20 15:00">
+                                                    <div class="relative">
+                                                        <input type="text" class="form-control chosen-select" name="start_time_first" placeholder="09:00" readonly id="start_time_first">
                                                         <div class="input-group-append">
                                                             <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                         </div> 
@@ -75,12 +87,12 @@
                                             <div class="m-auto text-center span-date">~</div>
                                             <div class="select-time">
                                                 <div class="input-group">
-                                                <div class="relative">
-                                                    <input type="time" class="form-control chosen-select" name="end_time_first">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                    <div class="relative">
+                                                        <input type="text" class="form-control chosen-select" name="end_time_first" placeholder="12:00" readonly id="end_time_first">
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                        </div>
                                                     </div>
-                                                </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,7 +113,7 @@
                                             <div class="select-time">
                                                 <div class="input-group">
                                                 <div class="relative">
-                                                    <input type="time" class="form-control chosen-select" name="start_time_second">
+                                                    <input type="time" class="form-control chosen-select" name="start_time_second" placeholder="13:00" readonly id="start_time_second">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                     </div>
@@ -112,7 +124,7 @@
                                             <div class="select-time">
                                                 <div class="input-group">
                                                 <div class="relative">
-                                                    <input type="time" class="form-control chosen-select" name="end_time_second">
+                                                    <input type="time" class="form-control chosen-select" name="end_time_second" placeholder="16:00" readonly id="end_time_second">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                     </div>
@@ -135,7 +147,7 @@
                                             <div class="select-time">
                                                 <div class="input-group">
                                                 <div class="relative">
-                                                    <input type="time" class="form-control chosen-select" name="start_time_third">
+                                                    <input type="time" class="form-control chosen-select" name="start_time_third" placeholder="16:00" readonly id="start_time_third">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                     </div>
@@ -146,7 +158,7 @@
                                             <div class="select-time">
                                                 <div class="input-group">
                                                 <div class="relative">
-                                                    <input type="time" class="form-control chosen-select" name="end_time_third">
+                                                    <input type="time" class="form-control chosen-select" name="end_time_third" placeholder="17:00" readonly id="end_time_third">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                     </div>
@@ -428,13 +440,69 @@
                 @endforeach
             ],
         });
-        var default_date= "1990-01-11 13:00";
-        $('#start_time_first').datetimepicker({
-            format: "yyyy-mm-dd H:m",
-            useCurrent: false,
-            minuteStep: 1,
-        })
 
+        $('#date_readonly').attr('autocomplete', 'off');
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+    <script>
+        $('#start_time_first').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 1,
+            defaultHour: '09',
+            defaultMinute: '00',
+        });
 
+        $('#end_time_first').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 1,
+            defaultHour: '12',
+            defaultMinute: '00'
+        });
+
+        $('#start_time_second').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 1,
+            defaultHour: '13',
+            defaultMinute: '00'
+        });
+
+        $('#end_time_second').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 1,
+            defaultHour: '16',
+            defaultMinute: '00'
+        });
+
+        $('#start_time_third').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 1,
+            defaultHour: '16',
+            defaultMinute: '00'
+        });
+
+        $('#end_time_third').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 1,
+            defaultHour: '17',
+            defaultMinute: '00'
+        });
+    </script>
 @endpush

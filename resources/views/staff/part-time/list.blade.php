@@ -3,8 +3,9 @@
     <link rel="stylesheet" href="{{ asset('css/daterangepicker/daterangepicker.css') }}">
     <style>
         /* width */
-        .bg-red{
-            background: red !important;
+        .date_now{
+            font-size: 0.85rem;
+            font-weight: bold;
         }
     </style>
 @endpush
@@ -119,7 +120,7 @@
                     $('#bodyParttime > tr').each(function(index){
                         var date_check=$('#date_check_now').val();
                         if($(this).data('date') === date_check) {
-                            $(this).addClass('bg-red');
+                            $(this).addClass('date_now');
                         };
                     })
                 }
