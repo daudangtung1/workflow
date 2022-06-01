@@ -37,7 +37,15 @@
             color: black;
             opacity: 0.5 !important;
         }
-        
+
+        /*----custom flatickr----*/
+        .flatpickr-calendar.animate.open{
+            width: 186px;
+        }
+
+        .flatpickr-time input.flatpickr-minute, .flatpickr-time input.flatpickr-hour{
+            padding-left: 0 !important;
+        }
     </style>
 @endpush
         <div class="tab-content1 d-flex2">
