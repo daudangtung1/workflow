@@ -9,12 +9,29 @@
         .vacation{
             background: #ffebeb;
         }
+
+        /*----*/
+        .flex-between{
+            display: flex; justify-content: space-between;align-items: center;
+        }
+        .box_total{
+            border: 1px solid #000;
+            padding: 2px 10px;font-weight: bold;
+        }
+        .box_total_title{
+            padding-right: 10px;
+            border-right: 1px solid #000;
+        }
+        #get_total{
+            padding-left: 10px;
+        }
     </style>
 @endpush
 
         <div class="tab-content2">
             <div class="row ">
                 <div class="col-md-12">
+                <div class="flex-between">
                     <div class="form-group d-search">
                         <span class="search pr-2" data-date="{{ $dates['prev'] }}"><i
                                 class="fas fa-caret-left"></i></span>
@@ -23,6 +40,11 @@
                                 class="fas fa-caret-right"></i></span>
                         <!-- /.input group -->
                     </div>
+                    <div class="flex-between box_total">
+                    <span class="box_total_title">時間合計(月間)</span>
+                    <span id="get_total"></span>
+                </div>
+            </div>
                 </div>
 
                 <div class="col-md-12 overflow-auto">
@@ -52,7 +74,6 @@
         $(document).on("click", ".search", function() {
             loading();
             let date = $(this).attr('data-date');
-            
             $.ajax({
                 url: "{{ route('staff-over-time.show', 'list-over-time') }}",
                 type: 'get',
@@ -63,6 +84,8 @@
                 success: function(res) {
                     let body = '';
                     let redirect = "{{ route('staff-over-time.index') }}";
+                    let total=0, total_int='';
+                    // let total_1='', total_2='';
                      //render table
                     $.each(res.data, function(key, item) {
                         let icon = item.disable ? '<i class="icofont-lock"></i>' :
@@ -77,13 +100,22 @@
                                 <td>${item.approver}</td>
                                 <td>${icon}</td>
                             </tr>`);
+                            if(item.time !='') total+=item.time;
+                            total_hour=Math.floor(total / 60);
+                                total_minute=total - total_hour * 60;
+                                th_f=total_hour < 10 ? '0' + total_hour : total_hour;
+                                tm_f=total_minute < 10 ? '0' + total_minute : total_minute;
+                                total_get =(th_f + ':' + tm_f);
                     });
+                    console.log(total_get);
                     if (res.data.length <= 0)
                         body += (`<tr>
                                 <td colspan="7" class="text-center">{{ __('common.data.error') }}</td>
                             </tr>`);
 
                     $('#bodyOvertime').html(body);
+                    $('body #get_total').html('');
+                    $('body #get_total').append(total_get);
 
                     //render search
                     let search = (

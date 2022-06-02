@@ -1,4 +1,5 @@
 @push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
     <!-- daterange picker -->
     <style>
         .datepicker-days td.disabled2,
@@ -12,6 +13,24 @@
             border-radius: 0.25rem;
         }
         .w-410{width: 415px;}
+
+        .relative{
+            position: relative;
+        }
+        .select-time{display: flex;align-items: center; justify-content: space-between;}
+        .select-time input{
+            width: 335px;
+        }
+        .select-time .form-control[readonly]{
+            background: #fff;
+        }
+        .relative .input-group-append{
+            position: absolute;
+            top: 0;
+            left: calc(335px - 57px );
+            height: 46px;
+            pointer-events: none;
+        }
     </style>
 @endpush
 
@@ -50,17 +69,11 @@
                                 <label>開始時刻</label>
                                 <div class="row">
                                     <div class="col">
-                                        <div class="select-time">
-                                            <select class="chosen-select" name="start_time">
-                                                <option value=""></option>
-                                                <option value="0">&nbsp;</option>
-                                                @foreach ($times['start'] as $item)
-                                                    <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                    @if ($item['minutes']['30'])
-                                                        <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
+                                    <div class="select-time relative">
+                                            <input type="text" class="form-control chosen-select" name="start_time" id="start_time">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                            </div> 
                                             <span class="ml-11">
                                                 30分単位
                                             </span>
@@ -79,17 +92,11 @@
                                     <label>終了時刻</label>
                                     <div class="row">
                                         <div class="col">
-                                            <div class="select-time">
-                                                <select class="chosen-select" name="end_time">
-                                                    <option value=""></option>
-                                                    <option value="0">&nbsp;</option>
-                                                    @foreach ($times['end'] as $item)
-                                                        @if ($item['minutes']['00'])
-                                                            <option value="{{{ $item['hour'] .':'.$item['minutes']['00'] }}}">{{ $item['hour'] .':'.$item['minutes']['00'] }}</option>
-                                                            @endif
-                                                            <option value="{{ $item['hour'] .':'.$item['minutes']['30'] }}">{{ $item['hour'] .':'.$item['minutes']['30'] }}</option>
-                                                        @endforeach
-                                                </select>
+                                        <div class="select-time relative">
+                                            <input type="text" class="form-control chosen-select" name="end_time" id="end_time">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                            </div>
                                                 <span class="ml-11">
                                                     30分単位
                                                 </span>
@@ -244,7 +251,7 @@
                     date: date,
                 },
                 success: function(data) {
-                    setSelectTime(data.time);
+                    // setSelectTime(data.time);
                     
                     if(data.start_time_working)
                         startTimeWorking = data.start_time_working;
@@ -253,8 +260,8 @@
                         endTimeWorking = data.end_time_working;
 
 
-                    $(`select[name=start_time]`).val(data.start_time).trigger('change');
-                    $(`select[name=end_time]`).val(data.end_time).trigger('change');
+                    $(`input[name=start_time]`).val(data.start_time).trigger('change');
+                    $(`input[name=end_time]`).val(data.end_time).trigger('change');
                     $('.select-time select').prop('disabled', false);  
 
                     $(`input[name=start_time_working]`).val(startTimeWorking);
@@ -294,11 +301,11 @@
             $('#result').html('');
         }
 
-        $("select[name=start_time]").change(function () {
+        $("input[name=start_time]").change(function () {
             return caculate();
         })
 
-        $("select[name=end_time]").change(function () {
+        $("input[name=end_time]").change(function () {
             return caculate();
         })
 
@@ -307,8 +314,8 @@
         function caculate(checkOverride = 0) {
             resetForm();
             let disable = true; 
-            let startTime = $(`select[name=start_time]`).val();
-            let endTime = $(`select[name=end_time]`).val();
+            let startTime = $(`input[name=start_time]`).val();
+            let endTime = $(`input[name=end_time]`).val();
             let startTimeWorking = $(`input[name=start_time_working]`).val();
             let endTimeWorking = $(`input[name=end_time_working]`).val();
 
@@ -346,61 +353,61 @@
             $('#result').html(totalTime);
         }
 
-        function setSelectTime (data) {
-                    $('select[name=start_time]').empty();
-                    $('select[name=start_time]').append($('<option>').attr('value', '')
-                        .text(''));
+        // function setSelectTime (data) {
+        //             $('select[name=start_time]').empty();
+        //             $('select[name=start_time]').append($('<option>').attr('value', '')
+        //                 .text(''));
 
-                    $('select[name=start_time]').append($('<option>').attr('value', '0')
-                        .text('\u00A0'));
+        //             $('select[name=start_time]').append($('<option>').attr('value', '0')
+        //                 .text('\u00A0'));
 
-                    $.each(data.start, function(key, item) {
-                        let time = item['hour'] + ':' + item['minutes']['00'];
-                        $('select[name=start_time]').append($('<option>').attr('value', time)
-                            .text(time))
+        //             $.each(data.start, function(key, item) {
+        //                 let time = item['hour'] + ':' + item['minutes']['00'];
+        //                 $('select[name=start_time]').append($('<option>').attr('value', time)
+        //                     .text(time))
 
-                        if (item['minutes']['30']) {
-                            let time = item['hour'] + ':' + item['minutes']['30'];
-                            $('select[name=start_time]').append($('<option>').attr('value',
-                                time).text(time))
-                        }
-                    });
+        //                 if (item['minutes']['30']) {
+        //                     let time = item['hour'] + ':' + item['minutes']['30'];
+        //                     $('select[name=start_time]').append($('<option>').attr('value',
+        //                         time).text(time))
+        //                 }
+        //             });
 
-                    $('select[name=start_time]').trigger('change');
+        //             $('select[name=start_time]').trigger('change');
 
-                    $(`select[name=start_time]`).select2({
-                        placeholder: '07:00',
-                        allowClear: true,
-                    });
+        //             $(`select[name=start_time]`).select2({
+        //                 placeholder: '07:00',
+        //                 allowClear: true,
+        //             });
 
-                    //end time
-                    $('select[name=end_time]').empty();
-                    $('select[name=end_time]').append($('<option>').attr('value', '')
-                        .text(''));
+        //             //end time
+        //             $('select[name=end_time]').empty();
+        //             $('select[name=end_time]').append($('<option>').attr('value', '')
+        //                 .text(''));
 
-                    $('select[name=end_time]').append($('<option>').attr('value', '0')
-                        .text('\u00A0'));
+        //             $('select[name=end_time]').append($('<option>').attr('value', '0')
+        //                 .text('\u00A0'));
 
-                    $.each(data.end, function(key, item) {
-                        if (item['minutes']['00']) {
-                            let time = item['hour'] + ':' + item['minutes']['00'];
-                            $('select[name=end_time]').append($('<option>').attr('value', time)
-                                .text(time))
-                        }
+        //             $.each(data.end, function(key, item) {
+        //                 if (item['minutes']['00']) {
+        //                     let time = item['hour'] + ':' + item['minutes']['00'];
+        //                     $('select[name=end_time]').append($('<option>').attr('value', time)
+        //                         .text(time))
+        //                 }
 
-                        let time = item['hour'] + ':' + item['minutes']['30'];
-                        $('select[name=end_time]').append($('<option>').attr('value', time)
-                            .text(time))
-                    });
+        //                 let time = item['hour'] + ':' + item['minutes']['30'];
+        //                 $('select[name=end_time]').append($('<option>').attr('value', time)
+        //                     .text(time))
+        //             });
 
-                    $('select[name=end_time]').trigger('change');
+        //             $('select[name=end_time]').trigger('change');
 
-                    $(`select[name=end_time]`).select2({
-                        placeholder: '17:30',
-                        allowClear: true,
-                    });
-                    $('.select-time .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
-        }
+        //             $(`select[name=end_time]`).select2({
+        //                 placeholder: '17:30',
+        //                 allowClear: true,
+        //             });
+        //             $('.select-time .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
+        // }
         $('.input-date').datetimepicker({
             format: "YYYY-MM-DD",
             locale: "ja",
@@ -414,5 +421,31 @@
         });       
         
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+    <script>
+        $('#date input');
+        $('#start_time').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 1,
+            defaultHour: '00',
+            defaultMinute: '00',
+            minTime: '00:00',
+            maxTime: '08:30'
+        });
 
+        $('#end_time').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 1,
+            defaultHour: '00',
+            defaultMinute: '00',
+            minTime: '18:00',
+            maxTime: '23:59'
+        });
+    </script>
 @endpush
