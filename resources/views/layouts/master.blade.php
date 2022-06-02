@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="{{ asset('css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datepicker/tempusdominus-bootstrap-4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select2/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/wickedpicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('icofont/icofont.css') }}">
 
     @stack('styles')
@@ -54,7 +53,6 @@
 <script src="{{ asset('js/datepicker/moment.min.js') }}"></script>
 <script src="{{ asset('js/datepicker/tempusdominus-bootstrap-4.min.js') }}"></script>
 <script src="{{ asset('js/datepicker/ja.js') }}"></script>
-<script src="{{ asset('js/wickedpicker.js') }}"></script>
 <script src="{{ asset('js/common.js') }}"></script>
 <script src="{{ asset('js/select2/select2.min.js') }}"></script>
 <script src="{{ asset('js/main.js')}}"></script>

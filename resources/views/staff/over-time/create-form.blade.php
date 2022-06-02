@@ -1,4 +1,5 @@
 @push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
     <!-- daterange picker -->
     <style>
         .datepicker-days td.disabled2,
@@ -11,24 +12,22 @@
             background: #007bff !important;
             border-radius: 0.25rem;
         }
-
-        .w-410{width: 415px;}
-        .start-time-wrap{
+        .relative{
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
-        .start-time-wrap>input{
-            width: 340px;
+        .select-time{display: flex;align-items: center; justify-content: space-between;}
+        .select-time input{
+            width: 335px;
         }
-        .icon_event_none{
+        .select-time .form-control[readonly]{
+            background: #fff;
+        }
+        .relative .input-group-append{
             position: absolute;
             top: 0;
-            right: 75px;
-            border: 1px solid #ced4da;
+            left: calc(335px - 57px );
+            height: 46px;
             pointer-events: none;
-             /* border-right: none; */
         }
     </style>
 @endpush
@@ -50,7 +49,7 @@
                                 <div class="input-group date input-date" id="date" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date"
                                         placeholder="年-月-日" required data-toggle="datetimepicker"
-                                        value="{{ request()->date ? request()->date : '' }}" />
+                                        value="{{ request()->date ? request()->date : '' }}" autocomplete="off"/>
                                     <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="icofont-calendar"></i></div>
                                     </div>
@@ -68,19 +67,17 @@
                                 <label>開始時刻</label>
                                 <div class="row">
                                     <div class="col">
-                                        <div class="select-time start-time-wrap">
-                                            <input type="time" class="timepicker form-control chosen-select" name="start_time" id="start_time">
-                                            <div class="icon_event_none select2-selection__arrow">
-                                                <i class="icofont-clock-time"></i>
-                                            </div>
+                                        <div class="select-time relative">
+                                            <input type="text" class="form-control chosen-select" name="start_time" id="start_time">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                            </div> 
                                             <span class="ml-11">
                                                 30分単位
                                             </span>
                                         </div>
                                     </div>
-                                   
                                 </div>
-                               
                             </div>
                         </div>
                     </div>
@@ -91,11 +88,11 @@
                                     <label>終了時刻</label>
                                     <div class="row">
                                         <div class="col">
-                                            <div class="select-time start-time-wrap">
-                                                <input type="time" class="timepicker form-control chosen-select" name="end_time" id="end_time">
-                                                <div class="icon_event_none select2-selection__arrow">
-                                                    <i class="icofont-clock-time"></i>
-                                                </div>
+                                            <div class="select-time relative">
+                                            <input type="text" class="form-control chosen-select" name="end_time" id="end_time">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                            </div>
                                                 <span class="ml-11">
                                                     30分単位
                                                 </span>
@@ -232,7 +229,7 @@
                     date: date,
                 },
                 success: function(data) {
-                    setSelectTime(data.time);
+                    // setSelectTime(data.time);
                     
                     if(data.start_time_working)
                         startTimeWorking = data.start_time_working;
@@ -241,8 +238,8 @@
                         endTimeWorking = data.end_time_working;
 
 
-                    $(`select[name=start_time]`).val(data.start_time).trigger('change');
-                    $(`select[name=end_time]`).val(data.end_time).trigger('change');
+                    $(`input[name=start_time]`).val(data.start_time).trigger('change');
+                    $(`input[name=end_time]`).val(data.end_time).trigger('change');
                     $('.select-time select').prop('disabled', false);  
 
                     $(`input[name=start_time_working]`).val(startTimeWorking);
@@ -284,11 +281,11 @@
             $('#result').html('');
         }
 
-        $("select[name=start_time]").change(function () {
+        $("input[name=start_time]").change(function () {
             return caculate();
         })
 
-        $("select[name=end_time]").change(function () {
+        $("input[name=end_time]").change(function () {
             return caculate();
         })
 
@@ -297,8 +294,8 @@
         function caculate(checkOverride = 0) {
             resetForm();
             let disable = true; 
-            let startTime = $(`select[name=start_time]`).val();
-            let endTime = $(`select[name=end_time]`).val();
+            let startTime = $(`input[name=start_time]`).val();
+            let endTime = $(`input[name=end_time]`).val();
             let startTimeWorking = $(`input[name=start_time_working]`).val();
             let endTimeWorking = $(`input[name=end_time_working]`).val();
 
@@ -336,7 +333,60 @@
             $('#result').html(totalTime);
         }
 
+        // function setSelectTime (data) {
+        //             $('input[name=start_time]').empty();
+        //             $('select[name=start_time]').append($('<option>').attr('value', '')
+        //                 .text(''));
+        //             $('input[name=start_time]').append($('<option>').attr('value', '0')
+        //                 .text('\u00A0'));
 
+        //             $.each(data.start, function(key, item) {
+        //                 let time = item['hour'] + ':' + item['minutes']['00'];
+        //                 $('input[name=start_time]').append($('<option>').attr('value', time)
+        //                     .text(time))
+
+        //                 if (item['minutes']['30']) {
+        //                     let time = item['hour'] + ':' + item['minutes']['30'];
+        //                     $('input[name=start_time]').append($('<option>').attr('value',
+        //                         time).text(time))
+        //                 }
+        //             });
+
+        //             $('input[name=start_time]').trigger('change');
+
+        //             $(`input[name=start_time]`).select2({
+        //                 placeholder: '07:00',
+        //                 allowClear: true,
+        //             });
+
+        //             //end time
+        //             $('input[name=end_time]').empty();
+        //             $('select[name=end_time]').append($('<option>').attr('value', '')
+        //                 .text(''));
+                    
+        //             $('select[name=end_time]').append($('<option>').attr('value', '0')
+        //                 .text('\u00A0'));
+
+        //             $.each(data.end, function(key, item) {
+        //                 if (item['minutes']['00']) {
+        //                     let time = item['hour'] + ':' + item['minutes']['00'];
+        //                     $('select[name=end_time]').append($('<option>').attr('value', time)
+        //                         .text(time))
+        //                 }
+
+        //                 let time = item['hour'] + ':' + item['minutes']['30'];
+        //                 $('select[name=end_time]').append($('<option>').attr('value', time)
+        //                     .text(time))
+        //             });
+
+        //             $('select[name=end_time]').trigger('change');
+
+        //             $(`select[name=end_time]`).select2({
+        //                 placeholder: '17:30',
+        //                 allowClear: true,
+        //             });
+        //             $('.select-time .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
+        // }
         $('.input-date').datetimepicker({
             format: "YYYY-MM-DD",
             locale: "ja",
@@ -349,9 +399,32 @@
             daysOfWeekDisabled: [0, 6],
         });       
         
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+    <script>
+        $('#date input');
+        $('#start_time').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 1,
+            defaultHour: '00',
+            defaultMinute: '00',
+            minTime: '00:00',
+            maxTime: '08:30'
+        });
 
-    $('#start_time').datetimepicker();
-    $('#endtime').datetimepicker();
-</script>
-
+        $('#end_time').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 1,
+            defaultHour: '00',
+            defaultMinute: '00',
+            minTime: '18:00',
+            maxTime: '23:59'
+        });
+    </script>
 @endpush
