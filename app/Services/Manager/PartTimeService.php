@@ -9,6 +9,7 @@ use App\Models\Branch;
 use App\Models\ParttimeRegister;
 use App\Models\User;
 use App\Services\BaseService;
+use App\Models\Calendar;
 
 
 class PartTimeService extends BaseService
@@ -131,5 +132,17 @@ class PartTimeService extends BaseService
     public function deletePartTime($id)
     {
         return $this->model->where('id', $id)->delete();
+    }
+
+    public function listCalendarFull()
+    {
+        $list=Calendar::all();
+        $data=[];
+        foreach($list as $item){
+            $data[]=[
+                'date'=>$item->date . '('. $this->getDayOfWeek($item->date) . ')',
+            ];
+        }
+        return $data;
     }
 }

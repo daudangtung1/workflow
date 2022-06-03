@@ -8,6 +8,7 @@ use App\Enums\UserRole;
 use App\Models\Branch;
 use App\Models\OvertimeRegister;
 use App\Models\User;
+use App\Models\Calendar;
 use App\Services\BaseService;
 
 
@@ -176,5 +177,17 @@ class OverTimeService extends BaseService
     public function deleteOverTime($id)
     {
         return $this->model->where('id', $id)->delete();
+    }
+
+    public function listCalendarFull()
+    {
+        $list=Calendar::all();
+        $data=[];
+        foreach($list as $item){
+            $data[]=[
+                'date'=>$item->date . ' (' . $this->getDayOfWeek($item->date) . ')',
+            ];
+        }
+        return $data;
     }
 }

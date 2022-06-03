@@ -175,23 +175,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-30">
-                        <div class="col-md-12">
-                            <div class="form-group select-time select-100">
-                                <label for="">総務確認</label>
-                                <select class="chosen-select" name="manager_status">
-                                    <option value="all" data-name="">&nbsp;</option>
-                                    @foreach (\App\Enums\ManagerStatus::asArray() as $item)
-                                        <option value="{{ $item }}"
-                                            {{ !request()->manager_status && $item == \App\Enums\ManagerStatus::PENDING  ? 'selected' : '' }}
-                                            {{ request()->manager_status == $item ? 'selected' : '' }}>
-                                            {{ \App\Enums\ManagerStatus::getDescription($item) }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <button class="btn btn-primary w-100 form-button mb-83">検索</button>
@@ -224,13 +207,13 @@
 
         $('select').change();
         $('.input-date').datetimepicker({
-            format: "YYYY-MM-DD",
+            format: "YYYY/MM/DD",
             locale: "ja",
             useCurrent: false,
             disabledDates: [
-                 @foreach ($listCalendar as $item)
+                 {{--@foreach ($listCalendar as $item)
                     moment("{{ $item->date }}"),
-                 @endforeach
+                 @endforeach--}}
             ],
             daysOfWeekDisabled: [0, 6],
         });

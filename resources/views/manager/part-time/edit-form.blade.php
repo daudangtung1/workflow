@@ -286,7 +286,7 @@
                                 </div>
                                 <!-- /.form group -->
                             </div>
-                            <div class="col-md-12 mt-30">
+                            {{--<div class="col-md-12 mt-30">
                                 <div class="form-group">
                                     <div class="select-time select-100">
                                         <label for="">総務確認</label>
@@ -300,7 +300,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>--}}
                             <div class="col-md-12">
                                 <button class="btn btn-primary w-100 form-button form-button-edit" disabled>更新</button>
                             </div>

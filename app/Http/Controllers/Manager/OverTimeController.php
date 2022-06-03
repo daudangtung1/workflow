@@ -26,7 +26,7 @@ class OverTimeController extends Controller
             'active' => 'index',
             'times' => $this->getTime(),
             'approvers' => $this->overTimeService->listUser(UserRole::APPROVER),
-            'listCalendar' =>  $this->overTimeService->listCalendar(),
+            'listCalendar' =>  $this->overTimeService->listCalendarFull(),
         ]);
     }
 
@@ -59,6 +59,7 @@ class OverTimeController extends Controller
     public function show(Request $request, $id)
     {
         $dataRegister = $this->overTimeService->listOverTime($request);
+        $listCalendarData = $this->overTimeService->listCalendarFull();
 
         return view('manager.over-time.index', [
             'staffs' => $this->overTimeService->listUser(UserRole::STAFF),
@@ -68,7 +69,7 @@ class OverTimeController extends Controller
             'times' => $this->getTime(),
             'approvers' => $this->overTimeService->listUser(UserRole::APPROVER),
             'listCalendar' =>  $this->overTimeService->listCalendar(),
-        ]);
+        ], compact('listCalendarData'));
     }
 
     public function edit(Request $request, $type)

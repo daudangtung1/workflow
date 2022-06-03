@@ -388,7 +388,7 @@
         //             $('.select-time .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
         // }
         $('.input-date').datetimepicker({
-            format: "YYYY-MM-DD",
+            format: "YYYY/MM/DD",
             locale: "ja",
             useCurrent: false,
             disabledDates: [

@@ -26,13 +26,14 @@ class PartTimeController extends Controller
             'active' => 'index',
             'times' => $this->getTime(),
             'approvers' => $this->partTimeService->listUser(UserRole::APPROVER),
-            'listCalendar' =>  $this->partTimeService->listCalendar(),
+            'listCalendar' =>  $this->partTimeService->listCalendarFull(),
         ]);
     }
 
     public function show(Request $request)
     {
         $dataPartTime = $this->partTimeService->listPartTime($request);
+        $listCalendarData = $this->partTimeService->listCalendarFull();
 
         return view('manager.part-time.index', [
             'staffs' => $this->partTimeService->listUser(UserRole::STAFF),
@@ -42,7 +43,7 @@ class PartTimeController extends Controller
             'dataPartTime' => $dataPartTime,
             'approvers' => $this->partTimeService->listUser(UserRole::APPROVER),
             'listCalendar' =>  $this->partTimeService->listCalendar(),
-        ]);
+        ], compact('listCalendarData'));
     }
 
     public function update(Request $request, $type)

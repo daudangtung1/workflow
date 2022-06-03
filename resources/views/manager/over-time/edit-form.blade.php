@@ -1,8 +1,9 @@
 @push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
     <!-- daterange picker -->
     <style>
         .form-button-delete {
-            margin-top: 279px !important;
+            margin-top: 173px !important;
         }
 
         @media only screen and (max-width: 1023px) {
@@ -80,9 +81,27 @@
             width: 100% !important;
         }
 
+        .relative{
+            position: relative;
+        }
+        
+        .relative .input-group-append{
+            position: absolute;
+            top: 0;
+            right:  0;
+            height: 46px;
+            pointer-events: none;
+        }
+        .select-time .form-control[readonly]{
+            background: #fff;
+        }
+        input[type="date"]::-webkit-inner-spin-button,
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
     </style>
 @endpush
-
 
 <div class="tab-content1 d-flex2 manager">
     <div class="w-410 left-content">
@@ -108,40 +127,34 @@
                 </div>
             </div>
 
-            <div class="row  mt-30">
+            <div class="row mt-30">
                 <div class="col-md-12 col-xs-12">
                     <div class="form-group">
                         <label for="">日付</label>
-
-                        <div class="input-group date input-date" id="date" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date"
-                                placeholder="年-月-日" required data-toggle="datetimepicker" value="" />
+                        <div class="input-group date input-date" id="date" data-target-input="nearest"> 
+                            <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date" data-date-format="YYYY/MM/DD"
+                                placeholder="年/月/日" required data-toggle="datetimepicker" value=""/>
                             <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="icofont-calendar"></i></div>
                             </div>
                         </div>
-
                         <!-- /.input group -->
                     </div>
                     <!-- /.form group -->
                 </div>
             </div>
-
             <div class="row mt-30">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>開始時刻</label>
                         <div class="row">
                             <div class="col">
-                                <div class="select-time select-time1 select-min">
-                                    <select class="chosen-select" name="start_time">
-                                        <option value=""></option>
-
-                                    </select>
-                                    <small>
-                                        30分単位
-                                    </small>
-                                </div>
+                            <div class="select-time select-time1 select-min relative">
+                                    <input type="text" class="form-control" name="start_time" id="start_time">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                    </div>
+                                </div> 
                             </div>
                         </div>
                     </div>
@@ -154,15 +167,12 @@
                         <label>終了時刻</label>
                         <div class="row">
                             <div class="col">
-                                <div class="select-time select-time1 select-min">
-                                    <select class="chosen-select" name="end_time">
-                                        <option value=""></option>
-
-                                    </select>
-                                    <small>
-                                        30分単位
-                                    </small>
-                                </div>
+                                <div class="select-time select-time1 select-min relative">
+                                    <input type="text" class="form-control" name="end_time" id="end_time">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                    </div>
+                                </div> 
                             </div>
 
                         </div>
@@ -195,7 +205,7 @@
 
                         <div class="input-group date input-date" id="approval_date" data-target-input="nearest">
                             <input type="text" class="form-control datetimepicker-input" data-target="#approval_date"
-                                name="approval_date" placeholder="年-月-日" data-toggle="datetimepicker" value="" />
+                                name="approval_date" placeholder="年-月-日" data-toggle="datetimepicker" value="" data-date-format="YYYY/MM/DD"/>
                             <div class="input-group-append" data-target="#approval_date" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                             </div>
@@ -203,22 +213,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-30">
-                <div class="col-md-12">
-                    <div class="form-group select-time select-100">
-                        <label for="">総務確認</label>
-                        <select class="chosen-select" name="manager_status_edit">
-                            <option value="" data-name="">&nbsp;</option>
-                            @foreach (\App\Enums\ManagerStatus::asArray() as $item)
-                                <option value="{{ $item }}">
-                                    {{ \App\Enums\ManagerStatus::getDescription($item) }}
-                                </option>
-                            @endforeach
-                        </select>
 
-                    </div>
-                </div>
-            </div>
             <input type="hidden" name="start_time_working">
             <input type="hidden" name="end_time_working">
             <input type="hidden" name="id">
@@ -320,13 +315,15 @@
         };
         var dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
         $('#approval_date').datetimepicker({
-            format: false,
+            format: "YYYYY/MM/DD",
             locale: 'ja',
             icons: {
                 time: 'far fa-clock',
             },
 
         });
+
+        $('#date').datetimepicker({format: 'yyyy/mm/dd'});
 
         //config
         $(document).ready(function() {
@@ -369,9 +366,11 @@
 
             if (date == 'Invalid Date')
                 date = $('input[name=date]').val();
-
+                
             //getData();
         });
+
+        
 
         function getData(id) {
             let user = $('select[name=user_register]').val();
@@ -386,8 +385,8 @@
                         user: user,
                     },
                     success: function(data) {
-                        $(`select[name=start_time]`).val(data.start_time).trigger('change');
-                        $(`select[name=end_time]`).val(data.end_time).trigger('change');
+                        $(`input[name=start_time]`).val(data.start_time).trigger('change');
+                        $(`input[name=end_time]`).val(data.end_time).trigger('change');
                         $(`select[name=approver]`).val(data.approver).trigger('change');
                         $(`input[name=approval_date]`).val(data.approval_date);
                         $(`select[name=manager_status_edit]`).val(data.manager_confirm).trigger('change');
@@ -408,21 +407,19 @@
             $('#result').html('');
         }
 
-        $("select[name=start_time]").change(function() {
+        $("input[name=start_time]").change(function() {
             return caculate();
         })
 
-        $("select[name=end_time]").change(function() {
+        $("input[name=end_time]").change(function() {
             return caculate();
         })
-
-
 
         function caculate() {
             resetForm();
             let disable = true;
-            let startTime = $(`select[name=start_time]`).val();
-            let endTime = $(`select[name=end_time]`).val();
+            let startTime = $(`input[name=start_time]`).val();
+            let endTime = $(`input[name=end_time]`).val();
             let startTimeWorking = $('input[name=start_time_working]').val();
             let endTimeWorking = $('input[name=end_time_working]').val();
 
@@ -461,5 +458,43 @@
             $('#result').html(totalTime);
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+    <script>
+         $('#start_time').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 1,
+            defaultHour: '00',
+            defaultMinute: '00',
+            minTime: '00:00',
+            maxTime: '08:00'
+        });
 
+        $('#end_time').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 1,
+            defaultHour: '00',
+            defaultMinute: '00',
+            minTime: '18:00',
+            maxTime: '23:59'
+        });
+        $('td a').click(function(){
+            $('#date input').trigger('click');
+            $('#date input').trigger('click');
+        });
+
+        $('.approval_date input').click(function(){
+            $('#date input').trigger('click');
+            $('#date input').trigger('click');
+
+            $('#approval_date input').trigger('click');
+            $('#approval_date input').trigger('click');
+        });
+        $('#approval_date input').attr('autocomplete', 'off')
+    </script>
 @endpush
