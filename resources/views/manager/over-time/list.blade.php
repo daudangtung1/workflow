@@ -148,10 +148,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($dataRegister as $key=> $item)
-                                    @foreach($listCalendarData as $k=> $itemCalendar)
-                                    @if($item['date'] == $itemCalendar['date'])
-                                        <tr class="vacation">
+                                @forelse ($dataRegister as $key=>$item)
+                                    <tr>
                                             <td>{{ $item['date'] }}</td>
                                             <td>{{ $item['user'] }}</td>
                                             <td>{{ $item['branch'] }}</td>
@@ -176,39 +174,7 @@
                                                     data-end_time_working="{{ $item['end_time_working'] }}"
                                                     data-user-id="{{ $item['user_id'] }}">
                                                     <i class="icofont-pencil-alt-1"></i></a></td>
-
-                                        </tr>
-                                        @unset($dataRegister[$key])
-                                    @else
-                                        <tr>
-                                            <td>{{ $item['date'] }}</td>
-                                            <td>{{ $item['user'] }}</td>
-                                            <td>{{ $item['branch'] }}</td>
-                                            <td>{{ $item['start_time'] }}</td>
-                                            <td>{{ $item['end_time'] }}</td>
-                                            <td>{{ $item['time'] }}</td>
-                                            <td>{{ $item['approver'] }}</td>
-                                            <td>{{ $item['approval_date'] }}</td>
-                                            {{-- <td>
-                                                @if (!$item['manager_confirm'])
-                                                <label class="custom-check">
-                                                    <input type="checkbox" name="id[]" class="check-one"
-                                                        value="{{ $item['id'] }}">
-                                                <span class="checkmark"></span>
-                                                </label>
-                                                @endif
-                                            </td> --}}
-                                            <td> <a href="javascript:void(0)" class="btnEdit"
-                                                    data-id="{{ $item['id'] }}"
-                                                    data-date="{{ $item['date_register'] }}"
-                                                    data-start_time_working="{{ $item['start_time_working'] }}"
-                                                    data-end_time_working="{{ $item['end_time_working'] }}"
-                                                    data-user-id="{{ $item['user_id'] }}">
-                                                    <i class="icofont-pencil-alt-1"></i></a></td>
-
-                                        </tr>
-                                    @endif
-                                    @endforeach
+                                    </tr>   
                                 @empty
                                     <tr>
                                         <td colspan="10" class="text-center">{{ __('common.data.error') }}</td>
@@ -222,6 +188,7 @@
                                         <td class="d-none"></td>
                                     </tr>
                                 @endforelse
+                                
                             </tbody>
                         </table>
                     </div>
