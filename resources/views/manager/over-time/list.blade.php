@@ -122,6 +122,11 @@
             background: #ffebeb;
         }
 
+        .color-red{
+            color: red;
+            font-weight: bold;
+        }
+
     </style>
     <link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
 @endpush
@@ -149,12 +154,21 @@
                             </thead>
                             <tbody>
                                 @forelse ($dataRegister as $key=>$item)
-                                    <tr>
+                                @if(in_array($item['date'], $listCalendarData))
+                                    <tr class="vacation">
                                             <td>{{ $item['date'] }}</td>
                                             <td>{{ $item['user'] }}</td>
                                             <td>{{ $item['branch'] }}</td>
-                                            <td>{{ $item['start_time'] }}</td>
-                                            <td>{{ $item['end_time'] }}</td>
+                                            @if($item['start_time'] != $item['start_time_working'])
+                                                <td class="color-red">{{ $item['start_time'] }}</td>
+                                            @else
+                                                <td>{{ $item['start_time'] }}</td>
+                                            @endif
+                                            @if($item['end_time'] != $item['end_time_working'])
+                                                <td class="color-red">{{ $item['end_time'] }}</td>
+                                            @else
+                                                <td>{{ $item['end_time'] }}</td>
+                                            @endif
                                             <td>{{ $item['time'] }}</td>
                                             <td>{{ $item['approver'] }}</td>
                                             <td>{{ $item['approval_date'] }}</td>
@@ -174,7 +188,44 @@
                                                     data-end_time_working="{{ $item['end_time_working'] }}"
                                                     data-user-id="{{ $item['user_id'] }}">
                                                     <i class="icofont-pencil-alt-1"></i></a></td>
-                                    </tr>   
+                                    </tr>
+                                    @unset($item['date'])
+                                @else
+                                    <tr>
+                                            <td>{{ $item['date'] }}</td>
+                                            <td>{{ $item['user'] }}</td>
+                                            <td>{{ $item['branch'] }}</td>
+                                            @if($item['start_time'] != $item['start_time_working'])
+                                                <td class="color-red">{{ $item['start_time'] }}</td>
+                                            @else
+                                                <td>{{ $item['start_time'] }}</td>
+                                            @endif
+                                            @if($item['end_time'] != $item['end_time_working'])
+                                                <td class="color-red">{{ $item['end_time'] }}</td>
+                                            @else
+                                                <td>{{ $item['end_time'] }}</td>
+                                            @endif
+                                            <td>{{ $item['time'] }}</td>
+                                            <td>{{ $item['approver'] }}</td>
+                                            <td>{{ $item['approval_date'] }}</td>
+                                            {{-- <td>
+                                                @if (!$item['manager_confirm'])
+                                                <label class="custom-check">
+                                                    <input type="checkbox" name="id[]" class="check-one"
+                                                        value="{{ $item['id'] }}">
+                                                <span class="checkmark"></span>
+                                                </label>
+                                                @endif
+                                            </td> --}}
+                                            <td> <a href="javascript:void(0)" class="btnEdit"
+                                                    data-id="{{ $item['id'] }}"
+                                                    data-date="{{ $item['date_register'] }}"
+                                                    data-start_time_working="{{ $item['start_time_working'] }}"
+                                                    data-end_time_working="{{ $item['end_time_working'] }}"
+                                                    data-user-id="{{ $item['user_id'] }}">
+                                                    <i class="icofont-pencil-alt-1"></i></a></td>
+                                    </tr>
+                                @endif
                                 @empty
                                     <tr>
                                         <td colspan="10" class="text-center">{{ __('common.data.error') }}</td>
@@ -188,7 +239,6 @@
                                         <td class="d-none"></td>
                                     </tr>
                                 @endforelse
-                                
                             </tbody>
                         </table>
                     </div>

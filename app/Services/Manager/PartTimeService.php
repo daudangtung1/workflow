@@ -137,11 +137,17 @@ class PartTimeService extends BaseService
     public function listCalendarFull()
     {
         $list=Calendar::all();
-        $data=[];
+        
+        $data_1=[];
         foreach($list as $item){
-            $data[]=[
-                'date'=>$item->date . '('. $this->getDayOfWeek($item->date) . ')',
+            $data_1[]=[
+                'date'=>$item->date . '(' . $this->getDayOfWeek($item->date) . ')',
             ];
+        }
+        $data=[];
+        foreach($data_1 as $d){
+            foreach ($d as $e)
+                $data[]=$e;
         }
         return $data;
     }

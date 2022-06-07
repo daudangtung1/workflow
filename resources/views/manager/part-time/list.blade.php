@@ -168,6 +168,47 @@
                             </thead>
                             <tbody>
                                 @forelse($dataPartTime as $key=> $item)
+                                @if(in_array($item['date'], $listCalendarData))
+                                    <tr class="vacation">
+                                        <td>{{ $item['date'] }}</td>
+                                        <td>{{ $item['user'] }}</td>
+                                        <td>{{ $item['branch'] }}</td>
+
+                                        <td>{{ $item['start_time1'] }}</td>
+                                        <td>{{ $item['end_time1'] }}</td>
+                                        <td>{{ $item['start_time2'] }}</td>
+                                        <td>{{ $item['end_time2'] }}</td>
+                                        <td>{{ $item['start_time3'] }}</td>
+                                        <td>{{ $item['end_time3'] }}</td>
+                                        <td>{{ $item['time'] }}</td>
+
+                                        <td>{{ $item['approver'] }}</td>
+                                        <td>{{ $item['approval_date'] }}</td>
+                                        {{--<td>
+                                            @if (!$item['manager_confirm'])
+                                            <label class="custom-check">
+                                            <input type="checkbox" name="id[]" class="check-one"
+                                            value="{{ $item['id'] }}">
+                                            <span class="checkmark"></span>
+                                            @endif
+                                        </td>--}}
+                                        <td> <a href="javascript:void(0)" class="btnEdit"
+                                                data-id="{{ $item['id'] }}" data-user-id="{{ $item['user_id'] }}"
+                                                    data-date="{{ $item['date_register'] }}"
+                                                    data-start-time1="{{ $item['start_time1'] != '-' ? $item['start_time1'] : '' }}"
+                                                    data-end-time1="{{ $item['end_time1'] != '-' ? $item['end_time1'] : '' }}"
+                                                    data-start-time2="{{ $item['start_time2'] != '-' ? $item['start_time2'] : '' }}"
+                                                    data-end-time2="{{ $item['end_time2'] != '-' ? $item['end_time2'] : '' }}"
+                                                    data-start-time3="{{ $item['start_time3'] != '-' ? $item['start_time3'] : '' }}"
+                                                    data-end-time3="{{ $item['end_time3'] != '-' ? $item['end_time3'] : '' }}"
+                                                    data-manager="{{ $item['manager_confirm'] }}"
+                                                    data-approver="{{ $item['approver_id'] }}"
+                                                    data-approval-date="{{ $item['approval_date'] }}">
+                                                    <i class="icofont-pencil-alt-1"></i></a>
+                                        </td>
+                                    </tr>
+                                    @unset($item['date'])
+                                @else
                                     <tr>
                                         <td>{{ $item['date'] }}</td>
                                         <td>{{ $item['user'] }}</td>
@@ -206,6 +247,7 @@
                                                     <i class="icofont-pencil-alt-1"></i></a>
                                         </td>
                                     </tr>
+                                @endif
                                 @empty
                                     <tr>
                                         <td colspan="14" class="text-center">{{ __('common.data.error') }}</td>
