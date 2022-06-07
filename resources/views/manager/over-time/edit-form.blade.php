@@ -205,7 +205,7 @@
 
                         <div class="input-group date input-date" id="approval_date" data-target-input="nearest">
                             <input type="text" class="form-control datetimepicker-input" data-target="#approval_date"
-                                name="approval_date" placeholder="年-月-日" data-toggle="datetimepicker" value="" data-date-format="YYYY/MM/DD"/>
+                                name="approval_date" placeholder="年-月-日" data-toggle="datetimepicker" value=""/>
                             <div class="input-group-append" data-target="#approval_date" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                             </div>
@@ -278,6 +278,7 @@
 </div>
 
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
     <script>
         $('.form-button-edit').click(function(e) {
             let formData = new FormData($('.formSm')[0]);
@@ -315,7 +316,8 @@
         };
         var dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
         $('#approval_date').datetimepicker({
-            format: "YYYYY/MM/DD",
+            format: 'YYYY/MM/DD',
+            pickTime: false,
             locale: 'ja',
             icons: {
                 time: 'far fa-clock',
@@ -388,7 +390,7 @@
                         $(`input[name=start_time]`).val(data.start_time).trigger('change');
                         $(`input[name=end_time]`).val(data.end_time).trigger('change');
                         $(`select[name=approver]`).val(data.approver).trigger('change');
-                        $(`input[name=approval_date]`).val(data.approval_date);
+                        $(`input[name=approval_date]`).val(data.approval_date ? moment(data.approval_date).format("YYYY-MM-DD") : '');
                         $(`select[name=manager_status_edit]`).val(data.manager_confirm).trigger('change');
 
                         if (!data.manager_confirm)
@@ -492,9 +494,9 @@
             $('#date input').trigger('click');
             $('#date input').trigger('click');
 
-            $('#approval_date input').trigger('click');
-            $('#approval_date input').trigger('click');
+            $('#approval_date input[name=approval_date]').trigger('click');
+            $('#approval_date input[name=approval_date]').trigger('click');
         });
-        $('#approval_date input').attr('autocomplete', 'off')
+        $('#approval_date input').attr('value', '');
     </script>
 @endpush

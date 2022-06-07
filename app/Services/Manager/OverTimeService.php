@@ -69,12 +69,20 @@ class OverTimeService extends BaseService
                 return $query->whereNull('approver');
             })
             // manager status
-            ->when($request->manager_status != 'all' && $request->manager_status, function ($query) use ($request) {
-                if ($request->manager_status ==  ManagerStatus::PROCESSED)
-                    return $query->whereNotNull('manager_confirm');
+            // ->when($request->manager_status != 'all' && $request->manager_status, function ($query) use ($request) {
+            //     if ($request->manager_status ==  ManagerStatus::PROCESSED)
+            //         return $query->whereNotNull('manager_confirm');
 
-                return $query->whereNull('manager_confirm');
+            //     return $query->whereNull('manager_confirm');
+            // })
+
+            ->when($request->manager_status, function ($query) use ($request) {
+                if($request->manager_status == ManagerStatus::PROCESSED) return $query->whereNotNull('approver');
+                elseif($request->manager_status == ManagerStatus::PENDING) return $query->whereNull('approver');
+                elseif($request->manager_status == ManagerStatus::PENDING) return $query;
+                // return $query->whereNull('manager_confirm');
             })
+
             ->orderBy('date', 'DESC')
             ->get();
 

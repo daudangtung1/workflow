@@ -34,5 +34,6 @@ return [
     ManagerStatus::class => [
         ManagerStatus::PROCESSED => '処理済み',
         ManagerStatus::PENDING => '未処理',
+        ManagerStatus::ALL => '全て',
     ],
 ];
