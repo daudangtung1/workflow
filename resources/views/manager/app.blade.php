@@ -16,7 +16,7 @@
             </a>
             <ul class="nav nav-treeview" style="display: block;">
                 <li class="nav-item">
-                    <a href="{{ route('approver.over_time.index') }}" class="nav-link @yield('active_overtime1') ">
+                    <a href="{{ route('approver.overtime.index') }}" class="nav-link @yield('active_overtime1') ">
                         <p>
                             時間外申請 ({{ request()->overTime->count() }})
                             <i class="right fas fa-caret-right"></i>
