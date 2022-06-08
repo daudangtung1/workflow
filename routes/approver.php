@@ -7,7 +7,7 @@ use App\Http\Controllers\Approver\VacationController;
 use App\Http\Controllers\Approver\StaffOverTimeController;
 use App\Http\Controllers\Approver\StaffPartTimeController;
 use App\Http\Controllers\Approver\StaffVacationController;
-use App\Http\Controllers\ApproverMonth\OverTimeController;
+use App\Http\Controllers\Approver\OverTimeController;
 use Illuminate\Support\Facades\Route;
 
 

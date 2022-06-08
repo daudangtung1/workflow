@@ -134,14 +134,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-30">
+                    <!-- <div class="row mt-30">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">名前</label>
                                 <input type="text" name="name" class="form-control" value="{{ request()->name }}">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row mt-30">
                         <div class="col-md-12">
                             <div class="form-group select-time select-100">
@@ -164,7 +164,6 @@
                             <div class="form-group select-time select-100">
                                 <label for="">承認状態</label>
                                 <select class="chosen-select" name="approver_status">
-                                    <option value="" data-name="">全て</option>
                                     @foreach (\App\Enums\ApproverStatus::asArray() as $item)
                                         <option value="{{ $item }}"
                                             {{ request()->approver_status == $item ? 'selected' : '' }}>
@@ -206,15 +205,31 @@
         });
 
         $('select').change();
-        $('.input-date').datetimepicker({
+        // $('.input-date').datetimepicker({
+        //     format: "YYYY-MM-DD",
+        //     locale: "ja",
+        //     useCurrent: false,
+        //     defaultDate: "11/1/2013",
+        //     {{--disabledDates: [
+        //          @foreach ($listCalendar as $item)
+        //             moment("{{ $item->date }}"),
+        //          @endforeach
+        //     ],
+        //     daysOfWeekDisabled: [0, 6],--}}
+            
+        // });
+        $('#start_date').datetimepicker({
             format: "YYYY-MM-DD",
             locale: "ja",
             useCurrent: false,
-            disabledDates: [
-                 {{--@foreach ($listCalendar as $item)
-                    moment("{{ $item->date }}"),
-                 @endforeach--}}
-            ],
+            defaultDate: "{{\Carbon\Carbon::now()->subMonth()->firstOfMonth()}}",
+            daysOfWeekDisabled: [0, 6],
+        })
+        $('#end_date').datetimepicker({
+            format: "YYYY-MM-DD",
+            locale: "ja",
+            useCurrent: false,
+            defaultDate: "{{\Carbon\Carbon::now()->lastOfMonth()}}",
             daysOfWeekDisabled: [0, 6],
         });
     </script>

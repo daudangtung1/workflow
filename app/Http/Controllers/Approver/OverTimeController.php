@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Approver;
 
 use App\Http\Controllers\Controller;
-use App\Services\Approver\OverTimeService;
+use App\Services\ApproverMonth\OverTimeService;
 use Illuminate\Http\Request;
+use App\Enums\UserRole;
 
 class OverTimeController extends Controller
 {
@@ -21,6 +22,9 @@ class OverTimeController extends Controller
 
         return view('approver.over-time.index', [
             'listRegister' => $listRegister,
+            'staffs' => $this->overtimeService->listUser(UserRole::STAFF),
+            'branchs' => $this->overtimeService->listBranch(),
+            'active' => 'index',
         ]);
     }
 
@@ -28,10 +32,23 @@ class OverTimeController extends Controller
     {
         try {
             $this->overtimeService->updateApprover($request->id);
-
-            return redirect()->route('approver.over_time.index')->with('success', __('common.update.success'));
+            return response()->json(array('statusCode' => 200));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
+    }
+
+    public function show(Request $request, $id)
+    {
+        $dataRegister = $this->overtimeService->listOverTime($request);
+
+        return view('approver.over-time.index', [
+            'staffs' => $this->overtimeService->listUser(),
+            'branchs' => $this->overtimeService->listBranch(),
+            'active' => 'show',
+            'dataRegister' =>  $dataRegister,
+            // 'times' => $this->getTime(),
+            'approvers' => $this->overtimeService->listUser(UserRole::APPROVER),
+        ]);
     }
 }

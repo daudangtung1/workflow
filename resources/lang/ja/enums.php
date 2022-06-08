@@ -30,6 +30,7 @@ return [
     ApproverStatus::class => [
         ApproverStatus::APPROVED => '済',
         ApproverStatus::PENDING => '未承認',
+        ApproverStatus::ALL => '全て',
     ], 
     ManagerStatus::class => [
         ManagerStatus::PROCESSED => '処理済み',
