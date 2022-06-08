@@ -58,6 +58,10 @@
             }
         }
 
+        .vacation{
+            background: #ffebeb;
+        }
+
     </style>
 @endpush
     <div class="card">
@@ -89,6 +93,28 @@
                             </thead>
                             <tbody>
                                 @forelse ($dataRegister as $key => $item)
+                                @if(in_array($item['date'], $listCalendarData))
+                                    <tr class="vacation">
+                                        <td>{{ $item['date'] }}</td>
+                                        <td>{{ $item['start_time'] }}</td>
+                                        <td>{{ $item['end_time'] }}</td>
+                                        <td>{{ $item['time'] }}</td>
+                                        <td>{{ $item['user'] }}</td>
+                                        <td>{{ $item['branch'] }}</td>
+                                        <td>{{ $item['approval_date'] }}</td>
+                                        <td>@if($item['approver'] != '-')
+                                                done
+                                            @else
+                                            <label class="custom-check">
+                                                <input type="checkbox" name="id" class="check-one" value="{{ $item['id'] }}">
+                                                {{--<input type="checkbox" name="id" class="check-one" value="{{ $item['id'] }}">--}}
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @unset($item['date'])
+                                @else
                                     <tr>
                                         <td>{{ $item['date'] }}</td>
                                         <td>{{ $item['start_time'] }}</td>
@@ -108,6 +134,7 @@
                                             @endif
                                         </td>
                                     </tr>
+                                @endif
                                 @empty
                                     <tr>
                                         <td colspan="6" class="text-center">{{ __('common.data.error') }}</td>

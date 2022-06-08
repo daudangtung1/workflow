@@ -19,7 +19,7 @@
         <li class="nav-item" role="presentation">
             <a class="nav-link  {{ $active == 'show' ? 'active' : '' }}" id="list-tab" data-toggle="tab" href="#list"
                 role="tab" aria-controls="list" aria-selected="true">
-                <b>検索結果@if(isset($dataRegister))<span style="font-size: 16px; vertical-align: middle;">({{count($dataRegister)}})</span>@endif </b>
+                <b>検索結果@if(isset($dataRegister))<span style="font-size: 15px; vertical-align: middle;">({{count($dataRegister)}})</span>@endif </b>
             </a>
         </li>
         @endif

@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Branch;
 use App\Enums\UserRole;
 use App\Enums\ApproverStatus;
+use App\Models\Calendar;
 
 class OverTimeService extends BaseService
 {
@@ -136,5 +137,23 @@ class OverTimeService extends BaseService
     public function listBranch()
     {
         return $this->branchModel->all();
+    }
+
+    public function listCalendarFull()
+    {
+        $list=Calendar::all();
+        
+        $data_1=[];
+        foreach($list as $item){
+            $data_1[]=[
+                'date'=>$item->date . ' (' . $this->getDayOfWeek($item->date) . ')',
+            ];
+        }
+        $data=[];
+        foreach($data_1 as $d){
+            foreach ($d as $e)
+                $data[]=$e;
+        }
+        return $data;
     }
 }
