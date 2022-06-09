@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\ApproverMonth\OverTimeService;
 use Illuminate\Http\Request;
 use App\Enums\UserRole;
+use App\Models\OvertimeRegister;
 
 class OverTimeController extends Controller
 {
@@ -50,5 +51,15 @@ class OverTimeController extends Controller
             // 'times' => $this->getTime(),
             'approvers' => $this->overtimeService->listUser(UserRole::APPROVER),
         ], compact('listCalendarData'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $this->overtimeService->cancelApprover($request->id);
+            return response()->json(array('statusCode' => 200));
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

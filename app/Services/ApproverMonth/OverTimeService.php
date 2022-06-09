@@ -82,7 +82,7 @@ class OverTimeService extends BaseService
             ->when($request->approver_status, function ($query) use ($request) {
                 if ($request->approver_status ==  ApproverStatus::APPROVED) return $query->whereNotNull('approver');
                 elseif ($request->approver_status ==  ApproverStatus::PENDING) return $query->whereNull('approver');
-                elseif ($request->approver_status ==  ApproverStatus::ALL) return $query->whereNull('approver');
+                elseif ($request->approver_status ==  ApproverStatus::ALL) return $query;
             })
             // manager status
             // ->when($request->manager_status != 'all' && $request->manager_status, function ($query) use ($request) {
@@ -155,5 +155,13 @@ class OverTimeService extends BaseService
                 $data[]=$e;
         }
         return $data;
+    }
+
+    public function cancelApprover($id)
+    {
+        $this->model->where('id', $id)->update([
+            'approval_date' => null,
+            'approver' => null,
+        ]);
     }
 }

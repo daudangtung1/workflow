@@ -42,6 +42,14 @@
             width: 150px !important;
         }
 
+        .w-220 {
+            width: 220px !important;
+        }
+
+        .w-160 {
+            width: 160px !important;
+        }
+
         @media only screen and (max-width: 1165px) {
             .form-button {
                 margin: 30px 0 50px 0px !important;
@@ -60,6 +68,10 @@
 
         .vacation{
             background: #ffebeb;
+        }
+
+        #table_data tr td p{
+            margin-bottom: 0;
         }
 
     </style>
@@ -87,14 +99,14 @@
                                     <th class="w-150">時間外計(分)</th>
                                     <th class="w-230">申請者(社員ID)</th>
                                     <th class="w-230">Branch</th>
-                                    <th class="w-230">Time</th>
-                                    <th class="w-150">承認</th>
+                                    <th class="w-220">Time</th>
+                                    <th class="w-160">承認</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($dataRegister as $key => $item)
                                 @if(in_array($item['date'], $listCalendarData))
-                                    <tr class="vacation">
+                                    <tr data-id={{$item['id']}} class="vacation">
                                         <td>{{ $item['date'] }}</td>
                                         <td>{{ $item['start_time'] }}</td>
                                         <td>{{ $item['end_time'] }}</td>
@@ -103,11 +115,10 @@
                                         <td>{{ $item['branch'] }}</td>
                                         <td>{{ $item['approval_date'] }}</td>
                                         <td>@if($item['approver'] != '-')
-                                                done
+                                            <p>đã phê duyệt <a href="javascript:void(0)" class="cancel_approve">(hủy)</a></p>
                                             @else
                                             <label class="custom-check">
                                                 <input type="checkbox" name="id" class="check-one" value="{{ $item['id'] }}">
-                                                {{--<input type="checkbox" name="id" class="check-one" value="{{ $item['id'] }}">--}}
                                                 <span class="checkmark"></span>
                                             </label>
                                             @endif
@@ -115,7 +126,7 @@
                                     </tr>
                                 @unset($item['date'])
                                 @else
-                                    <tr>
+                                    <tr data-id={{$item['id']}}>
                                         <td>{{ $item['date'] }}</td>
                                         <td>{{ $item['start_time'] }}</td>
                                         <td>{{ $item['end_time'] }}</td>
@@ -124,11 +135,10 @@
                                         <td>{{ $item['branch'] }}</td>
                                         <td>{{ $item['approval_date'] }}</td>
                                         <td>@if($item['approver'] != '-')
-                                                done
+                                            <p>đã phê duyệt <a href="javascript:void(0)" class="cancel_approve">(hủy)</a></p>
                                             @else
                                             <label class="custom-check">
                                                 <input type="checkbox" name="id" class="check-one" value="{{ $item['id'] }}">
-                                                {{--<input type="checkbox" name="id" class="check-one" value="{{ $item['id'] }}">--}}
                                                 <span class="checkmark"></span>
                                             </label>
                                             @endif
@@ -188,7 +198,7 @@
         $("#update").click(function(){
             bootbox.confirm({
                 // title: "",
-                message: "承認を取り消します。よろしいですか？",
+                message: "Approve？",
                 buttons: {
                 cancel: {
                     label: "いいえ",
@@ -214,6 +224,7 @@
                             url: url,
                             method: "POST",
                             dataType: 'json',
+                            async: false,
                             data: {
                                 _token:'{{ csrf_token() }}',
                                 id: id,
@@ -222,7 +233,8 @@
                                 if(data.statusCode===200){
                                     $('.custom-check input:checkbox[name=id]').each(function(){
                                         if($(this).prop('checked')){
-                                            $(this).parents('td').text('done').find('label').remove();
+                                            $(this).parents('td').html('<p>đã phê duyệt <a href="javascript:void(0)" class="cancel_approve">(hủy)</a></p>').find('label').remove();
+                                            // $(this).prop('checked');
                                         }
                                     });
                                     bootbox.alert({
@@ -231,7 +243,12 @@
                                             ok: {
                                                 label: '近い'
                                             }
+                                        },
+                                        callback: function(result){
+                                        if(result){
+                                            
                                         }
+                                    },
                                     });
                                 }
 
@@ -245,5 +262,61 @@
             });
         });
 
+        $('.cancel_approve').click(function(){
+            var data_id=$(this).parents('tr').data('id');
+            var element=$(this).parents('tr');
+            var element_find_p=$(this).parents('tr').find('p');
+            
+            bootbox.confirm({
+                // title: "",
+                message: "承認を取り消します。よろしいですか？",
+                buttons: {
+                    cancel: {
+                        label: "いいえ",
+                    },
+                    confirm: {
+                        label: "はい",
+                    }
+                },
+            callback: function(result) {
+                if(result) {
+                    var url_cancel="{{route('approver.overtime.update', '')}}" + "/" + data_id;
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: url_cancel,
+                        method: "PUT",
+                        dataType: 'json',
+                        async: false,
+                        data: {
+                            _token:'{{ csrf_token() }}',
+                            id: data_id,
+                        },
+                        success: function(res) {
+                            if(res.statusCode === 200) {
+                                // element_find_p.remove();
+                                // element.appendTo('<label class="custom-check"><input type="checkbox" name="id" class="check-one" value=' + data_id + '><span class="checkmark"></span></label>');
+                                bootbox.alert({
+                                    message: "成功!",
+                                    buttons: {
+                                        ok: {
+                                            label: '近い'
+                                        }
+                                    },
+                                });
+                                {{--location.href="{{URL::current()}}";--}}
+                            }
+                        },
+                        error: function(){
+                            console.log('fail!');
+                        }
+                    });
+                }
+                }
+            });
+        });
     </script>
 @endpush
