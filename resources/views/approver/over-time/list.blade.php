@@ -109,39 +109,35 @@
 </div>
 
 @push('scripts')
-<script src="{{asset('js/bootbox.min.js')}}"></script>
-<script>
-    // $('.check-all').click(function() {
-    $(document).on("click", ".check-all", function() {
-        if ($('.check-one').length == $('.check-one:checked').length) {
-            $('.check-one').prop('checked', false)
-        } else {
-            $('.check-one').prop('checked', true)
+    <script src="{{asset('js/bootbox.min.js')}}"></script>
+    <script>
+        $('.check-all').click(function() {
+            if ($('.check-one').length == $('.check-one:checked').length) {
+                $('.check-one').prop('checked', false)
+            } else {
+                $('.check-one').prop('checked', true)
+            }
+
+            checkSubmit();
+        });
+
+        $('.check-one').click(function() {
+            checkSubmit();
+        })
+
+        function checkSubmit() {
+            if ($('.check-one:checked').length > 0) {
+                $('.form-button').prop('disabled', false);
+            } else {
+                $('.form-button').prop('disabled', true);
+            }
         }
 
-        checkSubmit();
-    });
-
-    // $('.check-one').click(function() {
-    $(document).on("click", ".check-one", function() {
-        checkSubmit();
-    })
-
-    function checkSubmit() {
-        if ($('.check-one:checked').length > 0) {
-            $('.button-right .form-button').prop('disabled', false);
-        } else {
-            $('.button-right .form-button').prop('disabled', true);
-        }
-    }
-
-    $(document).on('click', '#update', function() {
-        var url_data = "{{URL::current()}}";
-        console.log(url_data);
-        bootbox.confirm({
-            // title: "",
-            message: "Approve？",
-            buttons: {
+        $("#update").click(function(){
+            bootbox.confirm({
+                // title: "",
+                message: "承認を取り消します。よろしいですか？",
+                buttons: {
                 cancel: {
                     label: "いいえ",
                 },

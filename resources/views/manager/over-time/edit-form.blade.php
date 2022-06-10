@@ -132,7 +132,7 @@
                     <div class="form-group">
                         <label for="">日付</label>
                         <div class="input-group date input-date" id="date" data-target-input="nearest"> 
-                            <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date" data-date-format="YYYY/MM/DD"
+                            <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date" data-date-format="YYYY/MM/DD DD"
                                 placeholder="年/月/日" required data-toggle="datetimepicker" value=""/>
                             <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="icofont-calendar"></i></div>
@@ -325,7 +325,7 @@
 
         });
 
-        $('#date').datetimepicker({format: 'yyyy/mm/dd'});
+        $('#date input').datetimepicker({format: 'YYYY/MM/DD DD'});
 
         //config
         $(document).ready(function() {

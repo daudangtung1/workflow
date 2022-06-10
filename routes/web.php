@@ -8,7 +8,7 @@ use App\Http\Controllers\Staff\OverTimeController;
 use App\Http\Controllers\Staff\PartTimeController;
 use App\Http\Controllers\Staff\VacationController;
 use Illuminate\Support\Composer;
-use App\Models\OvertimeRegister;
+use App\Models\ParttimeRegister;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +46,6 @@ Route::get('config/cache', function () {
 });
 
 Route::get('reset', function(){
-    OvertimeRegister::query()->update(['approval_date'=> null, 'approver'=>null]);
+    ParttimeRegister::query()->update(['approval_date'=> null, 'approver'=>null]);
     dd('done!');
 });

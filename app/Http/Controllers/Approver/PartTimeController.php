@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Approver;
 
 use App\Http\Controllers\Controller;
-use App\Services\Approver\PartTimeService;
+use App\Services\ApproverMonth\PartTimeService;
 use Illuminate\Http\Request;
+use App\Enums\UserRole;
 
 class PartTimeController extends Controller
 {
@@ -21,6 +22,9 @@ class PartTimeController extends Controller
 
         return view('approver.part-time.index', [
             'listRegister' => $listRegister,
+            'staffs' => $this->parttimeService->listUser(UserRole::STAFF),
+            'branchs' => $this->parttimeService->listBranch(),
+            'active' => 'index',
         ]);
     }
 
@@ -28,10 +32,21 @@ class PartTimeController extends Controller
     {
         try {
             $this->parttimeService->updateApprover($request->id);
-
-            return redirect()->route('approver.part_time.index')->with('success', __('common.update.success'));
+            return response()->json(array('statusCode' => 200));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
+    }
+    public function show(Request $request, $id)
+    {
+        $listRegister = $this->parttimeService->listPartTime($request);
+        $listCalendarData = $this->parttimeService->listCalendarFull();
+        return view('approver.part-time.index', [
+            'listRegister' => $listRegister,
+            'active' => 'show',
+            'approvers' => $this->parttimeService->listUser(UserRole::APPROVER),
+            'staffs' => $this->parttimeService->listUser(),
+            'branchs' => $this->parttimeService->listBranch(),
+        ], compact('listCalendarData'));
     }
 }

@@ -94,7 +94,7 @@
                                     data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
                                         data-target="#start_date" name="start_date" placeholder="年-月-日"
-                                        data-toggle="datetimepicker" value="{{ request()->start_date }}" />
+                                        data-toggle="datetimepicker" value="{{ request()->start_date }}" autocomplete="off"/>
                                     <div class="input-group-append" data-target="#start_date"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="icofont-calendar"></i></div>
@@ -105,7 +105,7 @@
                                     data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input" data-target="#end_date"
                                         name="end_date" placeholder="年-月-日" data-toggle="datetimepicker"
-                                        value="{{ request()->end_date }}" />
+                                        value="{{ request()->end_date }}"  autocomplete="off"/>
                                     <div class="input-group-append" data-target="#end_date"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="icofont-calendar"></i></div>
