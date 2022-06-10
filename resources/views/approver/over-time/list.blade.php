@@ -75,6 +75,10 @@
     #table_data tr td p {
         margin-bottom: 0;
     }
+
+    #myTab li:nth-child(2){
+        width: 150px !important;
+    }
 </style>
 @endpush
 <div class="card">
@@ -151,7 +155,6 @@
                         id.push($(this).val());
                     })
                     var url = "{{route('approver.overtime.store')}}";
-                    console.log(url);
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -176,6 +179,7 @@
                         success: function(res) {
                             if (res.statusCode === 200) {
                                 $('#table_data').html(res.html);
+                                $('#count_data').html(res.count);
                                 bootbox.alert({
                                     message: "成功!",
                                     buttons: {
@@ -234,6 +238,7 @@
                         success: function(res) {
                             if (res.statusCode === 200) {
                                 $('#table_data').html(res.html);
+                                $('#count_data').html(res.count);
                                 bootbox.alert({
                                     message: "成功!",
                                     buttons: {

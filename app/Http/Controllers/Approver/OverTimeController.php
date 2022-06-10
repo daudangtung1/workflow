@@ -19,7 +19,6 @@ class OverTimeController extends Controller
     public function index(Request $request)
     {
         $listRegister = $this->overtimeService->listRegister($request->overTime);
-
         return view('approver.over-time.index', [
             'listRegister' => $listRegister,
             'staffs' => $this->overtimeService->listUser(UserRole::STAFF),
@@ -35,7 +34,8 @@ class OverTimeController extends Controller
             $dataRegister = $this->overtimeService->listOverTime($request);
             $listCalendarData = $this->overtimeService->listCalendarFull();
             $view = view('approver.over-time.table', compact('dataRegister', 'listCalendarData'))->render();
-            return response()->json(array('statusCode' => 200, 'html' => $view));
+            $count_data= view('approver.over-time.count', ['count' => count($dataRegister) ? count($dataRegister) : 0])->render();
+            return response()->json(array('statusCode' => 200, 'html' => $view, 'count' => $count_data));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -51,6 +51,7 @@ class OverTimeController extends Controller
             'active' => 'show',
             'dataRegister' =>  $dataRegister,
             'approvers' => $this->overtimeService->listUser(UserRole::APPROVER),
+            'count' => count($dataRegister),
         ], compact('listCalendarData'));
     }
 
@@ -61,7 +62,8 @@ class OverTimeController extends Controller
             $dataRegister = $this->overtimeService->listOverTime($request);
             $listCalendarData = $this->overtimeService->listCalendarFull();
             $view = view('approver.over-time.table', compact('dataRegister', 'listCalendarData'))->render();
-            return response()->json(array('statusCode' => 200, 'html' => $view));
+            $count_data= view('approver.over-time.count', ['count' => count($dataRegister) ? count($dataRegister) : 0])->render();
+            return response()->json(array('statusCode' => 200, 'html' => $view, 'count' => $count_data));
         } catch (\Exception $e) {
             return $e->getMessage();
         }

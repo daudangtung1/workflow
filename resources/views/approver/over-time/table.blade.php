@@ -14,7 +14,7 @@
     <tbody>
         @forelse ($dataRegister as $key => $item)
         @if(in_array($item['date'], $listCalendarData))
-        <tr data-id={{$item['id']}} class="vacation">
+        <tr data-id={{$item['id']}} class="vacation get-data">
             <td>{{ $item['date'] }}</td>
             <td>{{ $item['start_time'] }}</td>
             <td>{{ $item['end_time'] }}</td>
@@ -34,7 +34,7 @@
         </tr>
         @unset($item['date'])
         @else
-        <tr data-id={{$item['id']}}>
+        <tr data-id={{$item['id']}} class="get-data">
             <td>{{ $item['date'] }}</td>
             <td>{{ $item['start_time'] }}</td>
             <td>{{ $item['end_time'] }}</td>

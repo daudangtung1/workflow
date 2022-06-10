@@ -32,24 +32,26 @@ class PartTimeController extends Controller
     {
         try {
             $this->parttimeService->updateApprover($request->id);
-            $listRegister = $this->parttimeService->listPartTime($request);
+            $dataRegister = $this->parttimeService->listPartTime($request);
             $listCalendarData = $this->parttimeService->listCalendarFull();
-            $view = view('approver.part-time.table', compact('listRegister', 'listCalendarData'))->render();
-            return response()->json(array('statusCode' => 200, 'html' => $view));
+            $view = view('approver.part-time.table', compact('dataRegister', 'listCalendarData'))->render();
+            $count_data= view('approver.part-time.count', ['count' => count($dataRegister) ? count($dataRegister) : 0])->render();
+            return response()->json(array('statusCode' => 200, 'html' => $view, 'count' => $count_data));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
     }
     public function show(Request $request, $id)
     {
-        $listRegister = $this->parttimeService->listPartTime($request);
+        $dataRegister = $this->parttimeService->listPartTime($request);
         $listCalendarData = $this->parttimeService->listCalendarFull();
         return view('approver.part-time.index', [
-            'listRegister' => $listRegister,
+            'dataRegister' => $dataRegister,
             'active' => 'show',
             'approvers' => $this->parttimeService->listUser(UserRole::APPROVER),
             'staffs' => $this->parttimeService->listUser(),
             'branchs' => $this->parttimeService->listBranch(),
+            'count' => count($dataRegister),
         ], compact('listCalendarData'));
     }
 
@@ -57,10 +59,11 @@ class PartTimeController extends Controller
     {
         try {
             $this->parttimeService->cancelApprover($request->id);
-            $listRegister = $this->parttimeService->listPartTime($request);
+            $dataRegister = $this->parttimeService->listPartTime($request);
             $listCalendarData = $this->parttimeService->listCalendarFull();
-            $view = view('approver.part-time.table', compact('listRegister', 'listCalendarData'))->render();
-            return response()->json(array('statusCode' => 200, 'html' => $view));
+            $view = view('approver.part-time.table', compact('dataRegister', 'listCalendarData'))->render();
+            $count_data= view('approver.part-time.count', ['count' => count($dataRegister) ? count($dataRegister) : 0])->render();
+            return response()->json(array('statusCode' => 200, 'html' => $view, 'count' => $count_data));
         } catch (\Exception $e) {
             return $e->getMessage();
         }

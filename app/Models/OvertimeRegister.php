@@ -25,4 +25,9 @@ class OvertimeRegister extends BaseModel
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function overTimeMonth()
+    {
+        return $this->hasOne(OvertimeMonth::class);
+    }
 }
