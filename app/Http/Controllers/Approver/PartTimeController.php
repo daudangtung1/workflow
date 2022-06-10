@@ -32,7 +32,10 @@ class PartTimeController extends Controller
     {
         try {
             $this->parttimeService->updateApprover($request->id);
-            return response()->json(array('statusCode' => 200));
+            $listRegister = $this->parttimeService->listPartTime($request);
+            $listCalendarData = $this->parttimeService->listCalendarFull();
+            $view = view('approver.part-time.table', compact('listRegister', 'listCalendarData'))->render();
+            return response()->json(array('statusCode' => 200, 'html' => $view));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -48,5 +51,18 @@ class PartTimeController extends Controller
             'staffs' => $this->parttimeService->listUser(),
             'branchs' => $this->parttimeService->listBranch(),
         ], compact('listCalendarData'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $this->parttimeService->cancelApprover($request->id);
+            $listRegister = $this->parttimeService->listPartTime($request);
+            $listCalendarData = $this->parttimeService->listCalendarFull();
+            $view = view('approver.part-time.table', compact('listRegister', 'listCalendarData'))->render();
+            return response()->json(array('statusCode' => 200, 'html' => $view));
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

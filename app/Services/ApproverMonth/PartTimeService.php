@@ -148,4 +148,12 @@ class PartTimeService extends BaseService
         }
         return $data;
     }
+
+    public function cancelApprover($id)
+    {
+        $this->model->where('id', $id)->update([
+            'approval_date' => null,
+            'approver' => null,
+        ]);
+    }
 }
