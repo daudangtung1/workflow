@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Services\ApproverMonth\OverTimeService;
 use Illuminate\Http\Request;
 use App\Enums\UserRole;
-use App\Models\OvertimeRegister;
 
 class OverTimeController extends Controller
 {
@@ -33,7 +32,10 @@ class OverTimeController extends Controller
     {
         try {
             $this->overtimeService->updateApprover($request->id);
-            return response()->json(array('statusCode' => 200));
+            $dataRegister = $this->overtimeService->listOverTime($request);
+            $listCalendarData = $this->overtimeService->listCalendarFull();
+            $view = view('approver.over-time.table', compact('dataRegister', 'listCalendarData'))->render();
+            return response()->json(array('statusCode' => 200, 'html' => $view));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -48,7 +50,6 @@ class OverTimeController extends Controller
             'branchs' => $this->overtimeService->listBranch(),
             'active' => 'show',
             'dataRegister' =>  $dataRegister,
-            // 'times' => $this->getTime(),
             'approvers' => $this->overtimeService->listUser(UserRole::APPROVER),
         ], compact('listCalendarData'));
     }
@@ -57,7 +58,10 @@ class OverTimeController extends Controller
     {
         try {
             $this->overtimeService->cancelApprover($request->id);
-            return response()->json(array('statusCode' => 200));
+            $dataRegister = $this->overtimeService->listOverTime($request);
+            $listCalendarData = $this->overtimeService->listCalendarFull();
+            $view = view('approver.over-time.table', compact('dataRegister', 'listCalendarData'))->render();
+            return response()->json(array('statusCode' => 200, 'html' => $view));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
