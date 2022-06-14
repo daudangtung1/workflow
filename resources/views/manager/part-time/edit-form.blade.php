@@ -101,7 +101,9 @@
             padding-bottom: 71px !important;
         }
 
-        
+        .form-button-delete {
+            margin-top: 179px !important;
+        }
     </style>
 @endpush
 <form class="formSm" method="POST">
@@ -420,7 +422,7 @@
         });
 
         $('#approval_date').datetimepicker({
-            format: false,
+            format: 'YYYY-MM-DD',
             locale: 'ja',
             icons: {
                 time: 'far fa-clock',
@@ -451,7 +453,6 @@
                 });
             }
              $('.select-min .select2-selection__arrow').html('<i class="icofont-clock-time""></i>');
-            //  $('#date').datetimepicker('minDate', new Date('{{ \Carbon\Carbon::now()->toDateString() }}'));
            
         });
 

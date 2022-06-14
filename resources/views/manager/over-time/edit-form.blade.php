@@ -132,7 +132,7 @@
                     <div class="form-group">
                         <label for="">日付</label>
                         <div class="input-group date input-date" id="date" data-target-input="nearest"> 
-                            <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date" data-date-format="YYYY/MM/DD DD"
+                            <input type="text" class="form-control datetimepicker-input" data-target="#date" name="date"
                                 placeholder="年/月/日" required data-toggle="datetimepicker" value=""/>
                             <div class="input-group-append" data-target="#date" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="icofont-calendar"></i></div>
@@ -316,7 +316,7 @@
         };
         var dateNow = '{{ \Carbon\Carbon::now()->toDateString() }}';
         $('#approval_date').datetimepicker({
-            format: 'YYYY/MM/DD',
+            format: false,
             pickTime: false,
             locale: 'ja',
             icons: {
@@ -324,8 +324,6 @@
             },
 
         });
-
-        $('#date input').datetimepicker({format: 'YYYY/MM/DD DD'});
 
         //config
         $(document).ready(function() {
@@ -390,7 +388,8 @@
                         $(`input[name=start_time]`).val(data.start_time).trigger('change');
                         $(`input[name=end_time]`).val(data.end_time).trigger('change');
                         $(`select[name=approver]`).val(data.approver).trigger('change');
-                        $(`input[name=approval_date]`).val(data.approval_date ? moment(data.approval_date).format("YYYY-MM-DD") : '');
+                        $(`input[name=approval_date]`).val(data.approval_date ? moment(data.approval_date).format("YYYY/MM/DD") : '');
+                        $(`input[name=date]`).val(data.date ? moment(data.date).format("YYYY/MM/DD") : '');
                         $(`select[name=manager_status_edit]`).val(data.manager_confirm).trigger('change');
 
                         if (!data.manager_confirm)
@@ -485,18 +484,5 @@
             minTime: '18:00',
             maxTime: '23:59'
         });
-        $('td a').click(function(){
-            $('#date input').trigger('click');
-            $('#date input').trigger('click');
-        });
-
-        $('.approval_date input').click(function(){
-            $('#date input').trigger('click');
-            $('#date input').trigger('click');
-
-            $('#approval_date input[name=approval_date]').trigger('click');
-            $('#approval_date input[name=approval_date]').trigger('click');
-        });
-        $('#approval_date input').attr('value', '');
     </script>
 @endpush

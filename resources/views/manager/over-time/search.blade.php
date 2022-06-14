@@ -78,6 +78,14 @@
             border-radius: 0.25rem;
         }
 
+        #start_date .input-group-text, #end_date .input-group-text{
+            width: 52px;
+        }
+
+        #start_date>input, #end_date>input{
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+        }
     </style>
 @endpush
 
@@ -93,7 +101,7 @@
                                 <div class="w-185 inline-flex input-group date input-date" id="start_date"
                                     data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#start_date" name="start_date" placeholder="年-月-日"
+                                        data-target="#start_date" name="start_date" placeholder="年/月/日"
                                         data-toggle="datetimepicker" value="{{ request()->start_date }}" autocomplete="off"/>
                                     <div class="input-group-append" data-target="#start_date"
                                         data-toggle="datetimepicker">

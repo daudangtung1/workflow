@@ -39,7 +39,7 @@ class OverTimeController extends Controller
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
                 'approver' => $request->approver,
-                'approval_date' => $request->approval_date ? Carbon::parse($request->approval_date)->format('Y-m-d H:i:s') : null,
+                'approval_date' => $request->approval_date ? Carbon::parse($request->approval_date)->format('Y-m-d') : null,
                 'manager_confirm' => null,
                 'id' => $request->id,
             ];
