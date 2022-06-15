@@ -4,7 +4,7 @@
 @section('title', '総務処理')
 
 @section('content_aside')
-    
+
     {{-- approver --}}
     @if (auth()->user()->active_menu_approver == \App\Enums\UserApproverMenu::SHOW)
         <li class="nav-item role-name sub-title menu-is-opening menu-open">
@@ -88,6 +88,14 @@
                 <a href="{{ route('manager.part_time.index') }}" class="nav-link @yield('active_part_time')">
                     <p>
                         パート出勤簿
+                        <i class="right fas fa-caret-right"></i>
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('manager.censorship.index') }}" class="nav-link @yield('censorship') ">
+                    <p>
+                    月次承認
                         <i class="right fas fa-caret-right"></i>
                     </p>
                 </a>

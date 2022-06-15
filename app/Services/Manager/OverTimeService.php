@@ -29,6 +29,24 @@ class OverTimeService extends BaseService
         return $this->branchModel->all();
     }
 
+    public function getAll()
+    {
+        return $this->model->all();
+    }
+
+    public function filterByDate($year, $month, $statusApproval)
+    {
+        $query = $this->model->whereYear('date', $year)->whereMonth('date', $month);
+
+        if ($statusApproval == 1) {
+            $query->whereNull('approval_date');
+        } else if ($statusApproval == 2) {
+            $query->whereNotNull('approval_date');
+        }
+
+        return $query->get();
+    }
+
     public function listUser($role = '')
     {
         return $this->userModel->where('role', $role)->when($role == UserRole::STAFF, function ($q) {
@@ -63,7 +81,7 @@ class OverTimeService extends BaseService
             })
             //approver status
             ->when($request->approver_status, function ($query) use ($request) {
-                if ($request->approver_status ==  ApproverStatus::APPROVED)
+                if ($request->approver_status == ApproverStatus::APPROVED)
                     return $query->whereNotNull('approver');
 
                 return $query->whereNull('approver');
@@ -77,12 +95,11 @@ class OverTimeService extends BaseService
             // })
 
             ->when($request->manager_status, function ($query) use ($request) {
-                if($request->manager_status == ManagerStatus::PROCESSED) return $query->whereNotNull('approver');
-                elseif($request->manager_status == ManagerStatus::PENDING) return $query->whereNull('approver');
-                elseif($request->manager_status == ManagerStatus::PENDING) return $query;
+                if ($request->manager_status == ManagerStatus::PROCESSED) return $query->whereNotNull('approver');
+                elseif ($request->manager_status == ManagerStatus::PENDING) return $query->whereNull('approver');
+                elseif ($request->manager_status == ManagerStatus::PENDING) return $query;
                 // return $query->whereNull('manager_confirm');
             })
-
             ->orderBy('date', 'DESC')
             ->get();
 
@@ -98,20 +115,20 @@ class OverTimeService extends BaseService
             $user = $this->userModel->find($item->user_id);
 
             $data[] = [
-                'id' => $item->id,
-                'user_id' => $item->user_id,
-                'date_register' => $item->date,
-                'user' => $user ? $user->fullName : '-',
-                'date' => $item->date . ' (' . $this->getDayOfWeek($item->date) . ')',
-                'start_time' => $item->start_time ? $this->formatTime($item->start_time) : '-',
-                'end_time' => $item->end_time ? $this->formatTime($item->end_time) : '-',
-                'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '-',
-                'approver' => $item->userApprover ? $item->userApprover->first_name . ' ' . $item->userApprover->last_name : '-',
-                'time' => $beStart + $afEnd,
-                'manager_confirm' => $item->manager_confirm ? true : false,
-                'branch' => $user->branch ? $user->branch->name : '-',
+                'id'                 => $item->id,
+                'user_id'            => $item->user_id,
+                'date_register'      => $item->date,
+                'user'               => $user ? $user->fullName : '-',
+                'date'               => $item->date . ' (' . $this->getDayOfWeek($item->date) . ')',
+                'start_time'         => $item->start_time ? $this->formatTime($item->start_time) : '-',
+                'end_time'           => $item->end_time ? $this->formatTime($item->end_time) : '-',
+                'approval_date'      => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '-',
+                'approver'           => $item->userApprover ? $item->userApprover->first_name . ' ' . $item->userApprover->last_name : '-',
+                'time'               => $beStart + $afEnd,
+                'manager_confirm'    => $item->manager_confirm ? true : false,
+                'branch'             => $user->branch ? $user->branch->name : '-',
                 'start_time_working' => $startTimeWorking,
-                'end_time_working' => $endTimeWorking,
+                'end_time_working'   => $endTimeWorking,
             ];
         }
 
@@ -139,18 +156,18 @@ class OverTimeService extends BaseService
             $afEnd = $info->end_time ? (strtotime($info->end_time) - strtotime($endTimeWorking)) / 60 / 60 : 0;
 
             return [
-                'id' => $info->id,
-                'date' => $info->date,
-                'start_time' => $this->formatTime($info->start_time),
-                'end_time' => $this->formatTime($info->end_time),
-                'before_start' => $beStart,
-                'after_end' => $afEnd,
-                'total' => $beStart + $afEnd,
-                'approver' => $info->approver,
-                'manager_confirm' => $info->manager_confirm ? ManagerStatus::PROCESSED : false,
-                'approval_date' => $info->approval_date,
+                'id'                 => $info->id,
+                'date'               => $info->date,
+                'start_time'         => $this->formatTime($info->start_time),
+                'end_time'           => $this->formatTime($info->end_time),
+                'before_start'       => $beStart,
+                'after_end'          => $afEnd,
+                'total'              => $beStart + $afEnd,
+                'approver'           => $info->approver,
+                'manager_confirm'    => $info->manager_confirm ? ManagerStatus::PROCESSED : false,
+                'approval_date'      => $info->approval_date,
                 'start_time_working' => $startTimeWorking,
-                'end_time_working' => $endTimeWorking,
+                'end_time_working'   => $endTimeWorking,
             ];
         }
     }
@@ -189,19 +206,28 @@ class OverTimeService extends BaseService
 
     public function listCalendarFull()
     {
-        $list=Calendar::all();
-        
-        $data_1=[];
-        foreach($list as $item){
-            $data_1[]=[
-                'date'=>$item->date . ' (' . $this->getDayOfWeek($item->date) . ')',
+        $list = Calendar::all();
+
+        $data_1 = [];
+        foreach ($list as $item) {
+            $data_1[] = [
+                'date' => $item->date . ' (' . $this->getDayOfWeek($item->date) . ')',
             ];
         }
-        $data=[];
-        foreach($data_1 as $d){
+        $data = [];
+        foreach ($data_1 as $d) {
             foreach ($d as $e)
-                $data[]=$e;
+                $data[] = $e;
         }
         return $data;
+    }
+
+    public function findByDate($year, $month, $userId)
+    {
+        return $this->model->where('user_id', $userId)
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->orderBy('date', 'ASC')
+            ->get();
     }
 }

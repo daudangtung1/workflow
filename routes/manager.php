@@ -9,6 +9,7 @@ use App\Http\Controllers\Manager\StaffController;
 use App\Http\Controllers\Manager\StaffOverTimeController;
 use App\Http\Controllers\Manager\StaffPartTimeController;
 use App\Http\Controllers\Manager\StaffVacationController;
+use App\Http\Controllers\Manager\CensorshipController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth.manager'], function () {
@@ -42,4 +43,9 @@ Route::group(['middleware' => 'auth.manager'], function () {
     Route::resource('staff-over-time', StaffOverTimeController::class);
     Route::resource('staff-part-time', StaffPartTimeController::class);
     Route::resource('staff-vacation', StaffVacationController::class);
+
+    Route::get('censorship', [CensorshipController::class, 'index'])->name('censorship.index');
+    Route::get('censorship/search', [CensorshipController::class, 'search'])->name('censorship.search');
+    Route::get('censorship/show', [CensorshipController::class, 'show'])->name('censorship.show');
+    Route::post('censorship/approval-by-month', [CensorshipController::class, 'approvalByMonth'])->name('censorship.approval_by_month');
 });

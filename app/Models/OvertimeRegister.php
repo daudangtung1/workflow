@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class OvertimeRegister extends BaseModel
 {
+    public static $approvalStatus = [
+        0 => '合計',
+        1 => '未承認',
+        2 => '承認済み',
+    ];
+
     use HasFactory;
 
     protected $fillable = [
@@ -29,5 +35,10 @@ class OvertimeRegister extends BaseModel
     public function overTimeMonth()
     {
         return $this->hasOne(OvertimeMonth::class);
+    }
+
+    public function approvalByMonth()
+    {
+        return $this->morphOne(ApprovalByMonth::class,'modelable');
     }
 }
