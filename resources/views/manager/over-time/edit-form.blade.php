@@ -278,7 +278,8 @@
 </div>
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+    <script src="{{ asset('js/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('js/moment/moment-with-locales.min.js') }}"></script>
     <script>
         $('.form-button-edit').click(function(e) {
             let formData = new FormData($('.formSm')[0]);
@@ -385,11 +386,12 @@
                         user: user,
                     },
                     success: function(data) {
+                        moment.locale('ja');
                         $(`input[name=start_time]`).val(data.start_time).trigger('change');
                         $(`input[name=end_time]`).val(data.end_time).trigger('change');
                         $(`select[name=approver]`).val(data.approver).trigger('change');
-                        $(`input[name=approval_date]`).val(data.approval_date ? moment(data.approval_date).format("YYYY/MM/DD") : '');
-                        $(`input[name=date]`).val(data.date ? moment(data.date).format("YYYY/MM/DD") : '');
+                        $(`input[name=approval_date]`).val(data.approval_date ? moment(data.approval_date).format("YYYY/MM/DD dd") : '');
+                        $(`input[name=date]`).val(data.date ? moment(data.date).format("YYYY/MM/DD dd") : '');
                         $(`select[name=manager_status_edit]`).val(data.manager_confirm).trigger('change');
 
                         if (!data.manager_confirm)
@@ -485,4 +487,5 @@
             maxTime: '23:59'
         });
     </script>
+
 @endpush

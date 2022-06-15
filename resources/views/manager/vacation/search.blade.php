@@ -247,8 +247,19 @@
         });
 
         $('select').change();
-        $('.input-date').datetimepicker({
+
+        $('#start_date').datetimepicker({
             format: "YYYY/MM/DD dd",
+            locale: "ja",
+        });
+
+        $('#end_date').datetimepicker({
+            format: "YYYY/MM/DD dd",
+            locale: "ja",
+        });
+
+        $('.input-date').datetimepicker({
+            format: "YYYY/MM/DD",
             locale: "ja",
             daysOfWeekDisabled: false,
             useCurrent: false,

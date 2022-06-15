@@ -35,11 +35,11 @@ class OverTimeController extends Controller
         try {
             $data = [
                 'user_id' => $request->user_register,
-                'date' => $request->date,
+                'date' => substr($request->date, 0, -4),
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
                 'approver' => $request->approver,
-                'approval_date' => $request->approval_date ? Carbon::parse($request->approval_date)->format('Y-m-d') : null,
+                'approval_date' => $request->approval_date ? Carbon::parse(substr($request->approval_date, 0, -4))->format('Y-m-d') : null,
                 'manager_confirm' => null,
                 'id' => $request->id,
             ];

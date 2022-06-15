@@ -285,7 +285,7 @@
     <script src="{{ asset('js/datatables/buttons.bootstrap4.min.js') }}"></script>
 
     <script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
-
+    <script src="{{ asset('js/moment.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -350,9 +350,9 @@
             $('#edit-tab').parent().removeClass('d-none');
             $('#edit-tab').click();
 
-            let date = $(this).data('date');
+            let date = moment($(this).data('date')).format('YYYY/MM/DD');
             let manager = $(this).data('manager');
-            let approvalDate = $(this).data('approval-date');
+            let approvalDate = moment($(this).data('approval-date').split(' ')[0]).format('YYYY/MM/DD');
             let approver = $(this).data('approver');
             let userId = $(this).data('user-id');
             let id = $(this).data('id');
@@ -370,19 +370,25 @@
             $(`select[name=manager_status_edit]`).val(manager).trigger('change');
             $('input[name=id]').val(id);
 
-            $(`select[name=start_time_first]`).val(startTime1).trigger('change');
-            $(`select[name=end_time_first]`).val(endTime1).trigger('change');
+            $(`input[name=start_time_first]`).val(startTime1).trigger('change');
+            $(`input[name=end_time_first]`).val(endTime1).trigger('change');
 
-            $(`select[name=start_time_second]`).val(startTime2).trigger('change');
-            $(`select[name=end_time_second]`).val(endTime2).trigger('change');
+            $(`input[name=start_time_second]`).val(startTime2).trigger('change');
+            $(`input[name=end_time_second]`).val(endTime2).trigger('change');
 
-            $(`select[name=start_time_third]`).val(startTime3).trigger('change');
-            $(`select[name=end_time_third]`).val(endTime3).trigger('change');
+            $(`input[name=start_time_third]`).val(startTime3).trigger('change');
+            $(`input[name=end_time_third]`).val(endTime3).trigger('change');
 
             if (!manager)
                 $(`select[name=manager_status_edit]`).val('{{ \App\Enums\ManagerStatus::PENDING }}').trigger(
                     'change');
             //getData(id);
+
+            $('#date input').trigger('click');
+            $('#date input').trigger('click');
+
+            $('#approval_date input').trigger('click');
+            $('#approval_date input').trigger('click');
         })
     </script>
 @endpush

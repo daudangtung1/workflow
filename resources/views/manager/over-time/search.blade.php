@@ -231,7 +231,7 @@
 
         $('select').change();
         $('.input-date').datetimepicker({
-            format: "YYYY/MM/DD",
+            format: "YYYY/MM/DD dd",
             locale: "ja",
             useCurrent: false,
             disabledDates: [
