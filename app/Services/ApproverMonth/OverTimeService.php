@@ -9,15 +9,17 @@ use App\Models\User;
 use App\Models\Branch;
 use App\Enums\UserRole;
 use App\Enums\ApproverStatus;
+use App\Models\ApprovalByMonth;
 use App\Models\Calendar;
 
 class OverTimeService extends BaseService
 {
-    public function __construct(OvertimeRegister $overtimeRegister, Branch $branchModel, User $userModel)
+    public function __construct(OvertimeRegister $overtimeRegister, Branch $branchModel, User $userModel, ApprovalByMonth $approvalByMonth)
     {
         $this->branchModel = $branchModel;
         $this->userModel = $userModel;
         $this->model = $overtimeRegister;
+        $this->approvalByMonth= $approvalByMonth;
     }
 
     public function listRegister($overtimes = [])
@@ -104,6 +106,7 @@ class OverTimeService extends BaseService
             $afEnd = $item->end_time ? (strtotime($item->end_time) - strtotime($endTimeWorking)) / 60 : 0;
 
             $user = $this->userModel->find($item->user_id);
+            $status_month = $this->approvalByMonth->where('modelable_id', $item->id)->where('modelable_type', 'App\Models\OvertimeRegister')->first();
 
             $data[] = [
                 'id' => $item->id,
@@ -120,6 +123,7 @@ class OverTimeService extends BaseService
                 'branch' => $user->branch ? $user->branch->name : '-',
                 'start_time_working' => $startTimeWorking,
                 'end_time_working' => $endTimeWorking,
+                'status_month' => $status_month ? $status_month->modelable_id : '',
             ];
         }
 

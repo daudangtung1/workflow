@@ -22,13 +22,18 @@
             <td>{{ $item['user'] }}</td>
             <td>{{ $item['branch'] }}</td>
             <td>{{ $item['approval_date'] }}</td>
-            <td>@if($item['approver'] != '-')
-                <p>đã phê duyệt <a href="javascript:void(0)" class="cancel_approve">(hủy)</a></p>
+            <td>
+                @if($item['status_month'])
+                    <p>月次承認済み</p>
                 @else
-                <label class="custom-check">
-                    <input type="checkbox" name="id" class="check-one" value="{{ $item['id'] }}">
-                    <span class="checkmark"></span>
-                </label>
+                    @if($item['approver'] != '-')
+                    <p>承認済み<a href="javascript:void(0)" class="cancel_approve">（取消）</a></p>
+                    @else
+                    <label class="custom-check">
+                        <input type="checkbox" name="id" class="check-one" value="{{ $item['id'] }}">
+                        <span class="checkmark"></span>
+                    </label>
+                    @endif
                 @endif
             </td>
         </tr>
@@ -42,13 +47,18 @@
             <td>{{ $item['user'] }}</td>
             <td>{{ $item['branch'] }}</td>
             <td>{{ $item['approval_date'] }}</td>
-            <td>@if($item['approver'] != '-')
-                <p>đã phê duyệt <a href="javascript:void(0)" class="cancel_approve">(hủy)</a></p>
+            <td>
+                @if($item['status_month'])
+                    <p>月次承認済み</p>
                 @else
-                <label class="custom-check">
-                    <input type="checkbox" name="id" class="check-one" value="{{ $item['id'] }}">
-                    <span class="checkmark"></span>
-                </label>
+                    @if($item['approver'] != '-')
+                    <p>承認済み<a href="javascript:void(0)" class="cancel_approve">（取消）</a></p>
+                    @else
+                    <label class="custom-check">
+                        <input type="checkbox" name="id" class="check-one" value="{{ $item['id'] }}">
+                        <span class="checkmark"></span>
+                    </label>
+                    @endif
                 @endif
             </td>
         </tr>

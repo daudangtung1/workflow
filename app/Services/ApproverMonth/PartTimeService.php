@@ -11,14 +11,16 @@ use App\Enums\UserRole;
 use App\Enums\ApproverStatus;
 use App\Models\Calendar;
 use App\Enums\ManagerStatus;
+use App\Models\ApprovalByMonth;
 
 class PartTimeService extends BaseService
 {
-    public function __construct(ParttimeRegister $partTimeModel, Branch $branchModel, User $userModel)
+    public function __construct(ParttimeRegister $partTimeModel, Branch $branchModel, User $userModel, ApprovalByMonth $approvalByMonth)
     {
         $this->model = $partTimeModel;
         $this->branchModel = $branchModel;
         $this->userModel = $userModel;
+        $this->approvalByMonth = $approvalByMonth;
     }
 
     public function listRegister($partTimes = [])
@@ -104,6 +106,7 @@ class PartTimeService extends BaseService
             $time2 =  $item->start_time_second ? (strtotime($item->end_time_second) - strtotime($item->start_time_second)) / 60  : 0;
             $time3 = $item->start_time_third ? (strtotime($item->end_time_third) - strtotime($item->start_time_third)) / 60  : 0;
             $user = $this->userModel->find($item->user_id);
+            $status_month = $this->approvalByMonth->where('modelable_id', $item->id)->where('modelable_type', 'App\Models\ParttimeRegister')->first();
 
             $data[] = [
                 'id' => $item->id,
@@ -125,6 +128,7 @@ class PartTimeService extends BaseService
                 'approver_id' => $item->approver,
                 'manager_confirm' => $item->manager_confirm ? ManagerStatus::PROCESSED : false,
                 'branch' => $user->branch ? $user->branch->name : '',
+                'status_month' => $status_month ? $status_month->modelable_id : '',
             ];
         }
 
