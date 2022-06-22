@@ -12,6 +12,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Services\Manager\OverTimeService;
 use App\Services\Manager\PartTimeService;
+use App\Services\Approver\UserService;
 
 class CensorshipController extends Controller
 {
@@ -19,10 +20,13 @@ class CensorshipController extends Controller
 
     protected $approvalByMonthService;
 
-    public function __construct(CensorshipService $censorshipService, ApprovalByMonthService $approvalByMonthService)
+    protected $userService;
+
+    public function __construct(CensorshipService $censorshipService, ApprovalByMonthService $approvalByMonthService, UserService $userService)
     {
         $this->censorshipService = $censorshipService;
         $this->approvalByMonthService = $approvalByMonthService;
+        $this->userService = $userService;
     }
 
     public function index(Request $request)
@@ -52,10 +56,13 @@ class CensorshipController extends Controller
 
         $dateData = $this->getDate($request);
 
+        $user = $this->userService->find($request);
+
         return view('manager.censorship.index', [
             'items'    => $items,
             'data'     => $data,
             'dateData' => $dateData,
+            'user'     => $user,
             'active'   => 'show',
         ]);
     }

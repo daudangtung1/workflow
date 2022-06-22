@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class OvertimeRegister extends BaseModel
 {
     public static $approvalStatus = [
-        0 => '合計',
         1 => '未承認',
         2 => '承認済み',
     ];

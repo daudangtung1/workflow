@@ -5,6 +5,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group d-search">
+                        @if(!empty($user))
+                            <span class="d-inline-block mr-3"><b>{{ $user->first_name ?? '' }} {{ $user->last_name ?? '' }}</b></span>
+                        @endif
                                     <span class="search pr-2"
                                           data-model="{{request()->get('model')}}"
                                           data-user_id="{{request()->get('user_id')}}"
@@ -46,7 +49,7 @@
                                              }
                                         @endphp
                                         <tr>
-                                            <td>{{$value->id}}_{{ $date->format('Y-m-d') ?? '-' }}
+                                            <td>{{ $date->format('Y-m-d') ?? '-' }}
                                                 ({{ucfirst(substr($date->format('l'), 0, 3))}})
                                             </td>
                                             <td>{{ $value->user->first_name ?? '' }} {{ $value->user->last_name ?? '' }}</td>

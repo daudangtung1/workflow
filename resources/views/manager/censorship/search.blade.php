@@ -93,7 +93,7 @@
         <div class="w-410">
             <div class="row">
                 <div class="col-md-12">
-                    <label for="">日付</label>
+                    <label for="">対象締め年月：</label>
                     <div class="form-group">
                         <div class="w-185 inline-flex input-group date input-date" id="date"
                              data-target-input="nearest">
@@ -112,7 +112,7 @@
             <div class="row mt-30">
                 <div class="col-md-12">
                     <div class="form-group select-time select-100">
-                        <label for="">承認状況</label>
+                        <label for="">月次承認状態：</label>
                         <select class="chosen-select" name="status_approval">
                             @foreach(\App\Models\OvertimeRegister::$approvalStatus as $key => $status)
                                 <option value="{{$key}}">{{$status}}</option>
@@ -133,8 +133,10 @@
 @push('scripts')
     <script>
         var d = new Date();
+     
         var month = d.getMonth();
-        if (d.getDay() < 10) {
+        
+        if (d.getDate() < 10) {
             month = d.getMonth() - 1;
         }
         d.setMonth(month);
