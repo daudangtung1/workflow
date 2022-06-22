@@ -28,7 +28,7 @@ return [
         UserType::PARTTIME => 'パート',
     ],
     ApproverStatus::class => [
-        ApproverStatus::APPROVED => '済',
+        ApproverStatus::APPROVED => '承認',
         ApproverStatus::PENDING => '未承認',
         ApproverStatus::ALL => '全て',
     ], 

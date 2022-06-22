@@ -1,29 +1,40 @@
 @push('styles')
-    <!-- daterange picker -->
-    <link rel="stylesheet" href="{{ asset('css/daterangepicker/daterangepicker.css') }}">
-    <style>
-        /* width */
-        .date_now{
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
+<!-- daterange picker -->
+<link rel="stylesheet" href="{{ asset('css/daterangepicker/daterangepicker.css') }}">
+<style>
+    /* width */
+    .date_now {
+        /* font-size: 0.85rem; */
+        font-size: 15px;
+        font-weight: bold;
+    }
 
-        /*----*/
-        .flex-between{
-            display: flex; justify-content: space-between;align-items: center;
-        }
-        .box_total{
-            border: 1px solid #000;
-            padding: 2px 10px;font-weight: bold;
-        }
-        .box_total_title{
-            padding-right: 10px;
-            border-right: 1px solid #000;
-        }
-        #get_total{
-            padding-left: 10px;
-        }
-    </style>
+    .vacation {
+        background: #ffebeb;
+    }
+
+    /*----*/
+    .flex-between {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .box_total {
+        border: 1px solid #000;
+        padding: 2px 10px;
+        font-weight: bold;
+    }
+
+    .box_total_title {
+        padding-right: 10px;
+        border-right: 1px solid #000;
+    }
+
+    #get_total {
+        padding-left: 10px;
+    }
+</style>
 @endpush
 
 
@@ -32,10 +43,10 @@
         <div class="col-md-12">
             <div class="flex-between">
                 <div class="form-group d-search">
-                        <span class="search pr-2" data-date="{{ $dates['prev'] }}"><i class="fas fa-caret-left"></i></span>
-                        <span>{{ $dates['current_text'] }} - {{ $dates['next_text'] }} </span>
-                        <span class="search pl-2" data-date="{{ $dates['next'] }}"><i class="fas fa-caret-right"></i></span>
-                        <!-- /.input group -->
+                    <span class="search pr-2" data-date="{{ $dates['prev'] }}"><i class="fas fa-caret-left"></i></span>
+                    <span>{{ $dates['current_text'] }} - {{ $dates['next_text'] }} </span>
+                    <span class="search pl-2" data-date="{{ $dates['next'] }}"><i class="fas fa-caret-right"></i></span>
+                    <!-- /.input group -->
                 </div>
                 <div class="flex-between box_total">
                     <span class="box_total_title">時間合計(月間)</span>
@@ -72,29 +83,32 @@
 {{-- loading --}}
 
 @push('scripts')
-    <script>
-        $(document).on("click", ".search", function() {
-            loading();
-            let date = $(this).attr('data-date');
+<script>
+    $(document).on("click", ".search", function() {
+        loading();
+        let date = $(this).attr('data-date');
 
-            $.ajax({
-                url: "{{ route('staff-part-time.show', 'list-part-time') }}",
-                type: 'get',
-                dataType: 'json',
-                data: {
-                    date: date,
-                },
-                success: function(res) {
-                    let body = '';
-                    let total= 0, total_1=0, total_2=0, total_3=0;
-                    let total_get='';
-                    let redirect = "{{ route('staff-part-time.index') }}";
-                    
-                    //render table
-                    $.each(res.data, function(key, item) {
-                        let icon = item.disable ? '<i class="icofont-lock"></i>' :
-                            `<a href="${redirect}?register=${item.id}&date=${key}" class="edit_data"><i class="icofont-pencil-alt-1"></i></a>`
-                        body += (`<tr data-date=${item.date}>
+        $.ajax({
+            url: "{{ route('staff-part-time.show', 'list-part-time') }}",
+            type: 'get',
+            dataType: 'json',
+            data: {
+                date: date,
+            },
+            success: function(res) {
+                let body = '';
+                let total = 0,
+                    total_1 = 0,
+                    total_2 = 0,
+                    total_3 = 0;
+                let total_get = '';
+                let redirect = "{{ route('staff-part-time.index') }}";
+
+                //render table
+                $.each(res.data, function(key, item) {
+                    let icon = item.disable ? '<i class="icofont-lock"></i>' :
+                        `<a href="${redirect}?register=${item.id}&date=${key}" class="edit_data"><i class="icofont-pencil-alt-1"></i></a>`
+                    body += (`<tr data-date=${item.date} id=${item.date}>
                                 <td>${item.date}</td>
                                 <td>${item.start_time1}</td>
                                 <td>${item.end_time1}</td>
@@ -107,71 +121,77 @@
                                 <td>${item.approver}</td>
                                 <td>${icon}</td>
                             </tr>`);
-                                
-                                total_1=new Date(item.date + item.end_time1) - new Date(item.date + item.start_time1);
-                                total_2=new Date(item.date + item.end_time2) - new Date(item.date + item.start_time2);
-                                total_3=new Date(item.date + item.end_time3) - new Date(item.date + item.start_time3);
 
-                                if(item.end_time1 === '-' ||item.start_time1 === '-') total_1=0;
-                                if(item.end_time2 === '-' ||item.start_time2 === '-') total_2=0;
-                                if(item.end_time3 === '-' ||item.start_time3 === '-') total_3=0;
+                    total_1 = new Date(item.date + item.end_time1) - new Date(item.date + item.start_time1);
+                    total_2 = new Date(item.date + item.end_time2) - new Date(item.date + item.start_time2);
+                    total_3 = new Date(item.date + item.end_time3) - new Date(item.date + item.start_time3);
 
-                                total += (total_1 + total_2 + total_3) / 60  / 1000;
-                                total_hour=Math.floor(total / 60);
-                                total_minute=total - total_hour * 60;
-                                th_f=total_hour < 10 ? '0' + total_hour : total_hour;
-                                tm_f=total_minute < 10 ? '0' + total_minute : total_minute;
-                                total_get =(th_f + ':' + tm_f);
+                    if (item.end_time1 === '-' || item.start_time1 === '-') total_1 = 0;
+                    if (item.end_time2 === '-' || item.start_time2 === '-') total_2 = 0;
+                    if (item.end_time3 === '-' || item.start_time3 === '-') total_3 = 0;
 
-                    });
+                    total += (total_1 + total_2 + total_3) / 60 / 1000;
+                    // total_hour=Math.floor(total / 60);
+                    // total_minute=total - total_hour * 60;
+                    // th_f=total_hour < 10 ? '0' + total_hour : total_hour;
+                    // tm_f=total_minute < 10 ? '0' + total_minute : total_minute;
+                    // total_get =(th_f + ':' + tm_f);
 
-                    if (res.data.length <= 0)
-                        body += (`<tr>
+                });
+
+                if (res.data.length <= 0)
+                    body += (`<tr>
                                 <td colspan="11" class="text-center">{{ __('common.data.error') }}</td>
                             </tr>`);
 
-                    $('body #bodyParttime').html('');
-                    $('body #bodyParttime').append(body);
-                    $('body #get_total').html('');
-                    $('body #get_total').append(total_get);
+                $('body #bodyParttime').html('');
+                $('body #bodyParttime').append(body);
+                $('body #get_total').html('');
+                $('body #get_total').append(total);
 
-                    //render search
-                    let search = (
-                        `<span class="search pr-2" data-date="${ res.dates.prev }"><i class="fas fa-caret-left"></i></span>
+                //render search
+                let search = (
+                    `<span class="search pr-2" data-date="${ res.dates.prev }"><i class="fas fa-caret-left"></i></span>
                         <span >${ res.dates.current_text_full} <span class="ml-2 mr-2">-</span> ${ res.dates.next_text_full}</span>
                         <span class="search pl-2" data-date="${ res.dates.next }"><i class="fas fa-caret-right"></i></span>`
-                    );
+                );
 
-                    $('.d-search').html(search);
+                $('.d-search').html(search);
 
-                    unLoading();
-                    // $(document).off('click', '#list-tab');
+                unLoading();
+                // $(document).off('click', '#list-tab');
 
-                    $('body').css({
-                        'height': '100vh !important',
-                        'overflow': 'auto',
-                        'padding': 0,
+                $('body').css({
+                    'height': '100vh !important',
+                    'overflow': 'auto',
+                    'padding': 0,
+                });
+                //scrollbar
+                $('.scroll-table').floatingScrollbar();
+
+                $('#bodyParttime > tr').each(function(index) {
+                    var date_check = $('#date_check_now').val();
+                    if ($(this).data('date') === date_check) {
+                        $(this).addClass('date_now');
+                    };
+                    $(this).on('click', ".edit_data ", function() {
+                        console.log(1);
                     });
-                    //scrollbar
-                    $('.scroll-table').floatingScrollbar();
+                    var data_1 = $(this).data('date');
+                    var listCalendar = @json($listCalendar);
+                    $.each(listCalendar, function(key, data) {
+                        if (data_1 === data.date) {
+                            $('#bodyParttime').find(`[data-date='${data.date}']`).addClass('vacation');
+                        }
+                    })
+                });
+            }
 
-                    $('#bodyParttime > tr').each(function(index){
-                        var date_check=$('#date_check_now').val();
-                        if($(this).data('date') === date_check) {
-                            $(this).addClass('date_now');
-                        };
-                        $(this).on('click',".edit_data ", function(){
-                            console.log(1);
-                        })
-                    });
-                }
-                
-            });
-            
         });
-        let url_check=$('#url_check').val();
-        if(window.location.href === url_check) $('#myTab .search').trigger('click');
-        else $('#myTab .nav-item:last-child a').trigger('click');
-        
-    </script>
+
+    });
+    let url_check = $('#url_check').val();
+    if (window.location.href === url_check) $('#myTab .search').trigger('click');
+    else $('#myTab .nav-item:last-child a').trigger('click');
+</script>
 @endpush

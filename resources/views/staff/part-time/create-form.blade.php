@@ -353,6 +353,7 @@
                         $('#message').val(objMessage.approved);
                     }
                     caculate(checkOverride);
+
                 }
             })
         });
@@ -458,9 +459,11 @@
             noCalendar: true,
             time_24hr: true,
             dateFormat: "H:i",
-            minuteIncrement: 1,
+            minuteIncrement: 30,
             defaultHour: '09',
             defaultMinute: '00',
+            minTime: "{{\Carbon\Carbon::parse(Auth::user()->start_time_working)->format('H:i')}}",
+            maxTime: "12:00",
         });
 
         $('#end_time_first').flatpickr({
@@ -468,9 +471,11 @@
             noCalendar: true,
             time_24hr: true,
             dateFormat: "H:i",
-            minuteIncrement: 1,
+            minuteIncrement: 30,
             defaultHour: '12',
-            defaultMinute: '00'
+            defaultMinute: '00',
+            minTime: "{{\Carbon\Carbon::parse(Auth::user()->start_time_working)->format('H:i')}}",
+            maxTime: "12:00",
         });
 
         $('#start_time_second').flatpickr({
@@ -478,9 +483,11 @@
             noCalendar: true,
             time_24hr: true,
             dateFormat: "H:i",
-            minuteIncrement: 1,
+            minuteIncrement: 30,
             defaultHour: '13',
-            defaultMinute: '00'
+            defaultMinute: '00',
+            minTime: "13:00",
+            maxTime: "{{\Carbon\Carbon::parse(Auth::user()->end_time_working)->format('H:i')}}",
         });
 
         $('#end_time_second').flatpickr({
@@ -488,9 +495,9 @@
             noCalendar: true,
             time_24hr: true,
             dateFormat: "H:i",
-            minuteIncrement: 1,
-            defaultHour: '16',
-            defaultMinute: '00'
+            minuteIncrement: 30,
+            minTime: "13:00",
+            maxTime: "{{\Carbon\Carbon::parse(Auth::user()->end_time_working)->format('H:i')}}",
         });
 
         $('#start_time_third').flatpickr({
@@ -498,9 +505,9 @@
             noCalendar: true,
             time_24hr: true,
             dateFormat: "H:i",
-            minuteIncrement: 1,
-            defaultHour: '16',
-            defaultMinute: '00'
+            minuteIncrement: 30,
+            defaultHour: '20',
+            defaultMinute: '00',
         });
 
         $('#end_time_third').flatpickr({
@@ -508,9 +515,7 @@
             noCalendar: true,
             time_24hr: true,
             dateFormat: "H:i",
-            minuteIncrement: 1,
-            defaultHour: '17',
-            defaultMinute: '00'
+            minuteIncrement: 30,
         });
     </script>
 @endpush

@@ -60,7 +60,7 @@
         }
 
         .w-140{
-            width: 140px;
+            /* width: unset !important; */
         }
 
         .relative{
@@ -91,6 +91,38 @@
             padding-left: 0 !important;
         }
 
+        .form_time{
+            width: 205px;
+        }
+
+        .form_time:nth-child(3), .form_time:nth-child(5){
+            position: relative;
+            
+        }
+        /* .form_time:nth-child(3)::before, .form_time:nth-child(5)::before{
+            position: absolute;
+            left: -17px;
+            top: 50%;
+            transform: translateY(-50%);
+            content: '~';
+            width: 10px;
+        } */
+       
+        #start_time_1::placeholder, #end_time_1::placeholder, #start_time_2::placeholder, #end_time_2::placeholder{
+            opacity: 0.5;
+        }
+
+        .form_time:nth-child(2) .form-group, .form_time:nth-child(4) .form-group{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .form_time .w-140{
+            width: 135px;
+        }
+        .form_time label{
+            margin-bottom: 0 !important;
+        }
     </style>
 @endpush
 
@@ -161,7 +193,7 @@
                                         <tr>
                                         @else
                                         <tr>
-                                        @if(Auth::user()->role==1)
+                                        @if(Auth::user()->type==\App\Enums\UserType::FULLTIME)
                                             <td class="pr-4">
                                                 <div class="col-radio d-radio col-mobile">
                                                     <input type="radio" id="vacation" name="type" value="vacation"
@@ -172,52 +204,56 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                        @endif
-                                            <td class="pr-4 form_time">
+                                            <td class="pr-4-fix form_time time_1">
                                                 <div class="form-group">
+                                                <label>時刻1</label>
                                                     <div class="relative w-140">
-                                                        <input type="text" name="start_time_1" class="form-control" readonly id="start_time_1" placeholder="09:00"> 
+                                                        <input type="text" name="start_time_1" class="form-control" readonly id="start_time_1" placeholder="09:00" > 
                                                         <div class="input-group-append">
                                                             <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                         </div>
                                                     </div>
+                                                    <span>~</span>
                                                 </div>
                                             </td>
-                                            <td class="pr-4 form_time">
+                                            <td class="pr-4-fix form_time time_1">
                                                 <div class="form-group">
                                                     <div class="relative w-140">
-                                                    <input type="text" name="end_time_1" class="form-control" readonly id="end_time_1" placeholder="12:00"> 
-                                                    <div class="input-group-append">
+                                                        <input type="text" name="end_time_1" class="form-control" readonly id="end_time_1" placeholder="12:00" > 
+                                                        <div class="input-group-append">
                                                             <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                         </div>
-                                                </div>
-                                            </div>
-                                            </td>
-                                            <td class="pr-4 form_time">
-                                                <div class="form-group">
-                                                <div class="relative w-140">
-                                                    <input type="text" name="start_time_2" class="form-control" readonly id="start_time_2" placeholder="13:00"> 
-                                                    <div class="input-group-append">
-                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
-                                                        </div>
-                                                </div>
+                                                        <span> </span>
+                                                    </div>
                                                 </div>
                                             </td>
-                                            <td class="pr-4 form_time">
+                                            <td class="pr-4-fix form_time time_2">
                                                 <div class="form-group">
-                                                <div class="relative w-140">
-                                                    <input type="text" name="end_time_2" class="form-control" readonly id="end_time_2" placeholder="17:30"> 
-                                                    <div class="input-group-append">
+                                                    <label>時刻2</label>
+                                                    <div class="relative w-140">
+                                                        <input type="text" name="start_time_2" class="form-control" readonly id="start_time_2" placeholder="13:00" > 
+                                                        <div class="input-group-append">
                                                             <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                         </div>
+                                                    </div>
+                                                    <span>~</span>
                                                 </div>
+                                            </td>
+                                            <td class="pr-4-fix form_time time_2">
+                                                <div class="form-group">
+                                                    <div class="relative w-140">
+                                                        <input type="text" name="end_time_2" class="form-control" readonly id="end_time_2" placeholder="17:30" > 
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                        </div>
+                                                        <span> </span>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
-                                        
+                                        @endif
                                     @endif
                                 @endforeach
-
                             </table>
                         </div>
                     </div>
@@ -312,72 +348,154 @@
 
         
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+    <script src="{{asset('js/bootbox.min.js')}}"></script>
 <script>
     $(document).ready(function(){
 
-    $("#start_time_1").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        time_24hr: true,
-        dateFormat: "H:i",
-        minuteIncrement: 30,
-        time_24hr: true,
-        maxTime: '11:30',
-        defaultHour: '00',
-        defaultMinute: '00'
-    });
-    $("#end_time_1").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        time_24hr: true,
-        dateFormat: "H:i",
-        minuteIncrement: 30,
-        disable: [13,14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-        maxTime: '11:30',
-        defaultHour: '00',
-        defaultMinute: '00'
-    });
-    $("#start_time_2").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        time_24hr: true,
-        dateFormat: "H:i",
-        minuteIncrement: 30,
-        minTime: '12:00',
-        defaultHour: '12',
-        defaultMinute: '00'
-    });
-    $("#end_time_2").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        time_24hr: true,
-        dateFormat: "H:i",
-        minuteIncrement: 30,
-        minTime: '12:00',
-        defaultHour: '12',
-        defaultMinute: '00'
-    });
+        $("#start_time_1").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 30,
+            time_24hr: true,
+            // maxTime: '11:30',
+            defaultHour: '00',
+            defaultMinute: '00',
+        });
+        $("#end_time_1").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 30,
+            // maxTime: '11:30',
+            defaultHour: '00',
+            defaultMinute: '00',
+        });
+        $("#start_time_2").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 30,
+            // minTime: '12:00',
+            defaultHour: '12',
+            defaultMinute: '00',
+        });
+        $("#end_time_2").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 30,
+            // minTime: '12:00',
+            defaultHour: '12',
+            defaultMinute: '00',
+        });
 
-    $('.form-group input[type=time]').on('change', function(){
-        var input_data=$('.form-group input[type=time]');
-        if(input_data != "") {
-            $('#day4').attr('disabled', true);
-            $('#day5').attr('disabled', true);
-        }
-    });
+        $('.form-group input[type=time]').on('change', function(){
+            var input_data=$('.form-group input[type=time]');
+            if(input_data != "") {
+                $('#day4').attr('disabled', true);
+                $('#day5').attr('disabled', true);
+            }
+        });
 
-    $('.col-radio input[type=radio]').on('change',function(){
-        console.log($(this).is(":checked"));
-        if($(this).is(":checked") && $(this).val()==4 || $(this).val()==5){
-            $('.form_time').hide();
-        }
-        else{
-            $('.form_time').show();
-        }
+    // $('.col-radio input[type=radio]').on('change',function(){
+    //     console.log($(this).is(":checked"));
+    //     if($(this).is(":checked") && $(this).val()==4 || $(this).val()==5){
+    //         $('.form_time').hide();
+    //     }
+    //     else{
+    //         $('.form_time').show();
+    //     }
+    // });
+
+        let date_start = $('#start_date input').val();
+        let end_date = $('#end_date input').val();
+        
+        $('.time_1').on("change", function(){
+            let time_start_1 = $('#start_time_1').val();
+            let time_end_1 = $('#end_time_1').val();
+            if(time_end_1 && time_start_1){
+                let date_start_1 = new Date(date_start + ' ' + time_start_1);
+                let date_end_1 = new Date(end_date + ' ' + time_end_1);
+                if((date_end_1 - date_start_1) < 0) {
+                    bootbox.alert({
+                            message: "Error!, Time > 0!",
+                            buttons: { ok: { label: 'はい'}},
+                        });
+                        $('#start_time_1').val('');
+                        $('#end_time_1').val('');
+                }
+            }
+        });
+
+        $('.time_2').on("change", function(){
+            let time_start_2 = $('#start_time_2').val();
+            let time_end_2 = $('#end_time_2').val();
+            if(time_end_2 && time_start_2){
+                let date_start_2 = new Date(date_start + ' ' + time_start_2);
+                let date_end_2 = new Date(end_date + ' ' + time_end_2);
+                if((date_end_2 - date_start_2) < 0) {
+                    bootbox.alert({
+                            message: "Error!, Time > 0!",
+                            buttons: { ok: { label: 'はい'}},
+                        });
+                        $('#start_time_2').val('');
+                        $('#end_time_2').val('');
+                }
+            }
+        });
+
+        $(document).on("submit", "form", function(e){
+            var currentForm = this;
+            e.preventDefault();
+                    bootbox.confirm({
+                    message: "登録？",
+                    buttons: {
+                        cancel: {
+                            label: "いいえ",
+                        },
+                        confirm: {
+                            label: "はい",
+                        },
+                    },
+                    callback: function(result){
+                        if(result){
+                            var get_date_start=new Date($('#start_date input').val());
+                            var get_end_date=new Date($('#end_date input').val());
+                            var get_subtract_date= (get_end_date - get_date_start) /1000/60/60/24;
+                            var input_data_1=$('#day1');
+                            var input_data_2=$('#day2');
+                            var input_data_4=$('#day4');
+                            var input_data_5=$('#day5');
+                            if(get_subtract_date > 1) {
+                                if(input_data_1.is(':checked') || input_data_2.is(':checked') || input_data_4.is(':checked') || input_data_5.is(':checked')) {
+                                    bootbox.alert({
+                                        message: "期間指定の場合、0.5日の選択は出来ません。",
+                                        buttons: {
+                                            ok: {
+                                                label: '近い'
+                                            }
+                                        },
+                                    });
+                                }
+                                else{
+                                    currentForm.submit();
+                                }
+                            }
+                            else{
+                                currentForm.submit();
+                            }
+                            
+                        }
+                    }
+                });
+        });
     });
-});
 </script>
 @endpush

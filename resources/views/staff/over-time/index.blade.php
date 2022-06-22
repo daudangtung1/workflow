@@ -26,11 +26,11 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
-                @if (isset($infoRegister))
+                {{--@if (isset($infoRegister))
                     @include('staff.over-time.edit-form')
-                @else
+                @else--}}
                     @include('staff.over-time.list')
-                @endif
+                {{--@endif--}}
             </div>
             <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
                 @if (isset($infoRegister))

@@ -282,7 +282,7 @@
                 buttons: [{
                     extend: 'csv',
                     text: '<b>CSVダウンロード</b>',
-                    title: '時間外申請明細'+d,
+                    title: '時間外申請明細_'+d,
                 }]
             });
 

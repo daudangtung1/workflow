@@ -61,7 +61,7 @@
         }
 
         .w-140{
-            width: 140px;
+            /* width: unset !important; */
         }
 
         .relative{
@@ -83,6 +83,15 @@
             border-radius: 0 5px 5px 0 !important;
         }
 
+        .form_time{
+            width: 205px;
+        }
+
+        .form_time:nth-child(3), .form_time:nth-child(5){
+            position: relative;
+            
+        }
+
         /*----custom flatickr----*/
         .flatpickr-calendar.animate.open{
             width: 140px;
@@ -90,6 +99,18 @@
 
         .flatpickr-time input.flatpickr-minute, .flatpickr-time input.flatpickr-hour{
             padding-left: 0 !important;
+        }
+
+        .form_time:nth-child(2) .form-group, .form_time:nth-child(4) .form-group{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .form_time .w-140{
+            width: 135px;
+        }
+        .form_time label{
+            margin-bottom: 0 !important;
         }
 
     </style>
@@ -162,7 +183,7 @@
                                         <tr>
                                         @else
                                         <tr>
-                                            @if(Auth::user()->role==1)
+                                        @if(Auth::user()->type==\App\Enums\UserType::FULLTIME)
                                             <td class="pr-4 ">
                                                 <div class="col-radio d-radio col-mobile">
                                                     <input type="radio" id="vacation" name="type" value="vacation"
@@ -173,47 +194,54 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            @endif
-                                            <td class="pr-4 form_time">
+                                            
+                                            <td class="pr-4-fix form_time">
                                                 <div class="form-group">
-                                                <div class="relative w-140">
-                                                    <input type="time" name="start_time_1" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time_1'] : '' }}" id="start_time_1"> 
-                                                    <div class="input-group-append">
+                                                    <label>時刻1</label>
+                                                    <div class="relative w-140">
+                                                        <input type="time" name="start_time_1" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time_1'] : '' }}" id="start_time_1" >  
+                                                        <div class="input-group-append">
                                                             <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                         </div>
-                                                </div>
-                                                </div>
-                                            </td>
-                                            <td class="pr-4 form_time">
-                                            <div class="form-group">
-                                            <div class="relative w-140">
-                                                    <input type="time" name="end_time_1" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time_1'] : '' }}" id="end_time_1"> 
-                                                    <div class="input-group-append">
-                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
-                                                        </div>
-                                            </div>
+                                                    </div>
+                                                    <span>~</span>
                                                 </div>
                                             </td>
-                                            <td class="pr-4 form_time">
+                                            <td class="pr-4-fix form_time">
                                                 <div class="form-group">
-                                                <div class="relative w-140">
-                                                    <input type="time" name="start_time_2" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time_2'] : '' }}" id="start_time_2"> 
-                                                    <div class="input-group-append">
+                                                    <div class="relative w-140">
+                                                        <input type="time" name="end_time_1" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time_1'] : '' }}" id="end_time_1" > 
+                                                        <div class="input-group-append">
                                                             <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                         </div>
-                                                </div>
+                                                    </div>
+                                                    <span> </span>
                                                 </div>
                                             </td>
-                                            <td class="pr-4 form_time">
-                                            <div class="form-group">
-                                            <div class="relative w-140">
-                                                    <input type="time" name="end_time_2" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time_2'] : '' }}" id="end_time_2"> 
-                                                    <div class="input-group-append">
+                                            <td class="pr-4-fix form_time">
+                                                <div class="form-group">
+                                                    <label>時刻2</label>
+                                                    <div class="relative w-140">
+                                                        <input type="time" name="start_time_2" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time_2'] : '' }}" id="start_time_2" > 
+                                                        <div class="input-group-append">
                                                             <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                         </div>
-                                            </div>
+                                                    </div>
+                                                    <span>~</span>
                                                 </div>
                                             </td>
+                                            <td class="pr-4-fix form_time">
+                                                <div class="form-group">
+                                                    <div class="relative w-140">
+                                                    <input type="time" name="end_time_2" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time_2'] : '' }}" id="end_time_2" > 
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                        </div>
+                                                    </div>
+                                                    <span> </span>
+                                                </div>
+                                            </td>
+                                        @endif
                                         </tr>
                                     @endif
                                 @endforeach
@@ -322,9 +350,8 @@
             ],
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
-
+    <script src="{{asset('js/bootbox.min.js')}}"></script>
     <script>
     $(document).ready(function(){
 
@@ -379,15 +406,61 @@
         }
     });
 
-    $('.col-radio input[type=radio]').on('change',function(){
-        console.log($(this).is(":checked"));
-        if($(this).is(":checked") && $(this).val()==4 || $(this).val()==5){
-            $('.form_time').hide();
-        }
-        else{
-            $('.form_time').show();
-        }
-    });
+    // $('.col-radio input[type=radio]').on('change',function(){
+    //     console.log($(this).is(":checked"));
+    //     if($(this).is(":checked") && $(this).val()==4 || $(this).val()==5){
+    //         $('.form_time').hide();
+    //     }
+    //     else{
+    //         $('.form_time').show();
+    //     }
+    // });
+
+    $(document).on("submit", "form", function(e){
+            var currentForm = this;
+            e.preventDefault();
+                    bootbox.confirm({
+                    message: "変化?",
+                    buttons: {
+                        cancel: {
+                            label: "いいえ",
+                        },
+                        confirm: {
+                            label: "はい",
+                        },
+                    },
+                    callback: function(result){
+                        if(result){
+                            var get_date_start=new Date($('#start_date input').val());
+                            var get_end_date=new Date($('#end_date input').val());
+                            var get_subtract_date= (get_end_date - get_date_start) /1000/60/60/24;
+                            var input_data_1=$('#day1');
+                            var input_data_2=$('#day2');
+                            var input_data_4=$('#day4');
+                            var input_data_5=$('#day5');
+                            if(get_subtract_date > 1) {
+                                if(input_data_1.is(':checked') || input_data_2.is(':checked') || input_data_4.is(':checked') || input_data_5.is(':checked')) {
+                                    bootbox.alert({
+                                        message: "期間指定の場合、0.5日の選択は出来ません。",
+                                        buttons: {
+                                            ok: {
+                                                label: '近い'
+                                            }
+                                        },
+                                    });
+                                }
+                                else{
+                                    currentForm.submit();
+                                }
+                            }
+                            else{
+                                currentForm.submit();
+                            }
+                            
+                        }
+                    }
+                });
+        });
 });
 </script>
 @endpush

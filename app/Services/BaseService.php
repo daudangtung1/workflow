@@ -57,8 +57,8 @@ class BaseService
             'next' => Carbon::parse($next)->format('Y-m'),
             'next_text' => Carbon::parse($next)->format('Y年m月'),
 
-            'current_text_full' => Carbon::parse($date)->day(11)->format('Y年m月分 (d/m)'),
-            'next_text_full' => Carbon::parse($next)->day(10)->format('Y年m月分 (d/m)'),
+            'current_text_full' => Carbon::parse($date)->day(11)->format('Y年m月分 (m/d)'),
+            'next_text_full' => Carbon::parse($next)->day(10)->format('Y年m月分 (m/d)'),
         ];
     }
 

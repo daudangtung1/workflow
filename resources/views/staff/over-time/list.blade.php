@@ -3,7 +3,8 @@
     <link rel="stylesheet" href="{{ asset('css/daterangepicker/daterangepicker.css') }}">
     <style>
         .date_now{
-            font-size: 0.85rem;
+            /* font-size: 0.85rem; */
+            font-size: 15px;
             font-weight: bold;
         }
         .vacation{
@@ -101,13 +102,12 @@
                                 <td>${icon}</td>
                             </tr>`);
                             if(item.time !='') total+=item.time;
-                            total_hour=Math.floor(total / 60);
-                                total_minute=total - total_hour * 60;
-                                th_f=total_hour < 10 ? '0' + total_hour : total_hour;
-                                tm_f=total_minute < 10 ? '0' + total_minute : total_minute;
-                                total_get =(th_f + ':' + tm_f);
+                            // total_hour=Math.floor(total / 60);
+                            //     total_minute=total - total_hour * 60;
+                            //     th_f=total_hour < 10 ? '0' + total_hour : total_hour;
+                            //     tm_f=total_minute < 10 ? '0' + total_minute : total_minute;
+                            //     total_get =(th_f + ':' + tm_f);
                     });
-                    console.log(total_get);
                     if (res.data.length <= 0)
                         body += (`<tr>
                                 <td colspan="7" class="text-center">{{ __('common.data.error') }}</td>
@@ -115,7 +115,7 @@
 
                     $('#bodyOvertime').html(body);
                     $('body #get_total').html('');
-                    $('body #get_total').append(total_get);
+                    $('body #get_total').append(total);
 
                     //render search
                     let search = (
