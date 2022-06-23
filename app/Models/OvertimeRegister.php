@@ -40,4 +40,9 @@ class OvertimeRegister extends BaseModel
     {
         return $this->morphOne(ApprovalByMonth::class,'modelable');
     }
+    
+    public static function countTotalNotApproval()
+    {
+        return OvertimeRegister::whereNull('approval_date')->count();
+    }
 }

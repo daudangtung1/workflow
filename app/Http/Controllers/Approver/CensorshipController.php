@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Manager;
+namespace App\Http\Controllers\Approver;
 
 use App\Enums\ManagerStatus;
 use App\Enums\UserRole;
@@ -33,7 +33,7 @@ class CensorshipController extends Controller
     {
         $listRegister = $this->censorshipService->getAll($request);
 
-        return view('manager.censorship.index', [
+        return view('approver.censorship.index', [
             'listRegister' => $listRegister,
             'active'       => 'index',
         ]);
@@ -43,7 +43,7 @@ class CensorshipController extends Controller
     {
         $items = $this->censorshipService->getAll($request);
 
-        return view('manager.censorship.index', [
+        return view('approver.censorship.index', [
             'items'  => $items,
             'active' => 'list',
         ]);
@@ -58,7 +58,7 @@ class CensorshipController extends Controller
 
         $user = $this->userService->find($request);
 
-        return view('manager.censorship.index', [
+        return view('approver.censorship.index', [
             'items'    => $items,
             'data'     => $data,
             'dateData' => $dateData,

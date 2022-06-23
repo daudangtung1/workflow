@@ -3,7 +3,7 @@
     <div class="card mt-0">
         <div class="card-body pb-4 pl-0 pr-0 pd-0">
             <div class="row">
-                <form action="{{route('manager.censorship.approval_by_month')}}" method="POST">
+                <form action="{{route('approver.censorship.approval_by_month')}}" method="POST">
                     @csrf
                     <div class="col-md-12 overflow-auto">
                         <table class="table table-bordered table-hover mb-0">
@@ -112,7 +112,7 @@
                     @endif
                 </form>
             </div>
-            <form action="{{ route('manager.censorship.show') }}" method="GET" class="form-table">
+            <form action="{{ route('approver.censorship.show') }}" method="GET" class="form-table">
                 @csrf
                 <input type="hidden" name="model" value="">
                 <input type="hidden" name="date" value="">

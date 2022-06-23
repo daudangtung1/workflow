@@ -88,7 +88,7 @@
     </style>
 @endpush
 
-<form action="{{ route('manager.censorship.search') }}" method="GET">
+<form action="{{ route('approver.censorship.search') }}" method="GET">
     <div class="content3">
         <div class="w-410">
             <div class="row">

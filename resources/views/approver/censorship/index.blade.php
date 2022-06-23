@@ -51,13 +51,13 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade {{ $active == 'index' ? 'active show' : '' }}" id="search"
              role="tabpanel" aria-labelledby="home-tab">
-            @include('manager.censorship.search')
+            @include('approver.censorship.search')
         </div>
         @if ($active == 'list')
-            @include('manager.censorship.list')
+            @include('approver.censorship.list')
         @endif
         @if ($active == 'show')
-            @include('manager.censorship.show')
+            @include('approver.censorship.show')
         @endif
     </div>
 @endsection

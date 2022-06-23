@@ -37,9 +37,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('manager.censorship.index') }}" class="nav-link @yield('censorship') ">
+            <a href="{{ route('approver.censorship.index') }}" class="nav-link @yield('censorship') ">
                 <p>
-                    月次承認
+                    月次承認 ({{\App\Models\ParttimeRegister::countTotalNotApproval() + \App\Models\OvertimeRegister::countTotalNotApproval()}})
                     <i class="right fas fa-caret-right"></i>
                 </p>
             </a>

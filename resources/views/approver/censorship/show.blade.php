@@ -92,7 +92,7 @@
                         @endforelse
                         </tbody>
                     </table>
-                    <form action="{{ route('manager.censorship.show') }}" method="GET" class="form-show">
+                    <form action="{{ route('approver.censorship.show') }}" method="GET" class="form-show">
                         @csrf
                         <input type="hidden" name="model" value="">
                         <input type="hidden" name="date" value="">
