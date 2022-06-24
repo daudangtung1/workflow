@@ -74,6 +74,10 @@
         content: "\ea67";
         font-size: 16px;
     }
+
+    .mi_tx input {
+        pointer-events: none !important;
+    }
 </style>
 @endpush
 <div class="tab-content1 d-flex2">
@@ -130,7 +134,7 @@
                         <label>終了時刻</label>
                         <div class="row">
                             <div class="col">
-                                <div class="select-time relative">
+                                <div class="select-time relative end_time_form">
                                     <input type="text" class="form-control chosen-select" name="end_time" id="end_time">
                                     <div class="input-group-append">
                                         <div class="input-group-text"><i class="icofont-clock-time"></i></div>
@@ -213,13 +217,15 @@
         });
 
         var date_auth_end=new Date("01/01/2007 " + "{{Auth::user()->end_time_working}}").getHours();
-        $('#end_time').timepicki({
-            step_size_minutes: 30,
-            show_meridian: false,
-            min_hour_value: date_auth_end,
-            max_hour_value: 23,
-            start_time: ["17", "30"],
-        });
+        // $('#end_time').timepicki({
+        //     step_size_minutes: 30,
+        //     show_meridian: false,
+        //     min_hour_value: date_auth_end,
+        //     max_hour_value: 23,
+        //     start_time: ["17", "30"],
+        // });
+
+        $('#end_time_form').datetimepicker();
 </script>
 <script>
     $('.chosen-select').on('select2:select', function(e) {
@@ -486,5 +492,4 @@
         daysOfWeekDisabled: [0, 6],
     });
 </script>
-<script src="{{asset('js/timepicki/bootstrap.min.js')}}"></script>
 @endpush

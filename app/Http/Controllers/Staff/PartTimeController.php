@@ -118,4 +118,5 @@ class PartTimeController extends Controller
             $e->getMessage();
         }
     }
+
 }

@@ -1,5 +1,5 @@
 @push('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- daterange picker -->
     <style>
         .form-button-delete {
@@ -459,7 +459,7 @@
             $('#result').html(totalTime);
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
          $('#start_time').flatpickr({
             enableTime: true,
@@ -485,5 +485,4 @@
             maxTime: '23:59'
         });
     </script>
-
 @endpush

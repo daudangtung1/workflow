@@ -11,6 +11,7 @@ use App\Enums\UserRole;
 use App\Enums\ApproverStatus;
 use App\Models\ApprovalByMonth;
 use App\Models\Calendar;
+use Illuminate\Support\Facades\Auth;
 
 class OverTimeService extends BaseService
 {
@@ -124,6 +125,7 @@ class OverTimeService extends BaseService
                 'start_time_working' => $startTimeWorking,
                 'end_time_working' => $endTimeWorking,
                 'status_month' => $status_month ? $status_month->modelable_id : '',
+                'created_at' => Carbon::parse($item->created_at)->format('Y-m-d') . ' (' . $this->getDayOfWeek($item->created_at) . ') ' . Carbon::parse($item->created_at)->format('H:i'),
             ];
         }
 
@@ -136,6 +138,12 @@ class OverTimeService extends BaseService
             $q->orWhere('role', UserRole::APPROVER);
             $q->orWhere('role', UserRole::MANAGER);
         })->orderBy('created_at', 'DESC')->get();
+    }
+
+    public function listUserApprove()
+    {
+        $user_id=Auth::user()->id;
+        return $this->userModel->where('approver_first', $user_id)->orWhere('approver_second', $user_id)->orderBy('created_at', 'DESC')->get();
     }
 
     public function listBranch()

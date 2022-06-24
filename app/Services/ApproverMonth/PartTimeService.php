@@ -12,6 +12,7 @@ use App\Enums\ApproverStatus;
 use App\Models\Calendar;
 use App\Enums\ManagerStatus;
 use App\Models\ApprovalByMonth;
+use Illuminate\Support\Facades\Auth;
 
 class PartTimeService extends BaseService
 {
@@ -65,6 +66,12 @@ class PartTimeService extends BaseService
             $q->orWhere('role', UserRole::APPROVER);
             $q->orWhere('role', UserRole::MANAGER);
         })->orderBy('created_at', 'DESC')->get();
+    }
+
+    public function listUserApprove()
+    {
+        $user_id=Auth::user()->id;
+        return $this->userModel->where('approver_first', $user_id)->orWhere('approver_second', $user_id)->orderBy('created_at', 'DESC')->get();
     }
 
     public function listBranch()
@@ -123,8 +130,9 @@ class PartTimeService extends BaseService
                 'end_time3' => $item->end_time_third ? $this->formatTime($item->end_time_third) : '-',
                 'time' => $time1 + $time2 + $time3,
 
-                'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
-                'approver' => $item->userApprover ? $item->userApprover->first_name . $item->userApprover->last_name : '',
+                // 'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
+                'approval_date' => $item->approval_date ? Carbon::parse($item->approval_date)->format('Y-m-d') . ' (' . $this->getDayOfWeek($item->approval_date) . ')' : '',
+                'approver' => $item->userApprover ? $item->userApprover->first_name .' '. $item->userApprover->last_name : '',
                 'approver_id' => $item->approver,
                 'manager_confirm' => $item->manager_confirm ? ManagerStatus::PROCESSED : false,
                 'branch' => $user->branch ? $user->branch->name : '',

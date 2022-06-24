@@ -1,5 +1,5 @@
 @push('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- daterange picker -->
     <style>
         .datepicker-days td.disabled2,
@@ -452,7 +452,7 @@
 
         $('#date_readonly').attr('autocomplete', 'off');
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         $('#start_time_first').flatpickr({
             enableTime: true,

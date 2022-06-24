@@ -1,5 +1,6 @@
 @push('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
     <!-- daterange picker -->
     <style>
         .datepicker-days td.disabled2,
@@ -125,7 +126,6 @@
         }
     </style>
 @endpush
-
 
 <div class="tab-content1">
     <form
@@ -349,11 +349,12 @@
         
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
-    <script src="{{asset('js/bootbox.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script src="{{asset('js/bootbox.min.js')}}"></script>
+
 <script>
     $(document).ready(function(){
-
         $("#start_time_1").flatpickr({
             enableTime: true,
             noCalendar: true,
@@ -403,16 +404,6 @@
                 $('#day5').attr('disabled', true);
             }
         });
-
-    // $('.col-radio input[type=radio]').on('change',function(){
-    //     console.log($(this).is(":checked"));
-    //     if($(this).is(":checked") && $(this).val()==4 || $(this).val()==5){
-    //         $('.form_time').hide();
-    //     }
-    //     else{
-    //         $('.form_time').show();
-    //     }
-    // });
 
         let date_start = $('#start_date input').val();
         let end_date = $('#end_date input').val();

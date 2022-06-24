@@ -70,6 +70,22 @@
         width: 130px !important;
     }
 
+    .w-110 {
+        width: 110px;
+    }
+
+    .w-87 {
+        width: 87px !important;
+    }
+
+    .w-75 {
+        width: 75px !important;
+    }
+
+    .w-117 {
+        width: 117px !important;
+    }
+
     #table_data tr td p {
         margin-bottom: 0;
     }

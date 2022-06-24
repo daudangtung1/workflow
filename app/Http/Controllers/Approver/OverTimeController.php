@@ -21,7 +21,8 @@ class OverTimeController extends Controller
         $listRegister = $this->overtimeService->listRegister($request->overTime);
         return view('approver.over-time.index', [
             'listRegister' => $listRegister,
-            'staffs' => $this->overtimeService->listUser(UserRole::STAFF),
+            // 'staffs' => $this->overtimeService->listUser(UserRole::STAFF),
+            'staffs' => $this->overtimeService->listUserApprove(),
             'branchs' => $this->overtimeService->listBranch(),
             'active' => 'index',
         ]);

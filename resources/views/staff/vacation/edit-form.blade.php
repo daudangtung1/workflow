@@ -1,5 +1,5 @@
 @push('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <!-- daterange picker -->
     <style>
@@ -113,6 +113,10 @@
             margin-bottom: 0 !important;
         }
 
+        #start_time_1::placeholder, #end_time_1::placeholder, #start_time_2::placeholder, #end_time_2::placeholder{
+            opacity: 0.5;
+        }
+
     </style>
 @endpush
 
@@ -199,7 +203,7 @@
                                                 <div class="form-group">
                                                     <label>時刻1</label>
                                                     <div class="relative w-140">
-                                                        <input type="time" name="start_time_1" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time_1'] : '' }}" id="start_time_1" >  
+                                                        <input type="time" name="start_time_1" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time_1'] : '' }}" id="start_time_1" placeholder="09:00" maxlength="2">  
                                                         <div class="input-group-append">
                                                             <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                         </div>
@@ -210,7 +214,7 @@
                                             <td class="pr-4-fix form_time">
                                                 <div class="form-group">
                                                     <div class="relative w-140">
-                                                        <input type="time" name="end_time_1" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time_1'] : '' }}" id="end_time_1" > 
+                                                        <input type="time" name="end_time_1" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time_1'] : '' }}" id="end_time_1" placeholder="12:00" maxlength="2"> 
                                                         <div class="input-group-append">
                                                             <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                         </div>
@@ -222,7 +226,7 @@
                                                 <div class="form-group">
                                                     <label>時刻2</label>
                                                     <div class="relative w-140">
-                                                        <input type="time" name="start_time_2" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time_2'] : '' }}" id="start_time_2" > 
+                                                        <input type="time" name="start_time_2" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time_2'] : '' }}" id="start_time_2" placeholder="13:00" maxlength="2"> 
                                                         <div class="input-group-append">
                                                             <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                         </div>
@@ -233,7 +237,7 @@
                                             <td class="pr-4-fix form_time">
                                                 <div class="form-group">
                                                     <div class="relative w-140">
-                                                    <input type="time" name="end_time_2" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time_2'] : '' }}" id="end_time_2" > 
+                                                    <input type="time" name="end_time_2" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time_2'] : '' }}" id="end_time_2" placeholder="17:30" maxlength="2"> 
                                                         <div class="input-group-append">
                                                             <div class="input-group-text"><i class="icofont-clock-time"></i></div>
                                                         </div>
@@ -276,9 +280,7 @@
     </form>
 
 @push('scripts')
-
     <script>
-        
         $('.chosen-select').select2();
         $('.form-delete').click(() => {
             if(confirm('本当に削除しますか？')) {
@@ -350,73 +352,74 @@
             ],
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script src="{{asset('js/bootbox.min.js')}}"></script>
     <script>
-    $(document).ready(function(){
+        $(document).ready(function(){
 
-    $("#start_time_1").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        time_24hr: true,
-        dateFormat: "H:i",
-        minuteIncrement: 30,
-        time_24hr: true,
-        maxTime: '11:30',
-        defaultHour: '00',
-        defaultMinute: '00',
-    });
-    $("#end_time_1").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        time_24hr: true,
-        dateFormat: "H:i",
-        minuteIncrement: 30,
-        disable: [13,14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-        maxTime: '11:30',
-        defaultHour: '00',
-        defaultMinute: '00',
-    });
-    $("#start_time_2").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        time_24hr: true,
-        dateFormat: "H:i",
-        minuteIncrement: 30,
-        minTime: '12:00',
-        defaultHour: '12',
-        defaultMinute: '00',
-    });
-    $("#end_time_2").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        time_24hr: true,
-        dateFormat: "H:i",
-        minuteIncrement: 30,
-        minTime: '12:00',
-        defaultHour: '12',
-        defaultMinute: '00',
-    });
+        $("#start_time_1").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 30,
+            time_24hr: true,
+            maxTime: '11:30',
+            defaultHour: '00',
+            defaultMinute: '00',
+        });
+        $("#end_time_1").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 30,
+            disable: [13,14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+            maxTime: '11:30',
+            defaultHour: '00',
+            defaultMinute: '00',
+        });
+        $("#start_time_2").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 30,
+            minTime: '12:00',
+            defaultHour: '12',
+            defaultMinute: '00',
+        });
+        $("#end_time_2").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            dateFormat: "H:i",
+            minuteIncrement: 30,
+            minTime: '12:00',
+            defaultHour: '12',
+            defaultMinute: '00',
+        });
 
-    $('.form-group input[type=time]').on('change', function(){
-        var input_data=$('.form-group input[type=time]');
-        if(input_data != "") {
-            $('#day4').attr('disabled', true);
-            $('#day5').attr('disabled', true);
-        }
-    });
+        $('.form-group input[type=time]').on('change', function(){
+            var input_data=$('.form-group input[type=time]');
+            if(input_data != "") {
+                $('#day4').attr('disabled', true);
+                $('#day5').attr('disabled', true);
+            }
+        });
 
-    // $('.col-radio input[type=radio]').on('change',function(){
-    //     console.log($(this).is(":checked"));
-    //     if($(this).is(":checked") && $(this).val()==4 || $(this).val()==5){
-    //         $('.form_time').hide();
-    //     }
-    //     else{
-    //         $('.form_time').show();
-    //     }
-    // });
+        // $('.col-radio input[type=radio]').on('change',function(){
+        //     console.log($(this).is(":checked"));
+        //     if($(this).is(":checked") && $(this).val()==4 || $(this).val()==5){
+        //         $('.form_time').hide();
+        //     }
+        //     else{
+        //         $('.form_time').show();
+        //     }
+        // });
 
-    $(document).on("submit", "form", function(e){
+        $(document).on("submit", "form", function(e){
             var currentForm = this;
             e.preventDefault();
                     bootbox.confirm({
@@ -460,7 +463,7 @@
                         }
                     }
                 });
+                });
         });
-});
-</script>
+    </script>
 @endpush

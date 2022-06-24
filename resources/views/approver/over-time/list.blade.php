@@ -50,6 +50,18 @@
         width: 160px !important;
     }
 
+    .w-90 {
+        width: 90px;
+    }
+
+    .w-117 {
+        width: 117px;
+    }
+
+    .w-115 {
+        width: 115px;
+    }
+
     @media only screen and (max-width: 1165px) {
         .form-button {
             margin: 30px 0 50px 0px !important;

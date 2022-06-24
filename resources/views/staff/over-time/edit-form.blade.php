@@ -78,6 +78,10 @@
         content: "\ea67";
         font-size: 16px;
     }
+
+    .mi_tx input {
+        pointer-events: none !important;
+    }
 </style>
 @endpush
 <div class="tab-content1 d-flex2">
