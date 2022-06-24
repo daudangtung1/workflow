@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/datepicker/tempusdominus-bootstrap-4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('icofont/icofont.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/fix.css')}}">
     @stack('styles')
 </head>
 

@@ -125,7 +125,7 @@
                                     @foreach ($staffs as $item)
                                         <option value="{{ $item->id }}" data-name="{{ $item->fullName }}"
                                             {{ request()->staff == $item->id ? 'selected' : '' }}>
-                                            {{ $item->id . ' - ' . $item->fullName }}
+                                            {{ $item->user_id . ' - ' . $item->fullName }}
                                         </option>
                                     @endforeach
                                 </select>

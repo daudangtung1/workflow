@@ -129,6 +129,9 @@ class PartTimeService extends BaseService
                 'manager_confirm' => $item->manager_confirm ? ManagerStatus::PROCESSED : false,
                 'branch' => $user->branch ? $user->branch->name : '',
                 'status_month' => $status_month ? $status_month->modelable_id : '',
+
+                'start_time_working' => $user->start_time_working ? Carbon::parse($user->start_time_working)->format('H:i') : '',
+                'end_time_working' => $user->end_time_working ? Carbon::parse($user->end_time_working)->format('H:i') : '',
             ];
         }
 

@@ -125,6 +125,10 @@
             display: none;
             -webkit-appearance: none;
         }
+
+        .flatpickr-calendar.open{
+            width: 187px;
+        }
     </style>
 @endpush
 <form class="formSm" method="POST">
@@ -270,7 +274,7 @@
                             </div>
                             <div class="col-md-12 mt-30">
                                 <div class="form-group">
-                                    <label for="">承認状態</label>
+                                    <label for="">承認時間</label>
             
                                     <div class="input-group date input-date" id="approval_date" data-target-input="nearest">
                                         <input type="text" class="form-control datetimepicker-input" data-target="#approval_date"

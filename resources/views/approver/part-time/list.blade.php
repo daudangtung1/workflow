@@ -77,6 +77,11 @@
     #myTab li:nth-child(2){
         width: 150px !important;
     }
+
+    .color-red {
+        color: red !important;
+        font-weight: bold !important;
+    }
 </style>
 @endpush
 <div class="card">

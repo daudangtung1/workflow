@@ -62,9 +62,9 @@ class PartTimeController extends Controller
         try {
             $data = [
                 'user_id' => $request->user_register,
-                'date' => substr($request->date, 0, -4),
+                'date' => substr($request->date, 0, -6),
                 'approver' => $request->approver,
-                'approval_date' => $request->approval_date ? Carbon::parse(substr($request->approval_date, 0, -4))->format('Y-m-d H:i:s') : null,
+                'approval_date' => $request->approval_date ? Carbon::parse(substr($request->approval_date, 0, -6))->format('Y-m-d H:i:s') : null,
                 'manager_confirm' => null,
                 'id' => $request->id,
             ];

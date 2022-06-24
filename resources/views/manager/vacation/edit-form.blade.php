@@ -14,7 +14,7 @@
         }
 
         .select-100 .select2-container {
-            width: 410px !important;
+            width: 440px !important;
         }
 
         @media only screen and (max-width: 600px) {
@@ -59,6 +59,11 @@
         .datepicker-days td.disabled {
             background: #FFD1D1 !important;
             border-radius: 50%;
+        }
+
+        #start_date_register input, #end_date_register input {
+            padding-left: 6px !important;
+            padding-right: 6px !important;
         }
 
     </style>
@@ -182,7 +187,7 @@
 
                     <div class="col-md-12 mt-30">
                         <label class="d-block" for="">理由</label>
-                        <textarea class="form-control w-410" name="reason" id="reason" rows="5"
+                        <textarea class="form-control w-430" name="reason" id="reason" rows="5"
                             required>{{ isset($infoVacation) ? $infoVacation['reason'] : '' }}</textarea>
                     </div>
                     <div class="col-md-12 mt-30">
@@ -203,7 +208,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 mt-30">
-                        <div class="form-group  w-410">
+                        <div class="form-group  w-430">
                             <label for="">承認状態</label>
 
                             <div class="input-group date input-date" id="approval_date" data-target-input="nearest">
@@ -238,8 +243,8 @@
 
                     <div class="col-md-12">
                         <button disabled
-                            class="btn btn-primary w-410 form-button form-button-edit mr-280"><b>更新</b></button>
-                        <button class="btn btn-primary w-410 form-button form-button-delete" disabled><b>削除</b></button>
+                            class="btn btn-primary w-430 form-button form-button-edit mr-280"><b>更新</b></button>
+                        <button class="btn btn-primary w-430 form-button form-button-delete" disabled><b>削除</b></button>
 
                     </div>
                 </div>
@@ -249,9 +254,11 @@
         </div>
 
 @push('scripts')
+<script src="{{ asset('js/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('js/moment/moment-with-locales.min.js') }}"></script>
     <script>
         $('.input-date-disable').datetimepicker({
-            format: "YYYY-MM-DD",
+            format: "YYYY/MM/DD (dd)",
             locale: "ja",
             disabledDates: [
                 @foreach ($listCalendar as $item)
@@ -317,7 +324,7 @@
             date = date.toLocaleDateString('fr-CA');
 
             if (date != 'Invalid Date' && date != '1970-01-01') {
-                $('input[name=end_date_register]').val(date);
+                $('input[name=end_date_register]').val(moment(date).format('YYYY/MM/DD (dd)'));
             } else {
                 $('input[name=end_date_register]').val('');
             }

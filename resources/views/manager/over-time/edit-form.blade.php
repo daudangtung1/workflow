@@ -201,7 +201,7 @@
             <div class="row mt-30">
                 <div class="col-md-12">
                     <div class="form-group ">
-                        <label for="">承認状態</label>
+                        <label for="">承認時間</label>
 
                         <div class="input-group date input-date" id="approval_date" data-target-input="nearest">
                             <input type="text" class="form-control datetimepicker-input" data-target="#approval_date"
@@ -371,8 +371,6 @@
             //getData();
         });
 
-        
-
         function getData(id) {
             let user = $('select[name=user_register]').val();
 
@@ -390,8 +388,8 @@
                         $(`input[name=start_time]`).val(data.start_time).trigger('change');
                         $(`input[name=end_time]`).val(data.end_time).trigger('change');
                         $(`select[name=approver]`).val(data.approver).trigger('change');
-                        $(`input[name=approval_date]`).val(data.approval_date ? moment(data.approval_date).format("YYYY/MM/DD dd") : '');
-                        $(`input[name=date]`).val(data.date ? moment(data.date).format("YYYY/MM/DD dd") : '');
+                        $(`input[name=approval_date]`).val(data.approval_date ? moment(data.approval_date).format("YYYY/MM/DD (dd)") : '');
+                        $(`input[name=date]`).val(data.date ? moment(data.date).format("YYYY/MM/DD (dd)") : '');
                         $(`select[name=manager_status_edit]`).val(data.manager_confirm).trigger('change');
 
                         if (!data.manager_confirm)

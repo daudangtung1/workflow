@@ -336,7 +336,7 @@
         // @endif
 
         $('.input-date').datetimepicker({
-            format: "YYYY-MM-DD",
+            format: "YYYY/MM/DD (dd)",
             locale: "ja",
             useCurrnet: false,
             disabledDates: [

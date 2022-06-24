@@ -18,10 +18,30 @@
         @if(in_array($item['date'], $listCalendarData))
         <tr data-id={{$item['id']}} class="vacation">
             <td>{{ $item['date'] }}</td>
-            <td>{{ $item['start_time1'] }}</td>
+
+            @if($item['start_time1'] == '-')
+                <td>{{ $item['start_time1'] }}</td>
+            @else
+                @if($item['start_time1'] == $item['start_time_working'])
+                    <td>{{ $item['start_time1'] }}</td>
+                @else
+                    <td class="color-red">{{ $item['start_time1'] }}</td>
+                @endif
+            @endif
+
             <td>{{ $item['end_time1'] }}</td>
             <td>{{ $item['start_time2'] }}</td>
-            <td>{{ $item['end_time2'] }}</td>
+            
+            @if($item['end_time2'] == '-')
+                <td>{{ $item['end_time2'] }}</td>
+            @else
+                @if($item['end_time2'] == $item['end_time_working'])
+                    <td>{{ $item['end_time2'] }}</td>
+                @else
+                    <td class="color-red">{{ $item['end_time2'] }}</td>
+                @endif
+            @endif
+
             <td>{{ $item['start_time3'] }}</td>
             <td>{{ $item['end_time3'] }}</td>
             <td>{{ $item['time'] }}</td>
@@ -45,10 +65,29 @@
         @else
         <tr data-id={{$item['id']}}>
             <td>{{ $item['date'] }}</td>
-            <td>{{ $item['start_time1'] }}</td>
+
+            @if($item['start_time1'] == '-')
+                <td>{{ $item['start_time1'] }}</td>
+            @else
+                @if($item['start_time1'] == $item['start_time_working'])
+                    <td>{{ $item['start_time1'] }}</td>
+                @else
+                    <td class="color-red">{{ $item['start_time1'] }}</td>
+                @endif
+            @endif
             <td>{{ $item['end_time1'] }}</td>
             <td>{{ $item['start_time2'] }}</td>
-            <td>{{ $item['end_time2'] }}</td>
+
+            @if($item['end_time2'] == '-')
+                <td>{{ $item['end_time2'] }}</td>
+            @else
+                @if($item['end_time2'] == $item['end_time_working'])
+                    <td>{{ $item['end_time2'] }}</td>
+                @else
+                    <td class="color-red">{{ $item['end_time2'] }}</td>
+                @endif
+            @endif
+
             <td>{{ $item['start_time3'] }}</td>
             <td>{{ $item['end_time3'] }}</td>
             <td>{{ $item['time'] }}</td>
