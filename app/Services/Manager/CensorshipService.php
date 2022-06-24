@@ -23,7 +23,7 @@ class CensorshipService extends BaseService
     public function getAll($request)
     {
         $date = $request->date ?? '';
-        $statusApproval = (bool)$request->status_approval ?? '';
+        $statusApproval = $request->status_approval ?? '';
 
         $year = null;
         $month = null;
@@ -43,6 +43,7 @@ class CensorshipService extends BaseService
             return [];
         }
 
+        $items = $items->sortBy('user_id');
         foreach ($items as $item) {
             if ($item->date) {
                 $year = Carbon::createFromFormat('Y-m-d', $item->date)->format('Y');

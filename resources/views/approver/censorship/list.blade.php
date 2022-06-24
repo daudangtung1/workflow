@@ -3,16 +3,19 @@
     <div class="card mt-0">
         <div class="card-body pb-4 pl-0 pr-0 pd-0">
             <div class="row">
-                <form action="{{route('manager.censorship.approval_by_month')}}" method="POST">
+                <form action="{{route('approver.censorship.approval_by_month')}}" method="POST">
                     @csrf
                     <div class="col-md-12 overflow-auto">
                         <table class="table table-bordered table-hover mb-0">
                             <thead>
                             <tr>
+                                @php 
+                                    $dateData = explode('-', request()->get('date'));
+                                @endphp
                                 <th>検索条件</th>
                                 <th colspan="4">
-                                    時間: {{request()->get('date')}},
-                                    承認状況: {{\App\Models\OvertimeRegister::$approvalStatus[request()->get('status_approval')]}}
+                                    年月: {{$dateData[0] ?? ''}}年{{$dateData[1] ?? ''}}月,
+                                    承認状態: {{\App\Models\OvertimeRegister::$approvalStatus[request()->get('status_approval')]}}
                                 </th>
                                 <th>
                                     <label class="custom-check custom-check-all">
@@ -24,12 +27,12 @@
                                 </th>
                             </tr>
                             <tr>
-                                <th class="w-150">日付</th>
-                                <th class="w-150">開始時刻</th>
-                                <th class="w-150">終了時刻</th>
-                                <th class="w-150">時間外計（分）</th>
-                                <th class="w-230">承認日時</th>
-                                <th class="w-150">承認者</th>
+                                <th class="w-150">締め年月</th>
+                                <th class="w-150">申請者(社員ID)</th>
+                                <th class="w-150">申請種別</th>
+                                <th class="w-150">時間外合計(分)</th>
+                                <th class="w-230">月次承認日</th>
+                                <th class="w-150">承認状態</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -67,7 +70,7 @@
                                         <td>{{ $approvedCreatedAt ?? '-' }}</td>
                                         <td class="action">
                                             @if($approvedCreatedAt)
-                                                承認済み
+                                            未承認有
                                             @elseif($checkApproved)
                                                 <label class="custom-check">
                                                     <input type="checkbox" name="data_input[{{$classModel}}][]"
@@ -103,13 +106,13 @@
                     @if(!empty($items))
                         <div class="col-md-12 d-flex justify-content-end">
                             <button class="btn btn-primary d-none form-button-list form-button" type="submit"
-                                    value="approval_by_month">毎月の承認
+                                    value="approval_by_month">月次承認
                             </button>
                         </div>
                     @endif
                 </form>
             </div>
-            <form action="{{ route('manager.censorship.show') }}" method="GET" class="form-table">
+            <form action="{{ route('approver.censorship.show') }}" method="GET" class="form-table">
                 @csrf
                 <input type="hidden" name="model" value="">
                 <input type="hidden" name="date" value="">
