@@ -52,13 +52,19 @@
                                             <td>{{ $date->format('Y-m-d') ?? '-' }}
                                                 ({{ucfirst(substr($date->format('l'), 0, 3))}})
                                             </td>
-                                            <td>{{ $value->user->first_name ?? '' }} {{ $value->user->last_name ?? '' }}</td>
                                             <td>
                                                 @if(class_basename($value) == 'OvertimeRegister')
-                                                    時間外申請
+                                                    {{ $value->start_time ?? '' }}
                                                 @else
-                                                    パート出勤簿
-                                                @endif
+                                                    {{ $value->start_time_first ?? '' }}
+                                                @endif    
+                                            </td>
+                                            <td>
+                                                @if(class_basename($value) == 'OvertimeRegister')
+                                                    {{ $value->end_time ?? '' }}
+                                                @else
+                                                    {{ $value->end_time_first ?? '' }}
+                                                @endif  
                                             </td>
                                             <td>{{ ($totalMinutes) ? $totalMinutes : '-' }}</td>
                                             <td>{{ $value->approval_date ?? '-' }}</td>
