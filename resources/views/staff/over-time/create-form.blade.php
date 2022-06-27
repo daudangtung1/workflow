@@ -217,13 +217,13 @@
         });
 
         var date_auth_end=new Date("01/01/2007 " + "{{Auth::user()->end_time_working}}").getHours();
-        // $('#end_time').timepicki({
-        //     step_size_minutes: 30,
-        //     show_meridian: false,
-        //     min_hour_value: date_auth_end,
-        //     max_hour_value: 23,
-        //     start_time: ["17", "30"],
-        // });
+        $('#end_time').timepicki({
+            step_size_minutes: 30,
+            show_meridian: false,
+            min_hour_value: date_auth_end,
+            max_hour_value: 23,
+            start_time: ["17", "30"],
+        });
 
         $('#end_time_form').datetimepicker();
 </script>

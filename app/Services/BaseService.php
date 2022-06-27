@@ -59,9 +59,11 @@ class BaseService
 
             'current_text_full' => Carbon::parse($date)->day(11)->format('Y年m月分 (m/d)'),
             'next_text_full' => Carbon::parse($next)->day(10)->format('Y年m月分 (m/d)'),
+
+            'prev_text_2' => Carbon::parse($date)->day(11)->format('d/m'),
+            'next_text_2' => Carbon::parse($next)->day(10)->format('d/m'),
         ];
     }
-
 
     public function scopeDate($from, $to, $callback)
     {

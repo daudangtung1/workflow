@@ -80,7 +80,7 @@ class PartTimeController extends Controller
 
             $this->parttimeService->registerPartTime($data);
 
-            return redirect()->route('staff-part-time.index')->with('success', $message);
+            return redirect()->route('staff-part-time.responseData', $data['date'])->with('success', $message);
         } catch (\Exception $e) {
             $e->getMessage();
         }
@@ -91,7 +91,6 @@ class PartTimeController extends Controller
         try {
             $listRegister = $this->parttimeService->listRegister($request->date);
             $dates = $this->parttimeService->getDate($request->date);
-
             return response()->json([
                 'data' => $listRegister,
                 'dates' => $dates,
@@ -104,7 +103,6 @@ class PartTimeController extends Controller
     public function edit(Request $request, $id)
     {
         $infoRegister = $this->parttimeService->infoRegisterByDate($request->date);
-
         return response()->json($infoRegister);
     }
 
@@ -119,4 +117,24 @@ class PartTimeController extends Controller
         }
     }
 
+    public function responseData(Request $request, $data_id){
+        try {
+            $listRegister = $this->parttimeService->listRegister($request->date);
+            $dates = $this->parttimeService->getDate($request->date);
+            $listCalendar =  $this->parttimeService->listCalendar();
+            return view('staff.part-time.index')->with([
+                'data' => $listRegister,
+                'dates' => $dates,
+                'data_id' => $data_id,
+                'listCalendar' => $listCalendar
+            ]);
+            // return response()->json([
+            //     'data' => $listRegister,
+            //     'dates' => $dates,
+            //     'data_id' => $data_id,
+            // ]);
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+    }
 }

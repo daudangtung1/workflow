@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 Route::group(['middleware' => 'auth.staff'], function () {
     Route::resource('/staff-over-time', OverTimeController::class);
+    Route::get('staff-part-time/data/{data_id}', [PartTimeController::class, 'responseData'])->name('staff-part-time.responseData');
     Route::resource('/staff-part-time', PartTimeController::class);
     Route::resource('/staff-vacation', VacationController::class);
 });
@@ -43,9 +44,4 @@ Route::get('config/cache', function () {
     Artisan::call('view:clear');
 
     print_r('clear cache complete');
-});
-
-Route::get('reset', function(){
-    ParttimeRegister::query()->update(['approval_date'=> null, 'approver'=>null]);
-    dd('done!');
 });

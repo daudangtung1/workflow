@@ -83,6 +83,10 @@
             border-radius: 0 5px 5px 0 !important;
         }
 
+        .hidden{
+            display: none;
+        }
+
         /*----custom flatickr----*/
         .flatpickr-calendar.animate.open{
             width: 140px;
@@ -123,6 +127,10 @@
         }
         .form_time label{
             margin-bottom: 0 !important;
+        }
+
+        #start_date, #end_date{
+            width: 220px;
         }
     </style>
 @endpush
@@ -204,7 +212,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td class="pr-4-fix form_time time_1">
+                                            <td class="pr-4-fix form_time time_1 hidden">
                                                 <div class="form-group">
                                                 <label>時刻1</label>
                                                     <div class="relative w-140">
@@ -216,7 +224,7 @@
                                                     <span>~</span>
                                                 </div>
                                             </td>
-                                            <td class="pr-4-fix form_time time_1">
+                                            <td class="pr-4-fix form_time time_1 hidden">
                                                 <div class="form-group">
                                                     <div class="relative w-140">
                                                         <input type="text" name="end_time_1" class="form-control" readonly id="end_time_1" placeholder="12:00" > 
@@ -227,7 +235,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="pr-4-fix form_time time_2">
+                                            <td class="pr-4-fix form_time time_2 hidden">
                                                 <div class="form-group">
                                                     <label>時刻2</label>
                                                     <div class="relative w-140">
@@ -239,7 +247,7 @@
                                                     <span>~</span>
                                                 </div>
                                             </td>
-                                            <td class="pr-4-fix form_time time_2">
+                                            <td class="pr-4-fix form_time time_2 hidden">
                                                 <div class="form-group">
                                                     <div class="relative w-140">
                                                         <input type="text" name="end_time_2" class="form-control" readonly id="end_time_2" placeholder="17:30" > 
@@ -290,10 +298,12 @@
 
         $("#start_date").on("change.datetimepicker", function(e) {
             let date = new Date(e.date);
+            
             date = date.toLocaleDateString('fr-CA');
 
             if (date != 'Invalid Date' && date != '1970-01-01') {
-                $('input[name=end_date]').val(date);
+                let date_start_input=$('input[name=start_date]').val();
+                $('input[name=end_date]').val(date_start_input);
             } else {
                 $('input[name=end_date]').val('');
             }
@@ -317,9 +327,10 @@
         function checkDate(date, dateCheck) {
             $('.form-button').prop('disabled', false);
             $('#notiDanger').html('');
-            date = $('input[name=start_date]').val();
+            var date_get = $('input[name=start_date]').val();
+            date=date_get.replaceAll("/", "-").substring(date,10);
+            
             if (date > dateCheck) {
-
                 makeDangerAlert('期間が無効になっている', 'notiDanger');
                 $('.form-button').prop('disabled', true);
             }
@@ -486,6 +497,18 @@
                         }
                     }
                 });
+        });
+
+        $("input[name=type]").on("change", function(){
+            if($(this).val()==='vacation') {
+                $(".time_1").removeClass('hidden');
+                $(".time_2").removeClass('hidden');
+            }
+
+            else{
+                $(".time_1").addClass('hidden');
+                $(".time_2").addClass('hidden');
+            }
         });
     });
 </script>

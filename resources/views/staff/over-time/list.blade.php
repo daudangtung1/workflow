@@ -36,7 +36,7 @@
                     <div class="form-group d-search">
                         <span class="search pr-2" data-date="{{ $dates['prev'] }}"><i
                                 class="fas fa-caret-left"></i></span>
-                        <span>{{ $dates['current_text_full'] }} - {{ $dates['next_text_full'] }} </span>
+                        <span>{{$dates['current_text']}} 分 ({{$dates['prev_text_2']}}~{{$dates['next_text_2']}}) </span>
                         <span class="search pl-2" data-date="{{ $dates['next'] }}"><i
                                 class="fas fa-caret-right"></i></span>
                         <!-- /.input group -->
@@ -71,6 +71,8 @@
 <input type="hidden" value="{{(\Carbon\Carbon::now()->format('Y-m-d'))}}" id="date_check_now">
 <input type="hidden" value="{{URL::current()}}" id="url_check">
 @push('scripts')
+<script src="{{ asset('js/moment/moment.min.js') }}"></script>
+<script src="{{ asset('js/moment/moment-with-locales.min.js') }}"></script>
     <script>
         $(document).on("click", ".search", function() {
             loading();
@@ -89,11 +91,12 @@
                     // let total_1='', total_2='';
                      //render table
                     $.each(res.data, function(key, item) {
+                        moment.locale('ja');
                         let icon = item.disable ? '<i class="icofont-lock"></i>' :
                             `<a href="${redirect}?register=${item.id}&date=${key}" ><i class="icofont-pencil-alt-1"></i></a>`
 
-                        body += (`<tr data-date=${item.date}>
-                                <td>${item.date}</td>
+                        body += (`<tr>
+                                <td>${moment(new Date(item.date)).format('YYYY/MM/DD (dd)')}</td>
                                 <td>${item.start_time}</td>
                                 <td>${item.end_time}</td>
                                 <td>${item.time}</td>
@@ -115,12 +118,18 @@
 
                     $('#bodyOvertime').html(body);
                     $('body #get_total').html('');
-                    $('body #get_total').append(total);
+                    $('body #get_total').append(total.toLocaleString());
 
                     //render search
                     let search = (
                         `<span class="search pr-2" data-date="${ res.dates.prev }"><i class="fas fa-caret-left"></i></span>
-                        <span>${ res.dates.current_text_full } <span class="ml-2 mr-2">-</span> ${ res.dates.next_text_full }</span>
+                        <span>${res.dates.current_text}</span>
+                        <span>分</span>
+                        <span class="ml-2">(</span>
+                        <span>${res.dates.prev_text_2}</span>
+                        <span>~</span>
+                        <span>${res.dates.next_text_2}</span>
+                        <span>)</span>
                         <span class="search pl-2" data-date="${ res.dates.next }"><i class="fas fa-caret-right"></i></span>`
                     );
 
