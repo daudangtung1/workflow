@@ -74,6 +74,10 @@
         content: "\ea67";
         font-size: 16px;
     }
+
+    .mi_tx input {
+        pointer-events: none !important;
+    }
 </style>
 @endpush
 <div class="tab-content1 d-flex2">
@@ -130,7 +134,7 @@
                         <label>終了時刻</label>
                         <div class="row">
                             <div class="col">
-                                <div class="select-time relative">
+                                <div class="select-time relative end_time_form">
                                     <input type="text" class="form-control chosen-select" name="end_time" id="end_time">
                                     <div class="input-group-append">
                                         <div class="input-group-text"><i class="icofont-clock-time"></i></div>
@@ -202,6 +206,8 @@
 @push('scripts')
 <script src="{{asset('js/bootbox.min.js')}}"></script>
 <script src="{{asset('js/timepicki/timepicki.js')}}"></script>
+<script src="{{ asset('js/moment/moment.min.js') }}"></script>
+<script src="{{ asset('js/moment/moment-with-locales.min.js') }}"></script>
 <script>
         var date_auth_start=new Date("01/01/2007 " + "{{Auth::user()->start_time_working}}").getHours();
         $("#start_time").timepicki({
@@ -220,6 +226,8 @@
             max_hour_value: 23,
             start_time: ["17", "30"],
         });
+
+        $('#end_time_form').datetimepicker();
 </script>
 <script>
     $('.chosen-select').on('select2:select', function(e) {
@@ -407,7 +415,8 @@
                 $('#after_end').html(hours);
             }
 
-            let date = $('input[name=date]').val();
+            let date_input = $('input[name=date]').val();
+            let date=moment(new Date(date_input)).format('YYYY-MM-DD');
             if (date >= formDateCheck && date <= toDateCheck && $('.form-button').html() != '承認済み')
                 disable = false;
             $('#notiDanger').html('');
@@ -475,7 +484,7 @@
     //             $('.select-time .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
     // }
     $('.input-date').datetimepicker({
-        format: "YYYY-MM-DD",
+        format: "YYYY/MM/DD (dd)",
         locale: "ja",
         useCurrent: false,
         disabledDates: [
@@ -486,5 +495,4 @@
         daysOfWeekDisabled: [0, 6],
     });
 </script>
-<script src="{{asset('js/timepicki/bootstrap.min.js')}}"></script>
 @endpush

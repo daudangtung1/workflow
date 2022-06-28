@@ -34,16 +34,15 @@ class VacationController extends Controller
         try {
             $data = [
                 'user_id' => $request->user_register,
-                'start_date' => $request->start_date_register,
-                'end_date' => $request->end_date_register,
+                'start_date' => Carbon::parse(substr($request->start_date_register, 0, -6))->format('Y-m-d'),
+                'end_date' =>Carbon::parse(substr($request->end_date_register, 0, -6))->format('Y-m-d'),
                 'type' => $request->type  == 'vacation' ? $request->option_vacation : $request->type,
                 'reason' => $request->reason,
                 'approver' => $request->approver,
-                'approval_date' => $request->approval_date ? Carbon::parse($request->approval_date)->format('Y-m-d H:i:s') : null,
+                'approval_date' => $request->approval_date ? Carbon::parse(substr($request->approval_date, 0, -6))->format('Y-m-d H:i:s') : null,
                 'manager_confirm' => null,
                 'id' => $request->id,
             ];
-
             if ($request->manager_status_edit == ManagerStatus::PROCESSED) {
                 $data['manager_confirm'] = auth()->user()->id;
             }

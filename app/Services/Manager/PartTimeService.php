@@ -10,7 +10,7 @@ use App\Models\ParttimeRegister;
 use App\Models\User;
 use App\Services\BaseService;
 use App\Models\Calendar;
-
+use Carbon\Carbon;
 
 class PartTimeService extends BaseService
 {
@@ -124,6 +124,9 @@ class PartTimeService extends BaseService
                 'approver_id'     => $item->approver,
                 'manager_confirm' => $item->manager_confirm ? ManagerStatus::PROCESSED : false,
                 'branch'          => $user->branch ? $user->branch->name : '',
+
+                'start_time_working' => $user->start_time_working ? Carbon::parse($user->start_time_working)->format('H:i') : '',
+                'end_time_working' => $user->end_time_working ? Carbon::parse($user->end_time_working)->format('H:i') : '',
             ];
         }
 

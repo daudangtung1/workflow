@@ -120,12 +120,23 @@
             width: 53px;
         }
 
+        .w-430{
+            width: 440px;
+        }
+
+        #start_date, #end_date, #start_date_register, #end_date_register {
+            width: 200px !important;
+        }
+
+        .select-100 .select2-container{
+            width: 440px !important;
+        }
     </style>
 @endpush
 <form action="{{ route('manager.vacation.show', 'search') }}" method="GET">
 
             <div class="content3">
-                <div class="w-410">
+                <div class="w-430">
                     <div class="row">
                         <div class="col-md-12">
                             <label for="">日付</label>
@@ -249,17 +260,20 @@
         $('select').change();
 
         $('#start_date').datetimepicker({
-            format: "YYYY/MM/DD dd",
+            format: "YYYY/MM/DD (dd)",
             locale: "ja",
+            daysOfWeekDisabled: false,
+            useCurrent: false,
+            disabledDates: [
+                 @foreach ($listCalendar as $item)
+                    moment("{{ $item->date }}"),
+                 @endforeach
+            ],
+            daysOfWeekDisabled: [0, 6],
         });
 
         $('#end_date').datetimepicker({
-            format: "YYYY/MM/DD dd",
-            locale: "ja",
-        });
-
-        $('.input-date').datetimepicker({
-            format: "YYYY/MM/DD",
+            format: "YYYY/MM/DD (dd)",
             locale: "ja",
             daysOfWeekDisabled: false,
             useCurrent: false,

@@ -54,7 +54,7 @@ class PartTimeController extends Controller
 
             $data = [
                 'user_id' => $user->id,
-                'date' => $request->date,
+                'date' => substr($request->date, 0, -6),
             ];
             $message = __('common.create.success');
 
@@ -80,7 +80,8 @@ class PartTimeController extends Controller
 
             $this->parttimeService->registerPartTime($data);
 
-            return redirect()->route('staff-part-time.index')->with('success', $message);
+            $data_id_output=str_replace('/', '-', $data['date']);
+            return redirect()->route('staff-part-time.responseData', $data_id_output)->with('success', $message);
         } catch (\Exception $e) {
             $e->getMessage();
         }
@@ -91,7 +92,6 @@ class PartTimeController extends Controller
         try {
             $listRegister = $this->parttimeService->listRegister($request->date);
             $dates = $this->parttimeService->getDate($request->date);
-
             return response()->json([
                 'data' => $listRegister,
                 'dates' => $dates,
@@ -104,16 +104,31 @@ class PartTimeController extends Controller
     public function edit(Request $request, $id)
     {
         $infoRegister = $this->parttimeService->infoRegisterByDate($request->date);
-
         return response()->json($infoRegister);
     }
 
     public function destroy($id)
-    {
+    { 
         try {
             $this->parttimeService->delete($id);
 
             return redirect()->route('staff-part-time.index')->with('success', __('common.delete.success'));
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+    }
+
+    public function responseData(Request $request, $data_id){
+        try {
+            $listRegister = $this->parttimeService->listRegister($request->date);
+            $dates = $this->parttimeService->getDate($request->date);
+            $listCalendar =  $this->parttimeService->listCalendar();
+            return view('staff.part-time.index')->with([
+                'data' => $listRegister,
+                'dates' => $dates,
+                'data_id' => $data_id,
+                'listCalendar' => $listCalendar
+            ]);
         } catch (\Exception $e) {
             $e->getMessage();
         }

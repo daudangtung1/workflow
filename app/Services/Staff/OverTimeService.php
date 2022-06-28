@@ -76,6 +76,7 @@ class OverTimeService extends BaseService
                 'approver' => $item->userApprover ? $item->userApprover->fullName : '',
                 'time' => $beStart + $afEnd,
                 'disable' => $item->approver ? true : false,
+                'date_id' => $item->date ? $item->date : '',
             ];
         }
 
@@ -115,7 +116,7 @@ class OverTimeService extends BaseService
             $endTimeWorking = $this->formatTime($info->end_time_working);
             $beStart = $info->start_time ? (strtotime($startTimeWorking) - strtotime($info->start_time)) / 60  : 0;
             $afEnd = $info->end_time ? (strtotime($info->end_time) - strtotime($endTimeWorking)) / 60  : 0;
-
+            
             return [
                 'id' => $info->id,
                 'date' => $info->date,

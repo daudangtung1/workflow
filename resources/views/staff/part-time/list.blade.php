@@ -1,40 +1,40 @@
 @push('styles')
-<!-- daterange picker -->
-<link rel="stylesheet" href="{{ asset('css/daterangepicker/daterangepicker.css') }}">
-<style>
-    /* width */
-    .date_now {
-        /* font-size: 0.85rem; */
-        font-size: 15px;
-        font-weight: bold;
-    }
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{ asset('css/daterangepicker/daterangepicker.css') }}">
+    <style>
+        /* width */
+        .date_now {
+            /* font-size: 0.85rem; */
+            font-size: 15px;
+            font-weight: bold;
+        }
 
-    .vacation {
-        background: #ffebeb;
-    }
+        .vacation {
+            background: #ffebeb;
+        }
 
-    /*----*/
-    .flex-between {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        /*----*/
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .box_total {
-        border: 1px solid #000;
-        padding: 2px 10px;
-        font-weight: bold;
-    }
+        .box_total {
+            border: 1px solid #000;
+            padding: 2px 10px;
+            font-weight: bold;
+        }
 
-    .box_total_title {
-        padding-right: 10px;
-        border-right: 1px solid #000;
-    }
+        .box_total_title {
+            padding-right: 10px;
+            border-right: 1px solid #000;
+        }
 
-    #get_total {
-        padding-left: 10px;
-    }
-</style>
+        #get_total {
+            padding-left: 10px;
+        }
+    </style>
 @endpush
 
 
@@ -44,7 +44,7 @@
             <div class="flex-between">
                 <div class="form-group d-search">
                     <span class="search pr-2" data-date="{{ $dates['prev'] }}"><i class="fas fa-caret-left"></i></span>
-                    <span>{{ $dates['current_text'] }} - {{ $dates['next_text'] }} </span>
+                    <span>{{$dates['current_text']}} 分 ({{$dates['prev_text_2']}}~{{$dates['next_text_2']}}) </span>
                     <span class="search pl-2" data-date="{{ $dates['next'] }}"><i class="fas fa-caret-right"></i></span>
                     <!-- /.input group -->
                 </div>
@@ -83,6 +83,8 @@
 {{-- loading --}}
 
 @push('scripts')
+<script src="{{ asset('js/moment/moment.min.js') }}"></script>
+<script src="{{ asset('js/moment/moment-with-locales.min.js') }}"></script>
 <script>
     $(document).on("click", ".search", function() {
         loading();
@@ -106,10 +108,11 @@
 
                 //render table
                 $.each(res.data, function(key, item) {
+                    moment.locale('ja');
                     let icon = item.disable ? '<i class="icofont-lock"></i>' :
                         `<a href="${redirect}?register=${item.id}&date=${key}" class="edit_data"><i class="icofont-pencil-alt-1"></i></a>`
-                    body += (`<tr data-date=${item.date} id=${item.date}>
-                                <td>${item.date}</td>
+                    body += (`<tr id=${item.date_id}>
+                                <td>${moment(new Date(item.date)).format('YYYY/MM/DD (dd)')}</td>
                                 <td>${item.start_time1}</td>
                                 <td>${item.end_time1}</td>
                                 <td>${item.start_time2}</td>
@@ -121,7 +124,7 @@
                                 <td>${item.approver}</td>
                                 <td>${icon}</td>
                             </tr>`);
-
+                           
                     total_1 = new Date(item.date + item.end_time1) - new Date(item.date + item.start_time1);
                     total_2 = new Date(item.date + item.end_time2) - new Date(item.date + item.start_time2);
                     total_3 = new Date(item.date + item.end_time3) - new Date(item.date + item.start_time3);
@@ -147,13 +150,19 @@
                 $('body #bodyParttime').html('');
                 $('body #bodyParttime').append(body);
                 $('body #get_total').html('');
-                $('body #get_total').append(total);
+                $('body #get_total').append(total.toLocaleString());
 
                 //render search
                 let search = (
                     `<span class="search pr-2" data-date="${ res.dates.prev }"><i class="fas fa-caret-left"></i></span>
-                        <span >${ res.dates.current_text_full} <span class="ml-2 mr-2">-</span> ${ res.dates.next_text_full}</span>
-                        <span class="search pl-2" data-date="${ res.dates.next }"><i class="fas fa-caret-right"></i></span>`
+                    <span>${res.dates.current_text}</span>
+                    <span>分</span>
+                    <span class="ml-2">(</span>
+                    <span>${res.dates.prev_text_2}</span>
+                    <span>~</span>
+                    <span>${res.dates.next_text_2}</span>
+                    <span>)</span>
+                    <span class="search pl-2" data-date="${ res.dates.next }"><i class="fas fa-caret-right"></i></span>`
                 );
 
                 $('.d-search').html(search);
@@ -175,7 +184,7 @@
                         $(this).addClass('date_now');
                     };
                     $(this).on('click', ".edit_data ", function() {
-                        console.log(1);
+                        // console.log(1);
                     });
                     var data_1 = $(this).data('date');
                     var listCalendar = @json($listCalendar);
@@ -193,5 +202,19 @@
     let url_check = $('#url_check').val();
     if (window.location.href === url_check) $('#myTab .search').trigger('click');
     else $('#myTab .nav-item:last-child a').trigger('click');
+
+</script>
+<script>
+    $(document).ajaxComplete(function(){
+        var url = $(location).attr('href');
+        parts = url.split("/");
+        if(parts[parts.length-2]=='data'){
+            last_part = parts[parts.length-1];
+            var last_part_id= "#" + last_part;
+            $('html, body').animate({
+                scrollTop:$(last_part_id).offset().top
+            }, 200);
+        }
+    });
 </script>
 @endpush

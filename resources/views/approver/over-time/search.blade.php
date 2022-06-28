@@ -126,7 +126,7 @@
                                     @foreach ($staffs as $item)
                                         <option value="{{ $item->id }}" data-name="{{ $item->fullName }}"
                                             {{ request()->staff == $item->id ? 'selected' : '' }}>
-                                            {{ $item->id . ' - ' . $item->fullName }}
+                                            {{ $item->user_id . ' - ' . $item->fullName }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -162,7 +162,7 @@
                     <div class="row mt-30">
                         <div class="col-md-12">
                             <div class="form-group select-time select-100">
-                                <label for="">承認状態</label>
+                                <label for="">承認時間</label>
                                 <select class="chosen-select" name="approver_status">
                                     @foreach (\App\Enums\ApproverStatus::asArray() as $item)
                                         <option value="{{ $item }}"

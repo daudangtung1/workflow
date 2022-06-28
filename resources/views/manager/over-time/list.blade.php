@@ -159,16 +159,27 @@
                                             <td>{{ $item['date'] }}</td>
                                             <td>{{ $item['user'] }}</td>
                                             <td>{{ $item['branch'] }}</td>
-                                            @if($item['start_time'] != $item['start_time_working'])
-                                                <td class="color-red">{{ $item['start_time'] }}</td>
-                                            @else
+
+                                            @if($item['start_time'] == '-')
                                                 <td>{{ $item['start_time'] }}</td>
-                                            @endif
-                                            @if($item['end_time'] != $item['end_time_working'])
-                                                <td class="color-red">{{ $item['end_time'] }}</td>
                                             @else
-                                                <td>{{ $item['end_time'] }}</td>
+                                                @if($item['start_time'] != $item['start_time_working'])
+                                                    <td class="color-red">{{ $item['start_time'] }}</td>
+                                                @else
+                                                    <td>{{ $item['start_time'] }}</td>
+                                                @endif
                                             @endif
+
+                                            @if($item['end_time'] == '-')
+                                            <td>{{ $item['end_time'] }}</td>
+                                            @else
+                                                @if($item['end_time'] != $item['end_time_working'])
+                                                    <td class="color-red">{{ $item['end_time'] }}</td>
+                                                @else
+                                                    <td>{{ $item['end_time'] }}</td>
+                                                @endif
+                                            @endif
+
                                             <td>{{ $item['time'] }}</td>
                                             <td>{{ $item['approver'] }}</td>
                                             <td>{{ $item['approval_date'] }}</td>
@@ -195,15 +206,24 @@
                                             <td>{{ $item['date'] }}</td>
                                             <td>{{ $item['user'] }}</td>
                                             <td>{{ $item['branch'] }}</td>
-                                            @if($item['start_time'] != $item['start_time_working'])
-                                                <td class="color-red">{{ $item['start_time'] }}</td>
-                                            @else
+                                            @if($item['start_time'] == '-')
                                                 <td>{{ $item['start_time'] }}</td>
-                                            @endif
-                                            @if($item['end_time'] != $item['end_time_working'])
-                                                <td class="color-red">{{ $item['end_time'] }}</td>
                                             @else
-                                                <td>{{ $item['end_time'] }}</td>
+                                                @if($item['start_time'] != $item['start_time_working'])
+                                                    <td class="color-red">{{ $item['start_time'] }}</td>
+                                                @else
+                                                    <td>{{ $item['start_time'] }}</td>
+                                                @endif
+                                            @endif
+
+                                            @if($item['end_time'] == '-')
+                                            <td>{{ $item['end_time'] }}</td>
+                                            @else
+                                                @if($item['end_time'] != $item['end_time_working'])
+                                                    <td class="color-red">{{ $item['end_time'] }}</td>
+                                                @else
+                                                    <td>{{ $item['end_time'] }}</td>
+                                                @endif
                                             @endif
                                             <td>{{ $item['time'] }}</td>
                                             <td>{{ $item['approver'] }}</td>

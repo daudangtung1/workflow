@@ -44,8 +44,8 @@ class VacationController extends Controller
             }
             else{
                 if (!$request->start_time_1 || !$request->end_time_1) return back()->with('error', '期間が無効になっている');
-                $datetime_start_1 = strtotime($request->start_date . " " . $request->start_time_1);
-                $datetime_end_1 =  strtotime($request->end_date . " " . $request->end_time_1);
+                $datetime_start_1 = strtotime(substr($request->start_date, 0, -6) . " " . $request->start_time_1);
+                $datetime_end_1 =  strtotime(substr($request->end_date, 0, -6) . " " . $request->end_time_1);
 
                 $date_sub_total_1 = ($datetime_end_1 - $datetime_start_1) / 3600;
                 if ($datetime_end_1 < $datetime_start_1) return back()->with('error', '期間が無効になっている');
@@ -56,8 +56,8 @@ class VacationController extends Controller
                     $total_minutes_1 = $date_sub_total_1 * 60 - ($total_hour_1 * 60);
                     $total_time = $total_hour_1 . ':' . $total_minutes_1;
                 } else {
-                    $datetime_start_2 = strtotime($request->start_date . " " . $request->start_time_2);
-                    $datetime_end_2 = strtotime($request->end_date . " " . $request->end_time_2);
+                    $datetime_start_2 = strtotime(substr($request->start_date, 0, -6) . " " . $request->start_time_2);
+                    $datetime_end_2 = strtotime(substr($request->end_date, 0, -6) . " " . $request->end_time_2);
                     if ($datetime_end_2 < $datetime_start_2) return back()->with('error', '期間が無効になっている');
                     $date_sub_total_2 = ($datetime_end_2 - $datetime_start_2) / 3600;
                     
@@ -74,8 +74,8 @@ class VacationController extends Controller
             }
             $data = [
                 'user_id' => $user->id,
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
+                'start_date' => substr($request->start_date, 0, -6),
+                'end_date' => substr($request->end_date, 0, -6),
                 'reason' => $request->reason,
                 'type' => $request->type  == 'vacation' ? 'vacation' : $request->type,
                 'start_time_1' => $request->start_time_1,
@@ -118,8 +118,8 @@ class VacationController extends Controller
         }
         else{
             if (!$request->start_time_1 || !$request->end_time_1) return back()->with('error', '期間が無効になっている');
-            $datetime_start_1 = strtotime($request->start_date . " " . $request->start_time_1);
-            $datetime_end_1 =  strtotime($request->end_date . " " . $request->end_time_1);
+            $datetime_start_1 = strtotime(substr($request->start_date, 0, -6) . " " . $request->start_time_1);
+            $datetime_end_1 =  strtotime(substr($request->end_date, 0, -6) . " " . $request->end_time_1);
 
             $date_sub_total_1 = ($datetime_end_1 - $datetime_start_1) / 3600;
             if ($date_sub_total_1 <= 0 && $request->type == 0 && $request->type == 3 && $request->type == 6) return back()->with('error', '期間が無効になっている');
@@ -129,8 +129,8 @@ class VacationController extends Controller
                 $total_minutes_1 = $date_sub_total_1 * 60 - ($total_hour_1 * 60);
                 $total_time = $total_hour_1 . ':' . $total_minutes_1;
             } else {
-                $datetime_start_2 = strtotime($request->start_date . " " . $request->start_time_2);
-                $datetime_end_2 = strtotime($request->end_date . " " . $request->end_time_2);
+                $datetime_start_2 = strtotime(substr($request->start_date, 0, -6) . " " . $request->start_time_2);
+                $datetime_end_2 = strtotime(substr($request->end_date, 0, -6) . " " . $request->end_time_2);
                 $date_sub_total_2 = ($datetime_end_2 - $datetime_start_2) / 3600;
                 if ($date_sub_total_1 <= 0 && $request->type == 0 && $request->type == 3 && $request->type == 6) return back()->with('error', '期間が無効になっている');
                 if ($date_sub_total_2 <= 0 && $request->type == 0 && $request->type == 3 && $request->type == 6) return back()->with('error', '期間が無効になっている');
@@ -147,11 +147,9 @@ class VacationController extends Controller
         }
 
         $data = [
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
+            'start_date' => substr($request->start_date, 0, -6),
+            'end_date' => substr($request->end_date, 0, -6),
             'reason' => $request->reason,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
             'start_time_1' => $request->start_time_1,
             'end_time_1' => $request->end_time_1,
             'start_time_2' => $request->start_time_2,

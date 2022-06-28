@@ -136,6 +136,11 @@
         .vacation{
             background: #ffebeb;
         }
+
+        .color-red{
+            color: red;
+            font-weight: bold;
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
@@ -174,10 +179,29 @@
                                         <td>{{ $item['user'] }}</td>
                                         <td>{{ $item['branch'] }}</td>
 
-                                        <td>{{ $item['start_time1'] }}</td>
+                                        @if($item['start_time1'] == $item['start_time_working'])
+                                            <td>{{ $item['start_time1'] }}</td>
+                                        @else
+                                            @if($item['start_time1'] == '-')
+                                                <td>{{ $item['start_time1'] }}</td>
+                                            @else
+                                                <td class="color-red">{{ $item['start_time1'] }}</td>
+                                            @endif
+                                        @endif
+
                                         <td>{{ $item['end_time1'] }}</td>
                                         <td>{{ $item['start_time2'] }}</td>
-                                        <td>{{ $item['end_time2'] }}</td>
+
+                                        @if($item['end_time2'] == $item['end_time_working'])
+                                            <td>{{ $item['end_time2'] }}</td>
+                                        @else
+                                            @if($item['end_time2'] == '-')
+                                                <td>{{ $item['end_time2'] }}</td>
+                                            @else
+                                                <td class="color-red">{{ $item['end_time2'] }}</td>
+                                            @endif
+                                        @endif
+                                        
                                         <td>{{ $item['start_time3'] }}</td>
                                         <td>{{ $item['end_time3'] }}</td>
                                         <td>{{ $item['time'] }}</td>
@@ -214,24 +238,35 @@
                                         <td>{{ $item['user'] }}</td>
                                         <td>{{ $item['branch'] }}</td>
 
-                                        <td>{{ $item['start_time1'] }}</td>
+                                        @if($item['start_time1'] == $item['start_time_working'])
+                                            <td>{{ $item['start_time1'] }}</td>
+                                        @else
+                                            @if($item['start_time1'] == '-')
+                                                <td>{{ $item['start_time1'] }}</td>
+                                            @else
+                                                <td class="color-red">{{ $item['start_time1'] }}</td>
+                                            @endif
+                                        @endif
+
                                         <td>{{ $item['end_time1'] }}</td>
                                         <td>{{ $item['start_time2'] }}</td>
-                                        <td>{{ $item['end_time2'] }}</td>
+
+                                        @if($item['end_time2'] == $item['end_time_working'])
+                                            <td>{{ $item['end_time2'] }}</td>
+                                        @else
+                                            @if($item['end_time2'] == '-')
+                                                <td>{{ $item['end_time2'] }}</td>
+                                            @else
+                                                <td class="color-red">{{ $item['end_time2'] }}</td>
+                                            @endif
+                                        @endif
+
                                         <td>{{ $item['start_time3'] }}</td>
                                         <td>{{ $item['end_time3'] }}</td>
                                         <td>{{ $item['time'] }}</td>
 
                                         <td>{{ $item['approver'] }}</td>
                                         <td>{{ $item['approval_date'] }}</td>
-                                        {{--<td>
-                                            @if (!$item['manager_confirm'])
-                                            <label class="custom-check">
-                                            <input type="checkbox" name="id[]" class="check-one"
-                                            value="{{ $item['id'] }}">
-                                            <span class="checkmark"></span>
-                                            @endif
-                                        </td>--}}
                                         <td> <a href="javascript:void(0)" class="btnEdit"
                                                 data-id="{{ $item['id'] }}" data-user-id="{{ $item['user_id'] }}"
                                                     data-date="{{ $item['date_register'] }}"

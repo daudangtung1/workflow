@@ -216,6 +216,8 @@
 
     <script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
 
+    <script src="{{ asset('js/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('js/moment/moment-with-locales.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -280,10 +282,10 @@
 
             $('#edit-tab').parent().removeClass('d-none');
             $('#edit-tab').click();
-
+            moment.locale('ja');
             let date = $(this).data('date');
-            let startDate = $(this).data('start-date');
-            let endDate = $(this).data('end-date');
+            let startDate = moment($(this).data('start-date')).format('YYYY/MM/DD (dd)');
+            let endDate = moment($(this).data('end-date')).format('YYYY/MM/DD (dd)');
             let manager = $(this).data('manager');
             let approvalDate = $(this).data('approval-date');
             let approver = $(this).data('approver');

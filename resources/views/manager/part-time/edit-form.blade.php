@@ -1,5 +1,5 @@
 @push('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- daterange picker -->
     <style>
         .content-wrapper .tab-content1 .select2-container {
@@ -124,6 +124,10 @@
         input[type="date"]::-webkit-calendar-picker-indicator {
             display: none;
             -webkit-appearance: none;
+        }
+
+        .flatpickr-calendar.open{
+            width: 187px;
         }
     </style>
 @endpush
@@ -270,7 +274,7 @@
                             </div>
                             <div class="col-md-12 mt-30">
                                 <div class="form-group">
-                                    <label for="">承認状態</label>
+                                    <label for="">承認時間</label>
             
                                     <div class="input-group date input-date" id="approval_date" data-target-input="nearest">
                                         <input type="text" class="form-control datetimepicker-input" data-target="#approval_date"
@@ -358,8 +362,7 @@
 </form>
 
 @push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         $('#start_time_first').flatpickr({
             enableTime: true,
@@ -610,5 +613,4 @@
            return check;
         }
     </script>
-
 @endpush

@@ -86,13 +86,21 @@
             padding-left: 8px !important;
             padding-right: 8px !important;
         }
+
+        .w-440{
+            width: 440px;
+        }
+
+        .w-185{
+            width: 200px;
+        }
     </style>
 @endpush
 
 <form action="{{ route('manager.over-time.show', 'search') }}" method="GET">
   
             <div class="content3">
-                <div class="w-410">
+                <div class="w-440">
                     <div class="row">
                         <div class="col-md-12">
                             <label for="">日付</label>
@@ -231,7 +239,7 @@
 
         $('select').change();
         $('.input-date').datetimepicker({
-            format: "YYYY/MM/DD dd",
+            format: "YYYY/MM/DD (dd)",
             locale: "ja",
             useCurrent: false,
             disabledDates: [

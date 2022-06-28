@@ -2,12 +2,14 @@
     <thead>
         <tr>
             <th class="w-150">日付</th>
-            <th class="w-150">開始時刻</th>
-            <th class="w-150">終了時刻</th>
-            <th class="w-150">時間外計(分)</th>
+            <th class="w-150">申請日</th>
             <th class="w-230">申請者(社員ID)</th>
-            <th class="w-230">Branch</th>
-            <th class="w-220">Time</th>
+            <th class="w-150">所属事業所</th>
+            <th class="w-90">開始時刻</th>
+            <th class="w-90">終了時刻</th>
+            <th class="w-117">時間外計(分)</th>
+            <th class="w-220">承認者</th>
+            <th class="w-115">承認日時</th>
             <th class="w-160">承認</th>
         </tr>
     </thead>
@@ -16,11 +18,13 @@
         @if(in_array($item['date'], $listCalendarData))
         <tr data-id={{$item['id']}} class="vacation get-data">
             <td>{{ $item['date'] }}</td>
+            <td>{{ $item['created_at'] }}</td>
+            <td>{{ $item['user'] }}</td>
+            <td>{{ $item['branch'] }}</td>
             <td>{{ $item['start_time'] }}</td>
             <td>{{ $item['end_time'] }}</td>
             <td>{{ $item['time'] }}</td>
-            <td>{{ $item['user'] }}</td>
-            <td>{{ $item['branch'] }}</td>
+            <td>{{ $item['approver'] }}</td>
             <td>{{ $item['approval_date'] }}</td>
             <td>
                 @if($item['status_month'])
@@ -41,11 +45,13 @@
         @else
         <tr data-id={{$item['id']}} class="get-data">
             <td>{{ $item['date'] }}</td>
+            <td>{{ $item['created_at'] }}</td>
+            <td>{{ $item['user'] }}</td>
+            <td>{{ $item['branch'] }}</td>
             <td>{{ $item['start_time'] }}</td>
             <td>{{ $item['end_time'] }}</td>
             <td>{{ $item['time'] }}</td>
-            <td>{{ $item['user'] }}</td>
-            <td>{{ $item['branch'] }}</td>
+            <td>{{ $item['approver'] }}</td>
             <td>{{ $item['approval_date'] }}</td>
             <td>
                 @if($item['status_month'])

@@ -5,6 +5,7 @@ namespace App\Services\Staff;
 use App\Services\BaseService;
 use App\Models\ParttimeRegister;
 use Carbon\Carbon;
+use App\Models\Calendar;
 
 class PartTimeService extends BaseService
 {
@@ -80,6 +81,7 @@ class PartTimeService extends BaseService
                 'approver' => $item->userApprover ? $item->userApprover->fullName : '',
                 'time' => $time1 + $time2 + $time3,
                 'disable' => $item->approver ? true : false,
+                'date_id' => $item->date ? $item->date : '',
             ];
         }
 
@@ -144,5 +146,10 @@ class PartTimeService extends BaseService
     public function delete($id)
     {
         return $this->model->where('id', $id)->delete();
+    }
+
+    public function listCalendar()
+    {
+        return Calendar::all();
     }
 }

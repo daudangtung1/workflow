@@ -22,7 +22,7 @@ class PartTimeController extends Controller
 
         return view('approver.part-time.index', [
             'listRegister' => $listRegister,
-            'staffs' => $this->parttimeService->listUser(UserRole::STAFF),
+            'staffs' => $this->parttimeService->listUserApprove(),
             'branchs' => $this->parttimeService->listBranch(),
             'active' => 'index',
         ]);
