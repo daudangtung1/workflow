@@ -9,7 +9,7 @@
                         <table class="table table-bordered table-hover mb-0">
                             <thead>
                             <tr>
-                                @php 
+                                @php
                                     $dateData = explode('-', request()->get('date'));
                                 @endphp
                                 <th>検索条件</th>
@@ -49,6 +49,7 @@
                                         if (!empty($value[0]->approvalByMonth->created_at)) {
                                             $approvedCreatedAt = $value[0]->approvalByMonth->created_at;
                                         }
+
                                         $user = $value[0]->user;
 
                                         $checkApproved = checkApproved($value);
@@ -70,7 +71,7 @@
                                         <td>{{ $approvedCreatedAt ?? '-' }}</td>
                                         <td class="action">
                                             @if($approvedCreatedAt)
-                                            未承認有
+                                                未承認有
                                             @elseif($checkApproved)
                                                 <label class="custom-check">
                                                     <input type="checkbox" name="data_input[{{$classModel}}][]"

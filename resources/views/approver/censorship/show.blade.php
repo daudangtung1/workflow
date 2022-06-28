@@ -6,14 +6,15 @@
                 <div class="col-md-12">
                     <div class="form-group d-search">
                         @if(!empty($user))
-                            <span class="d-inline-block mr-3"><b>{{ $user->first_name ?? '' }} {{ $user->last_name ?? '' }}</b></span>
+                            <span
+                                class="d-inline-block mr-3"><b>{{ $user->first_name ?? '' }} {{ $user->last_name ?? '' }}</b></span>
                         @endif
-                                    <span class="search pr-2"
-                                          data-model="{{request()->get('model')}}"
-                                          data-user_id="{{request()->get('user_id')}}"
-                                          data-date="{{$dateData['prevMonth']->format('Y-m')}}">
-                                        <i class="fas fa-caret-left"></i>
-                                    </span>
+                        <span class="search pr-2"
+                              data-model="{{request()->get('model')}}"
+                              data-user_id="{{request()->get('user_id')}}"
+                              data-date="{{$dateData['prevMonth']->format('Y-m')}}">
+                                <i class="fas fa-caret-left"></i>
+                            </span>
                         <span>{{$dateData['prevMonth']->format('Y')}}年{{$dateData['prevMonth']->format('m')}}月 <span
                                 class="ml-2 mr-2">-</span>
                                         {{$dateData['nextMonth']->format('Y')}}年{{$dateData['nextMonth']->format('m')}}月</span>
@@ -21,7 +22,8 @@
                               data-model="{{request()->get('model')}}"
                               data-user_id="{{request()->get('user_id')}}"
                               data-date="{{$dateData['nextMonth']->format('Y-m')}}">
-                                        <i class="fas fa-caret-right"></i></span></div>
+                                        <i class="fas fa-caret-right"></i></span>
+                    </div>
                 </div>
                 <div class="col-md-12 overflow-auto">
                     <table class="table table-bordered table-hover mb-0">
@@ -39,7 +41,9 @@
                         @forelse ($dateData['dateRange'] as $date)
                             @if(!empty($data[$date->format('Y-m-d')]))
                                 @foreach($data[$date->format('Y-m-d')] as $value)
-                                    @php $totalMinutes = 0; @endphp
+                                    @php
+                                        $totalMinutes = 0;
+                                    @endphp
                                     @if($value->date == $date->format('Y-m-d'))
                                         @php
                                             if (!empty($value->end_time) && !empty($value->start_time)){
@@ -47,24 +51,32 @@
                                                 $startTime = \Carbon\Carbon::parse($value->start_time);
                                                 $totalMinutes = $endTime->diffInMinutes($startTime);
                                              }
+
+                                            $userStartTimeWorking = $value->user->start_time_working ?? '';
+                                            $userEndTimeWorking = $value->user->end_time_working ?? '';
                                         @endphp
                                         <tr>
-                                            <td>{{ $date->format('Y-m-d') ?? '-' }}
-                                                ({{ucfirst(substr($date->format('l'), 0, 3))}})
+                                            <td>
+                                                <span style="@if(in_array($date->format('Y-m-d'), $calendars)) color: #e77b77 !important;  @endif">
+                                                    {{ $date->format('Y-m-d') ?? '-' }}
+                                                    ({{ucfirst(substr($date->format('l'), 0, 3))}})
+                                                </span>
                                             </td>
                                             <td>
                                                 @if(class_basename($value) == 'OvertimeRegister')
                                                     {{ $value->start_time ?? '' }}
                                                 @else
-                                                    {{ $value->start_time_first ?? '' }}
-                                                @endif    
+                                                    <span
+                                                        class="@if($userStartTimeWorking != $value->start_time_first) text-danger @endif">{{ $value->start_time_first ?? '' }}</span>
+                                                @endif
                                             </td>
                                             <td>
                                                 @if(class_basename($value) == 'OvertimeRegister')
                                                     {{ $value->end_time ?? '' }}
                                                 @else
-                                                    {{ $value->end_time_first ?? '' }}
-                                                @endif  
+                                                    <span
+                                                        class="@if($userStartTimeWorking != $value->end_time_second) text-danger @endif">{{ $value->end_time_second ?? '' }}</span>
+                                                @endif
                                             </td>
                                             <td>{{ ($totalMinutes) ? $totalMinutes : '-' }}</td>
                                             <td>{{ $value->approval_date ?? '-' }}</td>
@@ -81,8 +93,11 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td>{{ $date->format('Y-m-d') ?? '-' }}
-                                        ({{ucfirst(substr($date->format('l'), 0, 3))}})
+                                    <td>
+                                        <span style="@if(in_array($date->format('Y-m-d'), $calendars)) color: #e77b77 !important;  @endif">
+                                            {{ $date->format('Y-m-d') ?? '-' }}
+                                            ({{ucfirst(substr($date->format('l'), 0, 3))}})
+                                        </span>
                                     </td>
                                     <td>-</td>
                                     <td>-</td>

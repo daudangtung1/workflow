@@ -35,7 +35,7 @@ class CensorshipController extends Controller
 
         return view('approver.censorship.index', [
             'listRegister' => $listRegister,
-            'active'       => 'index',
+            'active' => 'index',
         ]);
     }
 
@@ -44,7 +44,7 @@ class CensorshipController extends Controller
         $items = $this->censorshipService->getAll($request);
 
         return view('approver.censorship.index', [
-            'items'  => $items,
+            'items' => $items,
             'active' => 'list',
         ]);
     }
@@ -53,17 +53,17 @@ class CensorshipController extends Controller
     {
         $items = $this->censorshipService->getAll($request);
         $data = $this->censorshipService->find($request);
-
         $dateData = $this->getDate($request);
-
         $user = $this->userService->find($request);
+        $calendars = $this->getCalendar($user);
 
         return view('approver.censorship.index', [
-            'items'    => $items,
-            'data'     => $data,
+            'items' => $items,
+            'data' => $data,
             'dateData' => $dateData,
-            'user'     => $user,
-            'active'   => 'show',
+            'user' => $user,
+            'calendars' => $calendars,
+            'active' => 'show',
         ]);
     }
 
@@ -98,5 +98,17 @@ class CensorshipController extends Controller
             'prevMonth' => $prevMonth,
             'nextMonth' => $nextMonth,
         ];
+    }
+
+    public function getCalendar($user)
+    {
+        $calendars = $user->calendars()->get();
+
+        $results = [];
+        if ($calendars) {
+            $results = $calendars->pluck('date')->toArray();
+        }
+
+        return $results;
     }
 }
