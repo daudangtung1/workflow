@@ -91,7 +91,7 @@ class User extends Authenticatable
     {
         return "{$this->first_name} {$this->last_name}";
     }
-    
+
     public function getFormatStartTimeAttribute()
     {
         return Carbon::parse($this->start_time_working)->format('H:i');
@@ -100,5 +100,10 @@ class User extends Authenticatable
     public function getFormatEndTimeAttribute()
     {
         return Carbon::parse($this->end_time_working)->format('H:i');
+    }
+
+    public function calendars()
+    {
+        return $this->hasMany(Calendar::class);
     }
 }

@@ -17,21 +17,29 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto test">
         <li class="nav-item d-flex hide-mobile">
-            <a class="nav-link  pl-0 ml-25 mr-25 font-weight-bold"  role="button">
-                <span >{{ (auth()->user()) ? auth()->user()->fullName : '' }}</span>
+            <a class="nav-link  pl-0 ml-25 mr-25 font-weight-bold" role="button">
+                <span>{{ (auth()->user()) ? auth()->user()->fullName : '' }}</span>
             </a>
             <div class="border-li"></div>
         </li>
         <li class="nav-item d-flex ">
-            <a class="nav-link  pl-0 ml-25 mr-25 font-weight-bold"  href="{{route('login')}}" role="button">
+            <a class="nav-link  pl-0 ml-25 mr-25 font-weight-bold" href="{{route('login')}}" role="button">
                 社員ID: {{ (auth()->user()) ? auth()->user()->user_id : '' }}
             </a>
             <div class="border-li"></div>
         </li>
-        <li class="nav-item ">
-            <a class="nav-link  pl-0 ml-25"  href="{{route('change_password')}}">
-                <i class="icofont-gear font-24 color-nav" ></i>
+        <li class="nav-item nav-last">
+            <a class="nav-link  pl-0 ml-25" href="javascript:void(0)" id="wf_nav_user">
+                <i class="icofont-gear font-24 color-nav"></i>
             </a>
+            <ul class="hidden_logout" id="wf_nav_user_list">
+                <li>
+                    <a href="{{route('change_password')}}">Change password</a>
+                </li>
+                <li>
+                    <a href="{{ route('logout') }}">ログアウト</a>
+                </li>
+            </ul>
         </li>
     </ul>
 </nav>

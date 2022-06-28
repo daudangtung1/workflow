@@ -41,6 +41,7 @@
                                             </p>
                                         </a>
                                     </li>
+                                    @if(Auth::user()->role == \App\Enums\UserRole::MANAGER || Auth::user()->type == \App\Enums\UserType::PARTTIME)
                                     <li class="nav-item">
                                         <a href="{{ route('staff-part-time.index') }}"
                                             class="nav-link @yield('active_staff_parttime')">
@@ -50,6 +51,7 @@
                                             </p>
                                         </a>
                                     </li>
+                                    @endif
                                     <li class="nav-item">
                                         <a href="{{ route('staff-vacation.index') }}"
                                             class="nav-link  @yield('active_staff_vacation')">
@@ -63,14 +65,14 @@
                             </li>
 
                             @yield('content_aside')
-                            <li class="nav-item">
+                            {{--<li class="nav-item">
                                 <a href="{{ route('logout') }}" class="nav-link">
                                     <p>
                                         ログアウト
                                         <i class="right fas fa-caret-right"></i>
                                     </p>
                                 </a>
-                            </li>
+                            </li>--}}
                             <li  style="height: 60px">
                             </li>
                             <li class="nav-item clock">
@@ -82,8 +84,6 @@
                                     </p>
                                 </a>
                             </li>
-
-
                         </ul>
                     </nav>
                     <!-- /.sidebar-menu -->

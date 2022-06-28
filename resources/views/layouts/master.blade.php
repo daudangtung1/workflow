@@ -32,6 +32,15 @@
                     </div>
                 @endif
 
+                @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{ session('error') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+
                 @yield('content')
             </div><!-- /.container-fluid -->
         </div>
@@ -46,7 +55,7 @@
 <script src="{{ asset('js/datepicker/ja.js') }}"></script>
 <script src="{{ asset('js/common.js') }}"></script>
 <script src="{{ asset('js/select2/select2.min.js') }}"></script>
-
+<script src="{{ asset('js/main.js')}}"></script>
 @stack('scripts')
 
 </html>

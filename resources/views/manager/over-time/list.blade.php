@@ -94,7 +94,6 @@
 
         }
 
-
         .back:hover {
             color: #1F232E;
         }
@@ -108,6 +107,25 @@
             background-color: #227dc7 !important;
             border-color: #2176bd !important;
         }
+        .content3 .text-right{
+            display: flex;
+            align-items: flex-end;
+            flex-direction: column;
+        }
+        .content3 .text-right button{
+            width: 263px !important;
+            background-color: #3490dc;
+            border-color: #3490dc;
+        }
+
+        .vacation{
+            background: #ffebeb;
+        }
+
+        .color-red{
+            color: red;
+            font-weight: bold;
+        }
 
     </style>
     <link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
@@ -118,14 +136,6 @@
             @method('PUT')
             <div class="content3">
                 <div class="row">
-                    {{-- <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-9"></div>
-                        <div class="col-md-3 text-right">
-                            <a class="check-all pr-5" href="javascript:void(0)">全てチェック</a>
-                        </div>
-                    </div>
-                </div> --}}
                     <div class="col-md-12">
                         <table class="table table-bordered table-hover" id="example">
                             <thead>
@@ -138,43 +148,87 @@
                                     <th class="w-140">時間外計(分)</th>
                                     <th class="w-140">承認者</th>
                                     <th class="w-150">承認日時</th>
-                                    <th class="w-140">総務承認</th>
+                                    <!-- <th class="w-140">総務承認</th> -->
                                     <th class="w-140">修正</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($dataRegister as $item)
-                                    <tr>
-                                        <td>{{ $item['date'] }}</td>
-                                        <td>{{ $item['user'] }}</td>
-                                        <td>{{ $item['branch'] }}</td>
-                                        <td>{{ $item['start_time'] }}</td>
-                                        <td>{{ $item['end_time'] }}</td>
-                                        <td>{{ $item['time'] }}</td>
-                                        <td>{{ $item['approver'] }}</td>
-                                        <td>{{ $item['approval_date'] }}</td>
-                                        <td>
-                                            @if (!$item['manager_confirm'])
-                                            <label class="custom-check">
-                                                <input type="checkbox" name="id[]" class="check-one"
-                                                    value="{{ $item['id'] }}">
-                                            <span class="checkmark"></span>
-                                            </label>
+                                @forelse ($dataRegister as $key=>$item)
+                                @if(in_array($item['date'], $listCalendarData))
+                                    <tr class="vacation">
+                                            <td>{{ $item['date'] }}</td>
+                                            <td>{{ $item['user'] }}</td>
+                                            <td>{{ $item['branch'] }}</td>
+                                            @if($item['start_time'] != $item['start_time_working'])
+                                                <td class="color-red">{{ $item['start_time'] }}</td>
+                                            @else
+                                                <td>{{ $item['start_time'] }}</td>
                                             @endif
-                                        </td>
-                                        <td> <a href="javascript:void(0)" class="btnEdit"
-                                                data-id="{{ $item['id'] }}"
-                                                data-date="{{ $item['date_register'] }}"
-                                                data-start_time_working="{{ $item['start_time_working'] }}"
-                                                data-end_time_working="{{ $item['end_time_working'] }}"
-                                                data-user-id="{{ $item['user_id'] }}">
-                                                <i class="icofont-pencil-alt-1"></i></a></td>
-
+                                            @if($item['end_time'] != $item['end_time_working'])
+                                                <td class="color-red">{{ $item['end_time'] }}</td>
+                                            @else
+                                                <td>{{ $item['end_time'] }}</td>
+                                            @endif
+                                            <td>{{ $item['time'] }}</td>
+                                            <td>{{ $item['approver'] }}</td>
+                                            <td>{{ $item['approval_date'] }}</td>
+                                            {{-- <td>
+                                                @if (!$item['manager_confirm'])
+                                                <label class="custom-check">
+                                                    <input type="checkbox" name="id[]" class="check-one"
+                                                        value="{{ $item['id'] }}">
+                                                <span class="checkmark"></span>
+                                                </label>
+                                                @endif
+                                            </td> --}}
+                                            <td> <a href="javascript:void(0)" class="btnEdit"
+                                                    data-id="{{ $item['id'] }}"
+                                                    data-date="{{ $item['date_register'] }}"
+                                                    data-start_time_working="{{ $item['start_time_working'] }}"
+                                                    data-end_time_working="{{ $item['end_time_working'] }}"
+                                                    data-user-id="{{ $item['user_id'] }}">
+                                                    <i class="icofont-pencil-alt-1"></i></a></td>
                                     </tr>
+                                    @unset($item['date'])
+                                @else
+                                    <tr>
+                                            <td>{{ $item['date'] }}</td>
+                                            <td>{{ $item['user'] }}</td>
+                                            <td>{{ $item['branch'] }}</td>
+                                            @if($item['start_time'] != $item['start_time_working'])
+                                                <td class="color-red">{{ $item['start_time'] }}</td>
+                                            @else
+                                                <td>{{ $item['start_time'] }}</td>
+                                            @endif
+                                            @if($item['end_time'] != $item['end_time_working'])
+                                                <td class="color-red">{{ $item['end_time'] }}</td>
+                                            @else
+                                                <td>{{ $item['end_time'] }}</td>
+                                            @endif
+                                            <td>{{ $item['time'] }}</td>
+                                            <td>{{ $item['approver'] }}</td>
+                                            <td>{{ $item['approval_date'] }}</td>
+                                            {{-- <td>
+                                                @if (!$item['manager_confirm'])
+                                                <label class="custom-check">
+                                                    <input type="checkbox" name="id[]" class="check-one"
+                                                        value="{{ $item['id'] }}">
+                                                <span class="checkmark"></span>
+                                                </label>
+                                                @endif
+                                            </td> --}}
+                                            <td> <a href="javascript:void(0)" class="btnEdit"
+                                                    data-id="{{ $item['id'] }}"
+                                                    data-date="{{ $item['date_register'] }}"
+                                                    data-start_time_working="{{ $item['start_time_working'] }}"
+                                                    data-end_time_working="{{ $item['end_time_working'] }}"
+                                                    data-user-id="{{ $item['user_id'] }}">
+                                                    <i class="icofont-pencil-alt-1"></i></a></td>
+                                    </tr>
+                                @endif
                                 @empty
                                     <tr>
                                         <td colspan="10" class="text-center">{{ __('common.data.error') }}</td>
-                                        <td class="d-none"></td>
                                         <td class="d-none"></td>
                                         <td class="d-none"></td>
                                         <td class="d-none"></td>
@@ -188,9 +242,8 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <div class="col-md-12 mt-30 text-right"><button
-                            class="btn btn-primary  form-button-list form-button" disabled>承認</button>
+                    <div class="col-md-12 mt-30 text-right">
+                        <!-- <button class="btn btn-primary  form-button-list form-button">承認 </button> -->
                     </div>
                 </div>
             </div>
@@ -216,6 +269,7 @@
            
         });
         $(document).ready(function() {
+            var d={{\Carbon\Carbon::now()->format('Ymd')}};
             var table = $('#example').DataTable({
                 lengthChange: false,
                 "paging": false,
@@ -227,12 +281,12 @@
                 "responsive": true,
                 buttons: [{
                     extend: 'csv',
-                    text: '<b>CSVダウンロード</b>'
+                    text: '<b>CSVダウンロード</b>',
+                    title: '時間外申請明細_'+d,
                 }]
             });
 
-            table.buttons().container()
-                .appendTo('#example_wrapper .col-md-6:eq(0)');
+            table.buttons().container().appendTo('.content3 .col-md-12.mt-30.text-right:eq(0)');
 
             let divCsv = $('#example_wrapper').children().children();
             $('#example_wrapper').children().find(divCsv[0])
@@ -242,9 +296,9 @@
             $('#example_wrapper').children().find(divCsv[0]).css('margin-bottom', '20px');
 
             $('#example_wrapper').children().find(divCsv[1])
-                .addClass('text-right').html(
-                    '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 37px" href="javascript:void(0)">全てチェック</a>'
-                );
+                // .addClass('text-right').html(
+                //     '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 37px" href="javascript:void(0)">全てチェック</a>'
+                // );
                 $('.dataTable').parent().addClass('overflow-auto');
         });
 
@@ -262,13 +316,13 @@
             checkSubmit();
         })
 
-        function checkSubmit() {
-            if ($('.check-one:checked').length > 0) {
-                $('.form-button-list').prop('disabled', false);
-            } else {
-                $('.form-button-list').prop('disabled', true);
-            }
-        }
+        // function checkSubmit() {
+        //     if ($('.check-one:checked').length > 0) {
+        //         $('.form-button-list').prop('disabled', false);
+        //     } else {
+        //         $('.form-button-list').prop('disabled', true);
+        //     }
+        // }
 
         $('.btnEdit').click(function() {
             $('#edit-tab').click();
@@ -365,7 +419,6 @@
 
                 }
             });
-
         }
     </script>
 @endpush

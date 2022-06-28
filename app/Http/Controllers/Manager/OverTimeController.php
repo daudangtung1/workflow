@@ -26,7 +26,7 @@ class OverTimeController extends Controller
             'active' => 'index',
             'times' => $this->getTime(),
             'approvers' => $this->overTimeService->listUser(UserRole::APPROVER),
-            'listCalendar' =>  $this->overTimeService->listCalendar(),
+            'listCalendar' =>  $this->overTimeService->listCalendarFull(),
         ]);
     }
 
@@ -35,11 +35,11 @@ class OverTimeController extends Controller
         try {
             $data = [
                 'user_id' => $request->user_register,
-                'date' => $request->date,
+                'date' => substr($request->date, 0, -4),
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
                 'approver' => $request->approver,
-                'approval_date' => $request->approval_date ? Carbon::parse($request->approval_date)->format('Y-m-d H:i:s') : null,
+                'approval_date' => $request->approval_date ? Carbon::parse(substr($request->approval_date, 0, -4))->format('Y-m-d') : null,
                 'manager_confirm' => null,
                 'id' => $request->id,
             ];
@@ -59,6 +59,7 @@ class OverTimeController extends Controller
     public function show(Request $request, $id)
     {
         $dataRegister = $this->overTimeService->listOverTime($request);
+        $listCalendarData = $this->overTimeService->listCalendarFull();
 
         return view('manager.over-time.index', [
             'staffs' => $this->overTimeService->listUser(UserRole::STAFF),
@@ -68,7 +69,7 @@ class OverTimeController extends Controller
             'times' => $this->getTime(),
             'approvers' => $this->overTimeService->listUser(UserRole::APPROVER),
             'listCalendar' =>  $this->overTimeService->listCalendar(),
-        ]);
+        ], compact('listCalendarData'));
     }
 
     public function edit(Request $request, $type)

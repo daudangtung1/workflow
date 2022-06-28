@@ -6,7 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Log;
 
 class NotifyApprovalEmail extends Notification
 {
@@ -17,12 +16,9 @@ class NotifyApprovalEmail extends Notification
      *
      * @return void
      */
-
-    protected $data;
-
-    public function __construct($data = [])
+    public function __construct()
     {
-        $this->data = $data;
+        //
     }
 
     /**
@@ -44,25 +40,12 @@ class NotifyApprovalEmail extends Notification
      */
     public function toMail($notifiable)
     {
-        $message = new MailMessage;
-
-        $message->success()
-            ->subject('未承認データがあります。確認して下さい。');
-
-        if (isset($this->data['over_time']))
-            $message->line('時間外申請 (' . $this->data['over_time'] . ')')
-                ->line(env('APP_URL') . 'approver/over-time');
-
-        if (isset($this->data['part_time']))
-            $message->line('パート申請 (' . $this->data['part_time'] . ')')
-                ->line(env('APP_URL') . 'approver/part-time');
-
-        if (isset($this->data['vacation']))
-            $message->line('休暇申請 (' . $this->data['vacation'] . ')')
-                ->line(env('APP_URL') . 'approver/vacation');
-
-
-        return $message;
+        return (new MailMessage)
+                    ->success()
+                    ->subject('Phê duyệt yêu cầu')
+                    ->line('Bạn có yêu cầu cần phê duyệt.')
+                    ->action('Truy cập', route('login'))
+                    ->line('Cảm ơn đã sử dụng phần mềm!');
     }
 
     /**

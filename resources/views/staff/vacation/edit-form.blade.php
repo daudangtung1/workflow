@@ -1,4 +1,6 @@
 @push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+
     <!-- daterange picker -->
     <style>
         .datepicker-days td.disabled2,
@@ -58,6 +60,59 @@
             background: #ffffff !important;
         }
 
+        .w-140{
+            /* width: unset !important; */
+        }
+
+        .relative{
+            position: relative;
+        }
+
+        .relative>div{
+            position: absolute;
+            top: 0;
+            right: 0;
+            pointer-events: none;
+            height: 100%;
+        }
+        .relative>div i{
+            font-size: 20px;
+        }
+
+        .relative>div>div{
+            border-radius: 0 5px 5px 0 !important;
+        }
+
+        .form_time{
+            width: 205px;
+        }
+
+        .form_time:nth-child(3), .form_time:nth-child(5){
+            position: relative;
+            
+        }
+
+        /*----custom flatickr----*/
+        .flatpickr-calendar.animate.open{
+            width: 140px;
+        }
+
+        .flatpickr-time input.flatpickr-minute, .flatpickr-time input.flatpickr-hour{
+            padding-left: 0 !important;
+        }
+
+        .form_time:nth-child(2) .form-group, .form_time:nth-child(4) .form-group{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .form_time .w-140{
+            width: 135px;
+        }
+        .form_time label{
+            margin-bottom: 0 !important;
+        }
+
     </style>
 @endpush
 
@@ -107,8 +162,7 @@
                             <label class="d-block" for="">休暇種別</label>
                             <table>
                                 @php($i = 0)
-                                @foreach (collect(\App\Enums\VacationType::asArray())->chunk(3)->all()
-    as $chunk)
+                                @foreach (collect(\App\Enums\VacationType::asArray())->chunk(3)->all() as $chunk)
                                     @php($i++)
 
                                     @if ($i <= 2)
@@ -129,6 +183,7 @@
                                         <tr>
                                         @else
                                         <tr>
+                                        @if(Auth::user()->type==\App\Enums\UserType::FULLTIME)
                                             <td class="pr-4 ">
                                                 <div class="col-radio d-radio col-mobile">
                                                     <input type="radio" id="vacation" name="type" value="vacation"
@@ -139,26 +194,57 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td class="pr-4 ">
-                                                <div class="form-group select-time">
-                                                    <select class="chosen-select" name="option_vacation">
-                                                        @foreach ($chunk as $item)
-                                                            <option value="{{ $item }}"
-                                                                {{ isset($infoVacation) && $infoVacation['type'] == $item ? 'selected' : '' }}>
-                                                                <span style="color: #6A6A6A !important;">欠勤</span>
-                                                                {{ \App\Enums\VacationType::getDescription($item) }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+                                            
+                                            <td class="pr-4-fix form_time">
+                                                <div class="form-group">
+                                                    <label>時刻1</label>
+                                                    <div class="relative w-140">
+                                                        <input type="time" name="start_time_1" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time_1'] : '' }}" id="start_time_1" >  
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                        </div>
+                                                    </div>
+                                                    <span>~</span>
                                                 </div>
                                             </td>
-                                            <td class="pr-4"></td>
+                                            <td class="pr-4-fix form_time">
+                                                <div class="form-group">
+                                                    <div class="relative w-140">
+                                                        <input type="time" name="end_time_1" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time_1'] : '' }}" id="end_time_1" > 
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                        </div>
+                                                    </div>
+                                                    <span> </span>
+                                                </div>
+                                            </td>
+                                            <td class="pr-4-fix form_time">
+                                                <div class="form-group">
+                                                    <label>時刻2</label>
+                                                    <div class="relative w-140">
+                                                        <input type="time" name="start_time_2" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['start_time_2'] : '' }}" id="start_time_2" > 
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                        </div>
+                                                    </div>
+                                                    <span>~</span>
+                                                </div>
+                                            </td>
+                                            <td class="pr-4-fix form_time">
+                                                <div class="form-group">
+                                                    <div class="relative w-140">
+                                                    <input type="time" name="end_time_2" class="form-control" value="{{ isset($infoVacation) ? $infoVacation['end_time_2'] : '' }}" id="end_time_2" > 
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text"><i class="icofont-clock-time"></i></div>
+                                                        </div>
+                                                    </div>
+                                                    <span> </span>
+                                                </div>
+                                            </td>
+                                        @endif
                                         </tr>
                                     @endif
                                 @endforeach
-                                <tr>
-                                    <td colspan="3" class="mt-20">※欠勤は有料の無い社員のみ使用可能</td>
-                                </tr>
                             </table>
                         </div>
                     </div>
@@ -264,4 +350,117 @@
             ],
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+    <script src="{{asset('js/bootbox.min.js')}}"></script>
+    <script>
+    $(document).ready(function(){
+
+    $("#start_time_1").flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        time_24hr: true,
+        dateFormat: "H:i",
+        minuteIncrement: 30,
+        time_24hr: true,
+        maxTime: '11:30',
+        defaultHour: '00',
+        defaultMinute: '00',
+    });
+    $("#end_time_1").flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        time_24hr: true,
+        dateFormat: "H:i",
+        minuteIncrement: 30,
+        disable: [13,14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+        maxTime: '11:30',
+        defaultHour: '00',
+        defaultMinute: '00',
+    });
+    $("#start_time_2").flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        time_24hr: true,
+        dateFormat: "H:i",
+        minuteIncrement: 30,
+        minTime: '12:00',
+        defaultHour: '12',
+        defaultMinute: '00',
+    });
+    $("#end_time_2").flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        time_24hr: true,
+        dateFormat: "H:i",
+        minuteIncrement: 30,
+        minTime: '12:00',
+        defaultHour: '12',
+        defaultMinute: '00',
+    });
+
+    $('.form-group input[type=time]').on('change', function(){
+        var input_data=$('.form-group input[type=time]');
+        if(input_data != "") {
+            $('#day4').attr('disabled', true);
+            $('#day5').attr('disabled', true);
+        }
+    });
+
+    // $('.col-radio input[type=radio]').on('change',function(){
+    //     console.log($(this).is(":checked"));
+    //     if($(this).is(":checked") && $(this).val()==4 || $(this).val()==5){
+    //         $('.form_time').hide();
+    //     }
+    //     else{
+    //         $('.form_time').show();
+    //     }
+    // });
+
+    $(document).on("submit", "form", function(e){
+            var currentForm = this;
+            e.preventDefault();
+                    bootbox.confirm({
+                    message: "変化?",
+                    buttons: {
+                        cancel: {
+                            label: "いいえ",
+                        },
+                        confirm: {
+                            label: "はい",
+                        },
+                    },
+                    callback: function(result){
+                        if(result){
+                            var get_date_start=new Date($('#start_date input').val());
+                            var get_end_date=new Date($('#end_date input').val());
+                            var get_subtract_date= (get_end_date - get_date_start) /1000/60/60/24;
+                            var input_data_1=$('#day1');
+                            var input_data_2=$('#day2');
+                            var input_data_4=$('#day4');
+                            var input_data_5=$('#day5');
+                            if(get_subtract_date > 1) {
+                                if(input_data_1.is(':checked') || input_data_2.is(':checked') || input_data_4.is(':checked') || input_data_5.is(':checked')) {
+                                    bootbox.alert({
+                                        message: "期間指定の場合、0.5日の選択は出来ません。",
+                                        buttons: {
+                                            ok: {
+                                                label: '近い'
+                                            }
+                                        },
+                                    });
+                                }
+                                else{
+                                    currentForm.submit();
+                                }
+                            }
+                            else{
+                                currentForm.submit();
+                            }
+                            
+                        }
+                    }
+                });
+        });
+});
+</script>
 @endpush

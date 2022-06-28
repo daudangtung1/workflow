@@ -122,7 +122,6 @@ class OverTimeController extends Controller
         try {
             $listRegister = $this->overtimeService->listRegister($request->date);
             $dates = $this->overtimeService->getDate($request->date);
-
             return response()->json([
                 'data' => $listRegister,
                 'dates' => $dates,

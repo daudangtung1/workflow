@@ -14,7 +14,7 @@
             </a>
             <ul class="nav nav-treeview" style="display: block;">
                 <li class="nav-item">
-                    <a href="{{ route('approver.over_time.index') }}" class="nav-link @yield('active_overtime1') ">
+                    <a href="{{ route('approver.overtime.index') }}" class="nav-link @yield('active_overtime1') ">
                         <p>
                             時間外申請 ({{ request()->overTime->count() }})
                             <i class="right fas fa-caret-right"></i>
@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('approver.part_time.index') }}" class="nav-link @yield('active_parttime1') ">
+                    <a href="{{ route('approver.parttime.index') }}" class="nav-link @yield('active_parttime1') ">
                         <p>
                             パート出勤簿 ({{ request()->partTime->count() }})
                             <i class="right fas fa-caret-right"></i>
@@ -37,7 +37,14 @@
                         </p>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a href="{{ route('approver.censorship.index') }}" class="nav-link @yield('censorship') ">
+                        <p>
+                            月次承認 ({{\App\Models\ParttimeRegister::countTotalNotApproval() + \App\Models\OvertimeRegister::countTotalNotApproval()}})
+                            <i class="right fas fa-caret-right"></i>
+                        </p>
+                    </a>
+                </li>
             </ul>
         </li>
     @endif

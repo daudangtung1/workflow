@@ -122,7 +122,20 @@
             border-color: #2176bd !important;
         }
 
+        .content3 .text-right{
+            display: flex;
+            align-items: flex-end;
+            flex-direction: column;
+        }
+        .content3 .text-right button{
+            width: 263px !important;
+            background-color: #3490dc;
+            border-color: #3490dc;
+        }
 
+        .vacation{
+            background: #ffebeb;
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datatables/buttons.bootstrap4.min.css') }}">
@@ -132,14 +145,10 @@
             @csrf
             @method('PUT')
             <div class="content3">
-                <div id="divBtn">
-                    
-                </div>
                 <div class="row">
                     <div class="col-md-12 ">
                         <table class="table table-bordered table-hover" id="example">
                             <thead>
-
                                 <tr>
                                     <th class="w-auto">日付(開始)</th>
                                     <th class="w-auto">申請者</th>
@@ -153,13 +162,53 @@
                                     <th class="w-auto">終了3</th>
                                     <th class="w-auto">時間外計(分)</th>
                                     <th class="w-auto">承認者</th>
-                                    <th class="w-auto">承認日時</th>
                                     <th class="w-auto">総務承認</th>
                                     <th class="w-auto">修正</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($dataPartTime as $item)
+                                @forelse($dataPartTime as $key=> $item)
+                                @if(in_array($item['date'], $listCalendarData))
+                                    <tr class="vacation">
+                                        <td>{{ $item['date'] }}</td>
+                                        <td>{{ $item['user'] }}</td>
+                                        <td>{{ $item['branch'] }}</td>
+
+                                        <td>{{ $item['start_time1'] }}</td>
+                                        <td>{{ $item['end_time1'] }}</td>
+                                        <td>{{ $item['start_time2'] }}</td>
+                                        <td>{{ $item['end_time2'] }}</td>
+                                        <td>{{ $item['start_time3'] }}</td>
+                                        <td>{{ $item['end_time3'] }}</td>
+                                        <td>{{ $item['time'] }}</td>
+
+                                        <td>{{ $item['approver'] }}</td>
+                                        <td>{{ $item['approval_date'] }}</td>
+                                        {{--<td>
+                                            @if (!$item['manager_confirm'])
+                                            <label class="custom-check">
+                                            <input type="checkbox" name="id[]" class="check-one"
+                                            value="{{ $item['id'] }}">
+                                            <span class="checkmark"></span>
+                                            @endif
+                                        </td>--}}
+                                        <td> <a href="javascript:void(0)" class="btnEdit"
+                                                data-id="{{ $item['id'] }}" data-user-id="{{ $item['user_id'] }}"
+                                                    data-date="{{ $item['date_register'] }}"
+                                                    data-start-time1="{{ $item['start_time1'] != '-' ? $item['start_time1'] : '' }}"
+                                                    data-end-time1="{{ $item['end_time1'] != '-' ? $item['end_time1'] : '' }}"
+                                                    data-start-time2="{{ $item['start_time2'] != '-' ? $item['start_time2'] : '' }}"
+                                                    data-end-time2="{{ $item['end_time2'] != '-' ? $item['end_time2'] : '' }}"
+                                                    data-start-time3="{{ $item['start_time3'] != '-' ? $item['start_time3'] : '' }}"
+                                                    data-end-time3="{{ $item['end_time3'] != '-' ? $item['end_time3'] : '' }}"
+                                                    data-manager="{{ $item['manager_confirm'] }}"
+                                                    data-approver="{{ $item['approver_id'] }}"
+                                                    data-approval-date="{{ $item['approval_date'] }}">
+                                                    <i class="icofont-pencil-alt-1"></i></a>
+                                        </td>
+                                    </tr>
+                                    @unset($item['date'])
+                                @else
                                     <tr>
                                         <td>{{ $item['date'] }}</td>
                                         <td>{{ $item['user'] }}</td>
@@ -175,33 +224,33 @@
 
                                         <td>{{ $item['approver'] }}</td>
                                         <td>{{ $item['approval_date'] }}</td>
-                                        <td>
+                                        {{--<td>
                                             @if (!$item['manager_confirm'])
                                             <label class="custom-check">
-                                                <input type="checkbox" name="id[]" class="check-one"
-                                                    value="{{ $item['id'] }}">
-                                                <span class="checkmark"></span>
+                                            <input type="checkbox" name="id[]" class="check-one"
+                                            value="{{ $item['id'] }}">
+                                            <span class="checkmark"></span>
                                             @endif
-                                        </td>
+                                        </td>--}}
                                         <td> <a href="javascript:void(0)" class="btnEdit"
                                                 data-id="{{ $item['id'] }}" data-user-id="{{ $item['user_id'] }}"
-                                                data-date="{{ $item['date_register'] }}"
-                                                data-start-time1="{{ $item['start_time1'] != '-' ? $item['start_time1'] : '' }}"
-                                                data-end-time1="{{ $item['end_time1'] != '-' ? $item['end_time1'] : '' }}"
-                                                data-start-time2="{{ $item['start_time2'] != '-' ? $item['start_time2'] : '' }}"
-                                                data-end-time2="{{ $item['end_time2'] != '-' ? $item['end_time2'] : '' }}"
-                                                data-start-time3="{{ $item['start_time3'] != '-' ? $item['start_time3'] : '' }}"
-                                                data-end-time3="{{ $item['end_time3'] != '-' ? $item['end_time3'] : '' }}"
-                                                data-manager="{{ $item['manager_confirm'] }}"
-                                                data-approver="{{ $item['approver_id'] }}"
-                                                data-approval-date="{{ $item['approval_date'] }}">
-                                                <i class="icofont-pencil-alt-1"></i></a></td>
-
+                                                    data-date="{{ $item['date_register'] }}"
+                                                    data-start-time1="{{ $item['start_time1'] != '-' ? $item['start_time1'] : '' }}"
+                                                    data-end-time1="{{ $item['end_time1'] != '-' ? $item['end_time1'] : '' }}"
+                                                    data-start-time2="{{ $item['start_time2'] != '-' ? $item['start_time2'] : '' }}"
+                                                    data-end-time2="{{ $item['end_time2'] != '-' ? $item['end_time2'] : '' }}"
+                                                    data-start-time3="{{ $item['start_time3'] != '-' ? $item['start_time3'] : '' }}"
+                                                    data-end-time3="{{ $item['end_time3'] != '-' ? $item['end_time3'] : '' }}"
+                                                    data-manager="{{ $item['manager_confirm'] }}"
+                                                    data-approver="{{ $item['approver_id'] }}"
+                                                    data-approval-date="{{ $item['approval_date'] }}">
+                                                    <i class="icofont-pencil-alt-1"></i></a>
+                                        </td>
                                     </tr>
+                                @endif
                                 @empty
                                     <tr>
                                         <td colspan="14" class="text-center">{{ __('common.data.error') }}</td>
-                                        <td class="d-none"></td>
                                         <td class="d-none"></td>
                                         <td class="d-none"></td>
                                         <td class="d-none"></td>
@@ -219,8 +268,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-12 mt-30 text-right"><button
-                        class="btn btn-primary  form-button-list form-button" disabled>承認</button>
+                    <div class="col-md-12 mt-30 text-right">
+                        <!-- <button class="btn btn-primary  form-button-list form-button" disabled>承認</button> -->
                 </div>
                 </div>
             </div>
@@ -236,10 +285,11 @@
     <script src="{{ asset('js/datatables/buttons.bootstrap4.min.js') }}"></script>
 
     <script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
-
+    <script src="{{ asset('js/moment.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
+            var d={{\Carbon\Carbon::now()->format('Ymd')}};
             var table = $('#example').DataTable({
                 lengthChange: false,
                 "paging": false,
@@ -251,12 +301,12 @@
                 "responsive": false,
                 buttons: [{
                     extend: 'csv',
-                    text: '<b>CSVダウンロード</b>'
+                    text: '<b>CSVダウンロード</b>',
+                    title: '時間外申請明細_'+d,
                 }]
             });
 
-            table.buttons().container()
-                .appendTo('#example_wrapper .col-md-6:eq(0)');
+            table.buttons().container().appendTo('.content3 .col-md-12.mt-30.text-right:eq(0)');
 
             let divCsv = $('#example_wrapper').children().children();
             $('#example_wrapper').children().find(divCsv[0])
@@ -267,8 +317,8 @@
                 $('#example_wrapper').children().find(divCsv[0]).css('margin-bottom', '20px');
 
             $('#example_wrapper').children().find(divCsv[1])
-                .addClass('text-right').html(
-                    '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 45px" href="javascript:void(0)">全てチェック</a>');
+                // .addClass('text-right').html(
+                //     '<a class="check-all pr-5 font-weight-bold" style="position: relative; top: 45px" href="javascript:void(0)">全てチェック</a>');
 
                     $('.dataTable').parent().addClass('overflow-auto');
         });
@@ -287,22 +337,22 @@
             checkSubmit();
         })
 
-        function checkSubmit() {
-            if ($('.check-one:checked').length > 0) {
-                $('.form-button-list').prop('disabled', false);
-            } else {
-                $('.form-button-list').prop('disabled', true);
-            }
-        }
+        // function checkSubmit() {
+        //     if ($('.check-one:checked').length > 0) {
+        //         $('.form-button-list').prop('disabled', false);
+        //     } else {
+        //         $('.form-button-list').prop('disabled', true);
+        //     }
+        // }
 
         $('.btnEdit').click(function() {
             $('.form-button').prop('disabled', false);
             $('#edit-tab').parent().removeClass('d-none');
             $('#edit-tab').click();
 
-            let date = $(this).data('date');
+            let date = moment($(this).data('date')).format('YYYY/MM/DD');
             let manager = $(this).data('manager');
-            let approvalDate = $(this).data('approval-date');
+            let approvalDate = moment($(this).data('approval-date').split(' ')[0]).format('YYYY/MM/DD');
             let approver = $(this).data('approver');
             let userId = $(this).data('user-id');
             let id = $(this).data('id');
@@ -320,19 +370,25 @@
             $(`select[name=manager_status_edit]`).val(manager).trigger('change');
             $('input[name=id]').val(id);
 
-            $(`select[name=start_time_first]`).val(startTime1).trigger('change');
-            $(`select[name=end_time_first]`).val(endTime1).trigger('change');
+            $(`input[name=start_time_first]`).val(startTime1).trigger('change');
+            $(`input[name=end_time_first]`).val(endTime1).trigger('change');
 
-            $(`select[name=start_time_second]`).val(startTime2).trigger('change');
-            $(`select[name=end_time_second]`).val(endTime2).trigger('change');
+            $(`input[name=start_time_second]`).val(startTime2).trigger('change');
+            $(`input[name=end_time_second]`).val(endTime2).trigger('change');
 
-            $(`select[name=start_time_third]`).val(startTime3).trigger('change');
-            $(`select[name=end_time_third]`).val(endTime3).trigger('change');
+            $(`input[name=start_time_third]`).val(startTime3).trigger('change');
+            $(`input[name=end_time_third]`).val(endTime3).trigger('change');
 
             if (!manager)
                 $(`select[name=manager_status_edit]`).val('{{ \App\Enums\ManagerStatus::PENDING }}').trigger(
                     'change');
             //getData(id);
+
+            $('#date input').trigger('click');
+            $('#date input').trigger('click');
+
+            $('#approval_date input').trigger('click');
+            $('#approval_date input').trigger('click');
         })
     </script>
 @endpush

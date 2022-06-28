@@ -26,4 +26,14 @@ class ParttimeRegister extends BaseModel
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function approvalByMonth()
+    {
+        return $this->morphOne(ApprovalByMonth::class,'modelable');
+    }
+
+    public static function countTotalNotApproval()
+    {
+        return ParttimeRegister::whereNull('approval_date')->count();
+    }
 }

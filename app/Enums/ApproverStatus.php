@@ -8,4 +8,5 @@ class ApproverStatus extends BaseEnum
 {
     const PENDING = 1;
     const APPROVED = 2;
+    const ALL = 3;
 }

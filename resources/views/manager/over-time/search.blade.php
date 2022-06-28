@@ -78,6 +78,14 @@
             border-radius: 0.25rem;
         }
 
+        #start_date .input-group-text, #end_date .input-group-text{
+            width: 52px;
+        }
+
+        #start_date>input, #end_date>input{
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+        }
     </style>
 @endpush
 
@@ -93,8 +101,8 @@
                                 <div class="w-185 inline-flex input-group date input-date" id="start_date"
                                     data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#start_date" name="start_date" placeholder="年-月-日"
-                                        data-toggle="datetimepicker" value="{{ request()->start_date }}" />
+                                        data-target="#start_date" name="start_date" placeholder="年/月/日"
+                                        data-toggle="datetimepicker" value="{{ request()->start_date }}" autocomplete="off"/>
                                     <div class="input-group-append" data-target="#start_date"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="icofont-calendar"></i></div>
@@ -105,7 +113,7 @@
                                     data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input" data-target="#end_date"
                                         name="end_date" placeholder="年-月-日" data-toggle="datetimepicker"
-                                        value="{{ request()->end_date }}" />
+                                        value="{{ request()->end_date }}"  autocomplete="off"/>
                                     <div class="input-group-append" data-target="#end_date"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="icofont-calendar"></i></div>
@@ -178,12 +186,11 @@
                     <div class="row mt-30">
                         <div class="col-md-12">
                             <div class="form-group select-time select-100">
-                                <label for="">総務確認</label>
+                                <label for="">月次承認</label>
                                 <select class="chosen-select" name="manager_status">
-                                    <option value="all" data-name="">&nbsp;</option>
+                                    <option value="" data-name="">&nbsp;</option>
                                     @foreach (\App\Enums\ManagerStatus::asArray() as $item)
                                         <option value="{{ $item }}"
-                                            {{ !request()->manager_status && $item == \App\Enums\ManagerStatus::PENDING  ? 'selected' : '' }}
                                             {{ request()->manager_status == $item ? 'selected' : '' }}>
                                             {{ \App\Enums\ManagerStatus::getDescription($item) }}
                                         </option>
@@ -224,13 +231,13 @@
 
         $('select').change();
         $('.input-date').datetimepicker({
-            format: "YYYY-MM-DD",
+            format: "YYYY/MM/DD dd",
             locale: "ja",
             useCurrent: false,
             disabledDates: [
-                 @foreach ($listCalendar as $item)
+                 {{--@foreach ($listCalendar as $item)
                     moment("{{ $item->date }}"),
-                 @endforeach
+                 @endforeach--}}
             ],
             daysOfWeekDisabled: [0, 6],
         });

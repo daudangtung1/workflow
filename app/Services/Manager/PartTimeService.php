@@ -9,6 +9,7 @@ use App\Models\Branch;
 use App\Models\ParttimeRegister;
 use App\Models\User;
 use App\Services\BaseService;
+use App\Models\Calendar;
 
 
 class PartTimeService extends BaseService
@@ -34,6 +35,24 @@ class PartTimeService extends BaseService
             $q->orWhere('role', UserRole::APPROVER);
             $q->orWhere('role', UserRole::MANAGER);
         })->orderBy('created_at', 'DESC')->get();
+    }
+
+    public function getAll()
+    {
+        return $this->model->all();
+    }
+
+    public function filterByDate($year, $month, $statusApproval)
+    {
+        $query = $this->model->whereYear('date', $year)->whereMonth('date', $month);
+
+        if ($statusApproval == 1) {
+            $query->whereNull('approval_date');
+        } else if ($statusApproval == 2) {
+            $query->whereNotNull('approval_date');
+        }
+
+        return $query->get();
     }
 
     public function listPartTime($request)
@@ -62,14 +81,14 @@ class PartTimeService extends BaseService
             })
             //approver status
             ->when($request->approver_status, function ($query) use ($request) {
-                if ($request->approver_status ==  ApproverStatus::APPROVED)
+                if ($request->approver_status == ApproverStatus::APPROVED)
                     return $query->whereNotNull('approver');
 
                 return $query->whereNull('approver');
             })
             // manager status
             ->when($request->manager_status && $request->manager_status != 'all', function ($query) use ($request) {
-                if ($request->manager_status ==  ManagerStatus::PROCESSED)
+                if ($request->manager_status == ManagerStatus::PROCESSED)
                     return $query->whereNotNull('manager_confirm');
 
                 return $query->whereNull('manager_confirm');
@@ -80,31 +99,31 @@ class PartTimeService extends BaseService
         $data = [];
 
         foreach ($listPartTime as $item) {
-            $time1 =  $item->start_time_first ? (strtotime($item->end_time_first) - strtotime($item->start_time_first)) / 60  : 0;
-            $time2 =  $item->start_time_second ? (strtotime($item->end_time_second) - strtotime($item->start_time_second)) / 60  : 0;
-            $time3 = $item->start_time_third ? (strtotime($item->end_time_third) - strtotime($item->start_time_third)) / 60  : 0;
+            $time1 = $item->start_time_first ? (strtotime($item->end_time_first) - strtotime($item->start_time_first)) / 60 : 0;
+            $time2 = $item->start_time_second ? (strtotime($item->end_time_second) - strtotime($item->start_time_second)) / 60 : 0;
+            $time3 = $item->start_time_third ? (strtotime($item->end_time_third) - strtotime($item->start_time_third)) / 60 : 0;
             $user = $this->userModel->find($item->user_id);
 
             $data[] = [
-                'id' => $item->id,
-                'user_id' => $item->user_id,
-                'user' => $user ? $user->fullName : '',
+                'id'            => $item->id,
+                'user_id'       => $item->user_id,
+                'user'          => $user ? $user->fullName : '',
                 'date_register' => $item->date,
-                'date' => $item->date ? $item->date . '(' . $this->getDayOfWeek($item->date) . ')' : '',
+                'date'          => $item->date ? $item->date . '(' . $this->getDayOfWeek($item->date) . ')' : '',
 
                 'start_time1' => $item->start_time_first ? $this->formatTime($item->start_time_first) : '-',
-                'end_time1' => $item->end_time_first ? $this->formatTime($item->end_time_first) : '-',
+                'end_time1'   => $item->end_time_first ? $this->formatTime($item->end_time_first) : '-',
                 'start_time2' => $item->start_time_second ? $this->formatTime($item->start_time_second) : '-',
-                'end_time2' => $item->end_time_second ? $this->formatTime($item->end_time_second) : '-',
+                'end_time2'   => $item->end_time_second ? $this->formatTime($item->end_time_second) : '-',
                 'start_time3' => $item->start_time_third ? $this->formatTime($item->start_time_third) : '-',
-                'end_time3' => $item->end_time_third ? $this->formatTime($item->end_time_third) : '-',
-                'time' => $time1 + $time2 + $time3,
+                'end_time3'   => $item->end_time_third ? $this->formatTime($item->end_time_third) : '-',
+                'time'        => $time1 + $time2 + $time3,
 
-                'approval_date' => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
-                'approver' => $item->userApprover ? $item->userApprover->first_name . $item->userApprover->last_name : '',
-                'approver_id' => $item->approver,
+                'approval_date'   => $item->approval_date ? $this->formatTime($item->approval_date, 'datetime') : '',
+                'approver'        => $item->userApprover ? $item->userApprover->first_name . $item->userApprover->last_name : '',
+                'approver_id'     => $item->approver,
                 'manager_confirm' => $item->manager_confirm ? ManagerStatus::PROCESSED : false,
-                'branch' => $user->branch ? $user->branch->name : '',
+                'branch'          => $user->branch ? $user->branch->name : '',
             ];
         }
 
@@ -131,5 +150,32 @@ class PartTimeService extends BaseService
     public function deletePartTime($id)
     {
         return $this->model->where('id', $id)->delete();
+    }
+
+    public function listCalendarFull()
+    {
+        $list = Calendar::all();
+
+        $data_1 = [];
+        foreach ($list as $item) {
+            $data_1[] = [
+                'date' => $item->date . '(' . $this->getDayOfWeek($item->date) . ')',
+            ];
+        }
+        $data = [];
+        foreach ($data_1 as $d) {
+            foreach ($d as $e)
+                $data[] = $e;
+        }
+        return $data;
+    }
+
+    public function findByDate($year, $month, $userId)
+    {
+        return $this->model->where('user_id', $userId)
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->orderBy('date', 'ASC')
+            ->get();
     }
 }

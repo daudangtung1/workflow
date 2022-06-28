@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Approver;
 
 use App\Http\Controllers\Controller;
-use App\Services\Approver\OverTimeService;
+use App\Services\ApproverMonth\OverTimeService;
 use Illuminate\Http\Request;
+use App\Enums\UserRole;
 
 class OverTimeController extends Controller
 {
@@ -18,9 +19,11 @@ class OverTimeController extends Controller
     public function index(Request $request)
     {
         $listRegister = $this->overtimeService->listRegister($request->overTime);
-
         return view('approver.over-time.index', [
             'listRegister' => $listRegister,
+            'staffs' => $this->overtimeService->listUser(UserRole::STAFF),
+            'branchs' => $this->overtimeService->listBranch(),
+            'active' => 'index',
         ]);
     }
 
@@ -28,8 +31,39 @@ class OverTimeController extends Controller
     {
         try {
             $this->overtimeService->updateApprover($request->id);
+            $dataRegister = $this->overtimeService->listOverTime($request);
+            $listCalendarData = $this->overtimeService->listCalendarFull();
+            $view = view('approver.over-time.table', compact('dataRegister', 'listCalendarData'))->render();
+            $count_data= view('approver.over-time.count', ['count' => count($dataRegister) ? count($dataRegister) : 0])->render();
+            return response()->json(array('statusCode' => 200, 'html' => $view, 'count' => $count_data));
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
 
-            return redirect()->route('approver.over_time.index')->with('success', __('common.update.success'));
+    public function show(Request $request, $id)
+    {
+        $dataRegister = $this->overtimeService->listOverTime($request);
+        $listCalendarData = $this->overtimeService->listCalendarFull();
+        return view('approver.over-time.index', [
+            'staffs' => $this->overtimeService->listUser(),
+            'branchs' => $this->overtimeService->listBranch(),
+            'active' => 'show',
+            'dataRegister' =>  $dataRegister,
+            'approvers' => $this->overtimeService->listUser(UserRole::APPROVER),
+            'count' => count($dataRegister),
+        ], compact('listCalendarData'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $this->overtimeService->cancelApprover($request->id);
+            $dataRegister = $this->overtimeService->listOverTime($request);
+            $listCalendarData = $this->overtimeService->listCalendarFull();
+            $view = view('approver.over-time.table', compact('dataRegister', 'listCalendarData'))->render();
+            $count_data= view('approver.over-time.count', ['count' => count($dataRegister) ? count($dataRegister) : 0])->render();
+            return response()->json(array('statusCode' => 200, 'html' => $view, 'count' => $count_data));
         } catch (\Exception $e) {
             return $e->getMessage();
         }

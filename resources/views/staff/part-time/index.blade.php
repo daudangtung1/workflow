@@ -18,24 +18,23 @@
     <div class="tab-main">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-                    aria-selected="true"><b>{{ isset($infoRegister) ? '更新' : ' 申請' }}</b></a>
+                <a class="nav-link search active" id="list-tab" data-date="{{ $dates['current'] }}" data-toggle="tab" href="#list"
+                    role="tab" aria-controls="list" aria-selected="false"  data-hash="d1"><b>一覧</b></a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link search" id="list-tab" data-date="{{ $dates['current'] }}" data-toggle="tab" href="#list"
-                    role="tab" aria-controls="list" aria-selected="false"><b>一覧</b></a>
+                <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false"  data-hash="d2"><b>{{ isset($infoRegister) ? '更新' : ' 申請' }}</b></a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                @if (isset($infoRegister))
-                    @include('staff.part-time.edit-form')
-                @else
-                    @include('staff.part-time.create-form')
-                @endif
-            </div>
-            <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
+            <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
                 @include('staff.part-time.list')
+            </div>
+            <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    @if (isset($infoRegister))
+                        @include('staff.part-time.edit-form')
+                    @else
+                        @include('staff.part-time.create-form')
+                    @endif
             </div>
         </div>
     </div>

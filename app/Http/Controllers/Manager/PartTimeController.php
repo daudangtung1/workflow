@@ -26,13 +26,14 @@ class PartTimeController extends Controller
             'active' => 'index',
             'times' => $this->getTime(),
             'approvers' => $this->partTimeService->listUser(UserRole::APPROVER),
-            'listCalendar' =>  $this->partTimeService->listCalendar(),
+            'listCalendar' =>  $this->partTimeService->listCalendarFull(),
         ]);
     }
 
     public function show(Request $request)
     {
         $dataPartTime = $this->partTimeService->listPartTime($request);
+        $listCalendarData = $this->partTimeService->listCalendarFull();
 
         return view('manager.part-time.index', [
             'staffs' => $this->partTimeService->listUser(UserRole::STAFF),
@@ -42,7 +43,7 @@ class PartTimeController extends Controller
             'dataPartTime' => $dataPartTime,
             'approvers' => $this->partTimeService->listUser(UserRole::APPROVER),
             'listCalendar' =>  $this->partTimeService->listCalendar(),
-        ]);
+        ], compact('listCalendarData'));
     }
 
     public function update(Request $request, $type)
@@ -61,9 +62,9 @@ class PartTimeController extends Controller
         try {
             $data = [
                 'user_id' => $request->user_register,
-                'date' => $request->date,
+                'date' => substr($request->date, 0, -4),
                 'approver' => $request->approver,
-                'approval_date' => $request->approval_date ? Carbon::parse($request->approval_date)->format('Y-m-d H:i:s') : null,
+                'approval_date' => $request->approval_date ? Carbon::parse(substr($request->approval_date, 0, -4))->format('Y-m-d H:i:s') : null,
                 'manager_confirm' => null,
                 'id' => $request->id,
             ];

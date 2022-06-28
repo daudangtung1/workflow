@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Approver;
 
 use App\Http\Controllers\Controller;
-use App\Services\Approver\PartTimeService;
+use App\Services\ApproverMonth\PartTimeService;
 use Illuminate\Http\Request;
+use App\Enums\UserRole;
 
 class PartTimeController extends Controller
 {
@@ -21,6 +22,9 @@ class PartTimeController extends Controller
 
         return view('approver.part-time.index', [
             'listRegister' => $listRegister,
+            'staffs' => $this->parttimeService->listUser(UserRole::STAFF),
+            'branchs' => $this->parttimeService->listBranch(),
+            'active' => 'index',
         ]);
     }
 
@@ -28,8 +32,38 @@ class PartTimeController extends Controller
     {
         try {
             $this->parttimeService->updateApprover($request->id);
+            $dataRegister = $this->parttimeService->listPartTime($request);
+            $listCalendarData = $this->parttimeService->listCalendarFull();
+            $view = view('approver.part-time.table', compact('dataRegister', 'listCalendarData'))->render();
+            $count_data= view('approver.part-time.count', ['count' => count($dataRegister) ? count($dataRegister) : 0])->render();
+            return response()->json(array('statusCode' => 200, 'html' => $view, 'count' => $count_data));
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    public function show(Request $request, $id)
+    {
+        $dataRegister = $this->parttimeService->listPartTime($request);
+        $listCalendarData = $this->parttimeService->listCalendarFull();
+        return view('approver.part-time.index', [
+            'dataRegister' => $dataRegister,
+            'active' => 'show',
+            'approvers' => $this->parttimeService->listUser(UserRole::APPROVER),
+            'staffs' => $this->parttimeService->listUser(),
+            'branchs' => $this->parttimeService->listBranch(),
+            'count' => count($dataRegister),
+        ], compact('listCalendarData'));
+    }
 
-            return redirect()->route('approver.part_time.index')->with('success', __('common.update.success'));
+    public function update(Request $request, $id)
+    {
+        try {
+            $this->parttimeService->cancelApprover($request->id);
+            $dataRegister = $this->parttimeService->listPartTime($request);
+            $listCalendarData = $this->parttimeService->listCalendarFull();
+            $view = view('approver.part-time.table', compact('dataRegister', 'listCalendarData'))->render();
+            $count_data= view('approver.part-time.count', ['count' => count($dataRegister) ? count($dataRegister) : 0])->render();
+            return response()->json(array('statusCode' => 200, 'html' => $view, 'count' => $count_data));
         } catch (\Exception $e) {
             return $e->getMessage();
         }
