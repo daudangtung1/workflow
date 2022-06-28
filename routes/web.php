@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 Route::group(['middleware' => 'auth.staff'], function () {
     Route::resource('/staff-over-time', OverTimeController::class);
+    Route::get('staff-over-time/data/{data_id}', [OverTimeController::class, 'responseData'])->name('staff-over-time.responseData');
     Route::get('staff-part-time/data/{data_id}', [PartTimeController::class, 'responseData'])->name('staff-part-time.responseData');
     Route::resource('/staff-part-time', PartTimeController::class);
     Route::resource('/staff-vacation', VacationController::class);

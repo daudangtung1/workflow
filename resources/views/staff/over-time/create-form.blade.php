@@ -206,6 +206,8 @@
 @push('scripts')
 <script src="{{asset('js/bootbox.min.js')}}"></script>
 <script src="{{asset('js/timepicki/timepicki.js')}}"></script>
+<script src="{{ asset('js/moment/moment.min.js') }}"></script>
+<script src="{{ asset('js/moment/moment-with-locales.min.js') }}"></script>
 <script>
         var date_auth_start=new Date("01/01/2007 " + "{{Auth::user()->start_time_working}}").getHours();
         $("#start_time").timepicki({
@@ -413,7 +415,8 @@
                 $('#after_end').html(hours);
             }
 
-            let date = $('input[name=date]').val();
+            let date_input = $('input[name=date]').val();
+            let date=moment(new Date(date_input)).format('YYYY-MM-DD');
             if (date >= formDateCheck && date <= toDateCheck && $('.form-button').html() != '承認済み')
                 disable = false;
             $('#notiDanger').html('');
@@ -481,7 +484,7 @@
     //             $('.select-time .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
     // }
     $('.input-date').datetimepicker({
-        format: "YYYY-MM-DD",
+        format: "YYYY/MM/DD (dd)",
         locale: "ja",
         useCurrent: false,
         disabledDates: [

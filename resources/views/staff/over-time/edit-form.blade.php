@@ -256,7 +256,8 @@
     $('.form-sbm').click(e => {
         e.preventDefault();
         let time = $(`#result`).html();
-        let date = $('input[name=date]').val();
+        let date_get = $('input[name=date]').val();
+        let date=moment(new Date(date_get)).format('YYYY-MM-DD');
 
         if (time * 1 <= 0 || !date) {
             $('#notiDanger').html('');
@@ -433,7 +434,7 @@
                 $('#after_end').html(hours);
             }
 
-            let date = $('input[name=date]').val();
+            let date = $('input[name=date]').val(); date=moment(new Date(date)).format('YYYY-MM-DD');
             if (date >= formDateCheck && date <= toDateCheck && $('.form-button').html() != '承認済み')
                 disable = false;
             $('#notiDanger').html('');
@@ -502,7 +503,7 @@
     //             $('.select-time .select2-selection__arrow').html('<i class="icofont-clock-time"></i>');
     // }
     $('.input-date').datetimepicker({
-        format: "YYYY-MM-DD",
+        format: "YYYY/MM/DD (dd)",
         locale: "ja",
         useCurrent: false,
         disabledDates: [

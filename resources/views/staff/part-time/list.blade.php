@@ -1,40 +1,40 @@
 @push('styles')
-<!-- daterange picker -->
-<link rel="stylesheet" href="{{ asset('css/daterangepicker/daterangepicker.css') }}">
-<style>
-    /* width */
-    .date_now {
-        /* font-size: 0.85rem; */
-        font-size: 15px;
-        font-weight: bold;
-    }
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{ asset('css/daterangepicker/daterangepicker.css') }}">
+    <style>
+        /* width */
+        .date_now {
+            /* font-size: 0.85rem; */
+            font-size: 15px;
+            font-weight: bold;
+        }
 
-    .vacation {
-        background: #ffebeb;
-    }
+        .vacation {
+            background: #ffebeb;
+        }
 
-    /*----*/
-    .flex-between {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        /*----*/
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .box_total {
-        border: 1px solid #000;
-        padding: 2px 10px;
-        font-weight: bold;
-    }
+        .box_total {
+            border: 1px solid #000;
+            padding: 2px 10px;
+            font-weight: bold;
+        }
 
-    .box_total_title {
-        padding-right: 10px;
-        border-right: 1px solid #000;
-    }
+        .box_total_title {
+            padding-right: 10px;
+            border-right: 1px solid #000;
+        }
 
-    #get_total {
-        padding-left: 10px;
-    }
-</style>
+        #get_total {
+            padding-left: 10px;
+        }
+    </style>
 @endpush
 
 
@@ -206,13 +206,15 @@
 </script>
 <script>
     $(document).ajaxComplete(function(){
-        var url = $(location).attr('href'),
-        parts = url.split("/"),
-        last_part = parts[parts.length-1];
-        var last_part_id= "#" + last_part;
-        $('html, body').animate({
-            scrollTop:$(last_part_id).offset().top
-        }, 200);
+        var url = $(location).attr('href');
+        parts = url.split("/");
+        if(parts[parts.length-2]=='data'){
+            last_part = parts[parts.length-1];
+            var last_part_id= "#" + last_part;
+            $('html, body').animate({
+                scrollTop:$(last_part_id).offset().top
+            }, 200);
+        }
     });
 </script>
 @endpush

@@ -240,6 +240,8 @@
         </div>
         <input type="hidden" id="message" value="期間が無効になっている">
 @push('scripts')
+<script src="{{ asset('js/moment/moment.min.js') }}"></script>
+<script src="{{ asset('js/moment/moment-with-locales.min.js') }}"></script>
     <script>
         $('.chosen-select').on('select2:select', function (e) {
             if($(this).val() == 0 ) {
@@ -258,6 +260,7 @@
             e.preventDefault();
             let time = $(`#result`).html();
             let date = $('input[name=date]').val();
+            date = moment(new Date(date)).format('YYYY/MM/DD');
 
             if(time*1 <= 0 || !date || !checkTimeStart()) {
                 $('#notiDanger').html('');
@@ -412,6 +415,7 @@
             });
 
             let date = $('input[name=date]').val();
+            date=moment(new Date(date)).format('YYYY-MM-DD');
 
             if (date >= formDateCheck && date <= toDateCheck && $('.form-sbm').html() != '承認済み')
                 disable = false;
@@ -454,7 +458,7 @@
            return check;
         }
         $('.input-date').datetimepicker({
-            format: "YYYY-MM-DD",
+            format: "YYYY/MM/DD (dd)",
             locale: "ja",
             disabledDates: [
                 @foreach ($listCalendar as $item)

@@ -92,7 +92,7 @@ class OverTimeController extends Controller
 
             $data = [
                 'user_id' => $user->id,
-                'date' => $request->date,
+                'date' => substr($request->date, 0, -6),
                 'start_time_working' => $startTimeWorking,
                 'end_time_working' => $endTimeWorking,
             ];
@@ -111,7 +111,8 @@ class OverTimeController extends Controller
 
             $this->overtimeService->registerOverTime($data);
 
-            return redirect()->route('staff-over-time.index')->with('success', $message);
+            $data_id_output=str_replace('/', '-', $data['date']);
+            return redirect()->route('staff-over-time.responseData', $data_id_output)->with('success', $message);
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -133,8 +134,7 @@ class OverTimeController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $infoRegister = $this->overtimeService->infoRegisterByDate($request->date);
-
+        $infoRegister = $this->overtimeService->infoRegisterByDate(substr($request->date, 0, -6));
         return response()->json($infoRegister);
     }
 
@@ -144,6 +144,22 @@ class OverTimeController extends Controller
             $this->overtimeService->delete($id);
 
             return redirect()->route('staff-over-time.index')->with('success', __('common.delete.success'));
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+    }
+
+    public function responseData(Request $request, $data_id){
+        try {
+            $listRegister = $this->overtimeService->listRegister($request->date);
+            $dates = $this->overtimeService->getDate($request->date);
+            $listCalendar =  $this->overtimeService->listCalendar();
+            return view('staff.over-time.index')->with([
+                'data' => $listRegister,
+                'dates' => $dates,
+                'data_id' => $data_id,
+                'listCalendar' => $listCalendar
+            ]);
         } catch (\Exception $e) {
             $e->getMessage();
         }

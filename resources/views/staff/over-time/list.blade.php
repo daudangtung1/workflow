@@ -95,7 +95,7 @@
                         let icon = item.disable ? '<i class="icofont-lock"></i>' :
                             `<a href="${redirect}?register=${item.id}&date=${key}" ><i class="icofont-pencil-alt-1"></i></a>`
 
-                        body += (`<tr>
+                        body += (`<tr id=${item.date_id}>
                                 <td>${moment(new Date(item.date)).format('YYYY/MM/DD (dd)')}</td>
                                 <td>${item.start_time}</td>
                                 <td>${item.end_time}</td>
@@ -159,5 +159,18 @@
         let url_check=$('#url_check').val();
         if(window.location.href === url_check) $('#myTab .search').trigger('click');
         else $('#myTab .nav-item:last-child a').trigger('click');
+    </script>
+    <script>
+        $(document).ajaxComplete(function(){
+            var url = $(location).attr('href');
+            parts = url.split("/");
+            if(parts[parts.length-2]=='data'){
+                last_part = parts[parts.length-1];
+                var last_part_id= "#" + last_part;
+                $('html, body').animate({
+                    scrollTop:$(last_part_id).offset().top
+                }, 200);
+            }
+        });
     </script>
 @endpush
