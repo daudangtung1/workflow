@@ -1,0 +1,130 @@
+.content-wrapper .tab-content {
+  background: #ffffff !important;
+}
+.content-wrapper .nav-tabs .nav-link.active {
+  background: #ffffff !important;
+}
+.content-wrapper .datepicker-days .weekend {
+  background: #FFD1D1 !important;
+  border-radius: 50%;
+}
+.content-wrapper .datepicker-days tbody tr {
+  border-bottom: 2px solid transparent;
+}
+.content-wrapper .datepicker-days td {
+  width: 35px !important;
+}
+.content-wrapper .form-group {
+  margin-bottom: 0;
+  max-width: 410px !important;
+}
+.content-wrapper .mt-30 {
+  margin-top: 30px;
+}
+.content-wrapper label {
+  font-weight: 500;
+  font-size: 16px;
+}
+.content-wrapper input,
+.content-wrapper select {
+  height: 46px !important;
+}
+.content-wrapper label {
+  margin-bottom: 6px !important;
+}
+.content-wrapper .form-button {
+  margin-top: 70px;
+  height: 46px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.content-wrapper .tab-content1 {
+  padding: 60px 30px 113px 30px;
+}
+.content-wrapper .select-time .select2-selection {
+  height: 46px !important;
+}
+.content-wrapper .select-time .select2-selection__rendered {
+  line-height: 40px !important;
+}
+.content-wrapper .select-time .select2-selection__arrow {
+  height: 46px !important;
+  line-height: 30px !important;
+  width: 56px !important;
+  border-radius: 0 0.25rem 0.25rem 0 !important;
+}
+.content-wrapper .fa-calendar-alt {
+  width: 56px;
+  font-size: 20px;
+}
+.content-wrapper .select2-container--default .select2-selection--single {
+  border: 1px solid #ced4da;
+}
+.content-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
+  right: 0px !important;
+  top: 0;
+  border-radius: 0 0.25rem 0.25rem 0 !important;
+  border: 1px solid #ced4da !important;
+}
+.content-wrapper .select2-container--default .select2-selection--single .select2-selection__placeholder,
+.content-wrapper .select2-search__field {
+  font-size: 16px !important;
+}
+.content-wrapper .input-group-text {
+  border-radius: 0 0.25rem 0.25rem 0;
+  padding: 0;
+}
+.content-wrapper textarea {
+  height: 160px !important;
+}
+.content-wrapper .select2-container {
+  width: 410px !important;
+}
+@media only screen and (max-width: 600px) {
+  .content-wrapper .select2-container {
+    width: 100% !important;
+  }
+}
+.content-wrapper #list table {
+  table-layout: fixed;
+  display: table;
+  width: 100%;
+}
+.content-wrapper #list table thead {
+  background: #E8EDF4;
+  font-weight: 700;
+  font-size: 14px;
+}
+.content-wrapper #list table thead th {
+  padding: 10px 15px 9px !important;
+  width: 140px !important;
+}
+.content-wrapper #list .d-search span {
+  font-weight: 700;
+}
+.content-wrapper #list .search {
+  cursor: pointer;
+}
+.content-wrapper #list table td i,
+.content-wrapper #list table td a {
+  font-weight: 400 !important;
+  font-size: 24px;
+  color: #4B545C;
+  line-height: 24px;
+}
+.content-wrapper #list table td {
+  padding: 11px 5px 9px 15px !important;
+  font-weight: 400;
+  color: #4B545C;
+  font-size: 14px !important;
+}
+.content-wrapper #list .tab-content2 {
+  margin: 47px 30px 50px;
+  color: #4B545C !important;
+}
+.content-wrapper #list .w-140 {
+  width: 140px !important;
+}
+.content-wrapper #list .w-content {
+  width: 824px !important;
+}

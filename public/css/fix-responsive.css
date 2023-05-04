@@ -1,0 +1,66 @@
+/*-----staff over time----*/
+
+@media screen and (max-width: 1180px) {
+    .content-wrapper .ml-11 {
+        margin-left: 1px;
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .col-md-12>.flex-between {
+        flex-direction: column-reverse;
+        align-items: baseline;
+    }
+    .box_total {
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .content-wrapper .form-group {
+        font-size: 13px;
+    }
+    .xs-pr-2 {
+        padding-right: 2px !important;
+    }
+    .xs-pl-2 {
+        padding-left: 2px !important;
+    }
+    .xs-ml-2 {
+        margin-left: 2px !important;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .content-wrapper .form-group {
+        font-size: 12px;
+    }
+    .box_total_title {
+        font-size: 13px;
+    }
+    .xs-pr-2 {
+        padding-right: 1px !important;
+    }
+    .xs-pl-2 {
+        padding-left: 1px !important;
+    }
+    .xs-ml-2 {
+        margin-left: 1px !important;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .xs-pr-2 {
+        padding-right: 0 !important;
+    }
+    .xs-pl-2 {
+        padding-left: 0 !important;
+    }
+    .xs-ml-2 {
+        margin-left: 0 !important;
+    }
+    .xs-font-10 {
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,157 @@
+.tab-content {
+  background: #ffffff !important;
+}
+
+.nav-tabs .nav-link.active {
+  background: #ffffff !important;
+}
+
+.font-weight-normal {
+  padding-top: 2px !important;
+}
+
+.tab-content1 {
+  padding: 60px 30px 113px 30px;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+label {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+input,
+select {
+  height: 46px !important;
+}
+
+label {
+  margin-bottom: 6px !important;
+}
+
+.form-button {
+  margin-top: 70px;
+  height: 46px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+textarea {
+  height: 160px !important;
+}
+
+#start_date,
+#end_date,
+#start_date_register,
+#end_date_register {
+  width: 185px;
+}
+
+.d-inlin-flex {
+  display: inline-flex;
+}
+
+.span-date {
+  margin-left: 11px;
+  margin-right: 11px;
+  display: initial;
+}
+
+input[type=radio] {
+  width: 22px;
+  height: 22px !important;
+  position: relative;
+  top: 5px;
+}
+
+input[type=radio]:checked + label {
+  font-weight: 700 !important;
+}
+
+.w-410 {
+  width: 410px !important;
+}
+
+.w-auto1 .d-radio {
+  display: inline;
+}
+.w-auto1 .d-radio label {
+  font-weight: 400 !important;
+  font-size: 14px;
+  line-height: 20px;
+  position: relative;
+  margin-left: 5px;
+  margin-right: 26px;
+  color: #000000;
+}
+
+@media only screen and (max-width: 600px) {
+  .w-410,
+.col-mobile {
+    width: 100% !important;
+    display: block !important;
+  }
+
+  .col-mobile-date {
+    width: 100% !important;
+  }
+
+  .span-date {
+    margin-left: 0px;
+  }
+
+  .w-auto1 td,
+.w-auto1 th {
+    display: block;
+  }
+}
+#list table {
+  table-layout: fixed;
+  display: table;
+  width: 100%;
+}
+#list table thead {
+  background: #E8EDF4;
+  font-weight: 700;
+  font-size: 14px;
+}
+#list table thead th {
+  padding: 10px 15px 9px !important;
+  width: 140px !important;
+}
+#list .d-search span {
+  font-weight: 700;
+}
+#list .search {
+  cursor: pointer;
+}
+#list table td i,
+#list table td a {
+  font-weight: 400 !important;
+  font-size: 24px;
+  color: #4B545C;
+  line-height: 24px;
+}
+#list table td {
+  padding: 11px 5px 9px 15px !important;
+  font-weight: 400;
+  color: #4B545C;
+  font-size: 14px !important;
+}
+#list .tab-content2 {
+  margin: 47px 30px 50px;
+  color: #4B545C !important;
+}
+#list .w-140 {
+  width: 140px !important;
+}
+#list .w-content {
+  width: 500px !important;
+}
